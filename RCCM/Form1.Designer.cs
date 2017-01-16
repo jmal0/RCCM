@@ -39,26 +39,29 @@
             this.wfov1Config = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.fine2ZPos = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
+            this.fine2YPos = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
+            this.fine2XPos = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.fine1ZPos = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.fine1YPos = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.fine1XPos = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.coarseYPos = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.coarseXPos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textFocus = new System.Windows.Forms.TextBox();
+            this.sliderFocus = new System.Windows.Forms.TrackBar();
             this.label11 = new System.Windows.Forms.Label();
             this.textZoom = new System.Windows.Forms.TextBox();
             this.btnFocus = new System.Windows.Forms.Button();
@@ -72,31 +75,32 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.sliderFocus = new System.Windows.Forms.TrackBar();
-            this.textFocus = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.wfovSelection = new System.Windows.Forms.GroupBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine2YPos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine2XPos)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine1ZPos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine1YPos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine1XPos)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).BeginInit();
+            this.wfovSelection.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -108,7 +112,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(769, 542);
+            this.tabControl1.Size = new System.Drawing.Size(769, 564);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -118,7 +122,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(712, 516);
+            this.tabPage1.Size = new System.Drawing.Size(761, 516);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Setup";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -187,18 +191,18 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(712, 516);
+            this.tabPage2.Size = new System.Drawing.Size(761, 516);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Motion";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.numericUpDown6);
+            this.groupBox3.Controls.Add(this.fine2ZPos);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.numericUpDown7);
+            this.groupBox3.Controls.Add(this.fine2YPos);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.numericUpDown8);
+            this.groupBox3.Controls.Add(this.fine2XPos);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Location = new System.Drawing.Point(342, 6);
             this.groupBox3.Name = "groupBox3";
@@ -207,12 +211,13 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Fine 2";
             // 
-            // numericUpDown6
+            // fine2ZPos
             // 
-            this.numericUpDown6.Location = new System.Drawing.Point(27, 70);
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown6.TabIndex = 5;
+            this.fine2ZPos.Location = new System.Drawing.Point(27, 70);
+            this.fine2ZPos.Name = "fine2ZPos";
+            this.fine2ZPos.Size = new System.Drawing.Size(120, 20);
+            this.fine2ZPos.TabIndex = 5;
+            this.fine2ZPos.ValueChanged += new System.EventHandler(this.fine2ZPos_ValueChanged);
             // 
             // label6
             // 
@@ -223,12 +228,13 @@
             this.label6.TabIndex = 4;
             this.label6.Text = "Z";
             // 
-            // numericUpDown7
+            // fine2YPos
             // 
-            this.numericUpDown7.Location = new System.Drawing.Point(27, 44);
-            this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown7.TabIndex = 3;
+            this.fine2YPos.Location = new System.Drawing.Point(27, 44);
+            this.fine2YPos.Name = "fine2YPos";
+            this.fine2YPos.Size = new System.Drawing.Size(120, 20);
+            this.fine2YPos.TabIndex = 3;
+            this.fine2YPos.ValueChanged += new System.EventHandler(this.fine2YPos_ValueChanged);
             // 
             // label7
             // 
@@ -239,12 +245,13 @@
             this.label7.TabIndex = 2;
             this.label7.Text = "Y";
             // 
-            // numericUpDown8
+            // fine2XPos
             // 
-            this.numericUpDown8.Location = new System.Drawing.Point(27, 18);
-            this.numericUpDown8.Name = "numericUpDown8";
-            this.numericUpDown8.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown8.TabIndex = 1;
+            this.fine2XPos.Location = new System.Drawing.Point(27, 18);
+            this.fine2XPos.Name = "fine2XPos";
+            this.fine2XPos.Size = new System.Drawing.Size(120, 20);
+            this.fine2XPos.TabIndex = 1;
+            this.fine2XPos.ValueChanged += new System.EventHandler(this.fine2XPos_ValueChanged);
             // 
             // label8
             // 
@@ -257,11 +264,11 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.numericUpDown5);
+            this.groupBox2.Controls.Add(this.fine1ZPos);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.numericUpDown3);
+            this.groupBox2.Controls.Add(this.fine1YPos);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.numericUpDown4);
+            this.groupBox2.Controls.Add(this.fine1XPos);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(174, 6);
             this.groupBox2.Name = "groupBox2";
@@ -271,12 +278,13 @@
             this.groupBox2.Text = "Fine 1";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
-            // numericUpDown5
+            // fine1ZPos
             // 
-            this.numericUpDown5.Location = new System.Drawing.Point(27, 70);
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown5.TabIndex = 5;
+            this.fine1ZPos.Location = new System.Drawing.Point(27, 70);
+            this.fine1ZPos.Name = "fine1ZPos";
+            this.fine1ZPos.Size = new System.Drawing.Size(120, 20);
+            this.fine1ZPos.TabIndex = 5;
+            this.fine1ZPos.ValueChanged += new System.EventHandler(this.fine1ZPos_ValueChanged);
             // 
             // label5
             // 
@@ -287,12 +295,13 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Z";
             // 
-            // numericUpDown3
+            // fine1YPos
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(27, 44);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown3.TabIndex = 3;
+            this.fine1YPos.Location = new System.Drawing.Point(27, 44);
+            this.fine1YPos.Name = "fine1YPos";
+            this.fine1YPos.Size = new System.Drawing.Size(120, 20);
+            this.fine1YPos.TabIndex = 3;
+            this.fine1YPos.ValueChanged += new System.EventHandler(this.fine1YPos_ValueChanged);
             // 
             // label3
             // 
@@ -303,12 +312,13 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Y";
             // 
-            // numericUpDown4
+            // fine1XPos
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(27, 18);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown4.TabIndex = 1;
+            this.fine1XPos.Location = new System.Drawing.Point(27, 18);
+            this.fine1XPos.Name = "fine1XPos";
+            this.fine1XPos.Size = new System.Drawing.Size(120, 20);
+            this.fine1XPos.TabIndex = 1;
+            this.fine1XPos.ValueChanged += new System.EventHandler(this.fine1XPos_ValueChanged);
             // 
             // label4
             // 
@@ -321,9 +331,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.numericUpDown2);
+            this.groupBox1.Controls.Add(this.coarseYPos);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
+            this.groupBox1.Controls.Add(this.coarseXPos);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
@@ -333,12 +343,13 @@
             this.groupBox1.Text = "Coarse";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // numericUpDown2
+            // coarseYPos
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(27, 44);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown2.TabIndex = 3;
+            this.coarseYPos.Location = new System.Drawing.Point(27, 44);
+            this.coarseYPos.Name = "coarseYPos";
+            this.coarseYPos.Size = new System.Drawing.Size(120, 20);
+            this.coarseYPos.TabIndex = 3;
+            this.coarseYPos.ValueChanged += new System.EventHandler(this.coarseYPos_ValueChanged);
             // 
             // label2
             // 
@@ -349,12 +360,13 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Y";
             // 
-            // numericUpDown1
+            // coarseXPos
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(27, 18);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 1;
+            this.coarseXPos.Location = new System.Drawing.Point(27, 18);
+            this.coarseXPos.Name = "coarseXPos";
+            this.coarseXPos.Size = new System.Drawing.Size(120, 20);
+            this.coarseXPos.TabIndex = 1;
+            this.coarseXPos.ValueChanged += new System.EventHandler(this.coarseXPos_ValueChanged);
             // 
             // label1
             // 
@@ -370,13 +382,14 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(712, 516);
+            this.tabPage4.Size = new System.Drawing.Size(761, 516);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "NFOV";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.wfovSelection);
             this.tabPage3.Controls.Add(this.label12);
             this.tabPage3.Controls.Add(this.textFocus);
             this.tabPage3.Controls.Add(this.sliderFocus);
@@ -391,10 +404,42 @@
             this.tabPage3.Controls.Add(this.wfovContainer);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(761, 516);
+            this.tabPage3.Size = new System.Drawing.Size(761, 538);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "WFOV";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(699, 3);
+            this.label12.Name = "label12";
+            this.label12.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label12.Size = new System.Drawing.Size(46, 13);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Focus";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textFocus
+            // 
+            this.textFocus.Enabled = false;
+            this.textFocus.Location = new System.Drawing.Point(700, 487);
+            this.textFocus.Name = "textFocus";
+            this.textFocus.Size = new System.Drawing.Size(45, 20);
+            this.textFocus.TabIndex = 13;
+            this.textFocus.Text = "0";
+            this.textFocus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // sliderFocus
+            // 
+            this.sliderFocus.Location = new System.Drawing.Point(700, 19);
+            this.sliderFocus.Maximum = 100;
+            this.sliderFocus.Name = "sliderFocus";
+            this.sliderFocus.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sliderFocus.Size = new System.Drawing.Size(45, 464);
+            this.sliderFocus.TabIndex = 12;
+            this.sliderFocus.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.sliderFocus.Scroll += new System.EventHandler(this.sliderFocus_Scroll);
             // 
             // label11
             // 
@@ -517,43 +562,44 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // sliderFocus
+            // radioButton1
             // 
-            this.sliderFocus.Location = new System.Drawing.Point(700, 19);
-            this.sliderFocus.Maximum = 100;
-            this.sliderFocus.Name = "sliderFocus";
-            this.sliderFocus.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.sliderFocus.Size = new System.Drawing.Size(45, 464);
-            this.sliderFocus.TabIndex = 12;
-            this.sliderFocus.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.sliderFocus.Scroll += new System.EventHandler(this.sliderFocus_Scroll);
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 19);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(63, 17);
+            this.radioButton1.TabIndex = 15;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "WFOV1";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // textFocus
+            // radioButton2
             // 
-            this.textFocus.Enabled = false;
-            this.textFocus.Location = new System.Drawing.Point(700, 487);
-            this.textFocus.Name = "textFocus";
-            this.textFocus.Size = new System.Drawing.Size(45, 20);
-            this.textFocus.TabIndex = 13;
-            this.textFocus.Text = "0";
-            this.textFocus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(75, 19);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(63, 17);
+            this.radioButton2.TabIndex = 16;
+            this.radioButton2.Text = "WFOV2";
+            this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // label12
+            // wfovSelection
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(699, 3);
-            this.label12.Name = "label12";
-            this.label12.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label12.Size = new System.Drawing.Size(46, 13);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "Focus";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.wfovSelection.Controls.Add(this.radioButton1);
+            this.wfovSelection.Controls.Add(this.radioButton2);
+            this.wfovSelection.Location = new System.Drawing.Point(269, 487);
+            this.wfovSelection.Name = "wfovSelection";
+            this.wfovSelection.Size = new System.Drawing.Size(142, 45);
+            this.wfovSelection.TabIndex = 17;
+            this.wfovSelection.TabStop = false;
+            this.wfovSelection.Text = "Camera Selection";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 574);
+            this.ClientSize = new System.Drawing.Size(793, 596);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -569,26 +615,28 @@
             this.tabPage2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine2YPos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine2XPos)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine1ZPos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine1YPos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fine1XPos)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).EndInit();
+            this.wfovSelection.ResumeLayout(false);
+            this.wfovSelection.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -601,23 +649,23 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown coarseYPos;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown coarseXPos;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
+        private System.Windows.Forms.NumericUpDown fine1ZPos;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown fine1YPos;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown fine1XPos;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
+        private System.Windows.Forms.NumericUpDown fine2ZPos;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numericUpDown7;
+        private System.Windows.Forms.NumericUpDown fine2YPos;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDown8;
+        private System.Windows.Forms.NumericUpDown fine2XPos;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnProperties;
         private System.Windows.Forms.Button btnWfovStart;
@@ -642,6 +690,9 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textFocus;
         private System.Windows.Forms.TrackBar sliderFocus;
+        private System.Windows.Forms.GroupBox wfovSelection;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
     }
 }
 

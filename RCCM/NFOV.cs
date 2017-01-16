@@ -48,6 +48,9 @@ namespace RCCM
                 }
             }
             */
+
+            ManagedPGRGuid guid = busMgr.GetCameraFromIndex(0);
+            this.RunSingleCamera(guid);
         }
 
         static void PrintCameraInfo(CameraInfo camInfo)

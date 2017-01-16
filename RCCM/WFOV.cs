@@ -8,13 +8,18 @@ namespace RCCM
 {
     class WFOV
     {
-        private TIS.Imaging.ICImagingControl ic;
+        protected TIS.Imaging.ICImagingControl ic;
 
         public WFOV(TIS.Imaging.ICImagingControl ui_ic, string configFile)
         {
             this.ic = ui_ic;
             this.ic.LoadDeviceStateFromFile(configFile, true);
             this.ic.LivePrepare();
+        }
+
+        public void initialize()
+        {
+
         }
 
         public void start()

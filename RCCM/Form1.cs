@@ -15,12 +15,14 @@ namespace RCCM
 {
     public partial class Form1 : Form
     {
-        private bool recording = false;
-        private VCDSimpleProperty VCDProp;
-        private VCDPropertyItem focus = null;
+        protected RCCMSystem rccm;
+        protected bool recording = false;
+        protected VCDSimpleProperty VCDProp;
+        protected VCDPropertyItem focus = null;
 
-        public Form1()
+        public Form1(RCCMSystem sys)
         {
+            this.rccm = sys;
             InitializeComponent();
         }
 
@@ -190,6 +192,46 @@ namespace RCCM
                 VCDProp.RangeValue[VCDIDs.VCDID_Focus] = sliderFocus.Value;
                 textFocus.Text = sliderFocus.Value.ToString();
             }
+        }
+
+        private void coarseXPos_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.setCoarseX((double) coarseXPos.Value);
+        }
+
+        private void coarseYPos_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.setCoarseY((double) coarseYPos.Value);
+        }
+
+        private void fine1XPos_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.setFine1X((double) fine1XPos.Value);
+        }
+
+        private void fine1YPos_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.setFine1Y((double) fine1YPos.Value);
+        }
+
+        private void fine1ZPos_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.setFine1Z((double) fine1ZPos.Value);
+        }
+
+        private void fine2XPos_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.setFine2X((double) fine2XPos.Value);
+        }
+
+        private void fine2YPos_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.setFine2Y((double) fine2YPos.Value);
+        }
+
+        private void fine2ZPos_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.setFine2Z((double) fine2ZPos.Value);
         }
     }
 }
