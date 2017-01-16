@@ -8,22 +8,60 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// WFOV Imports
 using TIS.Imaging;
 using TIS.Imaging.VCDHelpers;
+
+// NFOV Imports
+using FlyCapture2Managed;
+using FlyCapture2Managed.Gui;
 
 namespace RCCM
 {
     public partial class Form1 : Form
     {
         protected RCCMSystem rccm;
+        protected NFOV nfov1;
         protected bool recording = false;
         protected VCDSimpleProperty VCDProp;
         protected VCDPropertyItem focus = null;
 
         public Form1(RCCMSystem sys)
         {
-            this.rccm = sys;
             InitializeComponent();
+
+            this.rccm = sys;
+
+            this.nfov1 = new NFOV(this);
+
+            CameraSelectionDialog camSlnDlg = new CameraSelectionDialog();
+            bool retVal = camSlnDlg.ShowModal();
+            if (retVal)
+            {
+                try
+                {
+                    bool success = nfov1.initialize(camSlnDlg.GetSelectedCameraGuids());
+                    if (!success)
+                    {
+                        Close();
+                        return;
+                    }
+                }
+                catch (FC2Exception ex)
+                {
+                    Console.WriteLine("Failed to load form successfully: " + ex.Message);
+                    Close();
+                }
+
+                btnNfovStart.Enabled = false;
+                btnNfovStop.Enabled = true;
+            }
+            else
+            {
+                Close();
+            }
+
+            Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -232,6 +270,33 @@ namespace RCCM
         private void fine2ZPos_ValueChanged(object sender, EventArgs e)
         {
             this.rccm.setFine2Z((double) fine2ZPos.Value);
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            nfov1.disconnect();
+        }
+
+        private void btnNfovStart_Click(object sender, EventArgs e)
+        {
+            this.nfov1.start();
+
+            btnNfovStart.Enabled = false;
+            btnNfovStop.Enabled = true;
+        }
+
+        private void btnNfovStop_Click(object sender, EventArgs e)
+        {
+            this.nfov1.stop();
+
+            btnNfovStart.Enabled = true;
+            btnNfovStop.Enabled = false;
+        }
+
+        public void UpdateUI(Bitmap img)
+        {
+            nfovImage.Image = img;
+            Invalidate();
         }
     }
 }

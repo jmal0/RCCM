@@ -3,54 +3,153 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Threading;
 
 using FlyCapture2Managed;
+using FlyCapture2Managed.Gui;
 
 namespace RCCM
 {
-    class NFOV
+    public class NFOV
     {
-        public NFOV()
-        {
-            ManagedBusManager busMgr = new ManagedBusManager();
+        private Form1 parentForm;
+        private FlyCapture2Managed.Gui.CameraControlDialog m_camCtlDlg;
+        private ManagedCameraBase m_camera = null;
+        private ManagedImage m_rawImage;
+        private ManagedImage m_processedImage;
+        private bool m_grabImages;
+        private AutoResetEvent m_grabThreadExited;
+        private BackgroundWorker m_grabThread;
 
-            // Check to make sure GigE cameras are connected/discovered
-            CameraInfo[] camInfos = ManagedBusManager.DiscoverGigECameras();
-            Console.WriteLine("Number of GigE cameras discovered: {0}", camInfos.Length);
-            foreach (CameraInfo camInfo in camInfos)
+        public NFOV(Form1 parent)
+        {
+            parentForm = parent;
+
+            m_rawImage = new ManagedImage();
+            m_processedImage = new ManagedImage();
+            m_camCtlDlg = new CameraControlDialog();
+
+            m_grabThreadExited = new AutoResetEvent(false);
+        }
+
+        public bool initialize(ManagedPGRGuid[] selectedGuids)
+        {
+            if (selectedGuids.Length == 0)
             {
-                PrintCameraInfo(camInfo);
+                return false;
             }
 
-            /*
-            // Iterate through all enumerated devices but only run example on GigE cameras
-            uint numCameras = busMgr.GetNumOfCameras();
-            Console.WriteLine("Number of cameras enumerated: {0}", numCameras);
+            ManagedPGRGuid guidToUse = selectedGuids[0];
 
-            for (uint i = 0; i < numCameras; i++)
+            ManagedBusManager busMgr = new ManagedBusManager();
+            InterfaceType ifType = busMgr.GetInterfaceTypeFromGuid(guidToUse);
+            m_camera = new ManagedGigECamera();
+
+            // Connect to the first selected GUID
+            m_camera.Connect(guidToUse);
+
+            m_camCtlDlg.Connect(m_camera);
+
+            CameraInfo camInfo = m_camera.GetCameraInfo();
+            PrintCameraInfo(m_camera.GetCameraInfo());
+
+            // Set embedded timestamp to on
+            EmbeddedImageInfo embeddedInfo = m_camera.GetEmbeddedImageInfo();
+            embeddedInfo.timestamp.onOff = true;
+            m_camera.SetEmbeddedImageInfo(embeddedInfo);
+
+            m_camera.StartCapture();
+
+            m_grabImages = true;
+
+            StartGrabLoop();
+            return true;
+        }
+
+        public void disconnect()
+        {
+            try
             {
-                ManagedPGRGuid guid = busMgr.GetCameraFromIndex(i);
-                if (busMgr.GetInterfaceTypeFromGuid(guid) != InterfaceType.GigE)
-                {
-                    continue;
-                }
+                this.stop();
+                m_camera.Disconnect();
+            }
+            catch (FC2Exception ex)
+            {
+                // Nothing to do here
+            }
+            catch (NullReferenceException ex)
+            {
+                // Nothing to do here
+            }
+        }
 
+        public void start()
+        {
+            m_camera.StartCapture();
+
+            m_grabImages = true;
+
+            StartGrabLoop();
+        }
+
+        public void stop()
+        {
+            m_grabImages = false;
+
+            try
+            {
+                m_camera.StopCapture();
+            }
+            catch (FC2Exception ex)
+            {
+                Console.WriteLine("Failed to stop camera: " + ex.Message);
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("Camera is null");
+            }
+        }
+
+        private void UpdateUI(object sender, ProgressChangedEventArgs e)
+        {
+            this.parentForm.UpdateUI(this.m_processedImage.bitmap);
+        }
+
+        private void StartGrabLoop()
+        {
+            m_grabThread = new BackgroundWorker();
+            m_grabThread.ProgressChanged += new ProgressChangedEventHandler(UpdateUI);
+            m_grabThread.DoWork += new DoWorkEventHandler(GrabLoop);
+            m_grabThread.WorkerReportsProgress = true;
+            m_grabThread.RunWorkerAsync();
+        }
+
+        private void GrabLoop(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            while (m_grabImages)
+            {
                 try
                 {
-                    program.RunSingleCamera(guid);
+                    m_camera.RetrieveBuffer(m_rawImage);
                 }
                 catch (FC2Exception ex)
                 {
-                    Console.WriteLine(
-                        String.Format(
-                        "Error running camera {0}. Error: {1}",
-                        i, ex.Message));
+                    Console.WriteLine("Error: " + ex.Message);
+                    continue;
                 }
-            }
-            */
 
-            ManagedPGRGuid guid = busMgr.GetCameraFromIndex(0);
-            this.RunSingleCamera(guid);
+                lock (this)
+                {
+                    m_rawImage.Convert(PixelFormat.PixelFormatBgr, m_processedImage);
+                }
+
+                worker.ReportProgress(0);
+            }
+
+            m_grabThreadExited.Set();
         }
 
         static void PrintCameraInfo(CameraInfo camInfo)
@@ -75,7 +174,7 @@ namespace RCCM
 
             Console.WriteLine(newStr);
         }
-
+        /*
         void RunSingleCamera(ManagedPGRGuid guid)
         {
             const int NumImages = 10;
@@ -158,5 +257,6 @@ namespace RCCM
             // Disconnect the camera
             cam.Disconnect();
         }
+        */
     }
 }

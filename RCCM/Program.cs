@@ -18,7 +18,14 @@ namespace RCCM
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1(rccm));
+            try
+            {
+                Application.Run(new Form1(rccm));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

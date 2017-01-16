@@ -59,6 +59,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.wfovSelection = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label12 = new System.Windows.Forms.Label();
             this.textFocus = new System.Windows.Forms.TextBox();
             this.sliderFocus = new System.Windows.Forms.TrackBar();
@@ -75,9 +78,9 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.wfovSelection = new System.Windows.Forms.GroupBox();
+            this.nfovImage = new System.Windows.Forms.PictureBox();
+            this.btnNfovStart = new System.Windows.Forms.Button();
+            this.btnNfovStop = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -94,13 +97,15 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.wfovSelection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            this.wfovSelection.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -122,7 +127,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(761, 516);
+            this.tabPage1.Size = new System.Drawing.Size(761, 538);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Setup";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -191,7 +196,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(761, 516);
+            this.tabPage2.Size = new System.Drawing.Size(761, 538);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Motion";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -379,10 +384,13 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.btnNfovStop);
+            this.tabPage4.Controls.Add(this.btnNfovStart);
+            this.tabPage4.Controls.Add(this.nfovImage);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(761, 516);
+            this.tabPage4.Size = new System.Drawing.Size(761, 538);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "NFOV";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -408,6 +416,39 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "WFOV";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // wfovSelection
+            // 
+            this.wfovSelection.Controls.Add(this.radioButton1);
+            this.wfovSelection.Controls.Add(this.radioButton2);
+            this.wfovSelection.Location = new System.Drawing.Point(269, 487);
+            this.wfovSelection.Name = "wfovSelection";
+            this.wfovSelection.Size = new System.Drawing.Size(142, 45);
+            this.wfovSelection.TabIndex = 17;
+            this.wfovSelection.TabStop = false;
+            this.wfovSelection.Text = "Camera Selection";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 19);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(63, 17);
+            this.radioButton1.TabIndex = 15;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "WFOV1";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(75, 19);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(63, 17);
+            this.radioButton2.TabIndex = 16;
+            this.radioButton2.Text = "WFOV2";
+            this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // label12
             // 
@@ -562,38 +603,34 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // radioButton1
+            // nfovImage
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 19);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(63, 17);
-            this.radioButton1.TabIndex = 15;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "WFOV1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.nfovImage.Location = new System.Drawing.Point(6, 6);
+            this.nfovImage.Name = "nfovImage";
+            this.nfovImage.Size = new System.Drawing.Size(612, 512);
+            this.nfovImage.TabIndex = 0;
+            this.nfovImage.TabStop = false;
             // 
-            // radioButton2
+            // btnNfovStart
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(75, 19);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(63, 17);
-            this.radioButton2.TabIndex = 16;
-            this.radioButton2.Text = "WFOV2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.btnNfovStart.Image = global::RCCM.Properties.Resources.play;
+            this.btnNfovStart.Location = new System.Drawing.Point(624, 6);
+            this.btnNfovStart.Name = "btnNfovStart";
+            this.btnNfovStart.Size = new System.Drawing.Size(26, 26);
+            this.btnNfovStart.TabIndex = 3;
+            this.btnNfovStart.UseVisualStyleBackColor = true;
+            this.btnNfovStart.Click += new System.EventHandler(this.btnNfovStart_Click);
             // 
-            // wfovSelection
+            // btnNfovStop
             // 
-            this.wfovSelection.Controls.Add(this.radioButton1);
-            this.wfovSelection.Controls.Add(this.radioButton2);
-            this.wfovSelection.Location = new System.Drawing.Point(269, 487);
-            this.wfovSelection.Name = "wfovSelection";
-            this.wfovSelection.Size = new System.Drawing.Size(142, 45);
-            this.wfovSelection.TabIndex = 17;
-            this.wfovSelection.TabStop = false;
-            this.wfovSelection.Text = "Camera Selection";
+            this.btnNfovStop.Enabled = false;
+            this.btnNfovStop.Image = global::RCCM.Properties.Resources.stop;
+            this.btnNfovStop.Location = new System.Drawing.Point(624, 38);
+            this.btnNfovStop.Name = "btnNfovStop";
+            this.btnNfovStop.Size = new System.Drawing.Size(26, 26);
+            this.btnNfovStop.TabIndex = 4;
+            this.btnNfovStop.UseVisualStyleBackColor = true;
+            this.btnNfovStop.Click += new System.EventHandler(this.btnNfovStop_Click);
             // 
             // Form1
             // 
@@ -605,6 +642,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "RCCM";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -627,16 +665,18 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).EndInit();
+            this.tabPage4.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.wfovSelection.ResumeLayout(false);
+            this.wfovSelection.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            this.wfovSelection.ResumeLayout(false);
-            this.wfovSelection.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -693,6 +733,9 @@
         private System.Windows.Forms.GroupBox wfovSelection;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.Button btnNfovStart;
+        private System.Windows.Forms.PictureBox nfovImage;
+        private System.Windows.Forms.Button btnNfovStop;
     }
 }
 
