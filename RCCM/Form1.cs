@@ -22,6 +22,7 @@ namespace RCCM
     {
         protected RCCMSystem rccm;
         protected NFOV nfov1;
+        protected WFOV wfov1;
         protected bool recording = false;
         protected VCDSimpleProperty VCDProp;
         protected VCDPropertyItem focus = null;
@@ -33,6 +34,7 @@ namespace RCCM
             this.rccm = sys;
 
             this.nfov1 = new NFOV(this);
+            this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
 
             CameraSelectionDialog camSlnDlg = new CameraSelectionDialog();
             bool retVal = camSlnDlg.ShowModal();
@@ -40,7 +42,7 @@ namespace RCCM
             {
                 try
                 {
-                    bool success = nfov1.initialize(camSlnDlg.GetSelectedCameraGuids());
+                    bool success = this.nfov1.initialize(camSlnDlg.GetSelectedCameraGuids());
                     if (!success)
                     {
                         Close();
@@ -66,25 +68,22 @@ namespace RCCM
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            wfovContainer.LoadDeviceStateFromFile(wfov1Config.Text, true);
-            if (wfovContainer.DeviceValid)
+            if (this.wfov1.isAvailable())
             {
-                wfovContainer.LivePrepare();
-
-                this.VCDProp = VCDSimpleModule.GetSimplePropertyContainer(wfovContainer.VCDPropertyItems);
-                this.focus = wfovContainer.VCDPropertyItems.FindItem(VCDIDs.VCDElement_OnePush);
+                this.wfov1.initialize();
+                btnWfovStart.Enabled = true;
 
                 //  Setup the range of the zoom and focus sliders.
-                sliderZoom.Minimum = VCDProp.RangeMin(VCDIDs.VCDID_Zoom);
-                sliderZoom.Maximum = VCDProp.RangeMax(VCDIDs.VCDID_Zoom);
-                sliderFocus.Minimum = VCDProp.RangeMin(VCDIDs.VCDID_Focus);
-                sliderFocus.Maximum = VCDProp.RangeMax(VCDIDs.VCDID_Focus);
+                sliderZoom.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Zoom);
+                sliderZoom.Maximum = this.wfov1.getPropertyMax(VCDIDs.VCDID_Zoom);
+                sliderFocus.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Focus);
+                sliderFocus.Maximum = this.wfov1.getPropertyMax(VCDIDs.VCDID_Focus);
 
                 //  Set the sliders to the current zoom and focus values.
-                sliderZoom.Value = VCDProp.RangeValue[VCDIDs.VCDID_Zoom];
-                textZoom.Text = VCDProp.RangeValue[VCDIDs.VCDID_Zoom].ToString();
-                sliderFocus.Value = VCDProp.RangeValue[VCDIDs.VCDID_Focus];
-                textFocus.Text = VCDProp.RangeValue[VCDIDs.VCDID_Focus].ToString();
+                sliderZoom.Value = this.wfov1.getPropertyValue(VCDIDs.VCDID_Zoom);
+                textZoom.Text = this.wfov1.getPropertyValue(VCDIDs.VCDID_Zoom).ToString();
+                sliderFocus.Value = this.wfov1.getPropertyValue(VCDIDs.VCDID_Focus);
+                textFocus.Text = this.wfov1.getPropertyValue(VCDIDs.VCDID_Focus).ToString();
             }
         }
 
@@ -104,103 +103,62 @@ namespace RCCM
 
         private void btnWfovStart_Click(object sender, EventArgs e)
         {
-            WFOVStart();
+            this.wfov1.start();
+
+            // Update button states
+            if (wfovContainer.DeviceValid)
+            {
+                enableWfovControls();
+                btnWfovStop.Enabled = true;
+            }
+        }
+
+        private void btnWfovStop_Click(object sender, EventArgs e)
+        {
+            this.wfov1.stop();
+
+            // Update button states
+            if (!wfovContainer.LiveVideoRunning)
+            {
+                disableWfovControls();
+                btnWfovStart.Enabled = true;
+            }
         }
         
-        private void WFOVStart()
+        private void btnWfovSnap_Click(object sender, EventArgs e)
         {
-            // Device live, suspend it
-            if (wfovContainer.LiveVideoRunning)
-            {
-                wfovContainer.LiveSuspend();
-                btnWfovStart.Image = RCCM.Properties.Resources.play;
-                btnSaveBitmap.Enabled = false;
-                btnProperties.Enabled = false;
-            }
-            // Device suspended, start it
-            else
-            {
-                try
-                {
-                    wfovContainer.LiveStart();
-                    wfovContainer.LiveDisplayDefault = false;
-                    wfovContainer.LiveDisplayHeight = wfovContainer.ImageHeight / 2;
-                    wfovContainer.LiveDisplayWidth = wfovContainer.ImageWidth / 2;
-                    wfovContainer.ScrollbarsEnabled = true;
-
-                    // Update button states
-                    if (wfovContainer.DeviceValid)
-                    {
-                        btnWfovStart.Image = RCCM.Properties.Resources.stop;
-                        btnSaveBitmap.Enabled = true;
-                        btnProperties.Enabled = true;
-                    }
-                    else
-                    {
-                        btnWfovStart.Image = RCCM.Properties.Resources.play;
-                        btnSaveBitmap.Enabled = false;
-                        btnProperties.Enabled = false;
-                    }
-                }
-                catch (TIS.Imaging.ICException err)
-                {
-                    throw err;
-                }
-            }
-        }
-
-        private void btnSaveBitmap_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog1;
-            try
-            {
-                wfovContainer.MemorySnapImage();
-            }
-            catch (TIS.Imaging.ICException err)
-            {
-                throw err;
-            }
-            
-            saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "bmp files (*.png)|*.png|All files (*.*)|*.*";
-            saveFileDialog1.FilterIndex = 1;
-            saveFileDialog1.RestoreDirectory = true;
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                wfovContainer.MemorySaveImage(saveFileDialog1.FileName);
-            }
+            this.wfov1.snapImage(textImageDir.Text + "\test.png");
         }
 
         private void btnProperties_Click(object sender, EventArgs e)
         {
             if (wfovContainer.DeviceValid)
             {
-                wfovContainer.ShowPropertyDialog();
+                this.wfov1.editProperties();
             }
         }
-
-        private void btnRecord_Click(object sender, EventArgs e)
+        
+        private void btnWfovRecord_Click(object sender, EventArgs e)
         {
             if (wfovContainer.DeviceValid)
             {
                 if (this.recording == false)
                 {
                     wfovContainer.AviStartCapture("test.avi", wfovContainer.AviCompressors[0].ToString());
-                    btnRecord.BackColor = Color.Gray;
+                    btnWfovRecord.BackColor = Color.Gray;
                     this.recording = true;
                     btnWfovStart.Enabled = false;
-                    btnSaveBitmap.Enabled = false;
+                    btnWfovSnap.Enabled = false;
                 }
                 else
                 {
                     wfovContainer.AviStopCapture();
                     wfovContainer.LiveStart();
-                    btnRecord.BackColor = Color.Transparent;
+                    btnWfovRecord.BackColor = Color.Transparent;
                     System.Windows.Forms.MessageBox.Show("Recording stopped");
                     this.recording = false;
                     btnWfovStart.Enabled = true;
-                    btnSaveBitmap.Enabled = true;
+                    btnWfovSnap.Enabled = true;
                 }
             }
         }
@@ -208,7 +166,7 @@ namespace RCCM
         private void btnFocus_Click(object sender, EventArgs e)
         {
             btnFocus.Enabled = false;
-            VCDProp.OnePush(VCDIDs.VCDID_Focus);
+            this.wfov1.autoFocus();
             //sliderFocus.Value = VCDProp.RangeValue[VCDIDs.VCDID_Zoom];
             //textFocus.Text = sliderFocus.Value.ToString();
             btnFocus.Enabled = true;
@@ -218,7 +176,7 @@ namespace RCCM
         {
             if (wfovContainer.DeviceValid)
             {
-                VCDProp.RangeValue[VCDIDs.VCDID_Zoom] = sliderZoom.Value;
+                this.wfov1.setZoom(sliderZoom.Value);
                 textZoom.Text = sliderZoom.Value.ToString();
             }
         }
@@ -227,9 +185,33 @@ namespace RCCM
         {
             if (wfovContainer.DeviceValid)
             {
-                VCDProp.RangeValue[VCDIDs.VCDID_Focus] = sliderFocus.Value;
+                this.wfov1.setFocus(sliderFocus.Value);
                 textFocus.Text = sliderFocus.Value.ToString();
             }
+        }
+
+        private void enableWfovControls()
+        {
+            btnWfovStart.Enabled = true;
+            btnWfovStop.Enabled = true;
+            btnWfovSnap.Enabled = true;
+            btnWfovRecord.Enabled = true;
+            btnWfovProperties.Enabled = true;
+            btnFocus.Enabled = true;
+            sliderFocus.Enabled = true;
+            sliderZoom.Enabled = true;
+        }
+
+        private void disableWfovControls()
+        {
+            btnWfovStart.Enabled = false;
+            btnWfovStop.Enabled = false;
+            btnWfovSnap.Enabled = false;
+            btnWfovRecord.Enabled = false;
+            btnWfovProperties.Enabled = false;
+            btnFocus.Enabled = false;
+            sliderFocus.Enabled = false;
+            sliderZoom.Enabled = false;
         }
 
         private void coarseXPos_ValueChanged(object sender, EventArgs e)
@@ -274,7 +256,7 @@ namespace RCCM
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            nfov1.disconnect();
+            this.nfov1.disconnect();
         }
 
         private void btnNfovStart_Click(object sender, EventArgs e)
@@ -283,6 +265,8 @@ namespace RCCM
 
             btnNfovStart.Enabled = false;
             btnNfovStop.Enabled = true;
+            btnNfovSnap.Enabled = true;
+            btnNfovRecord.Enabled = true;
         }
 
         private void btnNfovStop_Click(object sender, EventArgs e)
@@ -291,12 +275,53 @@ namespace RCCM
 
             btnNfovStart.Enabled = true;
             btnNfovStop.Enabled = false;
+            btnNfovSnap.Enabled = false;
+            btnNfovRecord.Enabled = false;
         }
 
         public void UpdateUI(Bitmap img)
         {
             nfovImage.Image = img;
             Invalidate();
+        }
+
+        private void btnNfovProperties_Click(object sender, EventArgs e)
+        {
+            this.nfov1.showPropertiesDlg();
+        }
+
+        private void btnNfovSnap_Click(object sender, EventArgs e)
+        {
+            this.nfov1.snap("test.bmp");
+        }
+
+        private void btnNfovRecord_Click(object sender, EventArgs e)
+        {
+            if (this.nfov1.isRecording())
+            {
+                // Stop recording
+                this.nfov1.setRecord(false);
+                btnNfovRecord.BackColor = Color.Transparent;
+                System.Windows.Forms.MessageBox.Show("Recording stopped");
+                btnNfovStart.Enabled = true;
+                btnNfovStop.Enabled = true;
+                btnNfovSnap.Enabled = true;
+
+            }
+            else
+            {
+                // Start recording
+                this.nfov1.record();
+                btnNfovRecord.BackColor = Color.Gray;
+                btnNfovStart.Enabled = false;
+                btnNfovStop.Enabled = false;
+                btnNfovSnap.Enabled = false;
+            }
+        }
+
+        private void nfovImage_Click(object sender, EventArgs e)
+        {
+            Console.Write(e.ToString());
         }
     }
 }

@@ -13,12 +13,20 @@ namespace RCCM
 {
     public class NFOV
     {
+        enum AviType
+        {
+            Uncompressed,
+            Mjpg,
+            H264
+        }
+
         private Form1 parentForm;
         private FlyCapture2Managed.Gui.CameraControlDialog m_camCtlDlg;
         private ManagedCameraBase m_camera = null;
         private ManagedImage m_rawImage;
         private ManagedImage m_processedImage;
         private bool m_grabImages;
+        private bool recording;
         private AutoResetEvent m_grabThreadExited;
         private BackgroundWorker m_grabThread;
 
@@ -29,6 +37,8 @@ namespace RCCM
             m_rawImage = new ManagedImage();
             m_processedImage = new ManagedImage();
             m_camCtlDlg = new CameraControlDialog();
+
+            recording = false;
 
             m_grabThreadExited = new AutoResetEvent(false);
         }
@@ -174,89 +184,128 @@ namespace RCCM
 
             Console.WriteLine(newStr);
         }
-        /*
-        void RunSingleCamera(ManagedPGRGuid guid)
+
+        public void showPropertiesDlg()
         {
-            const int NumImages = 10;
-
-            ManagedGigECamera cam = new ManagedGigECamera();
-
-            // Connect to a camera
-            cam.Connect(guid);
-
-            // Get the camera information
-            CameraInfo camInfo = cam.GetCameraInfo();
-            PrintCameraInfo(camInfo);
-
-            // Set camera stream information
-            GigEImageSettingsInfo imageSettingsInfo = cam.GetGigEImageSettingsInfo();
-
-            GigEImageSettings imageSettings = new GigEImageSettings();
-            imageSettings.offsetX = 0;
-            imageSettings.offsetY = 0;
-            imageSettings.height = imageSettingsInfo.maxHeight;
-            imageSettings.width = imageSettingsInfo.maxWidth;
-            imageSettings.pixelFormat = PixelFormat.PixelFormatMono8;
-
-            cam.SetGigEImageSettings(imageSettings);
-
-            // Get embedded image info from camera
-            EmbeddedImageInfo embeddedInfo = cam.GetEmbeddedImageInfo();
-
-            // Enable timestamp collection
-            if (embeddedInfo.timestamp.available == true)
+            if (m_camCtlDlg.IsVisible())
             {
-                embeddedInfo.timestamp.onOff = true;
+                m_camCtlDlg.Hide();
             }
-
-            // Set embedded image info to camera
-            cam.SetEmbeddedImageInfo(embeddedInfo);
-
-            // Start capturing images
-            cam.StartCapture();
-
-            ManagedImage rawImage = new ManagedImage();
-            for (int imageCnt = 0; imageCnt < NumImages; imageCnt++)
+            else
             {
-                // Retrieve an image
-                cam.RetrieveBuffer(rawImage);
-
-                // Get the timestamp
-                TimeStamp timeStamp = rawImage.timeStamp;
-
-                Console.WriteLine(
-                   "Grabbed image {0} - {1} {2} {3}",
-                   imageCnt,
-                   timeStamp.cycleSeconds,
-                   timeStamp.cycleCount,
-                   timeStamp.cycleOffset);
-
-                // Create a converted image
-                ManagedImage convertedImage = new ManagedImage();
-
-                // Convert the raw image
-                rawImage.Convert(PixelFormat.PixelFormatBgr, convertedImage);
-
-                // Create a unique filename
-                string filename = String.Format(
-                   "GigEGrabEx_CSharp-{0}-{1}.bmp",
-                   camInfo.serialNumber,
-                   imageCnt);
-
-                // Get the Bitmap object. Bitmaps are only valid if the
-                // pixel format of the ManagedImage is RGB or RGBU.
-                System.Drawing.Bitmap bitmap = convertedImage.bitmap;
-
-                // Save the image
-                bitmap.Save(filename);
+                m_camCtlDlg.Show();
             }
-
-            // Stop capturing images
-            cam.StopCapture();
-
-            // Disconnect the camera
-            cam.Disconnect();
         }
-        */
+
+        public void snap(string filename)
+        {
+            ManagedImage rawImage = new ManagedImage();
+            // Retrieve an image
+            m_camera.RetrieveBuffer(rawImage);
+
+            // Create a converted image
+            ManagedImage convertedImage = new ManagedImage();
+
+            // Convert the raw image
+            rawImage.Convert(PixelFormat.PixelFormatBgr, convertedImage);
+
+            // Get the Bitmap object. Bitmaps are only valid if the
+            // pixel format of the ManagedImage is RGB or RGBU.
+            System.Drawing.Bitmap bitmap = convertedImage.bitmap;
+
+            // Save the image
+            bitmap.Save(filename);
+        }
+
+        private void SaveAviHelper(AviType aviType, ref List<ManagedImage> imageList, string aviFileName, float frameRate)
+        {
+            using (ManagedAVIRecorder aviRecorder = new ManagedAVIRecorder())
+            {
+                switch (aviType)
+                {
+                    case AviType.Uncompressed:
+                        {
+                            AviOption option = new AviOption();
+                            option.frameRate = frameRate;
+                            aviRecorder.AVIOpen(aviFileName, option);
+                        }
+                        break;
+
+                    case AviType.Mjpg:
+                        {
+                            MJPGOption option = new MJPGOption();
+                            option.frameRate = frameRate;
+                            option.quality = 75;
+                            aviRecorder.AVIOpen(aviFileName, option);
+                        }
+                        break;
+
+                    case AviType.H264:
+                        {
+                            H264Option option = new H264Option();
+                            option.frameRate = frameRate;
+                            option.bitrate = 1000000;
+                            option.height = Convert.ToInt32(imageList[0].rows);
+                            option.width = Convert.ToInt32(imageList[0].cols);
+                            aviRecorder.AVIOpen(aviFileName, option);
+                        }
+                        break;
+                }
+
+                Console.WriteLine("Appending {0} images to AVI file {1}...", imageList.Count, aviFileName);
+
+                for (int imageCnt = 0; imageCnt < imageList.Count; imageCnt++)
+                {
+                    // Append the image to AVI file
+                    aviRecorder.AVIAppend(imageList[imageCnt]);
+
+                    Console.WriteLine("Appended image {0}", imageCnt);
+                }
+
+                aviRecorder.AVIClose();
+            }
+        }
+
+        public void record()
+        {
+            String aviFileName = "lol.avi";
+
+            List<ManagedImage> imageList = new List<ManagedImage>();
+            ManagedImage rawImage = new ManagedImage();
+
+            // Record until state of 'recording' is set to false
+            this.recording = true;
+            int i = 0;
+            while (i < 100 && this.recording)
+            {
+                m_camera.RetrieveBuffer(rawImage);
+                ManagedImage tempImage = new ManagedImage(rawImage);
+                imageList.Add(tempImage);
+                i++;
+            }
+
+            // Check if the camera supports the FRAME_RATE property
+            CameraPropertyInfo propInfo = m_camera.GetPropertyInfo(PropertyType.FrameRate);
+
+            float frameRateToUse = 15.0F;
+            if (propInfo.present == true)
+            {
+                // Get the frame rate
+                CameraProperty prop = m_camera.GetProperty(PropertyType.FrameRate);
+                frameRateToUse = prop.absValue;
+            }
+
+            SaveAviHelper(AviType.Uncompressed, ref imageList, aviFileName, frameRateToUse);
+        }
+
+        public bool isRecording()
+        {
+            return this.recording;
+        }
+
+        public void setRecord(bool rec)
+        {
+            this.recording = rec;
+        }
     }
 }

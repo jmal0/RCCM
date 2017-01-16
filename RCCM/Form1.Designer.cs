@@ -58,6 +58,9 @@
             this.coarseXPos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnNfovStop = new System.Windows.Forms.Button();
+            this.btnNfovStart = new System.Windows.Forms.Button();
+            this.nfovImage = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.wfovSelection = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -69,18 +72,24 @@
             this.textZoom = new System.Windows.Forms.TextBox();
             this.btnFocus = new System.Windows.Forms.Button();
             this.sliderZoom = new System.Windows.Forms.TrackBar();
-            this.btnRecord = new System.Windows.Forms.Button();
-            this.btnSaveBitmap = new System.Windows.Forms.Button();
-            this.btnProperties = new System.Windows.Forms.Button();
+            this.btnWfovRecord = new System.Windows.Forms.Button();
+            this.btnWfovSnap = new System.Windows.Forms.Button();
+            this.btnWfovProperties = new System.Windows.Forms.Button();
             this.btnWfovStart = new System.Windows.Forms.Button();
             this.wfovContainer = new TIS.Imaging.ICImagingControl();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.nfovImage = new System.Windows.Forms.PictureBox();
-            this.btnNfovStart = new System.Windows.Forms.Button();
-            this.btnNfovStop = new System.Windows.Forms.Button();
+            this.btnNfovProperties = new System.Windows.Forms.Button();
+            this.btnNfovSnap = new System.Windows.Forms.Button();
+            this.btnNfovRecord = new System.Windows.Forms.Button();
+            this.btnWfovStop = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textImageDir = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -98,6 +107,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.wfovSelection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).BeginInit();
@@ -105,7 +115,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -117,17 +127,18 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(769, 564);
+            this.tabControl1.Size = new System.Drawing.Size(769, 582);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(761, 538);
+            this.tabPage1.Size = new System.Drawing.Size(761, 556);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Setup";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -196,7 +207,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(761, 538);
+            this.tabPage2.Size = new System.Drawing.Size(761, 556);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Motion";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -384,19 +395,53 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.btnNfovRecord);
+            this.tabPage4.Controls.Add(this.btnNfovSnap);
+            this.tabPage4.Controls.Add(this.btnNfovProperties);
             this.tabPage4.Controls.Add(this.btnNfovStop);
             this.tabPage4.Controls.Add(this.btnNfovStart);
             this.tabPage4.Controls.Add(this.nfovImage);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(761, 538);
+            this.tabPage4.Size = new System.Drawing.Size(761, 556);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "NFOV";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // btnNfovStop
+            // 
+            this.btnNfovStop.Enabled = false;
+            this.btnNfovStop.Image = global::RCCM.Properties.Resources.stop;
+            this.btnNfovStop.Location = new System.Drawing.Point(38, 524);
+            this.btnNfovStop.Name = "btnNfovStop";
+            this.btnNfovStop.Size = new System.Drawing.Size(26, 26);
+            this.btnNfovStop.TabIndex = 4;
+            this.btnNfovStop.UseVisualStyleBackColor = true;
+            this.btnNfovStop.Click += new System.EventHandler(this.btnNfovStop_Click);
+            // 
+            // btnNfovStart
+            // 
+            this.btnNfovStart.Image = global::RCCM.Properties.Resources.play;
+            this.btnNfovStart.Location = new System.Drawing.Point(6, 524);
+            this.btnNfovStart.Name = "btnNfovStart";
+            this.btnNfovStart.Size = new System.Drawing.Size(26, 26);
+            this.btnNfovStart.TabIndex = 3;
+            this.btnNfovStart.UseVisualStyleBackColor = true;
+            this.btnNfovStart.Click += new System.EventHandler(this.btnNfovStart_Click);
+            // 
+            // nfovImage
+            // 
+            this.nfovImage.Location = new System.Drawing.Point(6, 6);
+            this.nfovImage.Name = "nfovImage";
+            this.nfovImage.Size = new System.Drawing.Size(612, 512);
+            this.nfovImage.TabIndex = 0;
+            this.nfovImage.TabStop = false;
+            this.nfovImage.Click += new System.EventHandler(this.nfovImage_Click);
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnWfovStop);
             this.tabPage3.Controls.Add(this.wfovSelection);
             this.tabPage3.Controls.Add(this.label12);
             this.tabPage3.Controls.Add(this.textFocus);
@@ -405,14 +450,14 @@
             this.tabPage3.Controls.Add(this.textZoom);
             this.tabPage3.Controls.Add(this.btnFocus);
             this.tabPage3.Controls.Add(this.sliderZoom);
-            this.tabPage3.Controls.Add(this.btnRecord);
-            this.tabPage3.Controls.Add(this.btnSaveBitmap);
-            this.tabPage3.Controls.Add(this.btnProperties);
+            this.tabPage3.Controls.Add(this.btnWfovRecord);
+            this.tabPage3.Controls.Add(this.btnWfovSnap);
+            this.tabPage3.Controls.Add(this.btnWfovProperties);
             this.tabPage3.Controls.Add(this.btnWfovStart);
             this.tabPage3.Controls.Add(this.wfovContainer);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(761, 538);
+            this.tabPage3.Size = new System.Drawing.Size(761, 556);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "WFOV";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -421,7 +466,7 @@
             // 
             this.wfovSelection.Controls.Add(this.radioButton1);
             this.wfovSelection.Controls.Add(this.radioButton2);
-            this.wfovSelection.Location = new System.Drawing.Point(269, 487);
+            this.wfovSelection.Location = new System.Drawing.Point(302, 489);
             this.wfovSelection.Name = "wfovSelection";
             this.wfovSelection.Size = new System.Drawing.Size(142, 45);
             this.wfovSelection.TabIndex = 17;
@@ -473,6 +518,7 @@
             // 
             // sliderFocus
             // 
+            this.sliderFocus.Enabled = false;
             this.sliderFocus.Location = new System.Drawing.Point(700, 19);
             this.sliderFocus.Maximum = 100;
             this.sliderFocus.Name = "sliderFocus";
@@ -505,7 +551,8 @@
             // 
             // btnFocus
             // 
-            this.btnFocus.Location = new System.Drawing.Point(107, 488);
+            this.btnFocus.Enabled = false;
+            this.btnFocus.Location = new System.Drawing.Point(221, 489);
             this.btnFocus.Name = "btnFocus";
             this.btnFocus.Size = new System.Drawing.Size(75, 26);
             this.btnFocus.TabIndex = 9;
@@ -515,6 +562,7 @@
             // 
             // sliderZoom
             // 
+            this.sliderZoom.Enabled = false;
             this.sliderZoom.Location = new System.Drawing.Point(649, 19);
             this.sliderZoom.Maximum = 100;
             this.sliderZoom.Name = "sliderZoom";
@@ -524,43 +572,45 @@
             this.sliderZoom.TickStyle = System.Windows.Forms.TickStyle.None;
             this.sliderZoom.Scroll += new System.EventHandler(this.sliderZoom_Scroll);
             // 
-            // btnRecord
+            // btnWfovRecord
             // 
-            this.btnRecord.BackColor = System.Drawing.Color.Transparent;
-            this.btnRecord.Image = global::RCCM.Properties.Resources.record;
-            this.btnRecord.Location = new System.Drawing.Point(75, 488);
-            this.btnRecord.Name = "btnRecord";
-            this.btnRecord.Size = new System.Drawing.Size(26, 26);
-            this.btnRecord.TabIndex = 5;
-            this.btnRecord.UseVisualStyleBackColor = false;
-            this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
+            this.btnWfovRecord.BackColor = System.Drawing.Color.Transparent;
+            this.btnWfovRecord.Enabled = false;
+            this.btnWfovRecord.Image = global::RCCM.Properties.Resources.record;
+            this.btnWfovRecord.Location = new System.Drawing.Point(108, 489);
+            this.btnWfovRecord.Name = "btnWfovRecord";
+            this.btnWfovRecord.Size = new System.Drawing.Size(26, 26);
+            this.btnWfovRecord.TabIndex = 5;
+            this.btnWfovRecord.UseVisualStyleBackColor = false;
+            this.btnWfovRecord.Click += new System.EventHandler(this.btnWfovRecord_Click);
             // 
-            // btnSaveBitmap
+            // btnWfovSnap
             // 
-            this.btnSaveBitmap.Enabled = false;
-            this.btnSaveBitmap.Image = global::RCCM.Properties.Resources.snap;
-            this.btnSaveBitmap.Location = new System.Drawing.Point(34, 488);
-            this.btnSaveBitmap.Name = "btnSaveBitmap";
-            this.btnSaveBitmap.Size = new System.Drawing.Size(35, 26);
-            this.btnSaveBitmap.TabIndex = 4;
-            this.btnSaveBitmap.UseVisualStyleBackColor = true;
-            this.btnSaveBitmap.Click += new System.EventHandler(this.btnSaveBitmap_Click);
+            this.btnWfovSnap.Enabled = false;
+            this.btnWfovSnap.Image = global::RCCM.Properties.Resources.snap;
+            this.btnWfovSnap.Location = new System.Drawing.Point(67, 489);
+            this.btnWfovSnap.Name = "btnWfovSnap";
+            this.btnWfovSnap.Size = new System.Drawing.Size(35, 26);
+            this.btnWfovSnap.TabIndex = 4;
+            this.btnWfovSnap.UseVisualStyleBackColor = true;
+            this.btnWfovSnap.Click += new System.EventHandler(this.btnWfovSnap_Click);
             // 
-            // btnProperties
+            // btnWfovProperties
             // 
-            this.btnProperties.Enabled = false;
-            this.btnProperties.Location = new System.Drawing.Point(188, 488);
-            this.btnProperties.Name = "btnProperties";
-            this.btnProperties.Size = new System.Drawing.Size(75, 26);
-            this.btnProperties.TabIndex = 3;
-            this.btnProperties.Text = "Properties";
-            this.btnProperties.UseVisualStyleBackColor = true;
-            this.btnProperties.Click += new System.EventHandler(this.btnProperties_Click);
+            this.btnWfovProperties.Enabled = false;
+            this.btnWfovProperties.Location = new System.Drawing.Point(140, 489);
+            this.btnWfovProperties.Name = "btnWfovProperties";
+            this.btnWfovProperties.Size = new System.Drawing.Size(75, 26);
+            this.btnWfovProperties.TabIndex = 3;
+            this.btnWfovProperties.Text = "Properties";
+            this.btnWfovProperties.UseVisualStyleBackColor = true;
+            this.btnWfovProperties.Click += new System.EventHandler(this.btnProperties_Click);
             // 
             // btnWfovStart
             // 
+            this.btnWfovStart.Enabled = false;
             this.btnWfovStart.Image = global::RCCM.Properties.Resources.play;
-            this.btnWfovStart.Location = new System.Drawing.Point(3, 488);
+            this.btnWfovStart.Location = new System.Drawing.Point(3, 489);
             this.btnWfovStart.Name = "btnWfovStart";
             this.btnWfovStart.Size = new System.Drawing.Size(26, 26);
             this.btnWfovStart.TabIndex = 2;
@@ -590,7 +640,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // menuStrip1
@@ -603,40 +653,100 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // nfovImage
+            // btnNfovProperties
             // 
-            this.nfovImage.Location = new System.Drawing.Point(6, 6);
-            this.nfovImage.Name = "nfovImage";
-            this.nfovImage.Size = new System.Drawing.Size(612, 512);
-            this.nfovImage.TabIndex = 0;
-            this.nfovImage.TabStop = false;
+            this.btnNfovProperties.Location = new System.Drawing.Point(143, 524);
+            this.btnNfovProperties.Name = "btnNfovProperties";
+            this.btnNfovProperties.Size = new System.Drawing.Size(75, 26);
+            this.btnNfovProperties.TabIndex = 5;
+            this.btnNfovProperties.Text = "Properties";
+            this.btnNfovProperties.UseVisualStyleBackColor = true;
+            this.btnNfovProperties.Click += new System.EventHandler(this.btnNfovProperties_Click);
             // 
-            // btnNfovStart
+            // btnNfovSnap
             // 
-            this.btnNfovStart.Image = global::RCCM.Properties.Resources.play;
-            this.btnNfovStart.Location = new System.Drawing.Point(624, 6);
-            this.btnNfovStart.Name = "btnNfovStart";
-            this.btnNfovStart.Size = new System.Drawing.Size(26, 26);
-            this.btnNfovStart.TabIndex = 3;
-            this.btnNfovStart.UseVisualStyleBackColor = true;
-            this.btnNfovStart.Click += new System.EventHandler(this.btnNfovStart_Click);
+            this.btnNfovSnap.Image = global::RCCM.Properties.Resources.snap;
+            this.btnNfovSnap.Location = new System.Drawing.Point(70, 524);
+            this.btnNfovSnap.Name = "btnNfovSnap";
+            this.btnNfovSnap.Size = new System.Drawing.Size(35, 26);
+            this.btnNfovSnap.TabIndex = 6;
+            this.btnNfovSnap.UseVisualStyleBackColor = true;
+            this.btnNfovSnap.Click += new System.EventHandler(this.btnNfovSnap_Click);
             // 
-            // btnNfovStop
+            // btnNfovRecord
             // 
-            this.btnNfovStop.Enabled = false;
-            this.btnNfovStop.Image = global::RCCM.Properties.Resources.stop;
-            this.btnNfovStop.Location = new System.Drawing.Point(624, 38);
-            this.btnNfovStop.Name = "btnNfovStop";
-            this.btnNfovStop.Size = new System.Drawing.Size(26, 26);
-            this.btnNfovStop.TabIndex = 4;
-            this.btnNfovStop.UseVisualStyleBackColor = true;
-            this.btnNfovStop.Click += new System.EventHandler(this.btnNfovStop_Click);
+            this.btnNfovRecord.BackColor = System.Drawing.Color.Transparent;
+            this.btnNfovRecord.Image = global::RCCM.Properties.Resources.record;
+            this.btnNfovRecord.Location = new System.Drawing.Point(111, 524);
+            this.btnNfovRecord.Name = "btnNfovRecord";
+            this.btnNfovRecord.Size = new System.Drawing.Size(26, 26);
+            this.btnNfovRecord.TabIndex = 7;
+            this.btnNfovRecord.UseVisualStyleBackColor = false;
+            this.btnNfovRecord.Click += new System.EventHandler(this.btnNfovRecord_Click);
+            // 
+            // btnWfovStop
+            // 
+            this.btnWfovStop.Enabled = false;
+            this.btnWfovStop.Image = global::RCCM.Properties.Resources.stop;
+            this.btnWfovStop.Location = new System.Drawing.Point(35, 489);
+            this.btnWfovStop.Name = "btnWfovStop";
+            this.btnWfovStop.Size = new System.Drawing.Size(26, 26);
+            this.btnWfovStop.TabIndex = 18;
+            this.btnWfovStop.UseVisualStyleBackColor = true;
+            this.btnWfovStop.Click += new System.EventHandler(this.btnWfovStop_Click);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label14);
+            this.groupBox6.Controls.Add(this.textBox2);
+            this.groupBox6.Controls.Add(this.label13);
+            this.groupBox6.Controls.Add(this.textImageDir);
+            this.groupBox6.Location = new System.Drawing.Point(212, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(200, 91);
+            this.groupBox6.TabIndex = 3;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "File Settings";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 20);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(81, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Image Directory";
+            // 
+            // textImageDir
+            // 
+            this.textImageDir.Location = new System.Drawing.Point(94, 17);
+            this.textImageDir.Name = "textImageDir";
+            this.textImageDir.Size = new System.Drawing.Size(100, 20);
+            this.textImageDir.TabIndex = 0;
+            this.textImageDir.Text = "C:\\Pictures\\RCCM";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(94, 43);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 1;
+            this.textBox2.Text = "C:\\Videos\\RCCM";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 46);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(79, 13);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "Video Directory";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 596);
+            this.ClientSize = new System.Drawing.Size(793, 621);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -666,6 +776,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.wfovSelection.ResumeLayout(false);
@@ -676,7 +787,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -707,20 +819,20 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown fine2XPos;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button btnProperties;
+        private System.Windows.Forms.Button btnWfovProperties;
         private System.Windows.Forms.Button btnWfovStart;
         private TIS.Imaging.ICImagingControl wfovContainer;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.Button btnSaveBitmap;
+        private System.Windows.Forms.Button btnWfovSnap;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox wfov2Config;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox wfov1Config;
-        private System.Windows.Forms.Button btnRecord;
+        private System.Windows.Forms.Button btnWfovRecord;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textZoom;
@@ -736,6 +848,15 @@
         private System.Windows.Forms.Button btnNfovStart;
         private System.Windows.Forms.PictureBox nfovImage;
         private System.Windows.Forms.Button btnNfovStop;
+        private System.Windows.Forms.Button btnNfovProperties;
+        private System.Windows.Forms.Button btnNfovRecord;
+        private System.Windows.Forms.Button btnNfovSnap;
+        private System.Windows.Forms.Button btnWfovStop;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textImageDir;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
