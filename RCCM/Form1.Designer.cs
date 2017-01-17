@@ -364,7 +364,6 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fine 1";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // fine1ZPos
             // 
@@ -429,7 +428,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Coarse";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // coarseYPos
             // 

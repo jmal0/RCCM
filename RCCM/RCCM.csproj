@@ -74,6 +74,18 @@
     <Reference Include="FlyCapture2Managedd_v140">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Point Grey Research\FlyCapture2\bin64\vs2015\FlyCapture2Managedd_v140.dll</HintPath>
     </Reference>
+    <Reference Include="Gardasoft.Controller.API, Version=3.0.0.1032, Culture=neutral, PublicKeyToken=3c364760d6170a1b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Gardasoft Vision\Triniti\SDK\ReferencedAssemblies\Gardasoft.Controller.API.dll</HintPath>
+    </Reference>
+    <Reference Include="Gardasoft.Device.CommunicationLayer, Version=3.0.0.1032, Culture=neutral, PublicKeyToken=3c364760d6170a1b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Gardasoft Vision\Triniti\SDK\ReferencedAssemblies\Gardasoft.Device.CommunicationLayer.DLL</HintPath>
+    </Reference>
+    <Reference Include="Gardasoft.Device.Discovery, Version=3.0.0.1032, Culture=neutral, PublicKeyToken=3c364760d6170a1b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Gardasoft Vision\Triniti\SDK\ReferencedAssemblies\Gardasoft.Device.Discovery.DLL</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -96,6 +108,7 @@
     </Compile>
     <Compile Include="Motor.cs" />
     <Compile Include="NFOV.cs" />
+    <Compile Include="NFOVLensController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RCCMSystem.cs" />

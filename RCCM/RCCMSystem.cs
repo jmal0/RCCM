@@ -14,17 +14,22 @@ namespace RCCM
         private NFOV nfov1;
         private NFOV nfov2;
 
-        private VirtualMotor coarseX;
-        private VirtualMotor coarseY;
-        private VirtualMotor fine1X;
-        private VirtualMotor fine1Y;
-        private VirtualMotor fine1Z;
-        private VirtualMotor fine2X;
-        private VirtualMotor fine2Y;
-        private VirtualMotor fine2Z;
+        protected NFOVLensController nfovLensController;
+
+        private Motor coarseX;
+        private Motor coarseY;
+        private Motor fine1X;
+        private Motor fine1Y;
+        private Motor fine1Z;
+        private Motor fine2X;
+        private Motor fine2Y;
+        private Motor fine2Z;
 
         public RCCMSystem()
         {
+            this.nfovLensController = new NFOVLensController(641395, 641395);
+            //this.nfov1LensController = new NFOVLensController();
+
             this.coarseX = new VirtualMotor();
             this.coarseY = new VirtualMotor();
             this.fine1X = new VirtualMotor();

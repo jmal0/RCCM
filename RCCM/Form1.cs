@@ -89,20 +89,6 @@ namespace RCCM
             }
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnWfovStart_Click(object sender, EventArgs e)
         {
             this.wfov1.start();
