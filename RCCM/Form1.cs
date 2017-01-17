@@ -45,8 +45,12 @@ namespace RCCM
                     bool success = this.nfov1.initialize(camSlnDlg.GetSelectedCameraGuids());
                     if (!success)
                     {
-                        Close();
-                        return;
+                        System.Windows.Forms.MessageBox.Show("No camera selected. NFOV will be unavailable.");
+                    }
+                    else
+                    {
+                        btnNfovStart.Enabled = false;
+                        btnNfovStop.Enabled = true;
                     }
                 }
                 catch (FC2Exception ex)
@@ -54,13 +58,11 @@ namespace RCCM
                     Console.WriteLine("Failed to load form successfully: " + ex.Message);
                     Close();
                 }
-
-                btnNfovStart.Enabled = false;
-                btnNfovStop.Enabled = true;
             }
             else
             {
-                Close();
+                System.Windows.Forms.MessageBox.Show("No camera selected. NFOV will be unavailable.");
+                disableNfovControls();
             }
 
             Show();
@@ -282,7 +284,7 @@ namespace RCCM
         public void UpdateUI(Bitmap img)
         {
             nfovImage.Image = img;
-            Invalidate();
+            //Invalidate();
         }
 
         private void btnNfovProperties_Click(object sender, EventArgs e)
@@ -321,7 +323,51 @@ namespace RCCM
 
         private void nfovImage_Click(object sender, EventArgs e)
         {
-            Console.Write(e.ToString());
+            
+        }
+
+        private void enableNfovControls()
+        {
+            btnNfovStart.Enabled = true;
+            btnNfovStop.Enabled = true;
+            btnNfovSnap.Enabled = true;
+            btnNfovRecord.Enabled = true;
+            btnNfovProperties.Enabled = true;
+        }
+
+        private void disableNfovControls()
+        {
+            btnNfovStart.Enabled = false;
+            btnNfovStop.Enabled = false;
+            btnNfovSnap.Enabled = false;
+            btnNfovRecord.Enabled = false;
+            btnNfovProperties.Enabled = false;
+        }
+
+        private void nfovImage_MouseClick(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine(e.X.ToString());
+            Console.WriteLine(e.Y.ToString());
+        }
+
+        private void nfovImage_Paint(object sender, PaintEventArgs e)
+        {
+            // Draw next line and...
+            Point p1 = new Point(1, 1);
+            Point p2 = new Point(100, 50);
+            e.Graphics.DrawLine(Pens.Red, p1, p2);
+        }
+
+        private void colorPicker_Click(object sender, EventArgs e)
+        {
+            DialogResult result = this.colorDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                // Set measurement color
+                this.colorPicker.BackColor = colorDlg.Color;
+
+                // TODO: set measurement color
+            }
         }
     }
 }
