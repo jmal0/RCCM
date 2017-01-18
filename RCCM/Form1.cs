@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 // WFOV Imports
 using TIS.Imaging;
-using TIS.Imaging.VCDHelpers;
 
 // NFOV Imports
 using FlyCapture2Managed;
@@ -23,9 +22,13 @@ namespace RCCM
         protected RCCMSystem rccm;
         protected NFOV nfov1;
         protected WFOV wfov1;
+
+        // List of measurement objects and counter for default naming convention
+        protected List<MeasurementSequence> cracks;
+        private int measurementCounter = 0;
+
+        // Flag to indicate if NFOV cam
         protected bool recording = false;
-        protected VCDSimpleProperty VCDProp;
-        protected VCDPropertyItem focus = null;
 
         public Form1(RCCMSystem sys)
         {
@@ -35,6 +38,8 @@ namespace RCCM
 
             this.nfov1 = new NFOV(this);
             this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
+
+            this.cracks = new List<MeasurementSequence>();
 
             CameraSelectionDialog camSlnDlg = new CameraSelectionDialog();
             bool retVal = camSlnDlg.ShowModal();
@@ -88,6 +93,13 @@ namespace RCCM
                 textFocus.Text = this.wfov1.getPropertyValue(VCDIDs.VCDID_Focus).ToString();
             }
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.nfov1.disconnect();
+        }
+
+        #region WFOV
 
         private void btnWfovStart_Click(object sender, EventArgs e)
         {
@@ -202,6 +214,10 @@ namespace RCCM
             sliderZoom.Enabled = false;
         }
 
+        #endregion
+
+        #region Motion
+
         private void coarseXPos_ValueChanged(object sender, EventArgs e)
         {
             this.rccm.setCoarseX((double) coarseXPos.Value);
@@ -242,10 +258,9 @@ namespace RCCM
             this.rccm.setFine2Z((double) fine2ZPos.Value);
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.nfov1.disconnect();
-        }
+        #endregion
+
+        #region NFOV
 
         private void btnNfovStart_Click(object sender, EventArgs e)
         {
@@ -330,6 +345,10 @@ namespace RCCM
             btnNfovProperties.Enabled = false;
         }
 
+        #endregion
+
+        #region Measurement
+
         private void nfovImage_MouseClick(object sender, MouseEventArgs e)
         {
             Console.WriteLine(e.X.ToString());
@@ -355,5 +374,58 @@ namespace RCCM
                 // TODO: set measurement color
             }
         }
+
+        private void btnNewSequence_Click(object sender, EventArgs e)
+        {
+            NewMeasurementSequenceForm dlg = new NewMeasurementSequenceForm("Crack " + this.measurementCounter);
+            DialogResult result = dlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                MeasurementSequence newCrack = new MeasurementSequence(dlg.getColor(), dlg.getName(), dlg.getStage());
+                this.measurementCounter++;
+                this.cracks.Add(newCrack);
+                
+                this.listMeasurements.Items.Add(newCrack.getName());
+                this.listMeasurements.SelectedIndex = this.cracks.Count - 1;
+            }
+            dlg.Dispose();
+        }
+
+        private void updateMeasurementControls(int measurementIndex)
+        {
+            if (measurementIndex >= 0 && measurementIndex < this.listMeasurements.Items.Count)
+            {
+                this.colorPicker.BackColor = this.cracks[measurementIndex].getColor();
+                this.textLineName.Text = this.cracks[measurementIndex].getName();
+            }
+        }
+
+        private void listMeasurements_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateMeasurementControls(this.listMeasurements.SelectedIndex);
+        }
+
+        private void listMeasurements_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteSequence_Click(object sender, EventArgs e)
+        {
+            int deleteIndex = this.listMeasurements.SelectedIndex;
+            if (deleteIndex >= 0 && deleteIndex < this.listMeasurements.Items.Count)
+            {
+                this.cracks.RemoveAt(deleteIndex);
+                this.listMeasurements.Items.RemoveAt(deleteIndex);
+                updateMeasurementControls(-1);
+            }
+        }
+
+        private void listMeasurements_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        #endregion
     }
 }
