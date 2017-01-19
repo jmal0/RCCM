@@ -17,11 +17,14 @@ using FlyCapture2Managed.Gui;
 
 namespace RCCM
 {
-    public partial class Form1 : Form
+    public partial class RCCMMainForm : Form
     {
         protected RCCMSystem rccm;
         protected NFOV nfov1;
         protected WFOV wfov1;
+
+        protected Timer nfovRepaintTimer;
+        protected EventHandler nfovRepaint;
 
         // List of measurement objects and counter for default naming convention
         protected List<MeasurementSequence> cracks;
@@ -30,16 +33,47 @@ namespace RCCM
         // Flag to indicate if NFOV cam
         protected bool recording = false;
 
-        public Form1(RCCMSystem sys)
+        public RCCMMainForm(RCCMSystem sys)
         {
             InitializeComponent();
 
             this.rccm = sys;
 
-            this.nfov1 = new NFOV(this);
+            this.nfov1 = this.rccm.getNfov1();
             this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
 
+            this.nfovRepaintTimer = new Timer();
+            this.nfovRepaintTimer.Enabled = true;
+            this.nfovRepaintTimer.Interval = 100; // milliseconds
+            this.nfovRepaint = new EventHandler(refreshNfov);
+
             this.cracks = new List<MeasurementSequence>();
+            
+            Show();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (this.wfov1.isAvailable())
+            {
+                this.wfov1.initialize();
+                btnWfovStart.Enabled = true;
+
+                this.nfovRepaintTimer.Tick += this.nfovRepaint;
+
+                //  Setup the range of the zoom and focus sliders.
+                sliderZoom.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Zoom);
+                sliderZoom.Maximum = this.wfov1.getPropertyMax(VCDIDs.VCDID_Zoom);
+                sliderFocus.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Focus);
+                sliderFocus.Maximum = this.wfov1.getPropertyMax(VCDIDs.VCDID_Focus);
+
+                //  Set the sliders to the current zoom and focus values.
+                sliderZoom.Value = this.wfov1.getPropertyValue(VCDIDs.VCDID_Zoom);
+                textZoom.Text = this.wfov1.getPropertyValue(VCDIDs.VCDID_Zoom).ToString();
+                sliderFocus.Value = this.wfov1.getPropertyValue(VCDIDs.VCDID_Focus);
+                textFocus.Text = this.wfov1.getPropertyValue(VCDIDs.VCDID_Focus).ToString();
+            }
+
 
             CameraSelectionDialog camSlnDlg = new CameraSelectionDialog();
             bool retVal = camSlnDlg.ShowModal();
@@ -68,29 +102,6 @@ namespace RCCM
             {
                 System.Windows.Forms.MessageBox.Show("No camera selected. NFOV will be unavailable.");
                 disableNfovControls();
-            }
-
-            Show();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            if (this.wfov1.isAvailable())
-            {
-                this.wfov1.initialize();
-                btnWfovStart.Enabled = true;
-
-                //  Setup the range of the zoom and focus sliders.
-                sliderZoom.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Zoom);
-                sliderZoom.Maximum = this.wfov1.getPropertyMax(VCDIDs.VCDID_Zoom);
-                sliderFocus.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Focus);
-                sliderFocus.Maximum = this.wfov1.getPropertyMax(VCDIDs.VCDID_Focus);
-
-                //  Set the sliders to the current zoom and focus values.
-                sliderZoom.Value = this.wfov1.getPropertyValue(VCDIDs.VCDID_Zoom);
-                textZoom.Text = this.wfov1.getPropertyValue(VCDIDs.VCDID_Zoom).ToString();
-                sliderFocus.Value = this.wfov1.getPropertyValue(VCDIDs.VCDID_Focus);
-                textFocus.Text = this.wfov1.getPropertyValue(VCDIDs.VCDID_Focus).ToString();
             }
         }
 
@@ -265,6 +276,7 @@ namespace RCCM
         private void btnNfovStart_Click(object sender, EventArgs e)
         {
             this.nfov1.start();
+            this.nfovRepaintTimer.Tick += this.nfovRepaint;
 
             btnNfovStart.Enabled = false;
             btnNfovStop.Enabled = true;
@@ -275,6 +287,7 @@ namespace RCCM
         private void btnNfovStop_Click(object sender, EventArgs e)
         {
             this.nfov1.stop();
+            this.nfovRepaintTimer.Tick -= this.nfovRepaint;
 
             btnNfovStart.Enabled = true;
             btnNfovStop.Enabled = false;
@@ -282,10 +295,9 @@ namespace RCCM
             btnNfovRecord.Enabled = false;
         }
 
-        public void UpdateUI(Bitmap img)
+        private void refreshNfov(object sender, EventArgs e)
         {
-            nfovImage.Image = img;
-            //Invalidate();
+            this.nfovImage.Invalidate();
         }
 
         private void btnNfovProperties_Click(object sender, EventArgs e)
@@ -357,7 +369,13 @@ namespace RCCM
 
         private void nfovImage_Paint(object sender, PaintEventArgs e)
         {
+            this.nfovImage.Image = this.nfov1.getLiveImage();
+
             // Draw next line and...
+            foreach (MeasurementSequence crack in this.cracks)
+            {
+                crack.plot(e.Graphics, this.rccm.getImageLimits());
+            }
             Point p1 = new Point(1, 1);
             Point p2 = new Point(100, 50);
             e.Graphics.DrawLine(Pens.Red, p1, p2);
@@ -405,11 +423,6 @@ namespace RCCM
             updateMeasurementControls(this.listMeasurements.SelectedIndex);
         }
 
-        private void listMeasurements_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnDeleteSequence_Click(object sender, EventArgs e)
         {
             int deleteIndex = this.listMeasurements.SelectedIndex;
@@ -419,11 +432,6 @@ namespace RCCM
                 this.listMeasurements.Items.RemoveAt(deleteIndex);
                 updateMeasurementControls(-1);
             }
-        }
-
-        private void listMeasurements_MouseClick(object sender, MouseEventArgs e)
-        {
-
         }
 
         #endregion

@@ -37,6 +37,28 @@ namespace RCCM
             return false;
         }
 
+        public void plot(Graphics axes, Region bounds)
+        {
+            if (this.points.Count > 1)
+            {
+                axes.Clip = bounds;
+                PointF p0, p1;
+                
+                p0 = measurementToPoint(this.points[0]);
+                for (int i = 1; i < this.points.Count; i++)
+                {
+                    p1 = measurementToPoint(this.points[i]);
+                    axes.DrawLine(new Pen(this.color), p0, p1);
+                    p0 = p1;                    
+                }
+            }            
+        }
+
+        private PointF measurementToPoint(Measurement pt)
+        {
+            return new PointF((float) pt.getX(), (float) pt.getY());
+        }
+
         public void writeToFile(string filename)
         {
             // TODO

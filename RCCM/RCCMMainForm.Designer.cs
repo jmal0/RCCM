@@ -1,6 +1,6 @@
 ﻿namespace RCCM
 {
-    partial class Form1
+    partial class RCCMMainForm
     {
         /// <summary>
         /// Required designer variable.

@@ -20,27 +20,31 @@ namespace RCCM
             H264
         }
 
-        private Form1 parentForm;
+        //private RCCMMainForm parentForm;
         private FlyCapture2Managed.Gui.CameraControlDialog m_camCtlDlg;
         private ManagedCameraBase m_camera = null;
         private ManagedImage m_rawImage;
         private ManagedImage m_processedImage;
         private bool m_grabImages;
-        private bool recording;
         private AutoResetEvent m_grabThreadExited;
         private BackgroundWorker m_grabThread;
 
-        public NFOV(Form1 parent)
+        private double scale; // Microns / pixel
+
+        private bool recording;
+
+        public NFOV(double pix2um)
         {
-            parentForm = parent;
+            //parentForm = parent;
 
             m_rawImage = new ManagedImage();
             m_processedImage = new ManagedImage();
             m_camCtlDlg = new CameraControlDialog();
-
-            recording = false;
-
+            
             m_grabThreadExited = new AutoResetEvent(false);
+
+            scale = pix2um;
+            recording = false;
         }
 
         public bool initialize(ManagedPGRGuid[] selectedGuids)
@@ -120,16 +124,16 @@ namespace RCCM
                 Console.WriteLine("Camera is null");
             }
         }
-
+        /*
         private void UpdateUI(object sender, ProgressChangedEventArgs e)
         {
             this.parentForm.UpdateUI(this.m_processedImage.bitmap);
         }
-
+        */
         private void StartGrabLoop()
         {
             m_grabThread = new BackgroundWorker();
-            m_grabThread.ProgressChanged += new ProgressChangedEventHandler(UpdateUI);
+            //m_grabThread.ProgressChanged += new ProgressChangedEventHandler(UpdateUI);
             m_grabThread.DoWork += new DoWorkEventHandler(GrabLoop);
             m_grabThread.WorkerReportsProgress = true;
             m_grabThread.RunWorkerAsync();
@@ -298,6 +302,11 @@ namespace RCCM
             SaveAviHelper(AviType.Uncompressed, ref imageList, aviFileName, frameRateToUse);
         }
 
+        public System.Drawing.Bitmap getLiveImage()
+        {
+            return this.m_processedImage.bitmap;
+        }
+
         public bool isRecording()
         {
             return this.recording;
@@ -306,6 +315,16 @@ namespace RCCM
         public void setRecord(bool rec)
         {
             this.recording = rec;
+        }
+
+        public double getWidth()
+        {
+            return this.scale * 2048;
+        }
+
+        public double getHeight()
+        {
+            return this.scale * 2448;
         }
     }
 }

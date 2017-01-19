@@ -101,11 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="definitions.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="RCCMMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="RCCMMainForm.Designer.cs">
+      <DependentUpon>RCCMMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NewMeasurementForm.cs">
       <SubType>Form</SubType>
@@ -123,8 +123,8 @@
     <Compile Include="RCCMSystem.cs" />
     <Compile Include="VirtualMotor.cs" />
     <Compile Include="WFOV.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="RCCMMainForm.resx">
+      <DependentUpon>RCCMMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewMeasurementForm.resx">
       <DependentUpon>NewMeasurementForm.cs</DependentUpon>

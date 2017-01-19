@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,8 +28,9 @@ namespace RCCM
 
         public RCCMSystem()
         {
+            this.nfov1 = new NFOV(8.00);
+
             this.nfovLensController = new NFOVLensController(641395, 641395);
-            //this.nfov1LensController = new NFOVLensController();
 
             this.coarseX = new VirtualMotor();
             this.coarseY = new VirtualMotor();
@@ -38,6 +40,21 @@ namespace RCCM
             this.fine2X = new VirtualMotor();
             this.fine2Y = new VirtualMotor();
             this.fine2Z = new VirtualMotor();
+        }
+
+        public Region getImageLimits()
+        {
+            float imgWidth = (float) this.nfov1.getWidth();
+            float imgHeight = (float) this.nfov1.getHeight();
+
+            float topLeftX = (float) (this.getCoarseX() + this.getFine1X() - imgWidth / 2);
+            float topLeftY = (float) (this.getCoarseY() + this.getFine1Y() - imgHeight / 2);
+            return new Region(new RectangleF(topLeftX, topLeftY, imgWidth, imgHeight));
+        }
+
+        public NFOV getNfov1()
+        {
+            return this.nfov1;
         }
 
         public double getCoarseX()
