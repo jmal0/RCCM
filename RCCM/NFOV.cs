@@ -20,8 +20,7 @@ namespace RCCM
             H264
         }
 
-        //private RCCMMainForm parentForm;
-        private FlyCapture2Managed.Gui.CameraControlDialog m_camCtlDlg;
+        //private FlyCapture2Managed.Gui.CameraControlDialog m_camCtlDlg;
         private ManagedCameraBase m_camera = null;
         private ManagedImage m_rawImage;
         private ManagedImage m_processedImage;
@@ -35,11 +34,8 @@ namespace RCCM
 
         public NFOV(double pix2um)
         {
-            //parentForm = parent;
-
             m_rawImage = new ManagedImage();
             m_processedImage = new ManagedImage();
-            m_camCtlDlg = new CameraControlDialog();
             
             m_grabThreadExited = new AutoResetEvent(false);
 
@@ -63,7 +59,8 @@ namespace RCCM
             // Connect to the first selected GUID
             m_camera.Connect(guidToUse);
 
-            m_camCtlDlg.Connect(m_camera);
+            CameraControlDialog camCtlDlg = new CameraControlDialog();
+            camCtlDlg.Connect(m_camera);
 
             CameraInfo camInfo = m_camera.GetCameraInfo();
             PrintCameraInfo(m_camera.GetCameraInfo());
@@ -191,14 +188,8 @@ namespace RCCM
 
         public void showPropertiesDlg()
         {
-            if (m_camCtlDlg.IsVisible())
-            {
-                m_camCtlDlg.Hide();
-            }
-            else
-            {
-                m_camCtlDlg.Show();
-            }
+            CameraControlDialog camCtlDlg = new CameraControlDialog();
+            camCtlDlg.Show();
         }
 
         public void snap(string filename)

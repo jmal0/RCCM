@@ -41,12 +41,11 @@ namespace RCCM
 
             this.nfov1 = this.rccm.getNfov1();
             this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
-
+            
             this.nfovRepaintTimer = new Timer();
             this.nfovRepaintTimer.Enabled = true;
             this.nfovRepaintTimer.Interval = 100; // milliseconds
-            this.nfovRepaint = new EventHandler(refreshNfov);
-
+            
             this.cracks = new List<MeasurementSequence>();
             
             Show();
@@ -59,7 +58,7 @@ namespace RCCM
                 this.wfov1.initialize();
                 btnWfovStart.Enabled = true;
 
-                this.nfovRepaintTimer.Tick += this.nfovRepaint;
+                //this.nfovRepaintTimer.Tick += this.nfovRepaint;
 
                 //  Setup the range of the zoom and focus sliders.
                 sliderZoom.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Zoom);
@@ -95,7 +94,6 @@ namespace RCCM
                 catch (FC2Exception ex)
                 {
                     Console.WriteLine("Failed to load form successfully: " + ex.Message);
-                    Close();
                 }
             }
             else
@@ -103,10 +101,13 @@ namespace RCCM
                 System.Windows.Forms.MessageBox.Show("No camera selected. NFOV will be unavailable.");
                 disableNfovControls();
             }
+
+            this.nfovRepaintTimer.Start();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            this.nfovRepaintTimer.Stop();
             this.nfov1.disconnect();
         }
 
@@ -369,16 +370,20 @@ namespace RCCM
 
         private void nfovImage_Paint(object sender, PaintEventArgs e)
         {
-            this.nfovImage.Image = this.nfov1.getLiveImage();
+            Bitmap img = this.nfov1.getLiveImage();
+            if (img != null)
+            {
+                e.Graphics.DrawImage(img, 0, 0);
+            }
 
             // Draw next line and...
             foreach (MeasurementSequence crack in this.cracks)
             {
                 crack.plot(e.Graphics, this.rccm.getImageLimits());
             }
-            Point p1 = new Point(1, 1);
-            Point p2 = new Point(100, 50);
-            e.Graphics.DrawLine(Pens.Red, p1, p2);
+            //Point p1 = new Point(1, 1);
+            //Point p2 = new Point(100, 50);
+            //e.Graphics.DrawLine(Pens.Red, p1, p2);
         }
 
         private void colorPicker_Click(object sender, EventArgs e)
@@ -389,7 +394,12 @@ namespace RCCM
                 // Set measurement color
                 this.colorPicker.BackColor = colorDlg.Color;
 
-                // TODO: set measurement color
+                // Set measurement color
+                int index = this.listMeasurements.SelectedIndex;
+                if (index >= 0)
+                {
+                    this.cracks[index].setColor(colorDlg.Color);
+                }
             }
         }
 
