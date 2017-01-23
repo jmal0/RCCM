@@ -32,9 +32,11 @@ namespace RCCM
         // Flag to indicate if NFOV cam
         protected bool recording = false;
 
-        public RCCMMainForm(RCCMSystem sys)
+        public RCCMMainForm(RCCMSystem sys, Settings settings)
         {
             InitializeComponent();
+
+            this.applyUISettings(settings);
 
             this.rccm = sys;
 
@@ -57,8 +59,6 @@ namespace RCCM
             {
                 this.wfov1.initialize();
                 btnWfovStart.Enabled = true;
-
-                //this.nfovRepaintTimer.Tick += this.nfovRepaint;
 
                 //  Setup the range of the zoom and focus sliders.
                 sliderZoom.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Zoom);
@@ -139,7 +139,7 @@ namespace RCCM
         
         private void btnWfovSnap_Click(object sender, EventArgs e)
         {
-            this.wfov1.snapImage(textImageDir.Text + "\test.png");
+            this.wfov1.snapImage(textImageDir.Text + "\\test.png");
         }
 
         private void btnProperties_Click(object sender, EventArgs e)
@@ -156,7 +156,7 @@ namespace RCCM
             {
                 if (this.recording == false)
                 {
-                    wfovContainer.AviStartCapture("test.avi", wfovContainer.AviCompressors[0].ToString());
+                    wfovContainer.AviStartCapture(this.textVideoDir + "\\test.avi", wfovContainer.AviCompressors[0]);                    
                     btnWfovRecord.BackColor = Color.Gray;
                     this.recording = true;
                     btnWfovStart.Enabled = false;
@@ -232,42 +232,42 @@ namespace RCCM
 
         private void coarseXPos_ValueChanged(object sender, EventArgs e)
         {
-            this.rccm.setCoarseX((double) coarseXPos.Value);
+            this.rccm.setPosition("coarse X", (double) coarseXPos.Value);
         }
 
         private void coarseYPos_ValueChanged(object sender, EventArgs e)
         {
-            this.rccm.setCoarseY((double) coarseYPos.Value);
+            this.rccm.setPosition("coarse Y", (double) coarseYPos.Value);
         }
 
         private void fine1XPos_ValueChanged(object sender, EventArgs e)
         {
-            this.rccm.setFine1X((double) fine1XPos.Value);
+            this.rccm.setPosition("fine 1 X", (double) fine1XPos.Value);
         }
 
         private void fine1YPos_ValueChanged(object sender, EventArgs e)
         {
-            this.rccm.setFine1Y((double) fine1YPos.Value);
+            this.rccm.setPosition("fine 1 X", (double) fine1YPos.Value);
         }
 
         private void fine1ZPos_ValueChanged(object sender, EventArgs e)
         {
-            this.rccm.setFine1Z((double) fine1ZPos.Value);
+            this.rccm.setPosition("fine 1 X", (double) fine1ZPos.Value);
         }
 
         private void fine2XPos_ValueChanged(object sender, EventArgs e)
         {
-            this.rccm.setFine2X((double) fine2XPos.Value);
+            this.rccm.setPosition("fine 2 X", (double) fine2XPos.Value);
         }
 
         private void fine2YPos_ValueChanged(object sender, EventArgs e)
         {
-            this.rccm.setFine2Y((double) fine2YPos.Value);
+            this.rccm.setPosition("fine 2 Y", (double) fine2YPos.Value);
         }
 
         private void fine2ZPos_ValueChanged(object sender, EventArgs e)
         {
-            this.rccm.setFine2Z((double) fine2ZPos.Value);
+            this.rccm.setPosition("fine 2 Z", (double) fine2ZPos.Value);
         }
 
         #endregion
@@ -308,7 +308,7 @@ namespace RCCM
 
         private void btnNfovSnap_Click(object sender, EventArgs e)
         {
-            this.nfov1.snap("test.bmp");
+            this.nfov1.snap(textImageDir.Text + "\\test.bmp");
         }
 
         private void btnNfovRecord_Click(object sender, EventArgs e)
@@ -327,7 +327,7 @@ namespace RCCM
             else
             {
                 // Start recording
-                this.nfov1.record();
+                this.nfov1.record(this.textVideoDir + "\\test_nfov.avi");
                 btnNfovRecord.BackColor = Color.Gray;
                 btnNfovStart.Enabled = false;
                 btnNfovStop.Enabled = false;
@@ -463,5 +463,38 @@ namespace RCCM
         {
             this.nfov1.setScale(Double.Parse(nfov1Scale.Text));
         }
+
+        #region Settings
+
+        public void applyUISettings(Settings settings)
+        {
+            // Make NumericUpDown increment property equal to motor minimum step size
+            this.coarseXPos.Increment = (decimal) settings.json["coarse X"]["step"];
+            this.coarseYPos.Increment = (decimal) settings.json["coarse Y"]["step"];
+            this.fine1XPos.Increment = (decimal) settings.json["fine 1 X"]["step"];
+            this.fine1YPos.Increment = (decimal) settings.json["fine 1 Y"]["step"];
+            this.fine1ZPos.Increment = (decimal) settings.json["fine 1 Z"]["step"];
+            this.fine2XPos.Increment = (decimal) settings.json["fine 2 X"]["step"];
+            this.fine2YPos.Increment = (decimal) settings.json["fine 2 Y"]["step"];
+            this.fine2ZPos.Increment = (decimal) settings.json["fine 2 Z"]["step"];
+            // Apply motor position limits to NumericUpDowns
+            this.coarseXPos.Minimum = (decimal)settings.json["coarse X"]["low position limit"];
+            this.coarseYPos.Minimum = (decimal)settings.json["coarse Y"]["low position limit"];
+            this.fine1XPos.Minimum = (decimal)settings.json["fine 1 X"]["low position limit"];
+            this.fine1YPos.Minimum = (decimal)settings.json["fine 1 Y"]["low position limit"];
+            this.fine1ZPos.Minimum = (decimal)settings.json["fine 1 Z"]["low position limit"];
+            this.fine2XPos.Minimum = (decimal)settings.json["fine 2 X"]["low position limit"];
+            this.fine2YPos.Minimum = (decimal)settings.json["fine 2 Y"]["low position limit"];
+            this.fine2ZPos.Minimum = (decimal)settings.json["fine 2 Z"]["low position limit"];
+            this.coarseXPos.Maximum = (decimal)settings.json["coarse X"]["high position limit"];
+            this.coarseYPos.Maximum = (decimal)settings.json["coarse Y"]["high position limit"];
+            this.fine1XPos.Maximum = (decimal)settings.json["fine 1 X"]["high position limit"];
+            this.fine1YPos.Maximum = (decimal)settings.json["fine 1 Y"]["high position limit"];
+            this.fine1ZPos.Maximum = (decimal)settings.json["fine 1 Z"]["high position limit"];
+            this.fine2XPos.Maximum = (decimal)settings.json["fine 2 X"]["high position limit"];
+            this.fine2YPos.Maximum = (decimal)settings.json["fine 2 Y"]["high position limit"];
+            this.fine2ZPos.Maximum = (decimal)settings.json["fine 2 Z"]["high position limit"];
+        }
+        #endregion
     }
 }

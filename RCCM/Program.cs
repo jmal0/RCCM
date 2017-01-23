@@ -14,11 +14,12 @@ namespace RCCM
         [STAThread]
         static void Main()
         {
-            RCCMSystem rccm = new RCCMSystem();
+            Settings settings = new Settings("settings.json");
+            RCCMSystem rccm = new RCCMSystem(settings);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RCCMMainForm(rccm));
+            Application.Run(new RCCMMainForm(rccm, settings));
         }
     }
 }

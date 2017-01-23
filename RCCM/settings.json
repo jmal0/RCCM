@@ -1,0 +1,67 @@
+{
+    // Motion settings
+    "coarse X": {
+        "type": "virtual",
+        "low position limit": 0.0,
+        "high position limit": 100.0,
+        "step": 0.001
+    },
+    "coarse Y": {
+        "type": "virtual",
+        "low position limit": 0.0,
+        "high position limit": 60.0,
+        "step": 0.001
+    },
+    "fine 1 X": {
+        "type": "virtual",
+        "low position limit": 0.0,
+        "high position limit": 20.0,
+        "step": 0.0001
+    },
+    "fine 1 Y": {
+        "type": "virtual",
+        "low position limit": 0.0,
+        "high position limit": 20.0,
+        "step": 0.0001
+    },
+    "fine 1 Z": {
+        "type": "virtual",
+        "low position limit": 0.0,
+        "high position limit": 12.0,
+        "step": 0.0001
+    },
+    "fine 2 X": {
+        "type": "virtual",
+        "low position limit": 0.0,
+        "high position limit": 20.0,
+        "step": 0.0001
+    },
+    "fine 2 Y": {
+        "type": "virtual",
+        "low position limit": 0.0,
+        "high position limit": 20.0,
+        "step": 0.0001
+    },
+    "fine 2 Z": {
+        "type": "virtual",
+        "low position limit": 0.0,
+        "high position limit": 12.0,
+        "step": 0.0001
+    },
+    // File settings
+    "image directory": "C:\\Pictures\\RCCM",
+    "video directory": "C:\\Videos\\RCCM",
+    "test data directory": "data",
+    // Camera settings
+    "wfov 1": { 
+        "configuration file": "config\\WFOV1.xml" 
+    },
+    "nfov 1": {
+        "serial number": 641395,
+        "1 microns / pixel": 8.0,
+    },    
+    "nfov 2": {
+        "serial number": 0,
+        "nfov 2 microns / pixel": 8.0
+    }
+}

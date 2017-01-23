@@ -9,6 +9,9 @@ namespace RCCM
 {
     public class RCCMSystem
     {
+        private static string[] AXES = new string[8] { "coarse X", "coarse Y", "fine 1 X", "fine 1 Y", "fine 1 Z", "fine 2 X", "fine 2 Y", "fine 2 Z" };
+        private static string[] MOTOR_PROPERTIES = new string[2] { "low position limit", "high position limit" };
+
         protected WFOV wfov1;
         protected WFOV wfov2;
 
@@ -17,29 +20,26 @@ namespace RCCM
 
         protected NFOVLensController nfovLensController;
 
-        protected Motor coarseX;
-        protected Motor coarseY;
-        protected Motor fine1X;
-        protected Motor fine1Y;
-        protected Motor fine1Z;
-        protected Motor fine2X;
-        protected Motor fine2Y;
-        protected Motor fine2Z;
+        protected Dictionary<string, Motor> motors;
 
-        public RCCMSystem()
+        public RCCMSystem(Settings settings)
         {
             this.nfov1 = new NFOV(8.00);
 
             this.nfovLensController = new NFOVLensController(641395, 641395);
 
-            this.coarseX = new VirtualMotor();
-            this.coarseY = new VirtualMotor();
-            this.fine1X = new VirtualMotor();
-            this.fine1Y = new VirtualMotor();
-            this.fine1Z = new VirtualMotor();
-            this.fine2X = new VirtualMotor();
-            this.fine2Y = new VirtualMotor();
-            this.fine2Z = new VirtualMotor();
+            this.motors = new Dictionary<string, Motor>();
+            foreach (string motorName in RCCMSystem.AXES)
+            {
+                switch ((string) settings.json[motorName]["type"])
+                {
+                    case "virtual":
+                        this.motors.Add(motorName, new VirtualMotor());
+                        break;
+                    default:
+                        throw new NotImplementedException("Unknown motor type setting encountered for " + motorName);
+                }
+            }
         }
 
         public Region getImageLimits()
@@ -47,15 +47,15 @@ namespace RCCM
             float imgWidth = (float) this.nfov1.getWidth();
             float imgHeight = (float) this.nfov1.getHeight();
 
-            float topLeftX = (float) (this.getCoarseX() + this.getFine1X() - imgWidth / 2);
-            float topLeftY = (float) (this.getCoarseY() + this.getFine1Y() - imgHeight / 2);
+            float topLeftX = (float) (this.getPosition("coarse X") + this.getPosition("fine 1 X") - imgWidth / 2);
+            float topLeftY = (float) (this.getPosition("coarse X") + this.getPosition("fine 1 X") - imgHeight / 2);
             return new Region(new RectangleF(topLeftX, topLeftY, imgWidth, imgHeight));
         }
 
         public PointF getNFOV1Location()
         {
-            float centerX = (float) (this.getCoarseX() + this.getFine1X());
-            float centerY = (float) (this.getCoarseY() + this.getFine1Y());
+            float centerX = (float) (this.getPosition("coarse X") + this.getPosition("fine 1 X"));
+            float centerY = (float) (this.getPosition("coarse Y") + this.getPosition("fine 1 Y"));
             return new PointF(centerX, centerY);
         }
 
@@ -64,100 +64,31 @@ namespace RCCM
             return this.nfov1;
         }
 
-        public double getCoarseX()
+        #region Motors
+
+        public void applyMotorSettings(Settings settings)
         {
-            return this.coarseX.getPos();
+            foreach (string motorName in RCCMSystem.AXES)
+            {
+                foreach (string property in RCCMSystem.MOTOR_PROPERTIES)
+                {
+                    this.motors[motorName].setProperty(property, (double) settings.json[motorName][property]);
+                }
+            }
         }
 
-        public double getCoarseY()
+        public double getPosition(string axis)
         {
-            return this.coarseY.getPos();
+            return this.motors[axis].getPos();
         }
 
-        public double getFine1X()
+        public double setPosition(string axis, double value)
         {
-            return this.fine1X.getPos();
-        }
-
-        public double getFine1Y()
-        {
-            return this.fine1Y.getPos();
-        }
-
-        public double getFine1Z()
-        {
-            return this.fine1Z.getPos();
-        }
-
-        public double getFine2X()
-        {
-            return this.fine1X.getPos();
-        }
-
-        public double getFine2Y()
-        {
-            return this.fine2Y.getPos();
-        }
-
-        public double getFine2Z()
-        {
-            return this.fine2Z.getPos();
-        }
-
-        public double setCoarseX(double value)
-        {
-            double result = this.coarseX.setPos(value);
-            Console.WriteLine("coarse X {0}", value);
+            double result = this.motors[axis].setPos(value);
+            Console.WriteLine(axis + " " + value);
             return result;
         }
 
-        public double setCoarseY(double value)
-        {
-            double result = this.coarseY.setPos(value);
-            Console.WriteLine("coarse Y {0}", value);
-            return result;
-        }
-
-        public double setFine1X(double value)
-        {
-            double result = this.fine1X.setPos(value);
-            Console.WriteLine("fine1 X {0}", value);
-            return result;
-        }
-
-        public double setFine1Y(double value)
-        {
-            double result = this.fine1Y.setPos(value);
-            Console.WriteLine("fine1 Y {0}", value);
-            return result;
-        }
-
-        public double setFine1Z(double value)
-        {
-            double result = this.fine1Z.setPos(value);
-            Console.WriteLine("fine1 Z {0}", value);
-            return result;
-        }
-
-        public double setFine2X(double value)
-        {
-            double result = this.fine1X.setPos(value);
-            Console.WriteLine("fine2 X {0}", value);
-            return result;
-        }
-
-        public double setFine2Y(double value)
-        {
-            double result = this.fine2Y.setPos(value);
-            Console.WriteLine("fine2 Y {0}", value);
-            return result;
-        }
-
-        public double setFine2Z(double value)
-        {
-            double result = this.fine2Z.setPos(value);
-            Console.WriteLine("fine2 Z {0}", value);
-            return result;
-        }
+        #endregion
     }
 }

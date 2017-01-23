@@ -19,10 +19,10 @@ namespace RCCM
 
         public Measurement(RCCMSystem rccm, RCCMStage fine, double pixelX, double pixelY)
         {
-            this.coarseX = rccm.getCoarseX();
-            this.coarseY = rccm.getCoarseY();
-            this.fineX = fine == RCCMStage.RCCM1 ? rccm.getFine1X() : rccm.getFine2X();
-            this.fineY = fine == RCCMStage.RCCM1 ? rccm.getFine1Y() : rccm.getFine2Y();
+            this.coarseX = rccm.getPosition("coarse X");
+            this.coarseY = rccm.getPosition("coarse Y");
+            this.fineX = fine == RCCMStage.RCCM1 ? rccm.getPosition("fine 1 X") : rccm.getPosition("fine 2 X");
+            this.fineY = fine == RCCMStage.RCCM1 ? rccm.getPosition("fine 1 Y") : rccm.getPosition("fine 2 Y");
             this.pixelX = pixelX;
             this.pixelY = pixelY;
             this.globalX = this.coarseX + this.fineX + this.pixelX; // TODO: robustify

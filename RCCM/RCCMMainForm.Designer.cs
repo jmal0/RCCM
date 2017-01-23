@@ -43,9 +43,9 @@
             this.nfov1Scale = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textDataDir = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textVideoDir = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.textImageDir = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -208,7 +208,7 @@
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(66, 13);
             this.label16.TabIndex = 0;
-            this.label16.Text = "Micron/Pixel";
+            this.label16.Text = "Inches/Pixel";
             // 
             // nfov2Scale
             // 
@@ -216,7 +216,7 @@
             this.nfov2Scale.Name = "nfov2Scale";
             this.nfov2Scale.Size = new System.Drawing.Size(100, 20);
             this.nfov2Scale.TabIndex = 0;
-            this.nfov2Scale.Text = "1.00";
+            this.nfov2Scale.Text = "0.0003";
             // 
             // groupBox7
             // 
@@ -255,7 +255,7 @@
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(66, 13);
             this.label15.TabIndex = 0;
-            this.label15.Text = "Micron/Pixel";
+            this.label15.Text = "Inches/Pixel";
             // 
             // nfov1Scale
             // 
@@ -263,15 +263,15 @@
             this.nfov1Scale.Name = "nfov1Scale";
             this.nfov1Scale.Size = new System.Drawing.Size(100, 20);
             this.nfov1Scale.TabIndex = 0;
-            this.nfov1Scale.Text = "1.00";
+            this.nfov1Scale.Text = "0.0003";
             this.nfov1Scale.TextChanged += new System.EventHandler(this.nfov1Scale_TextChanged);
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label17);
-            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Controls.Add(this.textDataDir);
             this.groupBox6.Controls.Add(this.label14);
-            this.groupBox6.Controls.Add(this.textBox2);
+            this.groupBox6.Controls.Add(this.textVideoDir);
             this.groupBox6.Controls.Add(this.label13);
             this.groupBox6.Controls.Add(this.textImageDir);
             this.groupBox6.Location = new System.Drawing.Point(212, 6);
@@ -290,13 +290,13 @@
             this.label17.TabIndex = 5;
             this.label17.Text = "Measurements";
             // 
-            // textBox1
+            // textDataDir
             // 
-            this.textBox1.Location = new System.Drawing.Point(94, 69);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "data";
+            this.textDataDir.Location = new System.Drawing.Point(94, 69);
+            this.textDataDir.Name = "textDataDir";
+            this.textDataDir.Size = new System.Drawing.Size(100, 20);
+            this.textDataDir.TabIndex = 5;
+            this.textDataDir.Text = "data";
             // 
             // label14
             // 
@@ -307,13 +307,13 @@
             this.label14.TabIndex = 4;
             this.label14.Text = "Videos";
             // 
-            // textBox2
+            // textVideoDir
             // 
-            this.textBox2.Location = new System.Drawing.Point(94, 43);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 1;
-            this.textBox2.Text = "C:\\Videos\\RCCM";
+            this.textVideoDir.Location = new System.Drawing.Point(94, 43);
+            this.textVideoDir.Name = "textVideoDir";
+            this.textVideoDir.Size = new System.Drawing.Size(100, 20);
+            this.textVideoDir.TabIndex = 1;
+            this.textVideoDir.Text = "C:\\Users\\John\\Videos\\RCCM";
             // 
             // label13
             // 
@@ -330,7 +330,7 @@
             this.textImageDir.Name = "textImageDir";
             this.textImageDir.Size = new System.Drawing.Size(100, 20);
             this.textImageDir.TabIndex = 0;
-            this.textImageDir.Text = "C:\\Pictures\\RCCM";
+            this.textImageDir.Text = "C:\\Users\\John\\Pictures\\RCCM";
             // 
             // groupBox5
             // 
@@ -418,6 +418,7 @@
             // 
             // fine2ZPos
             // 
+            this.fine2ZPos.DecimalPlaces = 3;
             this.fine2ZPos.Location = new System.Drawing.Point(27, 70);
             this.fine2ZPos.Name = "fine2ZPos";
             this.fine2ZPos.Size = new System.Drawing.Size(120, 20);
@@ -435,6 +436,7 @@
             // 
             // fine2YPos
             // 
+            this.fine2YPos.DecimalPlaces = 3;
             this.fine2YPos.Location = new System.Drawing.Point(27, 44);
             this.fine2YPos.Name = "fine2YPos";
             this.fine2YPos.Size = new System.Drawing.Size(120, 20);
@@ -452,6 +454,7 @@
             // 
             // fine2XPos
             // 
+            this.fine2XPos.DecimalPlaces = 3;
             this.fine2XPos.Location = new System.Drawing.Point(27, 18);
             this.fine2XPos.Name = "fine2XPos";
             this.fine2XPos.Size = new System.Drawing.Size(120, 20);
@@ -484,6 +487,7 @@
             // 
             // fine1ZPos
             // 
+            this.fine1ZPos.DecimalPlaces = 3;
             this.fine1ZPos.Location = new System.Drawing.Point(27, 70);
             this.fine1ZPos.Name = "fine1ZPos";
             this.fine1ZPos.Size = new System.Drawing.Size(120, 20);
@@ -501,6 +505,7 @@
             // 
             // fine1YPos
             // 
+            this.fine1YPos.DecimalPlaces = 3;
             this.fine1YPos.Location = new System.Drawing.Point(27, 44);
             this.fine1YPos.Name = "fine1YPos";
             this.fine1YPos.Size = new System.Drawing.Size(120, 20);
@@ -518,6 +523,7 @@
             // 
             // fine1XPos
             // 
+            this.fine1XPos.DecimalPlaces = 3;
             this.fine1XPos.Location = new System.Drawing.Point(27, 18);
             this.fine1XPos.Name = "fine1XPos";
             this.fine1XPos.Size = new System.Drawing.Size(120, 20);
@@ -548,6 +554,7 @@
             // 
             // coarseYPos
             // 
+            this.coarseYPos.DecimalPlaces = 3;
             this.coarseYPos.Location = new System.Drawing.Point(27, 44);
             this.coarseYPos.Name = "coarseYPos";
             this.coarseYPos.Size = new System.Drawing.Size(120, 20);
@@ -565,6 +572,7 @@
             // 
             // coarseXPos
             // 
+            this.coarseXPos.DecimalPlaces = 3;
             this.coarseXPos.Location = new System.Drawing.Point(27, 18);
             this.coarseXPos.Name = "coarseXPos";
             this.coarseXPos.Size = new System.Drawing.Size(120, 20);
@@ -1116,7 +1124,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textImageDir;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textVideoDir;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox nfov2Scale;
@@ -1124,7 +1132,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox nfov1Scale;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textDataDir;
         private System.Windows.Forms.ColorDialog colorDlg;
         private System.Windows.Forms.Button btnNewSequence;
         private System.Windows.Forms.Label label18;

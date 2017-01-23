@@ -261,10 +261,8 @@ namespace RCCM
             }
         }
 
-        public void record()
+        public void record(string aviFileName)
         {
-            String aviFileName = "lol.avi";
-
             List<ManagedImage> imageList = new List<ManagedImage>();
             ManagedImage rawImage = new ManagedImage();
 

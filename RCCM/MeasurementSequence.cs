@@ -57,8 +57,8 @@ namespace RCCM
 
         private PointF measurementToPoint(Measurement pt, PointF location, double scale, Point imgCenter)
         {
-            double x = (location.X - pt.getX()) / scale + imgCenter.X;
-            double y = (location.Y - pt.getY()) / scale + imgCenter.Y;
+            double x = (location.X - pt.getX()) * scale + imgCenter.X;
+            double y = (location.Y - pt.getY()) * scale + imgCenter.Y;
             return new PointF((float) x, (float) y);
         }
 
