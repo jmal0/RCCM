@@ -376,14 +376,15 @@ namespace RCCM
                 e.Graphics.DrawImage(img, 0, 0);
             }
 
-            // Draw next line and...
+            // Set axis limits for crack overlay
+            e.Graphics.Clip = this.rccm.getImageLimits();
+            Console.WriteLine(e.Graphics.Clip);
+
+            // Draw each crack on the image
             foreach (MeasurementSequence crack in this.cracks)
             {
-                crack.plot(e.Graphics, this.rccm.getImageLimits());
+                crack.plot(e.Graphics);
             }
-            //Point p1 = new Point(1, 1);
-            //Point p2 = new Point(100, 50);
-            //e.Graphics.DrawLine(Pens.Red, p1, p2);
         }
 
         private void colorPicker_Click(object sender, EventArgs e)
@@ -445,5 +446,16 @@ namespace RCCM
         }
 
         #endregion
+
+        private void btnCrosshairMeasure_Click(object sender, EventArgs e)
+        {
+            int index = this.listMeasurements.SelectedIndex;
+            if (index >= 0)
+            {
+                Measurement pt = new Measurement(this.rccm, RCCMStage.RCCM1, 0, 0);
+                this.cracks[index].addPoint(pt);
+                Console.WriteLine(this.cracks[index]);
+            }
+        }
     }
 }

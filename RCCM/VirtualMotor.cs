@@ -20,7 +20,8 @@ namespace RCCM
         
         override public double getPos()
         {
-            return this.pos;
+            //return this.pos;
+            return this.commandPos;
         }
 
         private double update(double dt)

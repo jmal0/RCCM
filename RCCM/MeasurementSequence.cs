@@ -37,11 +37,10 @@ namespace RCCM
             return false;
         }
 
-        public void plot(Graphics axes, Region bounds)
+        public void plot(Graphics axes)
         {
             if (this.points.Count > 1)
             {
-                axes.Clip = bounds;
                 PointF p0, p1;
                 
                 p0 = measurementToPoint(this.points[0]);
@@ -82,6 +81,16 @@ namespace RCCM
         public void setName(string n)
         {
             this.name = n;
+        }
+
+        public override string ToString()
+        {
+            string description = this.name + "\n";
+            foreach (Measurement pt in this.points)
+            {
+                description += pt.getX() + "\t" + pt.getY() + "\n";
+            }
+            return description;
         }
     }
 }
