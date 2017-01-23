@@ -216,7 +216,7 @@
             this.nfov2Scale.Name = "nfov2Scale";
             this.nfov2Scale.Size = new System.Drawing.Size(100, 20);
             this.nfov2Scale.TabIndex = 0;
-            this.nfov2Scale.Text = "8.00";
+            this.nfov2Scale.Text = "1.00";
             // 
             // groupBox7
             // 
@@ -263,7 +263,8 @@
             this.nfov1Scale.Name = "nfov1Scale";
             this.nfov1Scale.Size = new System.Drawing.Size(100, 20);
             this.nfov1Scale.TabIndex = 0;
-            this.nfov1Scale.Text = "8.00";
+            this.nfov1Scale.Text = "1.00";
+            this.nfov1Scale.TextChanged += new System.EventHandler(this.nfov1Scale_TextChanged);
             // 
             // groupBox6
             // 

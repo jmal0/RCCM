@@ -9,22 +9,22 @@ namespace RCCM
 {
     public class RCCMSystem
     {
-        private WFOV wfov1;
-        private WFOV wfov2;
+        protected WFOV wfov1;
+        protected WFOV wfov2;
 
-        private NFOV nfov1;
-        private NFOV nfov2;
+        protected NFOV nfov1;
+        protected NFOV nfov2;
 
         protected NFOVLensController nfovLensController;
 
-        private Motor coarseX;
-        private Motor coarseY;
-        private Motor fine1X;
-        private Motor fine1Y;
-        private Motor fine1Z;
-        private Motor fine2X;
-        private Motor fine2Y;
-        private Motor fine2Z;
+        protected Motor coarseX;
+        protected Motor coarseY;
+        protected Motor fine1X;
+        protected Motor fine1Y;
+        protected Motor fine1Z;
+        protected Motor fine2X;
+        protected Motor fine2Y;
+        protected Motor fine2Z;
 
         public RCCMSystem()
         {
@@ -50,6 +50,13 @@ namespace RCCM
             float topLeftX = (float) (this.getCoarseX() + this.getFine1X() - imgWidth / 2);
             float topLeftY = (float) (this.getCoarseY() + this.getFine1Y() - imgHeight / 2);
             return new Region(new RectangleF(topLeftX, topLeftY, imgWidth, imgHeight));
+        }
+
+        public PointF getNFOV1Location()
+        {
+            float centerX = (float) (this.getCoarseX() + this.getFine1X());
+            float centerY = (float) (this.getCoarseY() + this.getFine1Y());
+            return new PointF(centerX, centerY);
         }
 
         public NFOV getNfov1()

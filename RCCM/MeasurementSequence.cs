@@ -37,25 +37,29 @@ namespace RCCM
             return false;
         }
 
-        public void plot(Graphics axes)
+        public void plot(Graphics axes, PointF location, double scale, Point imgCenter)
         {
+            Console.WriteLine(axes.ClipBounds.Size);
             if (this.points.Count > 1)
             {
                 PointF p0, p1;
                 
-                p0 = measurementToPoint(this.points[0]);
+                p0 = measurementToPoint(this.points[0], location, scale, imgCenter);
                 for (int i = 1; i < this.points.Count; i++)
                 {
-                    p1 = measurementToPoint(this.points[i]);
+                    Console.WriteLine(p0.X + " " + p0.Y);
+                    p1 = measurementToPoint(this.points[i], location, scale, imgCenter);
                     axes.DrawLine(new Pen(this.color), p0, p1);
-                    p0 = p1;                    
+                    p0 = p1;                   
                 }
             }            
         }
 
-        private PointF measurementToPoint(Measurement pt)
+        private PointF measurementToPoint(Measurement pt, PointF location, double scale, Point imgCenter)
         {
-            return new PointF((float) pt.getX(), (float) pt.getY());
+            double x = (location.X - pt.getX()) / scale + imgCenter.X;
+            double y = (location.Y - pt.getY()) / scale + imgCenter.Y;
+            return new PointF((float) x, (float) y);
         }
 
         public void writeToFile(string filename)

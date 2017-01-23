@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RCCM
 {
-    abstract class Motor
+    abstract public class Motor
     {
         protected double commandPos = 0;
         protected bool homed = false;

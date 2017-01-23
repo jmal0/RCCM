@@ -21,16 +21,16 @@ namespace RCCM
         }
 
         //private FlyCapture2Managed.Gui.CameraControlDialog m_camCtlDlg;
-        private ManagedCameraBase m_camera = null;
-        private ManagedImage m_rawImage;
-        private ManagedImage m_processedImage;
-        private bool m_grabImages;
-        private AutoResetEvent m_grabThreadExited;
-        private BackgroundWorker m_grabThread;
+        protected ManagedCameraBase m_camera = null;
+        protected ManagedImage m_rawImage;
+        protected ManagedImage m_processedImage;
+        protected bool m_grabImages;
+        protected AutoResetEvent m_grabThreadExited;
+        protected BackgroundWorker m_grabThread;
 
-        private double scale; // Microns / pixel
+        protected double scale; // Microns / pixel
 
-        private bool recording;
+        protected bool recording;
 
         public NFOV(double pix2um)
         {
@@ -316,6 +316,16 @@ namespace RCCM
         public double getHeight()
         {
             return this.scale * 2448;
+        }
+
+        public double getScale()
+        {
+            return this.scale;
+        }
+
+        public void setScale(double newScale)
+        {
+            this.scale = newScale;
         }
     }
 }

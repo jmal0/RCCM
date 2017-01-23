@@ -24,7 +24,6 @@ namespace RCCM
         protected WFOV wfov1;
 
         protected Timer nfovRepaintTimer;
-        protected EventHandler nfovRepaint;
 
         // List of measurement objects and counter for default naming convention
         protected List<MeasurementSequence> cracks;
@@ -45,7 +44,8 @@ namespace RCCM
             this.nfovRepaintTimer = new Timer();
             this.nfovRepaintTimer.Enabled = true;
             this.nfovRepaintTimer.Interval = 100; // milliseconds
-            
+            this.nfovRepaintTimer.Tick += new EventHandler(refreshNfov);
+
             this.cracks = new List<MeasurementSequence>();
             
             Show();
@@ -277,7 +277,7 @@ namespace RCCM
         private void btnNfovStart_Click(object sender, EventArgs e)
         {
             this.nfov1.start();
-            this.nfovRepaintTimer.Tick += this.nfovRepaint;
+            this.nfovRepaintTimer.Start();
 
             btnNfovStart.Enabled = false;
             btnNfovStop.Enabled = true;
@@ -288,7 +288,7 @@ namespace RCCM
         private void btnNfovStop_Click(object sender, EventArgs e)
         {
             this.nfov1.stop();
-            this.nfovRepaintTimer.Tick -= this.nfovRepaint;
+            this.nfovRepaintTimer.Stop();
 
             btnNfovStart.Enabled = true;
             btnNfovStop.Enabled = false;
@@ -376,14 +376,15 @@ namespace RCCM
                 e.Graphics.DrawImage(img, 0, 0);
             }
 
-            // Set axis limits for crack overlay
-            e.Graphics.Clip = this.rccm.getImageLimits();
-            Console.WriteLine(e.Graphics.Clip);
-
+            // Get distance unit limits for crack overlay
+            PointF location = this.rccm.getNFOV1Location();
+            double scale = this.rccm.getNfov1().getScale();
+            Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
+            
             // Draw each crack on the image
             foreach (MeasurementSequence crack in this.cracks)
             {
-                crack.plot(e.Graphics);
+                crack.plot(e.Graphics, location, scale, imgCenter);
             }
         }
 
@@ -456,6 +457,11 @@ namespace RCCM
                 this.cracks[index].addPoint(pt);
                 Console.WriteLine(this.cracks[index]);
             }
+        }
+
+        private void nfov1Scale_TextChanged(object sender, EventArgs e)
+        {
+            this.nfov1.setScale(Double.Parse(nfov1Scale.Text));
         }
     }
 }
