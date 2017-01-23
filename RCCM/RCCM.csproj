@@ -86,6 +86,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Gardasoft Vision\Triniti\SDK\ReferencedAssemblies\Gardasoft.Device.Discovery.DLL</HintPath>
     </Reference>
+    <Reference Include="InteropAssembly">
+      <HintPath>..\..\..\..\..\..\Dropbox\builds\Untitled Project 3\My Interop Assembly\InteropAssembly.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\..\..\Downloads\Json90r1\Bin\Net45\Newtonsoft.Json.dll</HintPath>
     </Reference>

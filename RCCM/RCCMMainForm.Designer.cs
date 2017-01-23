@@ -74,7 +74,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.coarseXPos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPageNfov = new System.Windows.Forms.TabPage();
             this.btnDeleteSequence = new System.Windows.Forms.Button();
             this.colorPicker = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -133,7 +133,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
-            this.tabPage4.SuspendLayout();
+            this.tabPageNfov.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.wfovSelection.SuspendLayout();
@@ -148,7 +148,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPageNfov);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
@@ -588,32 +588,32 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "X";
             // 
-            // tabPage4
+            // tabPageNfov
             // 
-            this.tabPage4.Controls.Add(this.btnDeleteSequence);
-            this.tabPage4.Controls.Add(this.colorPicker);
-            this.tabPage4.Controls.Add(this.label21);
-            this.tabPage4.Controls.Add(this.textLineName);
-            this.tabPage4.Controls.Add(this.label20);
-            this.tabPage4.Controls.Add(this.label19);
-            this.tabPage4.Controls.Add(this.btnTakeMeasurement);
-            this.tabPage4.Controls.Add(this.btnCrosshairMeasure);
-            this.tabPage4.Controls.Add(this.btnNewSequence);
-            this.tabPage4.Controls.Add(this.label18);
-            this.tabPage4.Controls.Add(this.listMeasurements);
-            this.tabPage4.Controls.Add(this.btnNfovRecord);
-            this.tabPage4.Controls.Add(this.btnNfovSnap);
-            this.tabPage4.Controls.Add(this.btnNfovProperties);
-            this.tabPage4.Controls.Add(this.btnNfovStop);
-            this.tabPage4.Controls.Add(this.btnNfovStart);
-            this.tabPage4.Controls.Add(this.nfovImage);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(761, 556);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "NFOV";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPageNfov.Controls.Add(this.btnDeleteSequence);
+            this.tabPageNfov.Controls.Add(this.colorPicker);
+            this.tabPageNfov.Controls.Add(this.label21);
+            this.tabPageNfov.Controls.Add(this.textLineName);
+            this.tabPageNfov.Controls.Add(this.label20);
+            this.tabPageNfov.Controls.Add(this.label19);
+            this.tabPageNfov.Controls.Add(this.btnTakeMeasurement);
+            this.tabPageNfov.Controls.Add(this.btnCrosshairMeasure);
+            this.tabPageNfov.Controls.Add(this.btnNewSequence);
+            this.tabPageNfov.Controls.Add(this.label18);
+            this.tabPageNfov.Controls.Add(this.listMeasurements);
+            this.tabPageNfov.Controls.Add(this.btnNfovRecord);
+            this.tabPageNfov.Controls.Add(this.btnNfovSnap);
+            this.tabPageNfov.Controls.Add(this.btnNfovProperties);
+            this.tabPageNfov.Controls.Add(this.btnNfovStop);
+            this.tabPageNfov.Controls.Add(this.btnNfovStart);
+            this.tabPageNfov.Controls.Add(this.nfovImage);
+            this.tabPageNfov.Location = new System.Drawing.Point(4, 22);
+            this.tabPageNfov.Name = "tabPageNfov";
+            this.tabPageNfov.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageNfov.Size = new System.Drawing.Size(761, 556);
+            this.tabPageNfov.TabIndex = 3;
+            this.tabPageNfov.Text = "NFOV";
+            this.tabPageNfov.UseVisualStyleBackColor = true;
             // 
             // btnDeleteSequence
             // 
@@ -1017,6 +1017,7 @@
             this.Text = "RCCM";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RCCMMainForm_KeyPress);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
@@ -1044,8 +1045,8 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).EndInit();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
+            this.tabPageNfov.ResumeLayout(false);
+            this.tabPageNfov.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -1101,7 +1102,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox wfov1Config;
         private System.Windows.Forms.Button btnWfovRecord;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPageNfov;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textZoom;
         private System.Windows.Forms.Button btnFocus;

@@ -29,8 +29,10 @@ namespace RCCM
         protected List<MeasurementSequence> cracks;
         private int measurementCounter = 0;
 
-        // Flag to indicate if NFOV cam
+        // Flag to indicate if NFOV camera is recording video
         protected bool recording = false;
+        
+        protected RCCMStage activeStage;
 
         public RCCMMainForm(RCCMSystem sys, Settings settings)
         {
@@ -44,6 +46,9 @@ namespace RCCM
             this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
             
             this.nfovRepaintTimer = new Timer();
+
+            this.activeStage = RCCMStage.RCCM1;
+
             this.nfovRepaintTimer.Enabled = true;
             this.nfovRepaintTimer.Interval = 100; // milliseconds
             this.nfovRepaintTimer.Tick += new EventHandler(refreshNfov);
@@ -496,5 +501,77 @@ namespace RCCM
             this.fine2ZPos.Maximum = (decimal)settings.json["fine 2 Z"]["high position limit"];
         }
         #endregion
+
+        private void RCCMMainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string xAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 X" : "fine 2 X";
+            string yAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 Y" : "fine 2 Y";
+
+            double xPos = this.rccm.getPosition(xAxis);
+            double yPos = this.rccm.getPosition(yAxis);
+
+            Console.Write(xPos + " " + yPos);
+
+            switch (e.KeyChar)
+            {
+                case 'w':
+                    this.rccm.setPosition(yAxis, yPos + 0.1);
+                    break;
+                case 'a':
+                    this.rccm.setPosition(xAxis, xPos - 0.1);
+                    break;
+                case 's':
+                    this.rccm.setPosition(yAxis, yPos - 0.1);
+                    break;
+                case 'd':
+                default:
+                    this.rccm.setPosition(xAxis, xPos + 0.1);
+                    break;
+            }
+        }
+
+        /**
+         * Handler for keyboard presses in form. Calls motion commands for WASD keys
+         */
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // Only works when NFOV live display has mouse focus (so text entry is not interrupted)
+            Console.WriteLine(this.ActiveControl.Name);
+            Console.WriteLine(this.tabControl1.Focused);
+            if (!this.tabControl1.Focused)
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
+
+            // Get active axis
+            string xAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 X" : "fine 2 X";
+            string yAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 Y" : "fine 2 Y";
+
+            // Get current stage position
+            double xPos = this.rccm.getPosition(xAxis);
+            double yPos = this.rccm.getPosition(yAxis);
+
+            Console.Write(xPos + " " + yPos);
+
+            // Jog motors
+            switch (keyData)
+            {
+                case Keys.W:
+                    this.rccm.setPosition(yAxis, yPos + 0.1);
+                    break;
+                case Keys.A:
+                    this.rccm.setPosition(xAxis, xPos - 0.1);
+                    break;
+                case Keys.S:
+                    this.rccm.setPosition(yAxis, yPos - 0.1);
+                    break;
+                case Keys.D:
+                    this.rccm.setPosition(xAxis, xPos + 0.1);
+                    break;
+                default:
+                    return base.ProcessCmdKey(ref msg, keyData);
+            }
+            return true;
+        }
     }
 }

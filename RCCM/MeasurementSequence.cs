@@ -39,7 +39,6 @@ namespace RCCM
 
         public void plot(Graphics axes, PointF location, double scale, Point imgCenter)
         {
-            Console.WriteLine(axes.ClipBounds.Size);
             if (this.points.Count > 1)
             {
                 PointF p0, p1;
@@ -47,7 +46,6 @@ namespace RCCM
                 p0 = measurementToPoint(this.points[0], location, scale, imgCenter);
                 for (int i = 1; i < this.points.Count; i++)
                 {
-                    Console.WriteLine(p0.X + " " + p0.Y);
                     p1 = measurementToPoint(this.points[i], location, scale, imgCenter);
                     axes.DrawLine(new Pen(this.color), p0, p1);
                     p0 = p1;                   
