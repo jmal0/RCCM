@@ -11,6 +11,9 @@ using FlyCapture2Managed.Gui;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Class that handles connecting to and operating NFOV camera (BlackFly
+    /// </summary>
     public class NFOV
     {
         enum AviType
@@ -20,8 +23,7 @@ namespace RCCM
             H264
         }
 
-        //private FlyCapture2Managed.Gui.CameraControlDialog m_camCtlDlg;
-        protected ManagedCameraBase m_camera = null;
+        protected ManagedCameraBase m_camera;
         protected ManagedImage m_rawImage;
         protected ManagedImage m_processedImage;
         protected bool m_grabImages;
@@ -29,6 +31,9 @@ namespace RCCM
         protected BackgroundWorker m_grabThread;
 
         protected double scale; // Microns / pixel
+
+        static int IMG_HEIGHT = 2048;
+        static int IMG_WIDTH = 2448;
 
         protected bool recording;
 
@@ -63,7 +68,6 @@ namespace RCCM
             camCtlDlg.Connect(m_camera);
 
             CameraInfo camInfo = m_camera.GetCameraInfo();
-            PrintCameraInfo(m_camera.GetCameraInfo());
 
             // Set embedded timestamp to on
             EmbeddedImageInfo embeddedInfo = m_camera.GetEmbeddedImageInfo();
@@ -163,29 +167,6 @@ namespace RCCM
             m_grabThreadExited.Set();
         }
 
-        static void PrintCameraInfo(CameraInfo camInfo)
-        {
-            StringBuilder newStr = new StringBuilder();
-            newStr.Append("\n*** CAMERA INFORMATION ***\n");
-            newStr.AppendFormat("Serial number - {0}\n", camInfo.serialNumber);
-            newStr.AppendFormat("Camera model - {0}\n", camInfo.modelName);
-            newStr.AppendFormat("Camera vendor - {0}\n", camInfo.vendorName);
-            newStr.AppendFormat("Sensor - {0}\n", camInfo.sensorInfo);
-            newStr.AppendFormat("Resolution - {0}\n", camInfo.sensorResolution);
-            newStr.AppendFormat("Firmware version - {0}\n", camInfo.firmwareVersion);
-            newStr.AppendFormat("Firmware build time - {0}\n", camInfo.firmwareBuildTime);
-            newStr.AppendFormat("GigE version - {0}.{1}\n", camInfo.gigEMajorVersion, camInfo.gigEMinorVersion);
-            newStr.AppendFormat("User defined name - {0}\n", camInfo.userDefinedName);
-            newStr.AppendFormat("XML URL 1 - {0}\n", camInfo.xmlURL1);
-            newStr.AppendFormat("XML URL 2 - {0}\n", camInfo.xmlURL2);
-            newStr.AppendFormat("MAC address - {0}\n", camInfo.macAddress.ToString());
-            newStr.AppendFormat("IP address - {0}\n", camInfo.ipAddress.ToString());
-            newStr.AppendFormat("Subnet mask - {0}\n", camInfo.subnetMask.ToString());
-            newStr.AppendFormat("Default gateway - {0}\n", camInfo.defaultGateway.ToString());
-
-            Console.WriteLine(newStr);
-        }
-
         public void showPropertiesDlg()
         {
             CameraControlDialog camCtlDlg = new CameraControlDialog();
@@ -268,7 +249,7 @@ namespace RCCM
 
             // Record until state of 'recording' is set to false
             this.recording = true;
-            int i = 0;
+            int i = 0; // There is a limit to how many images can be buffered. Do not exceed this limit
             while (i < 100 && this.recording)
             {
                 m_camera.RetrieveBuffer(rawImage);
@@ -308,12 +289,12 @@ namespace RCCM
 
         public double getWidth()
         {
-            return this.scale * 2048;
+            return this.scale * NFOV.IMG_WIDTH;
         }
 
         public double getHeight()
         {
-            return this.scale * 2448;
+            return this.scale * NFOV.IMG_WIDTH;
         }
 
         public double getScale()

@@ -24,9 +24,9 @@ namespace RCCM
 
         public RCCMSystem(Settings settings)
         {
-            this.nfov1 = new NFOV(8.00);
+            this.nfov1 = new NFOV((double) settings.json["nfov 1"]["microns / pixel"]);
 
-            this.nfovLensController = new NFOVLensController(641395, 641395);
+            this.nfovLensController = new NFOVLensController((int) settings.json["nfov 1"]["serial number"], (int) settings.json["nfov 2"]["serial number"]);
 
             this.motors = new Dictionary<string, Motor>();
             foreach (string motorName in RCCMSystem.AXES)
@@ -40,6 +40,9 @@ namespace RCCM
                         throw new NotImplementedException("Unknown motor type setting encountered for " + motorName);
                 }
             }
+            
+            // Apply settings
+            applyMotorSettings(settings);
         }
 
         public Region getImageLimits()

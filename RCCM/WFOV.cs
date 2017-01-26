@@ -15,6 +15,7 @@ namespace RCCM
         protected VCDSimpleProperty VCDProp;
         protected VCDPropertyItem focus = null;
         protected bool available;
+        protected bool recording;
 
         public WFOV(TIS.Imaging.ICImagingControl ui_ic, string configFile)
         {
@@ -34,6 +35,7 @@ namespace RCCM
                 System.Windows.Forms.MessageBox.Show("WFOV configuration file missing or invalid.");
                 this.available = false;
             }
+            this.recording = false;
         }
 
         public void initialize()
@@ -90,6 +92,35 @@ namespace RCCM
             {
                 throw err;
             }
+        }
+
+        public void record(string filename)
+        {
+            if (this.ic.DeviceValid)
+            {
+                if (this.recording == false)
+                {
+                    string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+                    this.ic.AviStartCapture(filename, this.ic.AviCompressors[0]);
+                    this.recording = true;
+                }
+                else
+                {
+                    this.ic.AviStopCapture();
+                    this.ic.LiveStart();
+                    this.recording = false;
+                }
+            }
+        }
+
+        public void stopRecord()
+        {
+            this.ic.AviStopCapture();
+            this.recording = false;
+            if (this.ic.DeviceValid)
+            {
+                this.ic.LiveStart();
+            }            
         }
 
         public void editProperties()

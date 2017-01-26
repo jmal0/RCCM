@@ -20,6 +20,8 @@ namespace RCCM
     public partial class RCCMMainForm : Form
     {
         protected RCCMSystem rccm;
+        protected Settings settings;
+
         protected NFOV nfov1;
         protected WFOV wfov1;
 
@@ -34,11 +36,12 @@ namespace RCCM
         
         protected RCCMStage activeStage;
 
-        public RCCMMainForm(RCCMSystem sys, Settings settings)
+        public RCCMMainForm(RCCMSystem sys, Settings set)
         {
             InitializeComponent();
 
-            this.applyUISettings(settings);
+            this.settings = set;
+            this.applyUISettings(this.settings);
 
             this.rccm = sys;
 
@@ -50,7 +53,7 @@ namespace RCCM
             this.activeStage = RCCMStage.RCCM1;
 
             this.nfovRepaintTimer.Enabled = true;
-            this.nfovRepaintTimer.Interval = 100; // milliseconds
+            this.nfovRepaintTimer.Interval = (int) this.settings.json["repaint period"];
             this.nfovRepaintTimer.Tick += new EventHandler(refreshNfov);
 
             this.cracks = new List<MeasurementSequence>();
@@ -88,7 +91,7 @@ namespace RCCM
                     bool success = this.nfov1.initialize(camSlnDlg.GetSelectedCameraGuids());
                     if (!success)
                     {
-                        System.Windows.Forms.MessageBox.Show("No camera selected. NFOV will be unavailable.");
+                        MessageBox.Show("No camera selected. NFOV will be unavailable.");
                     }
                     else
                     {
@@ -103,7 +106,7 @@ namespace RCCM
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("No camera selected. NFOV will be unavailable.");
+                MessageBox.Show("No camera selected. NFOV will be unavailable.");
                 disableNfovControls();
             }
 
@@ -144,7 +147,8 @@ namespace RCCM
         
         private void btnWfovSnap_Click(object sender, EventArgs e)
         {
-            this.wfov1.snapImage(textImageDir.Text + "\\test.png");
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+            this.wfov1.snapImage(textImageDir.Text + "\\" + timestamp + ".png");
         }
 
         private void btnProperties_Click(object sender, EventArgs e)
@@ -161,18 +165,18 @@ namespace RCCM
             {
                 if (this.recording == false)
                 {
-                    wfovContainer.AviStartCapture(this.textVideoDir + "\\test.avi", wfovContainer.AviCompressors[0]);                    
+                    string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+                    this.wfov1.record(this.textVideoDir + "\\" + timestamp + ".avi");
                     btnWfovRecord.BackColor = Color.Gray;
-                    this.recording = true;
                     btnWfovStart.Enabled = false;
                     btnWfovSnap.Enabled = false;
                 }
                 else
                 {
-                    wfovContainer.AviStopCapture();
-                    wfovContainer.LiveStart();
-                    btnWfovRecord.BackColor = Color.Transparent;
-                    System.Windows.Forms.MessageBox.Show("Recording stopped");
+                    this.wfov1.stopRecord();
+                    MessageBox.Show("Recording stopped");
+
+                    btnWfovRecord.BackColor = Color.Transparent;                    
                     this.recording = false;
                     btnWfovStart.Enabled = true;
                     btnWfovSnap.Enabled = true;
@@ -313,7 +317,9 @@ namespace RCCM
 
         private void btnNfovSnap_Click(object sender, EventArgs e)
         {
-            this.nfov1.snap(textImageDir.Text + "\\test.bmp");
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+            Console.WriteLine(textImageDir.Text + "\\" + timestamp + ".bmp");
+            this.nfov1.snap(textImageDir.Text + "\\"+ timestamp + ".bmp");
         }
 
         private void btnNfovRecord_Click(object sender, EventArgs e)
@@ -332,7 +338,8 @@ namespace RCCM
             else
             {
                 // Start recording
-                this.nfov1.record(this.textVideoDir + "\\test_nfov.avi");
+                string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+                this.nfov1.record(this.textVideoDir + "\\" + timestamp + ".avi");
                 btnNfovRecord.BackColor = Color.Gray;
                 btnNfovStart.Enabled = false;
                 btnNfovStop.Enabled = false;
@@ -512,6 +519,7 @@ namespace RCCM
 
             Console.Write(xPos + " " + yPos);
 
+            // TODO: make into actual jogging
             switch (e.KeyChar)
             {
                 case 'w':
@@ -530,14 +538,12 @@ namespace RCCM
             }
         }
 
-        /**
-         * Handler for keyboard presses in form. Calls motion commands for WASD keys
-         */
+        /// <summary>
+        /// Handler for keyboard presses in form. Calls motion commands for WASD keys
+        /// </summary>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // Only works when NFOV live display has mouse focus (so text entry is not interrupted)
-            Console.WriteLine(this.ActiveControl.Name);
-            Console.WriteLine(this.tabControl1.Focused);
             if (!this.tabControl1.Focused)
             {
                 return base.ProcessCmdKey(ref msg, keyData);
@@ -550,8 +556,6 @@ namespace RCCM
             // Get current stage position
             double xPos = this.rccm.getPosition(xAxis);
             double yPos = this.rccm.getPosition(yAxis);
-
-            Console.Write(xPos + " " + yPos);
 
             // Jog motors
             switch (keyData)

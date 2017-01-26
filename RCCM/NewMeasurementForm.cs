@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Form for defining settings for a new MeasurementSequence
+    /// </summary>
     public partial class NewMeasurementSequenceForm : Form
     {
         public NewMeasurementSequenceForm(string defaultName)
@@ -39,16 +42,28 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Get color selected with color picker dialog on form 
+        /// </summary>
+        /// <returns>The selected color</returns>
         public Color getColor()
         {
             return this.colorPicker.BackColor;
         }
 
+        /// <summary>
+        /// Get name defined on form 
+        /// </summary>
+        /// <returns>The given name for the MeasurementSequence</returns>
         public string getName()
         {
             return this.textName.Text;
         }
 
+        /// <summary>
+        /// Get select parent stage from form 
+        /// </summary>
+        /// <returns>The enum value for the parent stage of the MeasurementSequence</returns>
         public RCCMStage getStage()
         {
             if (this.radioRccm1.Checked)

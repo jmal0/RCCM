@@ -58,10 +58,16 @@
     },
     "nfov 1": {
         "serial number": 641395,
-        "1 microns / pixel": 8.0,
+        "microns / pixel": 8.0,
+        "height": 2048,
+        "width": 2448
     },    
     "nfov 2": {
         "serial number": 0,
-        "nfov 2 microns / pixel": 8.0
-    }
+        "microns / pixel": 8.0,
+        "height": 2048,
+        "width": 2448
+    },
+    // UI Settings
+    "repaint period": 100,
 }

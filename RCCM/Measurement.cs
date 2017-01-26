@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Class representing a measurement of a crack vertex and RCCM data on when it was taken
+    /// </summary>
     public class Measurement
     {
         protected double coarseX;
@@ -16,6 +19,8 @@ namespace RCCM
         protected double pixelY;
         protected double globalX;
         protected double globalY;
+        protected int cycle;
+        protected double pressure;
 
         public Measurement(RCCMSystem rccm, RCCMStage fine, double pixelX, double pixelY)
         {
@@ -27,6 +32,9 @@ namespace RCCM
             this.pixelY = pixelY;
             this.globalX = this.coarseX + this.fineX + this.pixelX; // TODO: robustify
             this.globalY = this.coarseY + this.fineY + this.pixelY; // TODO: robustify
+
+            this.cycle = 0; // TODO
+            this.pressure = 0; // TODO
         }
 
         public string toCSVString()
