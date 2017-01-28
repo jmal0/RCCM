@@ -114,6 +114,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -158,6 +159,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.groupBox6);
@@ -775,6 +777,7 @@
             this.nfovImage.Location = new System.Drawing.Point(6, 6);
             this.nfovImage.Name = "nfovImage";
             this.nfovImage.Size = new System.Drawing.Size(612, 512);
+            this.nfovImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.nfovImage.TabIndex = 0;
             this.nfovImage.TabStop = false;
             this.nfovImage.Paint += new System.Windows.Forms.PaintEventHandler(this.nfovImage_Paint);
@@ -1005,6 +1008,16 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(212, 124);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1150,6 +1163,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox nfov1ControllerSN;
         private System.Windows.Forms.Button btnDeleteSequence;
+        private System.Windows.Forms.Button button1;
     }
 }
 

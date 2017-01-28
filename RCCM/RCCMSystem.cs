@@ -93,5 +93,10 @@ namespace RCCM
         }
 
         #endregion
+
+        public void readHeight1()
+        {
+            Console.WriteLine(this.nfovLensController.getHeight(RCCMStage.RCCM1));
+        }
     }
 }
