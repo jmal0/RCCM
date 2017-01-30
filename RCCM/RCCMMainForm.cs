@@ -29,12 +29,16 @@ namespace RCCM
 
         // List of measurement objects and counter for default naming convention
         protected List<MeasurementSequence> cracks;
-        private int measurementCounter = 0;
+        protected int measurementCounter = 0;
 
         // Flag to indicate if NFOV camera is recording video
         protected bool recording = false;
         
         protected RCCMStage activeStage;
+
+        protected bool drawing;
+        protected Point drawnLineStart;
+        protected Point drawnLineEnd;
 
         public RCCMMainForm(RCCMSystem sys, Settings set)
         {
@@ -57,7 +61,10 @@ namespace RCCM
             this.nfovRepaintTimer.Tick += new EventHandler(refreshNfov);
 
             this.cracks = new List<MeasurementSequence>();
-            
+
+            this.drawnLineStart = new Point(0, 0);
+            this.drawnLineEnd = new Point(0, 0);
+
             Show();
         }
 
@@ -197,7 +204,7 @@ namespace RCCM
         {
             if (wfovContainer.DeviceValid)
             {
-                this.wfov1.setZoom(sliderZoom.Value);
+                this.wfov1.Zoom = sliderZoom.Value;
                 textZoom.Text = sliderZoom.Value.ToString();
             }
         }
@@ -206,7 +213,7 @@ namespace RCCM
         {
             if (wfovContainer.DeviceValid)
             {
-                this.wfov1.setFocus(sliderFocus.Value);
+                this.wfov1.Focus = sliderFocus.Value;
                 textFocus.Text = sliderFocus.Value.ToString();
             }
         }
@@ -347,11 +354,6 @@ namespace RCCM
             }
         }
 
-        private void nfovImage_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void enableNfovControls()
         {
             btnNfovStart.Enabled = true;
@@ -374,10 +376,58 @@ namespace RCCM
 
         #region Measurement
 
-        private void nfovImage_MouseClick(object sender, MouseEventArgs e)
+        private void nfovImage_MouseDown(object sender, MouseEventArgs e)
         {
-            Console.WriteLine(e.X.ToString());
-            Console.WriteLine(e.Y.ToString());
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                // Check that a crack is selected
+                int index = this.listMeasurements.SelectedIndex;
+                if (index >= 0)
+                {
+                    this.drawing = true;
+
+                    // Get location info from NFOV
+                    PointF location = this.rccm.getNFOV1Location();
+                    float scale = (float) this.rccm.getNfov1().Scale;
+                    Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
+
+                    // Move user-drawn line endpoint to mouse location
+                    this.drawnLineEnd.X = e.X;
+                    this.drawnLineEnd.Y = e.Y;
+
+                    // If crack has at least one point, connect a new point to it
+                    if (this.cracks[index].CountPoints > 0)
+                    {
+                        Measurement lastPt = this.cracks[index].getLastPoint();
+                        Point pt = lastPt.toPoint(location, scale, imgCenter);
+                        this.drawnLineStart.X = pt.X;
+                        this.drawnLineStart.Y = pt.Y;
+                    }
+                    // If no point in crack, move first point to mouse location
+                    else
+                    {
+                        this.drawnLineStart.X = e.X;
+                        this.drawnLineStart.X = e.Y;                        
+                    }
+                }
+            }                
+        }
+
+        private void nfovImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point cursor = this.nfovImage.PointToClient(Cursor.Position);
+            if (this.drawing)
+            {
+                // Create point at mouse location
+                this.drawnLineEnd.X = e.X;
+                this.drawnLineEnd.Y = e.Y;
+            }
+        }
+
+        private void nfovImage_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.drawing = false;
+            // TODO: Create point
         }
 
         private void nfovImage_Paint(object sender, PaintEventArgs e)
@@ -390,7 +440,7 @@ namespace RCCM
 
             // Get distance unit limits for crack overlay
             PointF location = this.rccm.getNFOV1Location();
-            double scale = this.rccm.getNfov1().getScale();
+            double scale = this.rccm.getNfov1().Scale;
             Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
             
             // Draw each crack on the image
@@ -398,6 +448,14 @@ namespace RCCM
             {
                 crack.plot(e.Graphics, location, scale, imgCenter);
             }
+
+            // Draw segment that user is creating with mouse
+            int index = this.listMeasurements.SelectedIndex;
+            if (index >= 0 && this.drawing)
+            {
+                Color c = this.cracks[index].Color;
+                e.Graphics.DrawLine(new Pen(c), this.drawnLineStart, this.drawnLineEnd);
+            }            
         }
 
         private void colorPicker_Click(object sender, EventArgs e)
@@ -412,7 +470,7 @@ namespace RCCM
                 int index = this.listMeasurements.SelectedIndex;
                 if (index >= 0)
                 {
-                    this.cracks[index].setColor(colorDlg.Color);
+                    this.cracks[index].Color = colorDlg.Color;
                 }
             }
         }
@@ -427,7 +485,7 @@ namespace RCCM
                 this.measurementCounter++;
                 this.cracks.Add(newCrack);
                 
-                this.listMeasurements.Items.Add(newCrack.getName());
+                this.listMeasurements.Items.Add(newCrack.Name);
                 this.listMeasurements.SelectedIndex = this.cracks.Count - 1;
             }
             dlg.Dispose();
@@ -437,8 +495,8 @@ namespace RCCM
         {
             if (measurementIndex >= 0 && measurementIndex < this.listMeasurements.Items.Count)
             {
-                this.colorPicker.BackColor = this.cracks[measurementIndex].getColor();
-                this.textLineName.Text = this.cracks[measurementIndex].getName();
+                this.colorPicker.BackColor = this.cracks[measurementIndex].Color;
+                this.textLineName.Text = this.cracks[measurementIndex].Name;
             }
         }
 
@@ -473,7 +531,7 @@ namespace RCCM
 
         private void nfov1Scale_TextChanged(object sender, EventArgs e)
         {
-            this.nfov1.setScale(Double.Parse(nfov1Scale.Text));
+            this.nfov1.Scale = Double.Parse(nfov1Scale.Text);
         }
 
         #region Settings
@@ -511,31 +569,7 @@ namespace RCCM
 
         private void RCCMMainForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string xAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 X" : "fine 2 X";
-            string yAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 Y" : "fine 2 Y";
 
-            double xPos = this.rccm.getPosition(xAxis);
-            double yPos = this.rccm.getPosition(yAxis);
-
-            Console.Write(xPos + " " + yPos);
-
-            // TODO: make into actual jogging
-            switch (e.KeyChar)
-            {
-                case 'w':
-                    this.rccm.setPosition(yAxis, yPos + 0.1);
-                    break;
-                case 'a':
-                    this.rccm.setPosition(xAxis, xPos - 0.1);
-                    break;
-                case 's':
-                    this.rccm.setPosition(yAxis, yPos - 0.1);
-                    break;
-                case 'd':
-                default:
-                    this.rccm.setPosition(xAxis, xPos + 0.1);
-                    break;
-            }
         }
 
         /// <summary>

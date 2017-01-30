@@ -17,6 +17,17 @@ namespace RCCM
         protected bool available;
         protected bool recording;
 
+        public int Zoom
+        {
+            get { return VCDProp.RangeValue[VCDIDs.VCDID_Zoom]; }
+            set { VCDProp.RangeValue[VCDIDs.VCDID_Zoom] = value; }
+        }
+        public int Focus
+        {
+            get { return VCDProp.RangeValue[VCDIDs.VCDID_Focus]; }
+            set { VCDProp.RangeValue[VCDIDs.VCDID_Focus] = value; }
+        }
+
         public WFOV(TIS.Imaging.ICImagingControl ui_ic, string configFile)
         {
             this.ic = ui_ic;
@@ -146,16 +157,6 @@ namespace RCCM
         public void autoFocus()
         {
             VCDProp.OnePush(VCDIDs.VCDID_Focus);
-        }
-
-        public void setZoom(int val)
-        {
-            VCDProp.RangeValue[VCDIDs.VCDID_Zoom] = val;
-        }
-
-        public void setFocus(int val)
-        {
-            VCDProp.RangeValue[VCDIDs.VCDID_Focus] = val;
         }
 
         public bool isAvailable()

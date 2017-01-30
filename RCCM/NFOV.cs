@@ -31,9 +31,22 @@ namespace RCCM
         protected BackgroundWorker m_grabThread;
 
         protected double scale; // Microns / pixel
+        public double Scale
+        {
+            get { return this.scale; }
+            set { this.scale = value; }
+        }
 
         static int IMG_HEIGHT = 2048;
+        public double Height
+        {
+            get { return this.scale * NFOV.IMG_HEIGHT; }
+        }
         static int IMG_WIDTH = 2448;
+        public double Width
+        {
+            get { return this.scale * NFOV.IMG_WIDTH; }
+        }
 
         protected bool recording;
 
@@ -285,26 +298,6 @@ namespace RCCM
         public void setRecord(bool rec)
         {
             this.recording = rec;
-        }
-
-        public double getWidth()
-        {
-            return this.scale * NFOV.IMG_WIDTH;
-        }
-
-        public double getHeight()
-        {
-            return this.scale * NFOV.IMG_WIDTH;
-        }
-
-        public double getScale()
-        {
-            return this.scale;
-        }
-
-        public void setScale(double newScale)
-        {
-            this.scale = newScale;
         }
     }
 }

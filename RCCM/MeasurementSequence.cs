@@ -11,10 +11,25 @@ namespace RCCM
     {
         // Color of line to display
         protected Color color;
+        public Color Color
+        {
+            get { return this.color; }
+            set { this.color = value; }
+        }
         // Name of sequence for display
         protected string name;
+        public string Name
+        {
+            get { return this.name; }
+            set { this.name = value; }
+        }
         // List of points of crack vertices and relevant metadata
         protected List<Measurement> points;
+        // Number of points in sequence
+        public int CountPoints
+        {
+            get { return this.points.Count; }
+        }
         // Enum value indicating which set of fine axes capturing these measurements
         protected RCCMStage parent;
 
@@ -36,10 +51,33 @@ namespace RCCM
         }
 
         /// <summary>
+        /// Get Measurement corresponding to the specified index
+        /// </summary>
+        /// <param name="ind">Index of measurement to return</param>
+        /// <returns>Measurement at this index if it is valid</returns>
+        public Measurement getPoint(int ind)
+        {
+            if (ind >= 0 && ind < this.points.Count)
+            {
+                return this.points[ind];
+            }
+            throw new ArgumentOutOfRangeException();
+        }
+
+        /// <summary>
+        /// Get last Measurement in sequence
+        /// </summary>
+        /// <returns>Measurement at last index</returns>
+        public Measurement getLastPoint()
+        {
+            return this.points[this.points.Count - 1];
+        }
+
+        /// <summary>
         /// Deletes a vertex from this sequence
         /// </summary>
         /// <param name="index">Index of the vertex to be deleted</param>
-        /// <returns></returns>
+        /// <returns>True or false if deletion was successful</returns>
         public bool removePoint(int index)
         {
             if (index >= 0 && index < this.points.Count)
@@ -64,22 +102,14 @@ namespace RCCM
                 PointF p0, p1;
                 
                 // Draw each line segment
-                p0 = measurementToPoint(this.points[0], location, scale, imgCenter);
+                p0 = this.points[0].toPoint(location, scale, imgCenter);
                 for (int i = 1; i < this.points.Count; i++)
                 {
-                    p1 = MeasurementSequence.measurementToPoint(this.points[i], location, scale, imgCenter);
+                    p1 = this.points[i].toPoint(location, scale, imgCenter);
                     axes.DrawLine(new Pen(this.color), p0, p1);
                     p0 = p1;
                 }
             }            
-        }
-        
-        // Helper function for converting a Measurement to its pixel location on the image
-        private static PointF measurementToPoint(Measurement pt, PointF location, double scale, Point imgCenter)
-        {
-            double x = (location.X - pt.getX()) * scale + imgCenter.X;
-            double y = (location.Y - pt.getY()) * scale + imgCenter.Y;
-            return new PointF((float) x, (float) y);
         }
 
         public void writeToFile(string filename)
@@ -87,32 +117,16 @@ namespace RCCM
             // TODO
         }
 
-        public string getName()
-        {
-            return this.name;
-        }
-
-        public Color getColor()
-        {
-            return this.color;
-        }
-
-        public void setColor(Color c)
-        {
-            this.color = c;
-        }
-
-        public void setName(string n)
-        {
-            this.name = n;
-        }
-
+        /// <summary>
+        /// Display name, color, and list of point in sequence
+        /// </summary>
+        /// <returns>String describing sequence</returns>
         public override string ToString()
         {
-            string description = this.name + "\n";
+            string description = this.name + "\n" + this.Color.ToString() + "\n";
             foreach (Measurement pt in this.points)
             {
-                description += pt.getX() + "\t" + pt.getY() + "\n";
+                description += pt.X + "\t" + pt.Y + "\n";
             }
             return description;
         }

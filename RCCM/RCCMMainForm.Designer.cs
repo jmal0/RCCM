@@ -29,8 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageSetup = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
             this.nfov2ControllerSN = new System.Windows.Forms.TextBox();
@@ -54,7 +61,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.wfov1Config = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageMotion = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.fine2ZPos = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -75,13 +82,14 @@
             this.coarseXPos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageNfov = new System.Windows.Forms.TabPage();
+            this.listPoints = new System.Windows.Forms.ListBox();
             this.btnDeleteSequence = new System.Windows.Forms.Button();
             this.colorPicker = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.textLineName = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.btnTakeMeasurement = new System.Windows.Forms.Button();
+            this.btnDeletePoint = new System.Windows.Forms.Button();
             this.btnCrosshairMeasure = new System.Windows.Forms.Button();
             this.btnNewSequence = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
@@ -92,7 +100,7 @@
             this.btnNfovStop = new System.Windows.Forms.Button();
             this.btnNfovStart = new System.Windows.Forms.Button();
             this.nfovImage = new System.Windows.Forms.PictureBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPageWfov = new System.Windows.Forms.TabPage();
             this.btnWfovStop = new System.Windows.Forms.Button();
             this.wfovSelection = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -109,20 +117,28 @@
             this.btnWfovRecord = new System.Windows.Forms.Button();
             this.btnWfovSnap = new System.Windows.Forms.Button();
             this.btnWfovStart = new System.Windows.Forms.Button();
+            this.tabPageResults = new System.Windows.Forms.TabPage();
+            this.chartCycles = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.listCrackSelection = new System.Windows.Forms.CheckedListBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.btnStopTest = new System.Windows.Forms.Button();
+            this.btnStartTest = new System.Windows.Forms.Button();
+            this.btnPauseTest = new System.Windows.Forms.Button();
+            this.chartCracks = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageMotion.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fine2YPos)).BeginInit();
@@ -136,42 +152,57 @@
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
             this.tabPageNfov.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.tabPageWfov.SuspendLayout();
             this.wfovSelection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).BeginInit();
+            this.tabPageResults.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCracks)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPageSetup);
+            this.tabControl1.Controls.Add(this.tabPageMotion);
             this.tabControl1.Controls.Add(this.tabPageNfov);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPageWfov);
+            this.tabControl1.Controls.Add(this.tabPageResults);
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(769, 582);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage1
+            // tabPageSetup
             // 
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.groupBox8);
-            this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Controls.Add(this.groupBox6);
-            this.tabPage1.Controls.Add(this.groupBox5);
-            this.tabPage1.Controls.Add(this.groupBox4);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(761, 556);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Setup";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageSetup.Controls.Add(this.button1);
+            this.tabPageSetup.Controls.Add(this.groupBox8);
+            this.tabPageSetup.Controls.Add(this.groupBox7);
+            this.tabPageSetup.Controls.Add(this.groupBox6);
+            this.tabPageSetup.Controls.Add(this.groupBox5);
+            this.tabPageSetup.Controls.Add(this.groupBox4);
+            this.tabPageSetup.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSetup.Name = "tabPageSetup";
+            this.tabPageSetup.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSetup.Size = new System.Drawing.Size(761, 556);
+            this.tabPageSetup.TabIndex = 0;
+            this.tabPageSetup.Text = "Setup";
+            this.tabPageSetup.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(212, 124);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox8
             // 
@@ -390,18 +421,18 @@
             this.wfov1Config.TabIndex = 0;
             this.wfov1Config.Text = "config\\WFOV1.xml";
             // 
-            // tabPage2
+            // tabPageMotion
             // 
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(761, 556);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Motion";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageMotion.Controls.Add(this.groupBox3);
+            this.tabPageMotion.Controls.Add(this.groupBox2);
+            this.tabPageMotion.Controls.Add(this.groupBox1);
+            this.tabPageMotion.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMotion.Name = "tabPageMotion";
+            this.tabPageMotion.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMotion.Size = new System.Drawing.Size(761, 556);
+            this.tabPageMotion.TabIndex = 1;
+            this.tabPageMotion.Text = "Motion";
+            this.tabPageMotion.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -592,13 +623,14 @@
             // 
             // tabPageNfov
             // 
+            this.tabPageNfov.Controls.Add(this.listPoints);
             this.tabPageNfov.Controls.Add(this.btnDeleteSequence);
             this.tabPageNfov.Controls.Add(this.colorPicker);
             this.tabPageNfov.Controls.Add(this.label21);
             this.tabPageNfov.Controls.Add(this.textLineName);
             this.tabPageNfov.Controls.Add(this.label20);
             this.tabPageNfov.Controls.Add(this.label19);
-            this.tabPageNfov.Controls.Add(this.btnTakeMeasurement);
+            this.tabPageNfov.Controls.Add(this.btnDeletePoint);
             this.tabPageNfov.Controls.Add(this.btnCrosshairMeasure);
             this.tabPageNfov.Controls.Add(this.btnNewSequence);
             this.tabPageNfov.Controls.Add(this.label18);
@@ -616,6 +648,15 @@
             this.tabPageNfov.TabIndex = 3;
             this.tabPageNfov.Text = "NFOV";
             this.tabPageNfov.UseVisualStyleBackColor = true;
+            // 
+            // listPoints
+            // 
+            this.listPoints.FormattingEnabled = true;
+            this.listPoints.Location = new System.Drawing.Point(627, 317);
+            this.listPoints.Name = "listPoints";
+            this.listPoints.ScrollAlwaysVisible = true;
+            this.listPoints.Size = new System.Drawing.Size(120, 95);
+            this.listPoints.TabIndex = 19;
             // 
             // btnDeleteSequence
             // 
@@ -672,18 +713,18 @@
             this.label19.TabIndex = 13;
             this.label19.Text = "Take Measurements";
             // 
-            // btnTakeMeasurement
+            // btnDeletePoint
             // 
-            this.btnTakeMeasurement.Location = new System.Drawing.Point(624, 278);
-            this.btnTakeMeasurement.Name = "btnTakeMeasurement";
-            this.btnTakeMeasurement.Size = new System.Drawing.Size(120, 26);
-            this.btnTakeMeasurement.TabIndex = 12;
-            this.btnTakeMeasurement.Text = "New Point";
-            this.btnTakeMeasurement.UseVisualStyleBackColor = true;
+            this.btnDeletePoint.Location = new System.Drawing.Point(627, 418);
+            this.btnDeletePoint.Name = "btnDeletePoint";
+            this.btnDeletePoint.Size = new System.Drawing.Size(120, 26);
+            this.btnDeletePoint.TabIndex = 12;
+            this.btnDeletePoint.Text = "Delete Point";
+            this.btnDeletePoint.UseVisualStyleBackColor = true;
             // 
             // btnCrosshairMeasure
             // 
-            this.btnCrosshairMeasure.Location = new System.Drawing.Point(624, 310);
+            this.btnCrosshairMeasure.Location = new System.Drawing.Point(627, 285);
             this.btnCrosshairMeasure.Name = "btnCrosshairMeasure";
             this.btnCrosshairMeasure.Size = new System.Drawing.Size(120, 26);
             this.btnCrosshairMeasure.TabIndex = 11;
@@ -781,30 +822,32 @@
             this.nfovImage.TabIndex = 0;
             this.nfovImage.TabStop = false;
             this.nfovImage.Paint += new System.Windows.Forms.PaintEventHandler(this.nfovImage_Paint);
-            this.nfovImage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseClick);
+            this.nfovImage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseDown);
+            this.nfovImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseMove);
+            this.nfovImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseUp);
             // 
-            // tabPage3
+            // tabPageWfov
             // 
-            this.tabPage3.Controls.Add(this.btnWfovStop);
-            this.tabPage3.Controls.Add(this.wfovSelection);
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.textFocus);
-            this.tabPage3.Controls.Add(this.sliderFocus);
-            this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.textZoom);
-            this.tabPage3.Controls.Add(this.btnFocus);
-            this.tabPage3.Controls.Add(this.sliderZoom);
-            this.tabPage3.Controls.Add(this.btnWfovProperties);
-            this.tabPage3.Controls.Add(this.wfovContainer);
-            this.tabPage3.Controls.Add(this.btnWfovRecord);
-            this.tabPage3.Controls.Add(this.btnWfovSnap);
-            this.tabPage3.Controls.Add(this.btnWfovStart);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(761, 556);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "WFOV";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPageWfov.Controls.Add(this.btnWfovStop);
+            this.tabPageWfov.Controls.Add(this.wfovSelection);
+            this.tabPageWfov.Controls.Add(this.label12);
+            this.tabPageWfov.Controls.Add(this.textFocus);
+            this.tabPageWfov.Controls.Add(this.sliderFocus);
+            this.tabPageWfov.Controls.Add(this.label11);
+            this.tabPageWfov.Controls.Add(this.textZoom);
+            this.tabPageWfov.Controls.Add(this.btnFocus);
+            this.tabPageWfov.Controls.Add(this.sliderZoom);
+            this.tabPageWfov.Controls.Add(this.btnWfovProperties);
+            this.tabPageWfov.Controls.Add(this.wfovContainer);
+            this.tabPageWfov.Controls.Add(this.btnWfovRecord);
+            this.tabPageWfov.Controls.Add(this.btnWfovSnap);
+            this.tabPageWfov.Controls.Add(this.btnWfovStart);
+            this.tabPageWfov.Location = new System.Drawing.Point(4, 22);
+            this.tabPageWfov.Name = "tabPageWfov";
+            this.tabPageWfov.Size = new System.Drawing.Size(761, 556);
+            this.tabPageWfov.TabIndex = 2;
+            this.tabPageWfov.Text = "WFOV";
+            this.tabPageWfov.UseVisualStyleBackColor = true;
             // 
             // btnWfovStop
             // 
@@ -984,6 +1027,107 @@
             this.btnWfovStart.UseVisualStyleBackColor = true;
             this.btnWfovStart.Click += new System.EventHandler(this.btnWfovStart_Click);
             // 
+            // tabPageResults
+            // 
+            this.tabPageResults.Controls.Add(this.chartCycles);
+            this.tabPageResults.Controls.Add(this.listCrackSelection);
+            this.tabPageResults.Controls.Add(this.label24);
+            this.tabPageResults.Controls.Add(this.numericUpDown1);
+            this.tabPageResults.Controls.Add(this.btnStopTest);
+            this.tabPageResults.Controls.Add(this.btnStartTest);
+            this.tabPageResults.Controls.Add(this.btnPauseTest);
+            this.tabPageResults.Controls.Add(this.chartCracks);
+            this.tabPageResults.Location = new System.Drawing.Point(4, 22);
+            this.tabPageResults.Name = "tabPageResults";
+            this.tabPageResults.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageResults.Size = new System.Drawing.Size(761, 556);
+            this.tabPageResults.TabIndex = 4;
+            this.tabPageResults.Text = "Test Results";
+            this.tabPageResults.UseVisualStyleBackColor = true;
+            // 
+            // chartCycles
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartCycles.Legends.Add(legend3);
+            this.chartCycles.Location = new System.Drawing.Point(6, 295);
+            this.chartCycles.Name = "chartCycles";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartCycles.Series.Add(series3);
+            this.chartCycles.Size = new System.Drawing.Size(623, 255);
+            this.chartCycles.TabIndex = 7;
+            this.chartCycles.Text = "chart2";
+            // 
+            // listCrackSelection
+            // 
+            this.listCrackSelection.FormattingEnabled = true;
+            this.listCrackSelection.Location = new System.Drawing.Point(635, 38);
+            this.listCrackSelection.Name = "listCrackSelection";
+            this.listCrackSelection.Size = new System.Drawing.Size(120, 94);
+            this.listCrackSelection.TabIndex = 6;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(102, 13);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(86, 13);
+            this.label24.TabIndex = 5;
+            this.label24.Text = "Cycle Frequency";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(194, 11);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 4;
+            // 
+            // btnStopTest
+            // 
+            this.btnStopTest.Image = global::RCCM.Properties.Resources.stop;
+            this.btnStopTest.Location = new System.Drawing.Point(70, 6);
+            this.btnStopTest.Name = "btnStopTest";
+            this.btnStopTest.Size = new System.Drawing.Size(26, 26);
+            this.btnStopTest.TabIndex = 3;
+            this.btnStopTest.UseVisualStyleBackColor = true;
+            // 
+            // btnStartTest
+            // 
+            this.btnStartTest.Image = global::RCCM.Properties.Resources.play;
+            this.btnStartTest.Location = new System.Drawing.Point(6, 6);
+            this.btnStartTest.Name = "btnStartTest";
+            this.btnStartTest.Size = new System.Drawing.Size(26, 26);
+            this.btnStartTest.TabIndex = 2;
+            this.btnStartTest.UseVisualStyleBackColor = true;
+            // 
+            // btnPauseTest
+            // 
+            this.btnPauseTest.Image = global::RCCM.Properties.Resources.pause;
+            this.btnPauseTest.Location = new System.Drawing.Point(38, 6);
+            this.btnPauseTest.Name = "btnPauseTest";
+            this.btnPauseTest.Size = new System.Drawing.Size(26, 26);
+            this.btnPauseTest.TabIndex = 1;
+            this.btnPauseTest.UseVisualStyleBackColor = true;
+            // 
+            // chartCracks
+            // 
+            chartArea4.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend4);
+            this.chartCracks.Location = new System.Drawing.Point(6, 38);
+            this.chartCracks.Name = "chartCracks";
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartCracks.Series.Add(series4);
+            this.chartCracks.Size = new System.Drawing.Size(623, 255);
+            this.chartCracks.TabIndex = 0;
+            this.chartCracks.Text = "chart1";
+            // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1008,16 +1152,6 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(212, 124);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1030,9 +1164,8 @@
             this.Text = "RCCM";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RCCMMainForm_KeyPress);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tabPageSetup.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -1043,7 +1176,7 @@
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
+            this.tabPageMotion.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).EndInit();
@@ -1061,13 +1194,18 @@
             this.tabPageNfov.ResumeLayout(false);
             this.tabPageNfov.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabPageWfov.ResumeLayout(false);
+            this.tabPageWfov.PerformLayout();
             this.wfovSelection.ResumeLayout(false);
             this.wfovSelection.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).EndInit();
+            this.tabPageResults.ResumeLayout(false);
+            this.tabPageResults.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCracks)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
@@ -1079,9 +1217,9 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPageSetup;
+        private System.Windows.Forms.TabPage tabPageMotion;
+        private System.Windows.Forms.TabPage tabPageWfov;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown coarseYPos;
         private System.Windows.Forms.Label label2;
@@ -1155,7 +1293,7 @@
         private System.Windows.Forms.TextBox textLineName;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button btnTakeMeasurement;
+        private System.Windows.Forms.Button btnDeletePoint;
         private System.Windows.Forms.Button btnCrosshairMeasure;
         private System.Windows.Forms.Label colorPicker;
         private System.Windows.Forms.Label label23;
@@ -1164,6 +1302,16 @@
         private System.Windows.Forms.TextBox nfov1ControllerSN;
         private System.Windows.Forms.Button btnDeleteSequence;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListBox listPoints;
+        private System.Windows.Forms.TabPage tabPageResults;
+        private System.Windows.Forms.Button btnPauseTest;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartCracks;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartCycles;
+        private System.Windows.Forms.CheckedListBox listCrackSelection;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button btnStopTest;
+        private System.Windows.Forms.Button btnStartTest;
     }
 }
 

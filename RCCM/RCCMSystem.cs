@@ -44,11 +44,12 @@ namespace RCCM
             // Apply settings
             applyMotorSettings(settings);
         }
-
+        
+        // UNUSED
         public Region getImageLimits()
         {
-            float imgWidth = (float) this.nfov1.getWidth();
-            float imgHeight = (float) this.nfov1.getHeight();
+            float imgWidth = (float) this.nfov1.Width;
+            float imgHeight = (float) this.nfov1.Height;
 
             float topLeftX = (float) (this.getPosition("coarse X") + this.getPosition("fine 1 X") - imgWidth / 2);
             float topLeftY = (float) (this.getPosition("coarse X") + this.getPosition("fine 1 X") - imgHeight / 2);

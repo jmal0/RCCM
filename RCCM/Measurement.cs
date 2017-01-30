@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,15 @@ namespace RCCM
         protected double pixelX;
         protected double pixelY;
         protected double globalX;
+        public double X
+        {
+            get { return globalX; }
+        }
         protected double globalY;
+        public double Y
+        {
+            get { return globalY; }
+        }
         protected int cycle;
         protected double pressure;
 
@@ -42,14 +51,19 @@ namespace RCCM
             return ",\n";
         }
 
-        public double getX()
+        // Helper function for converting a Measurement to its pixel location on the image
+        /// <summary>
+        /// Calculate the pixel coordinates within an image display where this Measurement would appear
+        /// </summary>
+        /// <param name="location">Global coordinate where image is being taken</param>
+        /// <param name="scale">Conversion from global coordinate to pixels</param>
+        /// <param name="imgCenter">Pixel location in image coordinates of center</param>
+        /// <returns></returns>
+        public Point toPoint(PointF location, double scale, Point imgCenter)
         {
-            return this.globalX;
-        }
-
-        public double getY()
-        {
-            return this.globalY;
+            int x = (int)((this.globalX - location.X) * scale) + imgCenter.X;
+            int y = (int)((this.globalY - location.Y) * scale) + imgCenter.Y;
+            return new Point(x, y);
         }
     }
 }
