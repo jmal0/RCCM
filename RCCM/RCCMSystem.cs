@@ -16,7 +16,15 @@ namespace RCCM
         protected WFOV wfov2;
 
         protected NFOV nfov1;
+        public NFOV NFOV1
+        {
+            get { return this.nfov1; }
+        }
         protected NFOV nfov2;
+        public NFOV NFOV2
+        {
+            get { return this.nfov2; }
+        }
 
         protected NFOVLensController nfovLensController;
 
@@ -62,12 +70,7 @@ namespace RCCM
             float centerY = (float) (this.getPosition("coarse Y") + this.getPosition("fine 1 Y"));
             return new PointF(centerX, centerY);
         }
-
-        public NFOV getNfov1()
-        {
-            return this.nfov1;
-        }
-
+        
         #region Motors
 
         public void applyMotorSettings(Settings settings)

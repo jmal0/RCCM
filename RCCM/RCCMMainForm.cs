@@ -49,7 +49,7 @@ namespace RCCM
 
             this.rccm = sys;
 
-            this.nfov1 = this.rccm.getNfov1();
+            this.nfov1 = this.rccm.NFOV1;
             this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
             
             this.nfovRepaintTimer = new Timer();
@@ -395,7 +395,7 @@ namespace RCCM
                     {
                         // Get location info from NFOV
                         PointF location = this.rccm.getNFOV1Location();
-                        float scale = (float)this.rccm.getNfov1().Scale;
+                        float scale = (float)this.nfov1.Scale;
                         Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
 
                         Measurement lastPt = this.cracks[index].getLastPoint();
@@ -430,7 +430,7 @@ namespace RCCM
             {
                 // Get location info from NFOV
                 PointF location = this.rccm.getNFOV1Location();
-                float scale = (float)this.rccm.getNfov1().Scale;
+                float scale = (float)this.nfov1.Scale;
                 Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
 
                 // Add measurements for start and end if user is drawing both 
@@ -460,7 +460,7 @@ namespace RCCM
 
             // Get distance unit limits for crack overlay
             PointF location = this.rccm.getNFOV1Location();
-            double scale = this.rccm.getNfov1().Scale;
+            double scale = this.nfov1.Scale;
             Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
             
             // Draw each crack on the image
