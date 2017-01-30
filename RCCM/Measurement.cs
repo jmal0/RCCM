@@ -62,7 +62,8 @@ namespace RCCM
         public Point toPoint(PointF location, double scale, Point imgCenter)
         {
             int x = (int)((this.globalX - location.X) * scale) + imgCenter.X;
-            int y = (int)((this.globalY - location.Y) * scale) + imgCenter.Y;
+            // y axis points from top to bottom, so flip sign
+            int y = (int)(-(this.globalY - location.Y) * scale) + imgCenter.Y;
             return new Point(x, y);
         }
     }

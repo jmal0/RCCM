@@ -386,11 +386,6 @@ namespace RCCM
                 {
                     this.drawing = true;
 
-                    // Get location info from NFOV
-                    PointF location = this.rccm.getNFOV1Location();
-                    float scale = (float) this.rccm.getNfov1().Scale;
-                    Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
-
                     // Move user-drawn line endpoint to mouse location
                     this.drawnLineEnd.X = e.X;
                     this.drawnLineEnd.Y = e.Y;
@@ -398,6 +393,11 @@ namespace RCCM
                     // If crack has at least one point, connect a new point to it
                     if (this.cracks[index].CountPoints > 0)
                     {
+                        // Get location info from NFOV
+                        PointF location = this.rccm.getNFOV1Location();
+                        float scale = (float)this.rccm.getNfov1().Scale;
+                        Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
+
                         Measurement lastPt = this.cracks[index].getLastPoint();
                         Point pt = lastPt.toPoint(location, scale, imgCenter);
                         this.drawnLineStart.X = pt.X;
@@ -407,7 +407,7 @@ namespace RCCM
                     else
                     {
                         this.drawnLineStart.X = e.X;
-                        this.drawnLineStart.X = e.Y;                        
+                        this.drawnLineStart.Y = e.Y;                        
                     }
                 }
             }                
@@ -415,7 +415,6 @@ namespace RCCM
 
         private void nfovImage_MouseMove(object sender, MouseEventArgs e)
         {
-            Point cursor = this.nfovImage.PointToClient(Cursor.Position);
             if (this.drawing)
             {
                 // Create point at mouse location
@@ -426,8 +425,29 @@ namespace RCCM
 
         private void nfovImage_MouseUp(object sender, MouseEventArgs e)
         {
+            int index = this.listMeasurements.SelectedIndex;
+            if (this.drawing && index >= 0)
+            {
+                // Get location info from NFOV
+                PointF location = this.rccm.getNFOV1Location();
+                float scale = (float)this.rccm.getNfov1().Scale;
+                Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
+
+                // Add measurements for start and end if user is drawing both 
+                if (this.cracks[index].CountPoints == 0)
+                {
+                    double p0x = (this.drawnLineStart.X - imgCenter.X) / this.nfov1.Scale;
+                    double p0y = -(this.drawnLineStart.Y - imgCenter.Y) / this.nfov1.Scale;
+                    Measurement p0 = new Measurement(this.rccm, RCCMStage.RCCM1, p0x, p0y);
+                    this.cracks[index].addPoint(p0);
+                }
+
+                double p1x = (this.drawnLineEnd.X - imgCenter.X) / this.nfov1.Scale;
+                double p1y = -(this.drawnLineEnd.Y - imgCenter.Y) / this.nfov1.Scale;
+                Measurement p1 = new Measurement(this.rccm, RCCMStage.RCCM1, p1x, p1y);
+                this.cracks[index].addPoint(p1);
+            }
             this.drawing = false;
-            // TODO: Create point
         }
 
         private void nfovImage_Paint(object sender, PaintEventArgs e)
