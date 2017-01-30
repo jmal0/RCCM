@@ -721,6 +721,7 @@
             this.btnDeletePoint.TabIndex = 12;
             this.btnDeletePoint.Text = "Delete Point";
             this.btnDeletePoint.UseVisualStyleBackColor = true;
+            this.btnDeletePoint.Click += new System.EventHandler(this.btnDeletePoint_Click);
             // 
             // btnCrosshairMeasure
             // 
@@ -1162,8 +1163,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RCCMMainForm";
             this.Text = "RCCM";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RCCMMainForm_FormClosed);
+            this.Load += new System.EventHandler(this.RCCMMainForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPageSetup.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);

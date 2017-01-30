@@ -67,8 +67,8 @@ namespace RCCM
 
             Show();
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        
+        private void RCCMMainForm_Load(object sender, EventArgs e)
         {
             if (this.wfov1.isAvailable())
             {
@@ -119,8 +119,8 @@ namespace RCCM
 
             this.nfovRepaintTimer.Start();
         }
-
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        
+        private void RCCMMainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.nfovRepaintTimer.Stop();
             this.nfov1.disconnect();
@@ -448,6 +448,8 @@ namespace RCCM
                 this.cracks[index].addPoint(p1);
             }
             this.drawing = false;
+            // Refresh list of points
+            this.updateMeasurementControls(this.listMeasurements.SelectedIndex);
         }
 
         private void nfovImage_Paint(object sender, PaintEventArgs e)
@@ -517,6 +519,13 @@ namespace RCCM
             {
                 this.colorPicker.BackColor = this.cracks[measurementIndex].Color;
                 this.textLineName.Text = this.cracks[measurementIndex].Name;
+
+                this.listPoints.Items.Clear();
+                for (int i = 0; i < this.cracks[measurementIndex].CountPoints; i++)
+                {
+                    Measurement m = this.cracks[measurementIndex].getPoint(i);
+                    this.listPoints.Items.Add(string.Format("{0:0.0000}\t{1:0.0000}", m.X, +m.Y));
+                }
             }
         }
 
@@ -536,8 +545,6 @@ namespace RCCM
             }
         }
 
-        #endregion
-
         private void btnCrosshairMeasure_Click(object sender, EventArgs e)
         {
             int index = this.listMeasurements.SelectedIndex;
@@ -546,8 +553,24 @@ namespace RCCM
                 Measurement pt = new Measurement(this.rccm, RCCMStage.RCCM1, 0, 0);
                 this.cracks[index].addPoint(pt);
                 Console.WriteLine(this.cracks[index]);
+                // Refresh list of points
+                this.updateMeasurementControls(index);
             }
         }
+
+        private void btnDeletePoint_Click(object sender, EventArgs e)
+        {
+            int mIndex = this.listMeasurements.SelectedIndex;
+            int ptIndex = this.listPoints.SelectedIndex;
+            if (mIndex >= 0 && ptIndex >= 0)
+            {
+                this.cracks[mIndex].removePoint(ptIndex);
+                // Refresh list of points
+                this.updateMeasurementControls(mIndex);
+            }
+        }
+
+        #endregion
 
         private void nfov1Scale_TextChanged(object sender, EventArgs e)
         {
@@ -586,11 +609,6 @@ namespace RCCM
             this.fine2ZPos.Maximum = (decimal)settings.json["fine 2 Z"]["high position limit"];
         }
         #endregion
-
-        private void RCCMMainForm_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
 
         /// <summary>
         /// Handler for keyboard presses in form. Calls motion commands for WASD keys
