@@ -14,25 +14,19 @@ namespace RCCM
 
         protected WFOV wfov1;
         protected WFOV wfov2;
-
-        protected NFOV nfov1;
-        public NFOV NFOV1
-        {
-            get { return this.nfov1; }
-        }
-        protected NFOV nfov2;
-        public NFOV NFOV2
-        {
-            get { return this.nfov2; }
-        }
+        
+        public NFOV NFOV1 { get; }
+        public NFOV NFOV2 { get; }
 
         protected NFOVLensController nfovLensController;
 
         protected Dictionary<string, Motor> motors;
 
+        protected CycleCounter counter;
+
         public RCCMSystem(Settings settings)
         {
-            this.nfov1 = new NFOV((double) settings.json["nfov 1"]["microns / pixel"]);
+            this.NFOV1 = new NFOV((double) settings.json["nfov 1"]["microns / pixel"]);
 
             this.nfovLensController = new NFOVLensController((int) settings.json["nfov 1"]["serial number"], (int) settings.json["nfov 2"]["serial number"]);
 
@@ -48,7 +42,12 @@ namespace RCCM
                         throw new NotImplementedException("Unknown motor type setting encountered for " + motorName);
                 }
             }
-            
+
+            // Create cycle counter with test frequency specified in settings
+            // Convert frequency to period in milliseconds
+            double freq = (int) settings.json["cycle frequency"];
+            this.counter = new CycleCounter((int) Math.Round(1000.0 / freq));
+
             // Apply settings
             applyMotorSettings(settings);
         }
@@ -56,8 +55,8 @@ namespace RCCM
         // UNUSED
         public Region getImageLimits()
         {
-            float imgWidth = (float) this.nfov1.Width;
-            float imgHeight = (float) this.nfov1.Height;
+            float imgWidth = (float) this.NFOV1.Width;
+            float imgHeight = (float) this.NFOV1.Height;
 
             float topLeftX = (float) (this.getPosition("coarse X") + this.getPosition("fine 1 X") - imgWidth / 2);
             float topLeftY = (float) (this.getPosition("coarse X") + this.getPosition("fine 1 X") - imgHeight / 2);
@@ -94,6 +93,35 @@ namespace RCCM
             double result = this.motors[axis].setPos(value);
             Console.WriteLine(axis + " " + value);
             return result;
+        }
+
+        #endregion
+
+        #region Cycles
+        
+        public int getCycle()
+        {
+            return this.counter.Cycle;
+        }
+
+        public bool setCycleFrequency(double freq)
+        {
+            if (freq > 0)
+            {
+                this.counter.setPeriod((int) Math.Round(1000.0 / freq));
+                return true;
+            }
+            return false;
+        }
+
+        public void startCounting()
+        {
+            this.counter.start();
+        }
+
+        public void stopCounting()
+        {
+            this.counter.stop();
         }
 
         #endregion

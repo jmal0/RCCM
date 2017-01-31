@@ -654,5 +654,24 @@ namespace RCCM
         {
             this.rccm.readHeight1();
         }
+
+        #region Fatigue Testing
+
+        private void btnStartTest_Click(object sender, EventArgs e)
+        {
+            this.rccm.startCounting();
+        }
+
+        #endregion
+
+        private void btnPauseTest_Click(object sender, EventArgs e)
+        {
+            this.rccm.stopCounting();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.setCycleFrequency((double) this.numericUpDown1.Value);
+        }
     }
 }

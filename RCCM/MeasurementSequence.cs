@@ -9,35 +9,32 @@ namespace RCCM
 {
     public class MeasurementSequence
     {
-        // Color of line to display
-        protected Color color;
-        public Color Color
-        {
-            get { return this.color; }
-            set { this.color = value; }
-        }
-        // Name of sequence for display
-        protected string name;
-        public string Name
-        {
-            get { return this.name; }
-            set { this.name = value; }
-        }
         // List of points of crack vertices and relevant metadata
         protected List<Measurement> points;
-        // Number of points in sequence
+        // Enum value indicating which set of fine axes capturing these measurements
+        protected RCCMStage parent;
+        
+        /// <summary>
+        /// Color of line to display
+        /// </summary>
+        public Color Color { get; set; }
+        /// <summary>
+        /// Name of sequence for display
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// Number of points in sequence
+        /// </summary>
         public int CountPoints
         {
             get { return this.points.Count; }
         }
-        // Enum value indicating which set of fine axes capturing these measurements
-        protected RCCMStage parent;
-
+        
         public MeasurementSequence(Color uiColor, string uiName, RCCMStage uiParent)
         {
             this.points = new List<Measurement>();
-            this.color = uiColor;
-            this.name = uiName;
+            this.Color = uiColor;
+            this.Name = uiName;
             this.parent = uiParent;
         }
 
@@ -106,7 +103,7 @@ namespace RCCM
                 for (int i = 1; i < this.points.Count; i++)
                 {
                     p1 = this.points[i].toPoint(location, scale, imgCenter);
-                    axes.DrawLine(new Pen(this.color), p0, p1);
+                    axes.DrawLine(new Pen(this.Color), p0, p1);
                     p0 = p1;
                 }
             }
@@ -123,7 +120,7 @@ namespace RCCM
         /// <returns>String describing sequence</returns>
         public override string ToString()
         {
-            string description = this.name + "\n" + this.Color.ToString() + "\n";
+            string description = this.Name + "\n" + this.Color.ToString() + "\n";
             foreach (Measurement pt in this.points)
             {
                 description += pt.X + "\t" + pt.Y + "\n";

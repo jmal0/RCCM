@@ -30,22 +30,20 @@ namespace RCCM
         protected AutoResetEvent m_grabThreadExited;
         protected BackgroundWorker m_grabThread;
 
-        protected double scale; // Microns / pixel
-        public double Scale
-        {
-            get { return this.scale; }
-            set { this.scale = value; }
-        }
+        /// <summary>
+        /// Camera microns / pixel calibration
+        /// </summary>
+        public double Scale { get; set; }
 
         static int IMG_HEIGHT = 2048;
         public double Height
         {
-            get { return this.scale * NFOV.IMG_HEIGHT; }
+            get { return this.Scale * NFOV.IMG_HEIGHT; }
         }
         static int IMG_WIDTH = 2448;
         public double Width
         {
-            get { return this.scale * NFOV.IMG_WIDTH; }
+            get { return this.Scale * NFOV.IMG_WIDTH; }
         }
 
         protected bool recording;
@@ -57,7 +55,7 @@ namespace RCCM
             
             m_grabThreadExited = new AutoResetEvent(false);
 
-            scale = pix2um;
+            this.Scale = pix2um;
             recording = false;
         }
 

@@ -16,19 +16,12 @@ namespace RCCM
         /// <summary>
         /// A boolean indicating whether or not the counter is active
         /// </summary>
-        public bool Active
-        {
-            get { return this.Active; }
-            private set { this.Active = value;  }
-        }
+        public bool Active { get; private set; }
+        
         /// <summary>
         /// Current cycle number
         /// </summary>
-        public int Cycle
-        {
-            get { return this.Cycle; }
-            set { this.Cycle = value; }
-        }
+        public int Cycle { get; set; }
 
         public CycleCounter(int period)
         {

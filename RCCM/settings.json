@@ -70,4 +70,6 @@
     },
     // UI Settings
     "repaint period": 100,
+    // Test settings
+    "cycle frequency": 1
 }

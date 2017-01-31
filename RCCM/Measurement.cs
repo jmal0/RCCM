@@ -18,16 +18,8 @@ namespace RCCM
         protected double fineY;
         protected double pixelX;
         protected double pixelY;
-        protected double globalX;
-        public double X
-        {
-            get { return globalX; }
-        }
-        protected double globalY;
-        public double Y
-        {
-            get { return globalY; }
-        }
+        public double X { get; private set; }
+        public double Y { get; private set; }
         protected int cycle;
         protected double pressure;
 
@@ -39,8 +31,8 @@ namespace RCCM
             this.fineY = fine == RCCMStage.RCCM1 ? rccm.getPosition("fine 1 Y") : rccm.getPosition("fine 2 Y");
             this.pixelX = pixelX;
             this.pixelY = pixelY;
-            this.globalX = this.coarseX + this.fineX + this.pixelX; // TODO: robustify
-            this.globalY = this.coarseY + this.fineY + this.pixelY; // TODO: robustify
+            this.X = this.coarseX + this.fineX + this.pixelX; // TODO: robustify
+            this.Y = this.coarseY + this.fineY + this.pixelY; // TODO: robustify
 
             this.cycle = rccm.getCycle();
             this.pressure = 0; // TODO
@@ -61,9 +53,9 @@ namespace RCCM
         /// <returns></returns>
         public Point toPoint(PointF location, double scale, Point imgCenter)
         {
-            int x = (int)((this.globalX - location.X) * scale) + imgCenter.X;
+            int x = (int)((this.X - location.X) * scale) + imgCenter.X;
             // y axis points from top to bottom, so flip sign
-            int y = (int)(-(this.globalY - location.Y) * scale) + imgCenter.Y;
+            int y = (int)(-(this.Y - location.Y) * scale) + imgCenter.Y;
             return new Point(x, y);
         }
     }
