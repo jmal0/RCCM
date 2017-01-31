@@ -40,6 +40,8 @@ namespace RCCM
         protected Point drawnLineStart;
         protected Point drawnLineEnd;
 
+        protected TestResults test;
+
         public RCCMMainForm(RCCMSystem sys, Settings set)
         {
             InitializeComponent();
@@ -64,6 +66,8 @@ namespace RCCM
 
             this.drawnLineStart = new Point(0, 0);
             this.drawnLineEnd = new Point(0, 0);
+
+            this.test = new TestResults();
 
             Show();
         }
@@ -672,6 +676,16 @@ namespace RCCM
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             this.rccm.setCycleFrequency((double) this.numericUpDown1.Value);
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            int index = this.listMeasurements.SelectedIndex;
+            if (index >= 0)
+            {
+                double[] lengths = this.test.calculateCrackLength(this.cracks[index]);
+                MessageBox.Show(lengths.ToString());
+            }
         }
     }
 }
