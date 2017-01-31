@@ -109,7 +109,7 @@ namespace RCCM
                     axes.DrawLine(new Pen(this.color), p0, p1);
                     p0 = p1;
                 }
-            }            
+            }
         }
 
         public void writeToFile(string filename)

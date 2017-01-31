@@ -42,7 +42,7 @@ namespace RCCM
             this.globalX = this.coarseX + this.fineX + this.pixelX; // TODO: robustify
             this.globalY = this.coarseY + this.fineY + this.pixelY; // TODO: robustify
 
-            this.cycle = 0; // TODO
+            this.cycle = rccm.getCycle();
             this.pressure = 0; // TODO
         }
 
