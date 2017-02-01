@@ -67,7 +67,7 @@ namespace RCCM
             this.drawnLineStart = new Point(0, 0);
             this.drawnLineEnd = new Point(0, 0);
 
-            this.test = new TestResults();
+            this.test = new TestResults(this.chartCracks, this.chartCycles);
 
             Show();
         }
@@ -450,6 +450,8 @@ namespace RCCM
                 double p1y = -(this.drawnLineEnd.Y - imgCenter.Y) / this.nfov1.Scale;
                 Measurement p1 = new Measurement(this.rccm, RCCMStage.RCCM1, p1x, p1y);
                 this.cracks[index].addPoint(p1);
+                
+                this.test.plotCracks(this.cracks);
             }
             this.drawing = false;
             // Refresh list of points
@@ -458,9 +460,11 @@ namespace RCCM
 
         private void nfovImage_Paint(object sender, PaintEventArgs e)
         {
-            Bitmap img = this.nfov1.getLiveImage();
-            if (img != null)
+            Bitmap liveImg = this.nfov1.getLiveImage();
+
+            if (liveImg != null)
             {
+                Bitmap img = new Bitmap(liveImg, new Size(612, 512));
                 e.Graphics.DrawImage(img, 0, 0);
             }
 
@@ -547,6 +551,7 @@ namespace RCCM
                 this.listMeasurements.Items.RemoveAt(deleteIndex);
                 updateMeasurementControls(-1);
             }
+            this.test.plotCracks(this.cracks);
         }
 
         private void btnCrosshairMeasure_Click(object sender, EventArgs e)
@@ -571,6 +576,8 @@ namespace RCCM
                 this.cracks[mIndex].removePoint(ptIndex);
                 // Refresh list of points
                 this.updateMeasurementControls(mIndex);
+                
+                this.test.plotCracks(this.cracks);
             }
         }
 
@@ -612,6 +619,7 @@ namespace RCCM
             this.fine2YPos.Maximum = (decimal)settings.json["fine 2 Y"]["high position limit"];
             this.fine2ZPos.Maximum = (decimal)settings.json["fine 2 Z"]["high position limit"];
         }
+
         #endregion
 
         /// <summary>
@@ -664,6 +672,9 @@ namespace RCCM
         private void btnStartTest_Click(object sender, EventArgs e)
         {
             this.rccm.startCounting();
+            this.btnStartTest.Enabled = false;
+            this.btnPauseTest.Enabled = true;
+            this.btnStopTest.Enabled = true;
         }
 
         #endregion
@@ -671,6 +682,9 @@ namespace RCCM
         private void btnPauseTest_Click(object sender, EventArgs e)
         {
             this.rccm.stopCounting();
+            this.btnStartTest.Enabled = true;
+            this.btnPauseTest.Enabled = false;
+            this.btnStopTest.Enabled = false;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -684,7 +698,12 @@ namespace RCCM
             if (index >= 0)
             {
                 double[] lengths = this.test.calculateCrackLength(this.cracks[index]);
-                MessageBox.Show(lengths.ToString());
+                string msg = "";
+                for (int i = 0; i < lengths.Length; i++)
+                {
+                    msg += string.Format("{0:0.00}\n", lengths[i]);
+                }
+                MessageBox.Show(msg);
             }
         }
     }

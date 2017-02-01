@@ -131,6 +131,7 @@
     <Compile Include="RCCMSystem.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="StepperMotor.cs" />
+    <Compile Include="TestResults.cs" />
     <Compile Include="VirtualMotor.cs" />
     <Compile Include="WFOV.cs" />
     <EmbeddedResource Include="RCCMMainForm.resx">

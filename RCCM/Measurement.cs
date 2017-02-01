@@ -20,7 +20,7 @@ namespace RCCM
         protected double pixelY;
         public double X { get; private set; }
         public double Y { get; private set; }
-        protected int cycle;
+        public int Cycle { get; private set; }
         protected double pressure;
 
         public Measurement(RCCMSystem rccm, RCCMStage fine, double pixelX, double pixelY)
@@ -34,7 +34,7 @@ namespace RCCM
             this.X = this.coarseX + this.fineX + this.pixelX; // TODO: robustify
             this.Y = this.coarseY + this.fineY + this.pixelY; // TODO: robustify
 
-            this.cycle = rccm.getCycle();
+            this.Cycle = rccm.getCycle();
             this.pressure = 0; // TODO
         }
 
