@@ -15,12 +15,7 @@ namespace RCCM
         public TestResults(Chart cracks, Chart cycles)
         {
             this.crackChart = cracks;
-            ChartArea area1 = new ChartArea("Main");
-            this.crackChart.ChartAreas.Add(area1);
             this.cycleChart = cycles;
-            ChartArea area2= new ChartArea("Main");
-            this.cycleChart.ChartAreas.Add(area2);
-
         }
 
         public double[] getCycles(MeasurementSequence crack)

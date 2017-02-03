@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -111,7 +112,13 @@ namespace RCCM
 
         public void writeToFile(string filename)
         {
-            // TODO
+            using (StreamWriter file = new StreamWriter(filename))
+            {
+                foreach (Measurement m in this.points)
+                {
+                    file.WriteLine(m.toCSVString());
+                }
+            }
         }
 
         /// <summary>

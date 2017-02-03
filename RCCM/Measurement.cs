@@ -12,19 +12,36 @@ namespace RCCM
     /// </summary>
     public class Measurement
     {
+        /// <summary>
+        /// Fields for CSV header explaining the ordering of data in measurement file
+        /// </summary>
+        public static string[] csvHeader = { "Timestamp", "X", "Y", "Cycle", "Pressure", "Coarse X", "Coarse Y", "Fine X", "Fine Y", "Pixel X", "Pixel Y"};
+
+        public int Cycle { get; private set; }
+        protected double pressure;
+        protected string timestamp;
+
         protected double coarseX;
         protected double coarseY;
         protected double fineX;
         protected double fineY;
         protected double pixelX;
         protected double pixelY;
+        /// <summary>
+        /// Global X coordinate where measurement was taken
+        /// </summary>
         public double X { get; private set; }
+        /// <summary>
+        /// Global Y coordinate where measurement was taken
+        /// </summary>
         public double Y { get; private set; }
-        public int Cycle { get; private set; }
-        protected double pressure;
 
         public Measurement(RCCMSystem rccm, RCCMStage fine, double pixelX, double pixelY)
         {
+            this.timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+            this.Cycle = rccm.getCycle();
+            this.pressure = 0; // TODO
+
             this.coarseX = rccm.getPosition("coarse X");
             this.coarseY = rccm.getPosition("coarse Y");
             this.fineX = fine == RCCMStage.RCCM1 ? rccm.getPosition("fine 1 X") : rccm.getPosition("fine 2 X");
@@ -33,14 +50,25 @@ namespace RCCM
             this.pixelY = pixelY;
             this.X = this.coarseX + this.fineX + this.pixelX; // TODO: robustify
             this.Y = this.coarseY + this.fineY + this.pixelY; // TODO: robustify
-
-            this.Cycle = rccm.getCycle();
-            this.pressure = 0; // TODO
         }
 
+        /// <summary>
+        /// Create csv line containing all data pertaining to this measurement
+        /// </summary>
+        /// <returns>CSV string representing this Measurement</returns>
         public string toCSVString()
         {
-            return ",\n";
+            return this.timestamp + "," +
+                   this.Cycle     + "," +
+                   this.pressure  + "," +
+                   this.X         + "," +
+                   this.Y         + "," +
+                   this.coarseX   + "," +
+                   this.coarseY   + "," +
+                   this.fineX     + "," +
+                   this.fineY     + "," +
+                   this.pixelX    + "," +
+                   this.pixelY;
         }
 
         // Helper function for converting a Measurement to its pixel location on the image

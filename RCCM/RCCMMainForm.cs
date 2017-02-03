@@ -33,7 +33,8 @@ namespace RCCM
 
         // Flag to indicate if NFOV camera is recording video
         protected bool recording = false;
-        
+        protected bool wfov1Recording = false;
+
         protected RCCMStage activeStage;
 
         protected bool drawing;
@@ -74,24 +75,23 @@ namespace RCCM
         
         private void RCCMMainForm_Load(object sender, EventArgs e)
         {
-            if (this.wfov1.isAvailable())
+            if (this.wfov1.Available)
             {
                 this.wfov1.initialize();
                 btnWfovStart.Enabled = true;
 
                 //  Setup the range of the zoom and focus sliders.
-                sliderZoom.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Zoom);
-                sliderZoom.Maximum = this.wfov1.getPropertyMax(VCDIDs.VCDID_Zoom);
-                sliderFocus.Minimum = this.wfov1.getPropertyMin(VCDIDs.VCDID_Focus);
-                sliderFocus.Maximum = this.wfov1.getPropertyMax(VCDIDs.VCDID_Focus);
+                sliderZoom.Minimum = this.wfov1.ZoomMin;
+                sliderZoom.Maximum = this.wfov1.ZoomMax;
+                sliderFocus.Minimum = this.wfov1.FocusMin;
+                sliderFocus.Maximum = this.wfov1.FocusMax;
 
                 //  Set the sliders to the current zoom and focus values.
-                sliderZoom.Value = this.wfov1.getPropertyValue(VCDIDs.VCDID_Zoom);
-                textZoom.Text = this.wfov1.getPropertyValue(VCDIDs.VCDID_Zoom).ToString();
-                sliderFocus.Value = this.wfov1.getPropertyValue(VCDIDs.VCDID_Focus);
-                textFocus.Text = this.wfov1.getPropertyValue(VCDIDs.VCDID_Focus).ToString();
+                sliderZoom.Value = this.wfov1.Zoom;
+                textZoom.Text = this.wfov1.Zoom.ToString();
+                sliderFocus.Value = this.wfov1.Focus;
+                textFocus.Text = this.wfov1.Focus.ToString();
             }
-
 
             CameraSelectionDialog camSlnDlg = new CameraSelectionDialog();
             bool retVal = camSlnDlg.ShowModal();
@@ -128,6 +128,11 @@ namespace RCCM
         {
             this.nfovRepaintTimer.Stop();
             this.nfov1.disconnect();
+
+            if (this.wfov1Recording)
+            {
+                this.wfov1.stopRecord();
+            }
         }
 
         #region WFOV
@@ -158,7 +163,7 @@ namespace RCCM
         
         private void btnWfovSnap_Click(object sender, EventArgs e)
         {
-            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
             this.wfov1.snapImage(textImageDir.Text + "\\" + timestamp + ".png");
         }
 
@@ -174,10 +179,11 @@ namespace RCCM
         {
             if (wfovContainer.DeviceValid)
             {
-                if (this.recording == false)
+                if (this.wfov1Recording == false)
                 {
-                    string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
-                    this.wfov1.record(this.textVideoDir + "\\" + timestamp + ".avi");
+                    string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+                    this.wfov1.record(this.textVideoDir.Text + "\\" + timestamp + ".avi");
+                    this.wfov1Recording = true;
                     btnWfovRecord.BackColor = Color.Gray;
                     btnWfovStart.Enabled = false;
                     btnWfovSnap.Enabled = false;
@@ -185,8 +191,8 @@ namespace RCCM
                 else
                 {
                     this.wfov1.stopRecord();
+                    this.wfov1Recording = false;
                     MessageBox.Show("Recording stopped");
-
                     btnWfovRecord.BackColor = Color.Transparent;                    
                     this.recording = false;
                     btnWfovStart.Enabled = true;
@@ -198,12 +204,12 @@ namespace RCCM
         private void btnFocus_Click(object sender, EventArgs e)
         {
             btnFocus.Enabled = false;
-            this.wfov1.autoFocus();
-            //sliderFocus.Value = VCDProp.RangeValue[VCDIDs.VCDID_Zoom];
-            //textFocus.Text = sliderFocus.Value.ToString();
+            int newFocus = this.wfov1.autoFocus();
+            this.sliderFocus.Value = newFocus;
+            this.textFocus.Text = newFocus.ToString();
             btnFocus.Enabled = true;
         }
-
+        
         private void sliderZoom_Scroll(object sender, EventArgs e)
         {
             if (wfovContainer.DeviceValid)
@@ -328,7 +334,7 @@ namespace RCCM
 
         private void btnNfovSnap_Click(object sender, EventArgs e)
         {
-            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
             Console.WriteLine(textImageDir.Text + "\\" + timestamp + ".bmp");
             this.nfov1.snap(textImageDir.Text + "\\"+ timestamp + ".bmp");
         }
@@ -349,7 +355,7 @@ namespace RCCM
             else
             {
                 // Start recording
-                string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+                string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
                 this.nfov1.record(this.textVideoDir + "\\" + timestamp + ".avi");
                 btnNfovRecord.BackColor = Color.Gray;
                 btnNfovStart.Enabled = false;
