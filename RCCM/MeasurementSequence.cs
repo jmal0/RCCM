@@ -110,10 +110,31 @@ namespace RCCM
             }
         }
 
-        public void writeToFile(string filename)
+        /// <summary>
+        /// Create a filename with identifying information about sequence
+        /// </summary>
+        /// <returns>Filename formatted with current timestamp, crack name, and .csv extension</returns>
+        public string getFileName()
         {
-            using (StreamWriter file = new StreamWriter(filename))
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+            return timestamp + "-" + this.Name +".csv";
+        }
+
+        /// <summary>
+        /// Write measurement to file. Formatted as one line header followed with a line for each crack vertex
+        /// </summary>
+        /// <param name="filename"></param>
+        public void writeToFile(string path)
+        {
+            using (StreamWriter file = new StreamWriter(path + "\\" + this.getFileName()))
             {
+                // Write column headers
+                for(int i = 0; i < Measurement.CSV_HEADER.Length; i++)
+                {
+                    file.Write(Measurement.CSV_HEADER[i] + ",");
+                }
+                file.WriteLine();
+                // Write each measurement to row
                 foreach (Measurement m in this.points)
                 {
                     file.WriteLine(m.toCSVString());

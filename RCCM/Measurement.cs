@@ -15,7 +15,7 @@ namespace RCCM
         /// <summary>
         /// Fields for CSV header explaining the ordering of data in measurement file
         /// </summary>
-        public static string[] csvHeader = { "Timestamp", "X", "Y", "Cycle", "Pressure", "Coarse X", "Coarse Y", "Fine X", "Fine Y", "Pixel X", "Pixel Y"};
+        public static string[] CSV_HEADER = { "Timestamp", "Cycle", "Pressure", "X", "Y", "Coarse X", "Coarse Y", "Fine X", "Fine Y", "Pixel X", "Pixel Y"};
 
         public int Cycle { get; private set; }
         protected double pressure;
