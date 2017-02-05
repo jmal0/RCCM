@@ -12,30 +12,34 @@ namespace RCCM
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Open dialog for user to select file containing RCCM settings
-            OpenFileDialog settingsDlg = new OpenFileDialog();
-            settingsDlg.Filter = "JSON files|*.json";
-            settingsDlg.Title = "Select RCCM configuration file";
-
-            Settings settings;
-            RCCMSystem rccm;
-            if (settingsDlg.ShowDialog() == DialogResult.OK)
+            string filename;
+            if (args.Length == 0)
             {
-                settings = new Settings(settingsDlg.FileName);
-                rccm = new RCCMSystem(settings);
+                filename = "settings.json";
             }
             else
             {
-                // Default
-                settings = new Settings("settings.json");
-                rccm = new RCCMSystem(settings);
+                filename = args[0];
             }
 
+            Settings settings;
+            RCCMSystem rccm;
+            try
+            {
+                settings = new Settings(filename);
+                rccm = new RCCMSystem(settings);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error encountered in settings file:\n\n" + ex.Message);
+                return;
+            }
+            
             // Start GUI
             Application.Run(new RCCMMainForm(rccm, settings));
         }
