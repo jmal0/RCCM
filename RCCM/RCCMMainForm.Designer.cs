@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -82,19 +82,19 @@
             this.coarseXPos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageNfov = new System.Windows.Forms.TabPage();
-            this.btnTest = new System.Windows.Forms.Button();
-            this.listPoints = new System.Windows.Forms.ListBox();
-            this.btnDeleteSequence = new System.Windows.Forms.Button();
-            this.colorPicker = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.textLineName = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.btnDeletePoint = new System.Windows.Forms.Button();
-            this.btnCrosshairMeasure = new System.Windows.Forms.Button();
-            this.btnNewSequence = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.listMeasurements = new System.Windows.Forms.ListBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.btnNewSequence = new System.Windows.Forms.Button();
+            this.textLineName = new System.Windows.Forms.TextBox();
+            this.btnDeleteSequence = new System.Windows.Forms.Button();
+            this.label21 = new System.Windows.Forms.Label();
+            this.colorPicker = new System.Windows.Forms.Label();
+            this.btnSaveAllCracks = new System.Windows.Forms.Button();
+            this.btnSaveCrack = new System.Windows.Forms.Button();
+            this.btnDeletePoint = new System.Windows.Forms.Button();
+            this.listPoints = new System.Windows.Forms.ListBox();
+            this.btnCrosshairMeasure = new System.Windows.Forms.Button();
             this.btnNfovRecord = new System.Windows.Forms.Button();
             this.btnNfovSnap = new System.Windows.Forms.Button();
             this.btnNfovProperties = new System.Windows.Forms.Button();
@@ -132,6 +132,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.panelView = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -152,6 +153,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
             this.tabPageNfov.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
             this.tabPageWfov.SuspendLayout();
             this.wfovSelection.SuspendLayout();
@@ -164,6 +166,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartCracks)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelView)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -424,6 +427,7 @@
             // 
             // tabPageMotion
             // 
+            this.tabPageMotion.Controls.Add(this.panelView);
             this.tabPageMotion.Controls.Add(this.groupBox3);
             this.tabPageMotion.Controls.Add(this.groupBox2);
             this.tabPageMotion.Controls.Add(this.groupBox1);
@@ -624,19 +628,12 @@
             // 
             // tabPageNfov
             // 
-            this.tabPageNfov.Controls.Add(this.btnTest);
-            this.tabPageNfov.Controls.Add(this.listPoints);
-            this.tabPageNfov.Controls.Add(this.btnDeleteSequence);
-            this.tabPageNfov.Controls.Add(this.colorPicker);
-            this.tabPageNfov.Controls.Add(this.label21);
-            this.tabPageNfov.Controls.Add(this.textLineName);
-            this.tabPageNfov.Controls.Add(this.label20);
-            this.tabPageNfov.Controls.Add(this.label19);
+            this.tabPageNfov.Controls.Add(this.groupBox9);
+            this.tabPageNfov.Controls.Add(this.btnSaveAllCracks);
+            this.tabPageNfov.Controls.Add(this.btnSaveCrack);
             this.tabPageNfov.Controls.Add(this.btnDeletePoint);
+            this.tabPageNfov.Controls.Add(this.listPoints);
             this.tabPageNfov.Controls.Add(this.btnCrosshairMeasure);
-            this.tabPageNfov.Controls.Add(this.btnNewSequence);
-            this.tabPageNfov.Controls.Add(this.label18);
-            this.tabPageNfov.Controls.Add(this.listMeasurements);
             this.tabPageNfov.Controls.Add(this.btnNfovRecord);
             this.tabPageNfov.Controls.Add(this.btnNfovSnap);
             this.tabPageNfov.Controls.Add(this.btnNfovProperties);
@@ -651,128 +648,136 @@
             this.tabPageNfov.Text = "NFOV";
             this.tabPageNfov.UseVisualStyleBackColor = true;
             // 
-            // btnTest
+            // groupBox9
             // 
-            this.btnTest.Location = new System.Drawing.Point(624, 232);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(120, 23);
-            this.btnTest.TabIndex = 20;
-            this.btnTest.Text = "Print Crack Length";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            this.groupBox9.Controls.Add(this.listMeasurements);
+            this.groupBox9.Controls.Add(this.label20);
+            this.groupBox9.Controls.Add(this.btnNewSequence);
+            this.groupBox9.Controls.Add(this.textLineName);
+            this.groupBox9.Controls.Add(this.btnDeleteSequence);
+            this.groupBox9.Controls.Add(this.label21);
+            this.groupBox9.Controls.Add(this.colorPicker);
+            this.groupBox9.Location = new System.Drawing.Point(624, 6);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(126, 212);
+            this.groupBox9.TabIndex = 22;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Cracks";
             // 
-            // listPoints
+            // listMeasurements
             // 
-            this.listPoints.FormattingEnabled = true;
-            this.listPoints.Location = new System.Drawing.Point(627, 317);
-            this.listPoints.Name = "listPoints";
-            this.listPoints.ScrollAlwaysVisible = true;
-            this.listPoints.Size = new System.Drawing.Size(120, 95);
-            this.listPoints.TabIndex = 19;
+            this.listMeasurements.FormattingEnabled = true;
+            this.listMeasurements.Location = new System.Drawing.Point(6, 19);
+            this.listMeasurements.Name = "listMeasurements";
+            this.listMeasurements.ScrollAlwaysVisible = true;
+            this.listMeasurements.Size = new System.Drawing.Size(114, 82);
+            this.listMeasurements.TabIndex = 8;
+            this.listMeasurements.SelectedIndexChanged += new System.EventHandler(this.listMeasurements_SelectedIndexChanged);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(5, 110);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(35, 13);
+            this.label20.TabIndex = 14;
+            this.label20.Text = "Name";
+            // 
+            // btnNewSequence
+            // 
+            this.btnNewSequence.Location = new System.Drawing.Point(6, 148);
+            this.btnNewSequence.Name = "btnNewSequence";
+            this.btnNewSequence.Size = new System.Drawing.Size(114, 26);
+            this.btnNewSequence.TabIndex = 10;
+            this.btnNewSequence.Text = "New Sequence";
+            this.btnNewSequence.UseVisualStyleBackColor = true;
+            this.btnNewSequence.Click += new System.EventHandler(this.btnNewSequence_Click);
+            // 
+            // textLineName
+            // 
+            this.textLineName.Location = new System.Drawing.Point(46, 107);
+            this.textLineName.Name = "textLineName";
+            this.textLineName.Size = new System.Drawing.Size(74, 20);
+            this.textLineName.TabIndex = 15;
             // 
             // btnDeleteSequence
             // 
-            this.btnDeleteSequence.Location = new System.Drawing.Point(624, 200);
+            this.btnDeleteSequence.Location = new System.Drawing.Point(6, 180);
             this.btnDeleteSequence.Name = "btnDeleteSequence";
-            this.btnDeleteSequence.Size = new System.Drawing.Size(120, 26);
+            this.btnDeleteSequence.Size = new System.Drawing.Size(114, 26);
             this.btnDeleteSequence.TabIndex = 18;
-            this.btnDeleteSequence.Text = "Delete";
+            this.btnDeleteSequence.Text = "Delete Sequence";
             this.btnDeleteSequence.UseVisualStyleBackColor = true;
             this.btnDeleteSequence.Click += new System.EventHandler(this.btnDeleteSequence_Click);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(5, 132);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(54, 13);
+            this.label21.TabIndex = 16;
+            this.label21.Text = "Line Color";
             // 
             // colorPicker
             // 
             this.colorPicker.AutoSize = true;
             this.colorPicker.BackColor = System.Drawing.Color.Red;
-            this.colorPicker.Location = new System.Drawing.Point(684, 150);
+            this.colorPicker.Location = new System.Drawing.Point(65, 130);
             this.colorPicker.Name = "colorPicker";
             this.colorPicker.Padding = new System.Windows.Forms.Padding(8, 1, 8, 1);
             this.colorPicker.Size = new System.Drawing.Size(16, 15);
             this.colorPicker.TabIndex = 17;
             this.colorPicker.Click += new System.EventHandler(this.colorPicker_Click);
             // 
-            // label21
+            // btnSaveAllCracks
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(624, 152);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(54, 13);
-            this.label21.TabIndex = 16;
-            this.label21.Text = "Line Color";
+            this.btnSaveAllCracks.Location = new System.Drawing.Point(624, 492);
+            this.btnSaveAllCracks.Name = "btnSaveAllCracks";
+            this.btnSaveAllCracks.Size = new System.Drawing.Size(126, 26);
+            this.btnSaveAllCracks.TabIndex = 21;
+            this.btnSaveAllCracks.Text = "Save All";
+            this.btnSaveAllCracks.UseVisualStyleBackColor = true;
+            this.btnSaveAllCracks.Click += new System.EventHandler(this.btnSaveAllCracks_Click);
             // 
-            // textLineName
+            // btnSaveCrack
             // 
-            this.textLineName.Location = new System.Drawing.Point(666, 121);
-            this.textLineName.Name = "textLineName";
-            this.textLineName.Size = new System.Drawing.Size(78, 20);
-            this.textLineName.TabIndex = 15;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(624, 124);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(35, 13);
-            this.label20.TabIndex = 14;
-            this.label20.Text = "Name";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(624, 262);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(104, 13);
-            this.label19.TabIndex = 13;
-            this.label19.Text = "Take Measurements";
+            this.btnSaveCrack.Location = new System.Drawing.Point(624, 460);
+            this.btnSaveCrack.Name = "btnSaveCrack";
+            this.btnSaveCrack.Size = new System.Drawing.Size(126, 26);
+            this.btnSaveCrack.TabIndex = 20;
+            this.btnSaveCrack.Text = "Save Measurement";
+            this.btnSaveCrack.UseVisualStyleBackColor = true;
+            this.btnSaveCrack.Click += new System.EventHandler(this.btnSaveCrack_Click);
             // 
             // btnDeletePoint
             // 
-            this.btnDeletePoint.Location = new System.Drawing.Point(627, 418);
+            this.btnDeletePoint.Location = new System.Drawing.Point(624, 357);
             this.btnDeletePoint.Name = "btnDeletePoint";
-            this.btnDeletePoint.Size = new System.Drawing.Size(120, 26);
+            this.btnDeletePoint.Size = new System.Drawing.Size(126, 26);
             this.btnDeletePoint.TabIndex = 12;
             this.btnDeletePoint.Text = "Delete Point";
             this.btnDeletePoint.UseVisualStyleBackColor = true;
             this.btnDeletePoint.Click += new System.EventHandler(this.btnDeletePoint_Click);
             // 
+            // listPoints
+            // 
+            this.listPoints.FormattingEnabled = true;
+            this.listPoints.Location = new System.Drawing.Point(624, 256);
+            this.listPoints.Name = "listPoints";
+            this.listPoints.ScrollAlwaysVisible = true;
+            this.listPoints.Size = new System.Drawing.Size(126, 95);
+            this.listPoints.TabIndex = 19;
+            // 
             // btnCrosshairMeasure
             // 
-            this.btnCrosshairMeasure.Location = new System.Drawing.Point(627, 285);
+            this.btnCrosshairMeasure.Location = new System.Drawing.Point(624, 224);
             this.btnCrosshairMeasure.Name = "btnCrosshairMeasure";
-            this.btnCrosshairMeasure.Size = new System.Drawing.Size(120, 26);
+            this.btnCrosshairMeasure.Size = new System.Drawing.Size(126, 26);
             this.btnCrosshairMeasure.TabIndex = 11;
             this.btnCrosshairMeasure.Text = "Measure at Crosshair";
             this.btnCrosshairMeasure.UseVisualStyleBackColor = true;
             this.btnCrosshairMeasure.Click += new System.EventHandler(this.btnCrosshairMeasure_Click);
-            // 
-            // btnNewSequence
-            // 
-            this.btnNewSequence.Location = new System.Drawing.Point(624, 168);
-            this.btnNewSequence.Name = "btnNewSequence";
-            this.btnNewSequence.Size = new System.Drawing.Size(120, 26);
-            this.btnNewSequence.TabIndex = 10;
-            this.btnNewSequence.Text = "New Sequence";
-            this.btnNewSequence.UseVisualStyleBackColor = true;
-            this.btnNewSequence.Click += new System.EventHandler(this.btnNewSequence_Click);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(624, 7);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(76, 13);
-            this.label18.TabIndex = 9;
-            this.label18.Text = "Measurements";
-            // 
-            // listMeasurements
-            // 
-            this.listMeasurements.FormattingEnabled = true;
-            this.listMeasurements.Location = new System.Drawing.Point(624, 23);
-            this.listMeasurements.Name = "listMeasurements";
-            this.listMeasurements.ScrollAlwaysVisible = true;
-            this.listMeasurements.Size = new System.Drawing.Size(120, 95);
-            this.listMeasurements.TabIndex = 8;
-            this.listMeasurements.SelectedIndexChanged += new System.EventHandler(this.listMeasurements_SelectedIndexChanged);
             // 
             // btnNfovRecord
             // 
@@ -1059,16 +1064,16 @@
             // 
             // chartCycles
             // 
-            chartArea7.Name = "ChartArea1";
-            this.chartCycles.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.chartCycles.Legends.Add(legend7);
+            chartArea3.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartCycles.Legends.Add(legend3);
             this.chartCycles.Location = new System.Drawing.Point(6, 295);
             this.chartCycles.Name = "chartCycles";
-            series7.ChartArea = "ChartArea1";
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.chartCycles.Series.Add(series7);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartCycles.Series.Add(series3);
             this.chartCycles.Size = new System.Drawing.Size(623, 255);
             this.chartCycles.TabIndex = 7;
             this.chartCycles.Text = "chart2";
@@ -1134,16 +1139,16 @@
             // 
             // chartCracks
             // 
-            chartArea8.Name = "ChartArea1";
-            this.chartCracks.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.chartCracks.Legends.Add(legend8);
+            chartArea4.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend4);
             this.chartCracks.Location = new System.Drawing.Point(6, 38);
             this.chartCracks.Name = "chartCracks";
-            series8.ChartArea = "ChartArea1";
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            this.chartCracks.Series.Add(series8);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartCracks.Series.Add(series4);
             this.chartCracks.Size = new System.Drawing.Size(623, 255);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
@@ -1171,6 +1176,15 @@
             this.menuStrip1.Size = new System.Drawing.Size(793, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // panelView
+            // 
+            this.panelView.Location = new System.Drawing.Point(6, 114);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(749, 436);
+            this.panelView.TabIndex = 3;
+            this.panelView.TabStop = false;
+            this.panelView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelView_Paint);
             // 
             // RCCMMainForm
             // 
@@ -1212,7 +1226,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).EndInit();
             this.tabPageNfov.ResumeLayout(false);
-            this.tabPageNfov.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).EndInit();
             this.tabPageWfov.ResumeLayout(false);
             this.tabPageWfov.PerformLayout();
@@ -1229,6 +1244,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1307,12 +1323,10 @@
         private System.Windows.Forms.TextBox textDataDir;
         private System.Windows.Forms.ColorDialog colorDlg;
         private System.Windows.Forms.Button btnNewSequence;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ListBox listMeasurements;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox textLineName;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button btnDeletePoint;
         private System.Windows.Forms.Button btnCrosshairMeasure;
         private System.Windows.Forms.Label colorPicker;
@@ -1332,7 +1346,10 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button btnStopTest;
         private System.Windows.Forms.Button btnStartTest;
-        private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.Button btnSaveCrack;
+        private System.Windows.Forms.Button btnSaveAllCracks;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.PictureBox panelView;
     }
 }
 

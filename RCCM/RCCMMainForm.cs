@@ -42,12 +42,14 @@ namespace RCCM
         protected Point drawnLineEnd;
 
         protected TestResults test;
+        
+        protected PanelView view;
 
-        public RCCMMainForm(RCCMSystem sys, Settings set)
+        public RCCMMainForm(RCCMSystem sys, Settings settings)
         {
             InitializeComponent();
 
-            this.settings = set;
+            this.settings = settings;
             this.applyUISettings(this.settings);
 
             this.rccm = sys;
@@ -69,6 +71,8 @@ namespace RCCM
             this.drawnLineEnd = new Point(0, 0);
 
             this.test = new TestResults(this.chartCracks, this.chartCycles);
+
+            this.view = new PanelView(settings);
 
             Show();
         }
@@ -587,6 +591,23 @@ namespace RCCM
             }
         }
 
+        private void btnSaveCrack_Click(object sender, EventArgs e)
+        {
+            int index = this.listMeasurements.SelectedIndex;
+            if (index >= 0)
+            {
+                this.cracks[index].writeToFile(this.textDataDir.Text);
+            }
+        }
+
+        private void btnSaveAllCracks_Click(object sender, EventArgs e)
+        {
+            foreach (MeasurementSequence crack in this.cracks)
+            {
+                crack.writeToFile(this.textDataDir.Text);
+            }
+        }
+
         #endregion
 
         private void nfov1Scale_TextChanged(object sender, EventArgs e)
@@ -698,19 +719,9 @@ namespace RCCM
             this.rccm.setCycleFrequency((double) this.numericUpDown1.Value);
         }
 
-        private void btnTest_Click(object sender, EventArgs e)
+        private void panelView_Paint(object sender, PaintEventArgs e)
         {
-            int index = this.listMeasurements.SelectedIndex;
-            if (index >= 0)
-            {
-                double[] lengths = this.test.calculateCrackLength(this.cracks[index]);
-                string msg = "";
-                for (int i = 0; i < lengths.Length; i++)
-                {
-                    msg += string.Format("{0:0.00}\n", lengths[i]);
-                }
-                MessageBox.Show(msg);
-            }
+            this.view.paint(e.Graphics);
         }
     }
 }

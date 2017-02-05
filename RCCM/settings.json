@@ -1,52 +1,69 @@
 {
+    // Panel Settings
+    "panel": {
+        "width": 2540,
+        "height": 1220,
+    },
+    "fine 1": {
+        "x": -533.0,
+        "y": -254.0,
+        "x travel": 508.0,
+        "y travel": 508.0 
+    },
+    "fine 2": {
+        "x": 25.0,
+        "y": -254.0,
+        "x travel": 508.0,
+        "y travel": 508.0 
+    },
     // Motion settings
     "coarse X": {
         "type": "virtual",
         "low position limit": 0.0,
-        "high position limit": 100.0,
-        "step": 0.001
+        "high position limit": 2540.0,
+        "step": 0.005
     },
     "coarse Y": {
         "type": "virtual",
         "low position limit": 0.0,
-        "high position limit": 60.0,
-        "step": 0.001
+        "high position limit": 1524.0,
+        "step": 0.005
     },
     "fine 1 X": {
         "type": "virtual",
         "low position limit": 0.0,
-        "high position limit": 20.0,
-        "step": 0.0001
+        "high position limit": 508.0,
+        "step": 0.0005
     },
     "fine 1 Y": {
         "type": "virtual",
         "low position limit": 0.0,
-        "high position limit": 20.0,
-        "step": 0.0001
+        "high position limit": 508.0,
+        "step": 0.0005
     },
     "fine 1 Z": {
         "type": "virtual",
         "low position limit": 0.0,
-        "high position limit": 12.0,
-        "step": 0.0001
+        "high position limit": 308.0,
+        "step": 0.0005
     },
     "fine 2 X": {
         "type": "virtual",
         "low position limit": 0.0,
-        "high position limit": 20.0,
-        "step": 0.0001
+        "high position limit": 508.0,
+        "step": 0.0005
     },
     "fine 2 Y": {
         "type": "virtual",
         "low position limit": 0.0,
-        "high position limit": 20.0,
-        "step": 0.0001
+        "high position limit": 508.0,
+        "step": 0.0005
     },
     "fine 2 Z": {
         "type": "virtual",
         "low position limit": 0.0,
-        "high position limit": 12.0,
-        "step": 0.0001
+        "high position limit": 308.0,
+        "step": 0.0005
     },
     // File settings
     "image directory": "C:\\Pictures\\RCCM",
@@ -58,13 +75,13 @@
     },
     "nfov 1": {
         "serial number": 641395,
-        "microns / pixel": 8.0,
+        "microns / pixel": 9.5,
         "height": 2048,
         "width": 2448
     },    
     "nfov 2": {
         "serial number": 0,
-        "microns / pixel": 8.0,
+        "microns / pixel":9.5,
         "height": 2048,
         "width": 2448
     },
