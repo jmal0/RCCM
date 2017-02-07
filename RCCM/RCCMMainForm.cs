@@ -26,6 +26,7 @@ namespace RCCM
         protected WFOV wfov1;
 
         protected Timer nfovRepaintTimer;
+        protected Timer panelRepaintTimer;
 
         // List of measurement objects and counter for default naming convention
         protected List<MeasurementSequence> cracks;
@@ -56,14 +57,18 @@ namespace RCCM
 
             this.nfov1 = this.rccm.NFOV1;
             this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
-            
-            this.nfovRepaintTimer = new Timer();
 
             this.activeStage = RCCMStage.RCCM1;
 
+            this.nfovRepaintTimer = new Timer();
             this.nfovRepaintTimer.Enabled = true;
             this.nfovRepaintTimer.Interval = (int) this.settings.json["repaint period"];
             this.nfovRepaintTimer.Tick += new EventHandler(refreshNfov);
+
+            this.panelRepaintTimer = new Timer();
+            this.nfovRepaintTimer.Enabled = true;
+            this.nfovRepaintTimer.Interval = (int)this.settings.json["repaint period"];
+            this.nfovRepaintTimer.Tick += new EventHandler(refreshPanelView);
 
             this.cracks = new List<MeasurementSequence>();
 
@@ -126,6 +131,9 @@ namespace RCCM
             }
 
             this.nfovRepaintTimer.Start();
+            this.panelRepaintTimer.Start();
+
+            this.view.setTransform(this.panelView.CreateGraphics());
         }
         
         private void RCCMMainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -721,7 +729,12 @@ namespace RCCM
 
         private void panelView_Paint(object sender, PaintEventArgs e)
         {
-            this.view.paint(e.Graphics);
+            this.view.paint(e.Graphics, this.rccm);
+        }
+
+        private void refreshPanelView(object sender, EventArgs e)
+        {
+            this.panelView.Invalidate();
         }
     }
 }

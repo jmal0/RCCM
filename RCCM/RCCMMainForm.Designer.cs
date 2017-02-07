@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend13 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend14 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -62,6 +62,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.wfov1Config = new System.Windows.Forms.TextBox();
             this.tabPageMotion = new System.Windows.Forms.TabPage();
+            this.panelView = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.fine2ZPos = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
@@ -132,7 +133,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.panelView = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -141,6 +141,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPageMotion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelView)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fine2YPos)).BeginInit();
@@ -166,7 +167,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartCracks)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelView)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -176,10 +176,11 @@
             this.tabControl1.Controls.Add(this.tabPageNfov);
             this.tabControl1.Controls.Add(this.tabPageWfov);
             this.tabControl1.Controls.Add(this.tabPageResults);
-            this.tabControl1.Location = new System.Drawing.Point(12, 27);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(769, 582);
+            this.tabControl1.Size = new System.Drawing.Size(764, 582);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPageSetup
@@ -434,10 +435,20 @@
             this.tabPageMotion.Location = new System.Drawing.Point(4, 22);
             this.tabPageMotion.Name = "tabPageMotion";
             this.tabPageMotion.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMotion.Size = new System.Drawing.Size(761, 556);
+            this.tabPageMotion.Size = new System.Drawing.Size(756, 556);
             this.tabPageMotion.TabIndex = 1;
             this.tabPageMotion.Text = "Motion";
             this.tabPageMotion.UseVisualStyleBackColor = true;
+            // 
+            // panelView
+            // 
+            this.panelView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelView.Location = new System.Drawing.Point(6, 114);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(742, 434);
+            this.panelView.TabIndex = 3;
+            this.panelView.TabStop = false;
+            this.panelView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelView_Paint);
             // 
             // groupBox3
             // 
@@ -643,7 +654,7 @@
             this.tabPageNfov.Location = new System.Drawing.Point(4, 22);
             this.tabPageNfov.Name = "tabPageNfov";
             this.tabPageNfov.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNfov.Size = new System.Drawing.Size(761, 556);
+            this.tabPageNfov.Size = new System.Drawing.Size(756, 556);
             this.tabPageNfov.TabIndex = 3;
             this.tabPageNfov.Text = "NFOV";
             this.tabPageNfov.UseVisualStyleBackColor = true;
@@ -861,7 +872,7 @@
             this.tabPageWfov.Controls.Add(this.btnWfovStart);
             this.tabPageWfov.Location = new System.Drawing.Point(4, 22);
             this.tabPageWfov.Name = "tabPageWfov";
-            this.tabPageWfov.Size = new System.Drawing.Size(761, 556);
+            this.tabPageWfov.Size = new System.Drawing.Size(785, 556);
             this.tabPageWfov.TabIndex = 2;
             this.tabPageWfov.Text = "WFOV";
             this.tabPageWfov.UseVisualStyleBackColor = true;
@@ -1000,12 +1011,14 @@
             // 
             // wfovContainer
             // 
+            this.wfovContainer.AutoSize = true;
             this.wfovContainer.BackColor = System.Drawing.Color.White;
             this.wfovContainer.DeviceListChangedExecutionMode = TIS.Imaging.EventExecutionMode.Invoke;
             this.wfovContainer.DeviceLostExecutionMode = TIS.Imaging.EventExecutionMode.AsyncInvoke;
             this.wfovContainer.ImageAvailableExecutionMode = TIS.Imaging.EventExecutionMode.MultiThreaded;
             this.wfovContainer.LiveDisplayPosition = new System.Drawing.Point(0, 0);
             this.wfovContainer.Location = new System.Drawing.Point(3, 3);
+            this.wfovContainer.MaximumSize = new System.Drawing.Size(1280, 960);
             this.wfovContainer.Name = "wfovContainer";
             this.wfovContainer.Size = new System.Drawing.Size(640, 480);
             this.wfovContainer.TabIndex = 1;
@@ -1064,16 +1077,16 @@
             // 
             // chartCycles
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartCycles.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartCycles.Legends.Add(legend3);
+            chartArea13.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea13);
+            legend13.Name = "Legend1";
+            this.chartCycles.Legends.Add(legend13);
             this.chartCycles.Location = new System.Drawing.Point(6, 295);
             this.chartCycles.Name = "chartCycles";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chartCycles.Series.Add(series3);
+            series13.ChartArea = "ChartArea1";
+            series13.Legend = "Legend1";
+            series13.Name = "Series1";
+            this.chartCycles.Series.Add(series13);
             this.chartCycles.Size = new System.Drawing.Size(623, 255);
             this.chartCycles.TabIndex = 7;
             this.chartCycles.Text = "chart2";
@@ -1139,16 +1152,16 @@
             // 
             // chartCracks
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartCracks.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chartCracks.Legends.Add(legend4);
+            chartArea14.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea14);
+            legend14.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend14);
             this.chartCracks.Location = new System.Drawing.Point(6, 38);
             this.chartCracks.Name = "chartCracks";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chartCracks.Series.Add(series4);
+            series14.ChartArea = "ChartArea1";
+            series14.Legend = "Legend1";
+            series14.Name = "Series1";
+            this.chartCracks.Series.Add(series14);
             this.chartCracks.Size = new System.Drawing.Size(623, 255);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
@@ -1173,24 +1186,15 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(793, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(764, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // panelView
-            // 
-            this.panelView.Location = new System.Drawing.Point(6, 114);
-            this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(749, 436);
-            this.panelView.TabIndex = 3;
-            this.panelView.TabStop = false;
-            this.panelView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelView_Paint);
             // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 621);
+            this.ClientSize = new System.Drawing.Size(764, 606);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -1211,6 +1215,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabPageMotion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelView)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).EndInit();
@@ -1244,7 +1249,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
