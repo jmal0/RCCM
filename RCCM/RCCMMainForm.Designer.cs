@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend13 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend14 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -133,6 +133,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.label18 = new System.Windows.Forms.Label();
+            this.nfov1SN = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.nfov2SN = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -194,7 +198,7 @@
             this.tabPageSetup.Location = new System.Drawing.Point(4, 22);
             this.tabPageSetup.Name = "tabPageSetup";
             this.tabPageSetup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSetup.Size = new System.Drawing.Size(761, 556);
+            this.tabPageSetup.Size = new System.Drawing.Size(756, 556);
             this.tabPageSetup.TabIndex = 0;
             this.tabPageSetup.Text = "Setup";
             this.tabPageSetup.UseVisualStyleBackColor = true;
@@ -211,13 +215,15 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.label19);
+            this.groupBox8.Controls.Add(this.nfov2SN);
             this.groupBox8.Controls.Add(this.label23);
             this.groupBox8.Controls.Add(this.nfov2ControllerSN);
             this.groupBox8.Controls.Add(this.label16);
             this.groupBox8.Controls.Add(this.nfov2Scale);
-            this.groupBox8.Location = new System.Drawing.Point(6, 203);
+            this.groupBox8.Location = new System.Drawing.Point(8, 219);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(200, 70);
+            this.groupBox8.Size = new System.Drawing.Size(200, 112);
             this.groupBox8.TabIndex = 5;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "NFOV 2";
@@ -225,7 +231,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(7, 46);
+            this.label23.Location = new System.Drawing.Point(6, 72);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(90, 13);
             this.label23.TabIndex = 6;
@@ -233,7 +239,7 @@
             // 
             // nfov2ControllerSN
             // 
-            this.nfov2ControllerSN.Location = new System.Drawing.Point(104, 43);
+            this.nfov2ControllerSN.Location = new System.Drawing.Point(103, 69);
             this.nfov2ControllerSN.Name = "nfov2ControllerSN";
             this.nfov2ControllerSN.Size = new System.Drawing.Size(79, 20);
             this.nfov2ControllerSN.TabIndex = 2;
@@ -258,13 +264,15 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.label18);
+            this.groupBox7.Controls.Add(this.nfov1SN);
             this.groupBox7.Controls.Add(this.label22);
             this.groupBox7.Controls.Add(this.nfov1ControllerSN);
             this.groupBox7.Controls.Add(this.label15);
             this.groupBox7.Controls.Add(this.nfov1Scale);
             this.groupBox7.Location = new System.Drawing.Point(6, 114);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(200, 83);
+            this.groupBox7.Size = new System.Drawing.Size(200, 99);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "NFOV 1";
@@ -272,7 +280,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(7, 46);
+            this.label22.Location = new System.Drawing.Point(7, 72);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(90, 13);
             this.label22.TabIndex = 2;
@@ -280,7 +288,7 @@
             // 
             // nfov1ControllerSN
             // 
-            this.nfov1ControllerSN.Location = new System.Drawing.Point(103, 43);
+            this.nfov1ControllerSN.Location = new System.Drawing.Point(103, 69);
             this.nfov1ControllerSN.Name = "nfov1ControllerSN";
             this.nfov1ControllerSN.Size = new System.Drawing.Size(79, 20);
             this.nfov1ControllerSN.TabIndex = 1;
@@ -872,7 +880,7 @@
             this.tabPageWfov.Controls.Add(this.btnWfovStart);
             this.tabPageWfov.Location = new System.Drawing.Point(4, 22);
             this.tabPageWfov.Name = "tabPageWfov";
-            this.tabPageWfov.Size = new System.Drawing.Size(785, 556);
+            this.tabPageWfov.Size = new System.Drawing.Size(756, 556);
             this.tabPageWfov.TabIndex = 2;
             this.tabPageWfov.Text = "WFOV";
             this.tabPageWfov.UseVisualStyleBackColor = true;
@@ -1070,23 +1078,23 @@
             this.tabPageResults.Location = new System.Drawing.Point(4, 22);
             this.tabPageResults.Name = "tabPageResults";
             this.tabPageResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResults.Size = new System.Drawing.Size(761, 556);
+            this.tabPageResults.Size = new System.Drawing.Size(756, 556);
             this.tabPageResults.TabIndex = 4;
             this.tabPageResults.Text = "Test Results";
             this.tabPageResults.UseVisualStyleBackColor = true;
             // 
             // chartCycles
             // 
-            chartArea13.Name = "ChartArea1";
-            this.chartCycles.ChartAreas.Add(chartArea13);
-            legend13.Name = "Legend1";
-            this.chartCycles.Legends.Add(legend13);
+            chartArea1.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartCycles.Legends.Add(legend1);
             this.chartCycles.Location = new System.Drawing.Point(6, 295);
             this.chartCycles.Name = "chartCycles";
-            series13.ChartArea = "ChartArea1";
-            series13.Legend = "Legend1";
-            series13.Name = "Series1";
-            this.chartCycles.Series.Add(series13);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCycles.Series.Add(series1);
             this.chartCycles.Size = new System.Drawing.Size(623, 255);
             this.chartCycles.TabIndex = 7;
             this.chartCycles.Text = "chart2";
@@ -1152,16 +1160,16 @@
             // 
             // chartCracks
             // 
-            chartArea14.Name = "ChartArea1";
-            this.chartCracks.ChartAreas.Add(chartArea14);
-            legend14.Name = "Legend1";
-            this.chartCracks.Legends.Add(legend14);
+            chartArea2.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend2);
             this.chartCracks.Location = new System.Drawing.Point(6, 38);
             this.chartCracks.Name = "chartCracks";
-            series14.ChartArea = "ChartArea1";
-            series14.Legend = "Legend1";
-            series14.Name = "Series1";
-            this.chartCracks.Series.Add(series14);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartCracks.Series.Add(series2);
             this.chartCracks.Size = new System.Drawing.Size(623, 255);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
@@ -1189,6 +1197,40 @@
             this.menuStrip1.Size = new System.Drawing.Size(764, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(7, 46);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(43, 13);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "Serial #";
+            // 
+            // nfov1SN
+            // 
+            this.nfov1SN.Location = new System.Drawing.Point(82, 43);
+            this.nfov1SN.Name = "nfov1SN";
+            this.nfov1SN.Size = new System.Drawing.Size(100, 20);
+            this.nfov1SN.TabIndex = 4;
+            this.nfov1SN.Text = "16396117";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(7, 46);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(43, 13);
+            this.label19.TabIndex = 7;
+            this.label19.Text = "Serial #";
+            // 
+            // nfov2SN
+            // 
+            this.nfov2SN.Location = new System.Drawing.Point(82, 43);
+            this.nfov2SN.Name = "nfov2SN";
+            this.nfov2SN.Size = new System.Drawing.Size(100, 20);
+            this.nfov2SN.TabIndex = 8;
+            this.nfov2SN.Text = "0";
             // 
             // RCCMMainForm
             // 
@@ -1354,6 +1396,10 @@
         private System.Windows.Forms.Button btnSaveAllCracks;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.PictureBox panelView;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox nfov1SN;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox nfov2SN;
     }
 }
 

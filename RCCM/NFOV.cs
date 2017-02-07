@@ -22,83 +22,105 @@ namespace RCCM
             Mjpg,
             H264
         }
+        /// <summary>
+        /// Height in pixels of image
+        /// </summary>
+        static int IMG_HEIGHT = 2048;
+        /// <summary>
+        /// Width in pixels of image
+        /// </summary>
+        static int IMG_WIDTH = 2448;
 
-        protected ManagedCameraBase m_camera;
-        protected ManagedImage m_rawImage;
-        protected ManagedImage m_processedImage;
-        protected bool m_grabImages;
-        protected AutoResetEvent m_grabThreadExited;
-        protected BackgroundWorker m_grabThread;
+        protected uint serial;
+        protected ManagedCameraBase camera;
+        protected ManagedImage rawImage;
+        protected ManagedImage processedImage;
+        protected bool grabImages;
+        protected AutoResetEvent grabThreadExited;
+        protected BackgroundWorker grabThread;
 
         /// <summary>
         /// Camera microns / pixel calibration
         /// </summary>
         public double Scale { get; set; }
-
-        static int IMG_HEIGHT = 2048;
+        /// <summary>
+        /// Height in mm of image
+        /// </summary>
         public double Height
         {
             get { return this.Scale * NFOV.IMG_HEIGHT; }
-        }
-        static int IMG_WIDTH = 2448;
+        }        
+        /// <summary>
+        /// Height in mm of image
+        /// </summary>
         public double Width
         {
             get { return this.Scale * NFOV.IMG_WIDTH; }
         }
+        /// <summary>
+        /// Flag indicating if camera is recording video
+        /// </summary>
+        public bool Recording { get; set; }
 
-        protected bool recording;
-
-        public NFOV(double pix2um)
+        /// <summary>
+        /// Create a NFOV camera from its serial number and apply the specified calibration
+        /// </summary>
+        /// <param name="serial">Serial number of the camera</param>
+        /// <param name="pix2um">Calibration, microns/pixels</param>
+        public NFOV(uint serial, double pix2um)
         {
-            m_rawImage = new ManagedImage();
-            m_processedImage = new ManagedImage();
-            
-            m_grabThreadExited = new AutoResetEvent(false);
-
+            this.serial = serial;
             this.Scale = pix2um;
-            recording = false;
+            this.Recording = false;
+            // Initialize camera object. Connection occurs when initialize() is called
+            this.camera = new ManagedGigECamera();
+            // Initialize images
+            this.rawImage = new ManagedImage();
+            this.processedImage = new ManagedImage();
+            // Event that occurs when grab thead is exited
+            this.grabThreadExited = new AutoResetEvent(false);            
         }
 
-        public bool initialize(ManagedPGRGuid[] selectedGuids)
+        /// <summary>
+        /// Attempt to connect to camera
+        /// </summary>
+        /// <returns>True if connection is successful</returns>
+        public bool initialize()
         {
-            if (selectedGuids.Length == 0)
+            ManagedBusManager busMgr = new ManagedBusManager();
+            try
             {
+                ManagedPGRGuid guid = busMgr.GetCameraFromSerialNumber(this.serial);
+                this.camera.Connect(guid);
+            }
+            catch (Exception ex)
+            {
+                // Connection unsuccessful
                 return false;
             }
-
-            ManagedPGRGuid guidToUse = selectedGuids[0];
-
-            ManagedBusManager busMgr = new ManagedBusManager();
-            InterfaceType ifType = busMgr.GetInterfaceTypeFromGuid(guidToUse);
-            m_camera = new ManagedGigECamera();
-
-            // Connect to the first selected GUID
-            m_camera.Connect(guidToUse);
-
-            CameraControlDialog camCtlDlg = new CameraControlDialog();
-            camCtlDlg.Connect(m_camera);
-
-            CameraInfo camInfo = m_camera.GetCameraInfo();
-
             // Set embedded timestamp to on
-            EmbeddedImageInfo embeddedInfo = m_camera.GetEmbeddedImageInfo();
+            EmbeddedImageInfo embeddedInfo = this.camera.GetEmbeddedImageInfo();
             embeddedInfo.timestamp.onOff = true;
-            m_camera.SetEmbeddedImageInfo(embeddedInfo);
-
-            m_camera.StartCapture();
-
-            m_grabImages = true;
-
-            StartGrabLoop();
+            this.camera.SetEmbeddedImageInfo(embeddedInfo);
+            // Start live capture
+            this.camera.StartCapture();
+            this.grabImages = true;
+            this.StartGrabLoop();
             return true;
         }
 
+        /// <summary>
+        /// Stop live capture and release camera
+        /// </summary>
         public void disconnect()
         {
             try
             {
-                this.stop();
-                m_camera.Disconnect();
+                if (this.camera.IsConnected())
+                {
+                    this.stop();
+                    this.camera.Disconnect();
+                }
             }
             catch (FC2Exception ex)
             {
@@ -110,22 +132,30 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Start live streaming images from camera
+        /// </summary>
         public void start()
         {
-            m_camera.StartCapture();
-
-            m_grabImages = true;
+            this.camera.StartCapture();
+            this.grabImages = true;
 
             StartGrabLoop();
         }
 
+        /// <summary>
+        /// Stop live streaming images
+        /// </summary>
         public void stop()
         {
-            m_grabImages = false;
+            this.grabImages = false;
 
             try
             {
-                m_camera.StopCapture();
+                if (this.camera.IsConnected())
+                {
+                    this.camera.StopCapture();
+                }
             }
             catch (FC2Exception ex)
             {
@@ -136,30 +166,59 @@ namespace RCCM
                 Console.WriteLine("Camera is null");
             }
         }
-        /*
-        private void UpdateUI(object sender, ProgressChangedEventArgs e)
-        {
-            this.parentForm.UpdateUI(this.m_processedImage.bitmap);
-        }
-        */
+
+        /// <summary>
+        /// Initializes background thread for capturing live images
+        /// </summary>
         private void StartGrabLoop()
         {
-            m_grabThread = new BackgroundWorker();
-            //m_grabThread.ProgressChanged += new ProgressChangedEventHandler(UpdateUI);
-            m_grabThread.DoWork += new DoWorkEventHandler(GrabLoop);
-            m_grabThread.WorkerReportsProgress = true;
-            m_grabThread.RunWorkerAsync();
+            this.grabThread = new BackgroundWorker();
+            this.grabThread.DoWork += new DoWorkEventHandler(GrabLoop);
+            this.grabThread.WorkerReportsProgress = true;
+            this.grabThread.RunWorkerAsync();
         }
 
+        /// <summary>
+        /// Background worker function for getting live images
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GrabLoop(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
+            List<ManagedImage> imageList = new List<ManagedImage>(100);
+            int i = 0;
 
-            while (m_grabImages)
+            while (this.grabImages)
             {
                 try
                 {
-                    m_camera.RetrieveBuffer(m_rawImage);
+                    this.camera.RetrieveBuffer(this.rawImage);
+
+                    if (this.Recording && i < 100)
+                    {
+                        ManagedImage tempImage = new ManagedImage(rawImage);
+                        imageList.Add(tempImage);
+                        i++;
+                    }
+                    else if (i > 0)
+                    {
+                        i = 0;
+
+                        // Check if the camera supports the FRAME_RATE property
+                        CameraPropertyInfo propInfo = this.camera.GetPropertyInfo(PropertyType.FrameRate);
+
+                        float frameRateToUse = 15.0F;
+                        if (propInfo.present == true)
+                        {
+                            // Get the frame rate
+                            CameraProperty prop = this.camera.GetProperty(PropertyType.FrameRate);
+                            frameRateToUse = prop.absValue;
+                        }
+
+                        this.SaveAviHelper(AviType.H264, ref imageList, "test.avi", frameRateToUse);
+                        imageList.Clear();
+                    }
                 }
                 catch (FC2Exception ex)
                 {
@@ -169,37 +228,33 @@ namespace RCCM
 
                 lock (this)
                 {
-                    m_rawImage.Convert(PixelFormat.PixelFormatBgr, m_processedImage);
+                    this.rawImage.Convert(PixelFormat.PixelFormatBgr, this.processedImage);
                 }
 
                 worker.ReportProgress(0);
             }
 
-            m_grabThreadExited.Set();
+            this.grabThreadExited.Set();
         }
 
+        /// <summary>
+        /// Open dialog box for setting camera properties
+        /// </summary>
         public void showPropertiesDlg()
         {
             CameraControlDialog camCtlDlg = new CameraControlDialog();
             camCtlDlg.Show();
         }
 
+        /// <summary>
+        /// Save live image to file
+        /// </summary>
+        /// <param name="filename">Full path where image will be saved</param>
         public void snap(string filename)
         {
-            ManagedImage rawImage = new ManagedImage();
-            // Retrieve an image
-            m_camera.RetrieveBuffer(rawImage);
-
-            // Create a converted image
-            ManagedImage convertedImage = new ManagedImage();
-
-            // Convert the raw image
-            rawImage.Convert(PixelFormat.PixelFormatBgr, convertedImage);
-
             // Get the Bitmap object. Bitmaps are only valid if the
             // pixel format of the ManagedImage is RGB or RGBU.
-            System.Drawing.Bitmap bitmap = convertedImage.bitmap;
-
+            System.Drawing.Bitmap bitmap = processedImage.bitmap;
             // Save the image
             bitmap.Save(filename);
         }
@@ -255,47 +310,29 @@ namespace RCCM
 
         public void record(string aviFileName)
         {
-            List<ManagedImage> imageList = new List<ManagedImage>();
-            ManagedImage rawImage = new ManagedImage();
-
-            // Record until state of 'recording' is set to false
-            this.recording = true;
-            int i = 0; // There is a limit to how many images can be buffered. Do not exceed this limit
-            while (i < 100 && this.recording)
-            {
-                m_camera.RetrieveBuffer(rawImage);
-                ManagedImage tempImage = new ManagedImage(rawImage);
-                imageList.Add(tempImage);
-                i++;
-            }
-
+            /*
             // Check if the camera supports the FRAME_RATE property
-            CameraPropertyInfo propInfo = m_camera.GetPropertyInfo(PropertyType.FrameRate);
+            CameraPropertyInfo propInfo = this.camera.GetPropertyInfo(PropertyType.FrameRate);
 
             float frameRateToUse = 15.0F;
             if (propInfo.present == true)
             {
                 // Get the frame rate
-                CameraProperty prop = m_camera.GetProperty(PropertyType.FrameRate);
+                CameraProperty prop = this.camera.GetProperty(PropertyType.FrameRate);
                 frameRateToUse = prop.absValue;
             }
 
-            SaveAviHelper(AviType.Uncompressed, ref imageList, aviFileName, frameRateToUse);
+            SaveAviHelper(AviType.H264, ref imageList, aviFileName, frameRateToUse);
+            */
         }
 
+        /// <summary>
+        /// Return current live image
+        /// </summary>
+        /// <returns>Live image as a bitmap</returns>
         public System.Drawing.Bitmap getLiveImage()
         {
-            return this.m_processedImage.bitmap;
-        }
-
-        public bool isRecording()
-        {
-            return this.recording;
-        }
-
-        public void setRecord(bool rec)
-        {
-            this.recording = rec;
+            return this.processedImage.bitmap;
         }
     }
 }

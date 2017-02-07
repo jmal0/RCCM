@@ -74,14 +74,16 @@
         "configuration file": "config\\WFOV1.xml" 
     },
     "nfov 1": {
-        "serial number": 641395,
-        "microns / pixel": 9.5,
+        "camera serial": 16396117,
+        "controller serial": 641395,
+        "microns / pixel": 0.00905,
         "height": 2048,
         "width": 2448
     },    
     "nfov 2": {
-        "serial number": 0,
-        "microns / pixel":9.5,
+        "camera serial": 0,
+        "controller serial": 0,
+        "microns / pixel": 0.00905,
         "height": 2048,
         "width": 2448
     },

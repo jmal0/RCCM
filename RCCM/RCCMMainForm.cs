@@ -41,6 +41,7 @@ namespace RCCM
         protected bool drawing;
         protected Point drawnLineStart;
         protected Point drawnLineEnd;
+        static double NFOVIMAGE_SCALE = 0.25;
 
         protected TestResults test;
         
@@ -102,33 +103,7 @@ namespace RCCM
                 textFocus.Text = this.wfov1.Focus.ToString();
             }
 
-            CameraSelectionDialog camSlnDlg = new CameraSelectionDialog();
-            bool retVal = camSlnDlg.ShowModal();
-            if (retVal)
-            {
-                try
-                {
-                    bool success = this.nfov1.initialize(camSlnDlg.GetSelectedCameraGuids());
-                    if (!success)
-                    {
-                        MessageBox.Show("No camera selected. NFOV will be unavailable.");
-                    }
-                    else
-                    {
-                        btnNfovStart.Enabled = false;
-                        btnNfovStop.Enabled = true;
-                    }
-                }
-                catch (FC2Exception ex)
-                {
-                    Console.WriteLine("Failed to load form successfully: " + ex.Message);
-                }
-            }
-            else
-            {
-                MessageBox.Show("No camera selected. NFOV will be unavailable.");
-                disableNfovControls();
-            }
+            this.nfov1.initialize();
 
             this.nfovRepaintTimer.Start();
             this.panelRepaintTimer.Start();
@@ -353,10 +328,10 @@ namespace RCCM
 
         private void btnNfovRecord_Click(object sender, EventArgs e)
         {
-            if (this.nfov1.isRecording())
+            if (this.nfov1.Recording)
             {
                 // Stop recording
-                this.nfov1.setRecord(false);
+                this.nfov1.Recording = false;
                 btnNfovRecord.BackColor = Color.Transparent;
                 System.Windows.Forms.MessageBox.Show("Recording stopped");
                 btnNfovStart.Enabled = true;
@@ -368,7 +343,8 @@ namespace RCCM
             {
                 // Start recording
                 string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-                this.nfov1.record(this.textVideoDir + "\\" + timestamp + ".avi");
+                //this.nfov1.record(this.textVideoDir + "\\" + timestamp + ".avi");
+                this.nfov1.Recording = true;
                 btnNfovRecord.BackColor = Color.Gray;
                 btnNfovStart.Enabled = false;
                 btnNfovStop.Enabled = false;
@@ -421,7 +397,7 @@ namespace RCCM
                         Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
 
                         Measurement lastPt = this.cracks[index].getLastPoint();
-                        Point pt = lastPt.toPoint(location, scale, imgCenter);
+                        Point pt = lastPt.toPoint(location, scale/NFOVIMAGE_SCALE, imgCenter);
                         this.drawnLineStart.X = pt.X;
                         this.drawnLineStart.Y = pt.Y;
                     }
@@ -458,14 +434,14 @@ namespace RCCM
                 // Add measurements for start and end if user is drawing both 
                 if (this.cracks[index].CountPoints == 0)
                 {
-                    double p0x = (this.drawnLineStart.X - imgCenter.X) / this.nfov1.Scale;
-                    double p0y = -(this.drawnLineStart.Y - imgCenter.Y) / this.nfov1.Scale;
+                    double p0x = (this.drawnLineStart.X - imgCenter.X) * this.nfov1.Scale / NFOVIMAGE_SCALE;
+                    double p0y = -(this.drawnLineStart.Y - imgCenter.Y) * this.nfov1.Scale / NFOVIMAGE_SCALE;
                     Measurement p0 = new Measurement(this.rccm, RCCMStage.RCCM1, p0x, p0y);
                     this.cracks[index].addPoint(p0);
                 }
 
-                double p1x = (this.drawnLineEnd.X - imgCenter.X) / this.nfov1.Scale;
-                double p1y = -(this.drawnLineEnd.Y - imgCenter.Y) / this.nfov1.Scale;
+                double p1x = (this.drawnLineEnd.X - imgCenter.X) * this.nfov1.Scale / NFOVIMAGE_SCALE;
+                double p1y = -(this.drawnLineEnd.Y - imgCenter.Y) * this.nfov1.Scale / NFOVIMAGE_SCALE;
                 Measurement p1 = new Measurement(this.rccm, RCCMStage.RCCM1, p1x, p1y);
                 this.cracks[index].addPoint(p1);
                 
@@ -484,6 +460,8 @@ namespace RCCM
             {
                 Bitmap img = new Bitmap(liveImg, new Size(612, 512));
                 e.Graphics.DrawImage(img, 0, 0);
+                img.Dispose();
+                liveImg.Dispose();
             }
 
             // Get distance unit limits for crack overlay
@@ -494,7 +472,7 @@ namespace RCCM
             // Draw each crack on the image
             foreach (MeasurementSequence crack in this.cracks)
             {
-                crack.plot(e.Graphics, location, scale, imgCenter);
+                crack.plot(e.Graphics, location, scale / NFOVIMAGE_SCALE, imgCenter);
             }
 
             // Draw segment that user is creating with mouse
@@ -550,7 +528,7 @@ namespace RCCM
                 for (int i = 0; i < this.cracks[measurementIndex].CountPoints; i++)
                 {
                     Measurement m = this.cracks[measurementIndex].getPoint(i);
-                    this.listPoints.Items.Add(string.Format("{0:0.0000}\t{1:0.0000}", m.X, +m.Y));
+                    this.listPoints.Items.Add(string.Format("{0:0.0000}\t{1:0.0000}", m.X, m.Y));
                 }
             }
         }

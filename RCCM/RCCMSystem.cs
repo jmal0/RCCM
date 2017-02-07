@@ -26,9 +26,11 @@ namespace RCCM
 
         public RCCMSystem(Settings settings)
         {
-            this.NFOV1 = new NFOV((double) settings.json["nfov 1"]["microns / pixel"]);
+            this.NFOV1 = new NFOV((uint) settings.json["nfov 1"]["camera serial"],
+                                  (double) settings.json["nfov 1"]["microns / pixel"]);
 
-            this.nfovLensController = new NFOVLensController((int) settings.json["nfov 1"]["serial number"], (int) settings.json["nfov 2"]["serial number"]);
+            this.nfovLensController = new NFOVLensController((int) settings.json["nfov 1"]["controller serial"],
+                                                             (int) settings.json["nfov 2"]["controller serial"]);
 
             this.motors = new Dictionary<string, Motor>();
             foreach (string motorName in RCCMSystem.AXES)

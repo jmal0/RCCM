@@ -15,6 +15,10 @@ namespace RCCM
         public TestResults(Chart cracks, Chart cycles)
         {
             this.crackChart = cracks;
+            Title crackChartTitle = new Title("Crack Length vs Cycle Number");
+            this.crackChart.Titles.Add(crackChartTitle);
+            this.crackChart.ChartAreas[0].AxisX.Title = "Cycle";
+            this.crackChart.ChartAreas[0].AxisY.Title = "Crack Length (mm)";
             this.cycleChart = cycles;
         }
 
@@ -36,14 +40,12 @@ namespace RCCM
                 return lengths;
             }
 
-            double crackpreviousX = crack.getPoint(0).X;
-            double crackpreviousY = crack.getPoint(0).Y;
-            for (int i = 1; i<crack.CountPoints;i++)
+            double originX = crack.getPoint(0).X;
+            double originY = crack.getPoint(0).Y;
+            for (int i = 0; i<crack.CountPoints;i++)
             {
                 Measurement point = crack.getPoint(i);
-                lengths[i] = lengths[i - 1] + Math.Sqrt(Math.Pow((point.X - crackpreviousX),2) + Math.Pow((point.Y - crackpreviousY),2));
-                crackpreviousX = point.X;
-                crackpreviousY = point.Y;
+                lengths[i] = Math.Sqrt(Math.Pow((point.X - originX), 2) + Math.Pow((point.Y - originY), 2));
             }
             return lengths; 
         }

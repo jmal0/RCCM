@@ -27,7 +27,7 @@ namespace RCCM
         {
             // Create timer to call countLoop periodically
             this.countTimer = new Timer();
-            this.countTimer.Enabled = true;
+            this.countTimer.Enabled = false;
             this.countTimer.Interval = period;
             this.countTimer.Tick += new EventHandler(countLoop);
 
