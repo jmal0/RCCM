@@ -16,6 +16,10 @@
         "x travel": 508.0,
         "y travel": 508.0 
     },
+    // Coordinate System settings
+    "rotation angle": 5.0,
+    "home X": 0.0,
+    "home Y": 0.0,
     // Motion settings
     "coarse X": {
         "type": "virtual",

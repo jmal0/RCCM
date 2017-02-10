@@ -46,6 +46,7 @@ namespace RCCM
         protected TestResults test;
         
         protected PanelView view;
+        protected NFOVView nfovView;
 
         public RCCMMainForm(RCCMSystem sys, Settings settings)
         {
@@ -79,6 +80,7 @@ namespace RCCM
             this.test = new TestResults(this.chartCracks, this.chartCycles);
 
             this.view = new PanelView(settings);
+            this.nfovView = new NFOVView(this.rccm, this.cracks);
 
             Show();
         }
@@ -378,110 +380,33 @@ namespace RCCM
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                // Check that a crack is selected
-                int index = this.listMeasurements.SelectedIndex;
-                if (index >= 0)
-                {
-                    this.drawing = true;
-
-                    // Move user-drawn line endpoint to mouse location
-                    this.drawnLineEnd.X = e.X;
-                    this.drawnLineEnd.Y = e.Y;
-
-                    // If crack has at least one point, connect a new point to it
-                    if (this.cracks[index].CountPoints > 0)
-                    {
-                        // Get location info from NFOV
-                        PointF location = this.rccm.getNFOV1Location();
-                        float scale = (float)this.nfov1.Scale;
-                        Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
-
-                        Measurement lastPt = this.cracks[index].getLastPoint();
-                        Point pt = lastPt.toPoint(location, scale/NFOVIMAGE_SCALE, imgCenter);
-                        this.drawnLineStart.X = pt.X;
-                        this.drawnLineStart.Y = pt.Y;
-                    }
-                    // If no point in crack, move first point to mouse location
-                    else
-                    {
-                        this.drawnLineStart.X = e.X;
-                        this.drawnLineStart.Y = e.Y;                        
-                    }
-                }
-            }                
+                this.nfovView.createDrawnLine(e.X, e.Y, this.nfovImage.Width, this.nfovImage.Height);
+            }
         }
 
         private void nfovImage_MouseMove(object sender, MouseEventArgs e)
         {
-            if (this.drawing)
+            if (this.nfovView.Drawing)
             {
-                // Create point at mouse location
-                this.drawnLineEnd.X = e.X;
-                this.drawnLineEnd.Y = e.Y;
+                // Move end of line to mouse location
+                this.nfovView.moveDrawnLineEnd(e.X, e.Y, this.nfovImage.Width, this.nfovImage.Height);
             }
         }
 
         private void nfovImage_MouseUp(object sender, MouseEventArgs e)
         {
             int index = this.listMeasurements.SelectedIndex;
-            if (this.drawing && index >= 0)
+            if (nfovView.Drawing)
             {
-                // Get location info from NFOV
-                PointF location = this.rccm.getNFOV1Location();
-                float scale = (float)this.nfov1.Scale;
-                Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
-
-                // Add measurements for start and end if user is drawing both 
-                if (this.cracks[index].CountPoints == 0)
-                {
-                    double p0x = (this.drawnLineStart.X - imgCenter.X) * this.nfov1.Scale / NFOVIMAGE_SCALE;
-                    double p0y = -(this.drawnLineStart.Y - imgCenter.Y) * this.nfov1.Scale / NFOVIMAGE_SCALE;
-                    Measurement p0 = new Measurement(this.rccm, RCCMStage.RCCM1, p0x, p0y);
-                    this.cracks[index].addPoint(p0);
-                }
-
-                double p1x = (this.drawnLineEnd.X - imgCenter.X) * this.nfov1.Scale / NFOVIMAGE_SCALE;
-                double p1y = -(this.drawnLineEnd.Y - imgCenter.Y) * this.nfov1.Scale / NFOVIMAGE_SCALE;
-                Measurement p1 = new Measurement(this.rccm, RCCMStage.RCCM1, p1x, p1y);
-                this.cracks[index].addPoint(p1);
-                
-                this.test.plotCracks(this.cracks);
+                nfovView.createSegment();
             }
-            this.drawing = false;
             // Refresh list of points
             this.updateMeasurementControls(this.listMeasurements.SelectedIndex);
         }
 
         private void nfovImage_Paint(object sender, PaintEventArgs e)
         {
-            Bitmap liveImg = this.nfov1.getLiveImage();
-
-            if (liveImg != null)
-            {
-                Bitmap img = new Bitmap(liveImg, new Size(612, 512));
-                e.Graphics.DrawImage(img, 0, 0);
-                img.Dispose();
-                liveImg.Dispose();
-            }
-
-            // Get distance unit limits for crack overlay
-            PointF location = this.rccm.getNFOV1Location();
-            double scale = this.nfov1.Scale;
-            Point imgCenter = new Point(this.nfovImage.Width / 2, this.nfovImage.Height / 2);
-            
-            // Draw each crack on the image
-            foreach (MeasurementSequence crack in this.cracks)
-            {
-                crack.plot(e.Graphics, location, scale / NFOVIMAGE_SCALE, imgCenter);
-            }
-
-            // Draw segment that user is creating with mouse
-            int index = this.listMeasurements.SelectedIndex;
-            if (index >= 0 && this.drawing)
-            {
-                Color c = this.cracks[index].Color;
-                e.Graphics.DrawLine(new Pen(c), this.drawnLineStart, this.drawnLineEnd);
-            }            
+            this.nfovView.paint(e.Graphics);           
         }
 
         private void colorPicker_Click(object sender, EventArgs e)
@@ -528,13 +453,14 @@ namespace RCCM
                 for (int i = 0; i < this.cracks[measurementIndex].CountPoints; i++)
                 {
                     Measurement m = this.cracks[measurementIndex].getPoint(i);
-                    this.listPoints.Items.Add(string.Format("{0:0.0000}\t{1:0.0000}", m.X, m.Y));
+                    this.listPoints.Items.Add(string.Format("{0:0.0000, -10} {1:0.0000, -10}", m.X, m.Y));
                 }
             }
         }
 
         private void listMeasurements_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.nfovView.ActiveIndex = this.listMeasurements.SelectedIndex;
             updateMeasurementControls(this.listMeasurements.SelectedIndex);
         }
 
@@ -549,7 +475,7 @@ namespace RCCM
             }
             this.test.plotCracks(this.cracks);
         }
-
+        
         private void btnCrosshairMeasure_Click(object sender, EventArgs e)
         {
             int index = this.listMeasurements.SelectedIndex;

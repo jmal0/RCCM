@@ -34,7 +34,7 @@ namespace RCCM
         public MeasurementSequence(Color uiColor, string uiName, RCCMStage uiParent)
         {
             this.points = new List<Measurement>();
-            this.Color = uiColor;
+            this.Color = Color.FromArgb(128, uiColor); // 50% transparent
             this.Name = uiName;
             this.parent = uiParent;
         }
@@ -90,21 +90,21 @@ namespace RCCM
         /// Plot the line segments of this measurement sequence on a graphics container
         /// </summary>
         /// <param name="axes">Graphics object of the container that will display the plot</param>
-        /// <param name="location">Global coordinates at which measurement was made</param>
-        /// <param name="scale">Conversion from distance units to pixels in the image display</param>
-        /// <param name="imgCenter">Pixel location of the center of the image</param>
-        public void plot(Graphics axes, PointF location, double scale, Point imgCenter)
+        public void plot(Graphics axes)
         {
             if (this.points.Count > 1)
             {
+                Pen pen = new Pen(this.Color, 0);
+                pen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+
                 PointF p0, p1;
-                
+
                 // Draw each line segment
-                p0 = this.points[0].toPoint(location, scale, imgCenter);
+                p0 = new PointF((float) this.points[0].X, (float) this.points[0].Y);
                 for (int i = 1; i < this.points.Count; i++)
                 {
-                    p1 = this.points[i].toPoint(location, scale, imgCenter);
-                    axes.DrawLine(new Pen(this.Color), p0, p1);
+                    p1 = new PointF((float)this.points[i].X, (float)this.points[i].Y);
+                    axes.DrawLine(pen, p0, p1);
                     p0 = p1;
                 }
             }
