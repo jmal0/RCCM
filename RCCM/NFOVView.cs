@@ -125,7 +125,7 @@ namespace RCCM
                 double pixX = nfov.Scale * (x - w / 2.0) / this.displayScale;
                 double pixY = nfov.Scale * (y - h / 2.0) / this.displayScale;
                 // Rotate pixel vector into global position vector
-                PointF pix = this.rccm.pixelToGlobalVector(pixX, pixY);
+                PointF pix = this.rccm.fineVectorToGlobalVector(pixX, pixY);
                 this.drawnLineEnd.X = pos.X + pix.X;
                 this.drawnLineEnd.Y = pos.Y + pix.Y;
             }
@@ -148,7 +148,7 @@ namespace RCCM
                 PointF pos = this.rccm.getNFOVLocation(this.rccm.ActiveStage);
                 double pixX = nfov.Scale * (x - w / 2.0) / this.displayScale;
                 double pixY = nfov.Scale * (y - h / 2.0) / this.displayScale;
-                PointF pix = this.rccm.pixelToGlobalVector(pixX, pixY);
+                PointF pix = this.rccm.fineVectorToGlobalVector(pixX, pixY);
                 // Create start point - use last crack vertex if active crack is started.
                 if (this.cracks[this.ActiveIndex].CountPoints > 0)
                 {

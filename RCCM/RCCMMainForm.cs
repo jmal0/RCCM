@@ -79,7 +79,7 @@ namespace RCCM
 
             this.test = new TestResults(this.chartCracks, this.chartCycles);
 
-            this.view = new PanelView(settings);
+            this.view = new PanelView(this.rccm, settings);
             this.nfovView = new NFOVView(this.rccm, this.cracks);
 
             Show();
@@ -633,12 +633,24 @@ namespace RCCM
 
         private void panelView_Paint(object sender, PaintEventArgs e)
         {
-            this.view.paint(e.Graphics, this.rccm);
+            this.view.paint(e.Graphics);
         }
 
         private void refreshPanelView(object sender, EventArgs e)
         {
             this.panelView.Invalidate();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void nFOV1LensToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LensCalibrationForm dlg = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM1);
+            dlg.ShowDialog();
+            dlg.Dispose();
         }
     }
 }

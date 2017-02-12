@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -21,7 +22,7 @@ namespace RCCM
 
         public RCCMStage ActiveStage { get; private set; }
 
-        protected NFOVLensController nfovLensController;
+        public NFOVLensController LensController { get; private set; }
 
         protected Dictionary<string, Motor> motors;
 
@@ -37,8 +38,32 @@ namespace RCCM
             this.NFOV1 = new NFOV((uint) settings.json["nfov 1"]["camera serial"],
                                   (double) settings.json["nfov 1"]["microns / pixel"]);
 
-            this.nfovLensController = new NFOVLensController((int) settings.json["nfov 1"]["controller serial"],
-                                                             (int) settings.json["nfov 2"]["controller serial"]);
+            // Read NFOV lens calibrations into double arrays
+            int i;
+            int calibration1Rows = settings.json["nfov 1"]["calibration"].Count();
+            Console.WriteLine(calibration1Rows);
+            double[,] calibration1 = new double[2, calibration1Rows];
+            i = 0;
+            foreach (JArray row in settings.json["nfov 1"]["calibration"].Children())
+            {
+                calibration1[0, i] = (double) row[0];
+                calibration1[1, i] = (double) row[1];
+                i++;
+            }
+            int calibration2Rows = settings.json["nfov 2"]["calibration"].Count();
+            double[,] calibration2 = new double[2, calibration2Rows];
+            i = 0;
+            foreach (JArray row in settings.json["nfov 1"]["calibration"].Children())
+            {
+                calibration1[0, i] = (double)row[0];
+                calibration1[1, i] = (double)row[1];
+                i++;
+            }
+            // Create lens controller
+            this.LensController = new NFOVLensController((int) settings.json["nfov 1"]["controller serial"],
+                                                         (int) settings.json["nfov 2"]["controller serial"],
+                                                         calibration1,
+                                                         calibration2);
 
             // TODO: lol yeah
             this.ActiveStage = RCCMStage.RCCM1;
@@ -110,7 +135,7 @@ namespace RCCM
             return PointF.Add(coarselocation, new SizeF((float)xOffRotated, (float)yOffRotated));
         }
 
-        public PointF pixelToGlobalVector(double x, double y)
+        public PointF fineVectorToGlobalVector(double x, double y)
         {
             double globalX = this.fineStageRotation[0, 0] * x + this.fineStageRotation[0, 1] * y;
             double globalY = this.fineStageRotation[1, 0] * x + this.fineStageRotation[1, 1] * y;
@@ -175,7 +200,7 @@ namespace RCCM
 
         public void readHeight1()
         {
-            Console.WriteLine(this.nfovLensController.getHeight(RCCMStage.RCCM1));
+            Console.WriteLine(this.LensController.getHeight(RCCMStage.RCCM1));
         }
     }
 }

@@ -106,6 +106,12 @@
   <ItemGroup>
     <Compile Include="CycleCounter.cs" />
     <Compile Include="definitions.cs" />
+    <Compile Include="LensCalibrationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LensCalibrationForm.Designer.cs">
+      <DependentUpon>LensCalibrationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NFOVView.cs" />
     <Compile Include="PanelView.cs" />
     <Compile Include="RCCMMainForm.cs">
@@ -133,6 +139,9 @@
     <Compile Include="TestResults.cs" />
     <Compile Include="VirtualMotor.cs" />
     <Compile Include="WFOV.cs" />
+    <EmbeddedResource Include="LensCalibrationForm.resx">
+      <DependentUpon>LensCalibrationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RCCMMainForm.resx">
       <DependentUpon>RCCMMainForm.cs</DependentUpon>
     </EmbeddedResource>

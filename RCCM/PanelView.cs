@@ -13,6 +13,7 @@ namespace RCCM
     /// </summary>
     public class PanelView
     {
+        protected readonly RCCMSystem rccm;
 
         protected Pen pen;
         protected Brush coarseBrush;
@@ -34,8 +35,9 @@ namespace RCCM
         protected float fine2XPos;
         protected float fine2YPos;
 
-        public PanelView(Settings settings)
+        public PanelView(RCCMSystem rccm, Settings settings)
         {
+            this.rccm = rccm;
             // Create rectangle for displaying panel
             float w = (float) settings.json["panel"]["width"];
             float h = (float) settings.json["panel"]["height"];
@@ -49,8 +51,10 @@ namespace RCCM
             float yFine2 = (float)settings.json["fine 2"]["y"];
             float wFine2 = (float)settings.json["fine 2"]["x travel"];
             float hFine2 = (float)settings.json["fine 2"]["y travel"];
-            this.fine1Offset = new SizeF(xFine1, yFine1);
-            this.fine2Offset = new SizeF(xFine2, yFine2);
+            PointF fine1Off = this.rccm.fineVectorToGlobalVector(xFine1, yFine1);
+            PointF fine2Off = this.rccm.fineVectorToGlobalVector(xFine2, yFine2);
+            this.fine1Offset = new SizeF(fine1Off.X, fine1Off.Y);
+            this.fine2Offset = new SizeF(fine2Off.X, fine2Off.Y);
             this.fine1 = new RectangleF(xFine1, yFine1, wFine1, hFine1);
             this.fine2 = new RectangleF(xFine2, yFine2, wFine2, hFine2);
             // Create brushes/pens to draw with
@@ -66,20 +70,27 @@ namespace RCCM
         /// </summary>
         /// <param name="g">The graphics object representing the control on which to draw</param>
         /// <param name="rccm">Handle to RCCMSystem object. Will be used to get positions</param>
-        public void paint(Graphics g, RCCMSystem rccm)
+        public void paint(Graphics g)
         {
-            this.updatePositions(rccm);
+            this.updatePositions();
 
             // Set axis limits
             g.Transform = this.transform;
 
-            // Draw travel regions
+            // Draw coarse axis travel region
             g.FillRectangle(this.coarseBrush, this.panel);
+            // Draw coarse axis position crosshair
+            g.DrawLine(this.pen, this.panel.Left + this.coarseXPos, this.panel.Top, this.panel.Left + this.coarseXPos, this.panel.Bottom); // Vert
+            g.DrawLine(this.pen, this.panel.Left, this.panel.Top + this.coarseYPos, this.panel.Right, this.panel.Top + this.coarseYPos); // Horiz
+
+            // Rotate drawing about pivot plate location (translate to location, rotate, translate back)
+            g.TranslateTransform(-this.fine1.Width / 2 + this.coarseXPos, -this.fine1.Height / 2 + this.coarseYPos);
+            g.RotateTransform((float) -this.rccm.FineStageAngle);
+            g.TranslateTransform(this.fine1.Width / 2 - this.coarseXPos, this.fine1.Height / 2 - this.coarseYPos);
+            // Draw fine axis travel region
             g.FillRectangle(this.fineBrush, this.fine1);
             g.FillRectangle(this.fineBrush, this.fine2);
             // Draw position crosshairs
-            g.DrawLine(this.pen, this.panel.Left + this.coarseXPos, this.panel.Top, this.panel.Left + this.coarseXPos, this.panel.Bottom); // Vert
-            g.DrawLine(this.pen, this.panel.Left, this.panel.Top + this.coarseYPos, this.panel.Right, this.panel.Top + this.coarseYPos); // Horiz
             g.DrawLine(this.pen, this.fine1.Left + this.fine1XPos, this.fine1.Top, this.fine1.Left + this.fine1XPos, this.fine1.Bottom); // Vert
             g.DrawLine(this.pen, this.fine1.Left, this.fine1.Top + this.fine1YPos, this.fine1.Right, this.fine1.Top + this.fine1YPos); // Horiz
             g.DrawLine(this.pen, this.fine2.Left + this.fine2XPos, this.fine2.Top, this.fine2.Left + this.fine2XPos, this.fine2.Bottom); // Vert
@@ -103,15 +114,15 @@ namespace RCCM
             this.transform = g.Transform;
         }
 
-        public void updatePositions(RCCMSystem rccm)
+        public void updatePositions()
         {
             // Get positions from rccm
-            this.coarseXPos = (float) rccm.getPosition("coarse X");
-            this.coarseYPos = (float) rccm.getPosition("coarse Y");
-            this.fine1XPos = (float)rccm.getPosition("fine 1 X");
-            this.fine1YPos = (float)rccm.getPosition("fine 1 Y");
-            this.fine2XPos = (float)rccm.getPosition("fine 2 X");
-            this.fine2YPos = (float)rccm.getPosition("fine 2 Y");
+            this.coarseXPos = (float) this.rccm.getPosition("coarse X");
+            this.coarseYPos = (float) this.rccm.getPosition("coarse Y");
+            this.fine1XPos = (float) this.rccm.getPosition("fine 1 X");
+            this.fine1YPos = (float) this.rccm.getPosition("fine 1 Y");
+            this.fine2XPos = (float) this.rccm.getPosition("fine 2 X");
+            this.fine2YPos = (float) this.rccm.getPosition("fine 2 Y");
             // Move fine stage rectangles
             PointF coarsePos = new PointF(this.coarseXPos, this.coarseYPos);
             this.fine1.Location = PointF.Add(coarsePos, this.fine1Offset);

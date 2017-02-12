@@ -39,11 +39,15 @@
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.nfov2SN = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.nfov2ControllerSN = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.nfov2Scale = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.nfov1SN = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.nfov1ControllerSN = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -133,10 +137,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.label18 = new System.Windows.Forms.Label();
-            this.nfov1SN = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.nfov2SN = new System.Windows.Forms.TextBox();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nFOV1LensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -228,6 +230,23 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "NFOV 2";
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(7, 46);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(43, 13);
+            this.label19.TabIndex = 7;
+            this.label19.Text = "Serial #";
+            // 
+            // nfov2SN
+            // 
+            this.nfov2SN.Location = new System.Drawing.Point(82, 43);
+            this.nfov2SN.Name = "nfov2SN";
+            this.nfov2SN.Size = new System.Drawing.Size(100, 20);
+            this.nfov2SN.TabIndex = 8;
+            this.nfov2SN.Text = "0";
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -276,6 +295,23 @@
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "NFOV 1";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(7, 46);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(43, 13);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "Serial #";
+            // 
+            // nfov1SN
+            // 
+            this.nfov1SN.Location = new System.Drawing.Point(82, 43);
+            this.nfov1SN.Name = "nfov1SN";
+            this.nfov1SN.Size = new System.Drawing.Size(100, 20);
+            this.nfov1SN.TabIndex = 4;
+            this.nfov1SN.Text = "16396117";
             // 
             // label22
             // 
@@ -1185,52 +1221,35 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(764, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // label18
+            // settingsToolStripMenuItem
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(7, 46);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(43, 13);
-            this.label18.TabIndex = 3;
-            this.label18.Text = "Serial #";
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nFOV1LensToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
             // 
-            // nfov1SN
+            // nFOV1LensToolStripMenuItem
             // 
-            this.nfov1SN.Location = new System.Drawing.Point(82, 43);
-            this.nfov1SN.Name = "nfov1SN";
-            this.nfov1SN.Size = new System.Drawing.Size(100, 20);
-            this.nfov1SN.TabIndex = 4;
-            this.nfov1SN.Text = "16396117";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(7, 46);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(43, 13);
-            this.label19.TabIndex = 7;
-            this.label19.Text = "Serial #";
-            // 
-            // nfov2SN
-            // 
-            this.nfov2SN.Location = new System.Drawing.Point(82, 43);
-            this.nfov2SN.Name = "nfov2SN";
-            this.nfov2SN.Size = new System.Drawing.Size(100, 20);
-            this.nfov2SN.TabIndex = 8;
-            this.nfov2SN.Text = "0";
+            this.nFOV1LensToolStripMenuItem.Name = "nFOV1LensToolStripMenuItem";
+            this.nFOV1LensToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nFOV1LensToolStripMenuItem.Text = "NFOV 1 Lens";
+            this.nFOV1LensToolStripMenuItem.Click += new System.EventHandler(this.nFOV1LensToolStripMenuItem_Click);
             // 
             // RCCMMainForm
             // 
@@ -1400,6 +1419,8 @@
         private System.Windows.Forms.TextBox nfov1SN;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox nfov2SN;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nFOV1LensToolStripMenuItem;
     }
 }
 
