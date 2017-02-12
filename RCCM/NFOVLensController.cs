@@ -36,6 +36,7 @@ namespace RCCM
             try
             {
                 this.NFOV1Controller = this.manager.ControllerFromSerialNumber(nfov1Serial);
+                this.NFOV1Calibration = calibration1; // DELETE THIS
                 if (this.NFOV1Controller == null)
                 {
                     System.Windows.Forms.MessageBox.Show("NFOV 1 Lens controller disconnected or invalid.");
@@ -52,6 +53,7 @@ namespace RCCM
             try
             {
                 this.NFOV2Controller = this.manager.ControllerFromSerialNumber(nfov2Serial);
+                this.NFOV2Calibration = calibration2; // DELETE THIS
                 if (this.NFOV2Controller == null)
                 {
                     System.Windows.Forms.MessageBox.Show("NFOV 2 Lens controller disconnected or invalid.");
@@ -113,7 +115,6 @@ namespace RCCM
         /// <returns></returns>
         public bool applyCalibration(double[,] data, RCCMStage stage)
         {
-            this.NFOV1Calibration = data; // TODO: delete this i only need it here for testing
             int rows = data.GetLength(0);
             int cols = data.GetLength(1);
 
@@ -127,13 +128,20 @@ namespace RCCM
             IController controller = stage == RCCMStage.RCCM1 ? this.NFOV1Controller : this.NFOV2Controller;
 
             // Set number of points in calibration
-            controller.SendCommand(string.Format("{0},{1}", NFOVLensController.SET_NPOINTS_CMD, rows));
-            // Apply each calibration point
-            for (int i = 0; i < rows; i++)
+            try
             {
-                this.NFOV1Controller.SendCommand(string.Format("{0},{1},{2},{3}", NFOVLensController.SETPOINT_CMD, i, data[i,0], data[i,1]));
+                controller.SendCommand(string.Format("{0},{1}", NFOVLensController.SET_NPOINTS_CMD, rows));
+                // Apply each calibration point
+                for (int i = 0; i < rows; i++)
+                {
+                    this.NFOV1Controller.SendCommand(string.Format("{0},{1},{2},{3}", NFOVLensController.SETPOINT_CMD, i, data[i, 0], data[i, 1]));
+                }
+                this.NFOV1Calibration = data;
             }
-            //this.NFOV1Calibration = data;
+            catch
+            {
+                return false;
+            }
             return true;
         }
 
@@ -155,6 +163,11 @@ namespace RCCM
                 return false;
             }
             return true;
+        }
+
+        public static double ToHeight(double inputVoltage)
+        {
+            return 0.226667 * inputVoltage - 21.0667; 
         }
     }
 }

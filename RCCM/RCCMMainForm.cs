@@ -648,9 +648,8 @@ namespace RCCM
 
         private void nFOV1LensToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LensCalibrationForm dlg = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM1);
-            dlg.ShowDialog();
-            dlg.Dispose();
+            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM1);
+            form.Show();
         }
     }
 }

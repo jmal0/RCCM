@@ -15,30 +15,27 @@ namespace RCCM
         protected NFOVLensController controller;
         protected RCCMStage stage;
         protected double[,] oldCalibration;
-        protected BindingSource source;
         protected SortedList<double, CalibrationPoint> calibration;
 
         public LensCalibrationForm(NFOVLensController controller, RCCMStage stage)
         {
+            InitializeComponent();
+
             this.controller = controller;
             this.stage = stage;
 
             this.oldCalibration = stage == RCCMStage.RCCM1 ? this.controller.NFOV1Calibration : this.controller.NFOV2Calibration;
+            this.calibration = new SortedList<double, CalibrationPoint>();
             if (this.oldCalibration != null)
             {
-                this.calibration = new SortedList<double, CalibrationPoint>();
-                for (int i = 0; i < this.oldCalibration.GetLength(1); i++)
+                for (int i = 0; i < this.oldCalibration.GetLength(0); i++)
                 {
-                    this.calibration.Add(this.oldCalibration[i, 0], new CalibrationPoint(this.oldCalibration[i, 0], this.oldCalibration[i, 1]));
+                    this.calibration.Add(this.oldCalibration[i, 0], 
+                                         new CalibrationPoint(NFOVLensController.ToHeight(this.oldCalibration[i, 0]), this.oldCalibration[i, 1]));
                 }
             }
 
-            InitializeComponent();
-            this.calibrationTable.AutoGenerateColumns = true;
-            this.source = new BindingSource();
-            this.source.DataSource = this.calibration;
-            this.calibrationTable.DataSource = this.source;
-            this.calibrationTable.Refresh();
+            this.updateListView();
         }
 
         private void heightEdit_ValueChanged(object sender, EventArgs e)
@@ -64,29 +61,62 @@ namespace RCCM
             {
                 MessageBox.Show("Failed to send command");
             }
+            else
+            {
+                this.calibration.Add(reading, new CalibrationPoint(reading, (double) this.focalPowerEdit.Value));
+                this.applyCalibration();
+                this.updateListView();
+            }
         }
         
         private void btnSave_Click(object sender, EventArgs e)
         {
-            double[,] array = new double[this.calibration.Count, 2];
-            for (int i = 0; i < this.calibration.Count; i++)
+            bool result = this.applyCalibration();
+            if (!result)
             {
-                var point = this.calibration[i];
-                array[i, 0] = point.Height;
-                array[i, 1] = point.FocalPower;
+                MessageBox.Show("Failed to apply old calibration.");
             }
-            this.controller.applyCalibration(array, this.stage);
-            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.controller.applyCalibration(this.oldCalibration, this.stage);
-            this.DialogResult = DialogResult.Cancel;
+            bool result = this.controller.applyCalibration(this.oldCalibration, this.stage);
+            if (!result)
+            {
+                MessageBox.Show("Failed to apply old calibration.");
+            }
             this.Close();
         }
         
+        private bool applyCalibration()
+        {
+            double[,] array = new double[this.calibration.Count, 2];
+            int i = 0;
+            foreach (double key in this.calibration.Keys)
+            {
+                array[i, 0] = this.calibration[key].Height;
+                array[i, 1] = this.calibration[key].FocalPower;
+                i++;
+            }
+            return this.controller.applyCalibration(array, this.stage);
+        }
+
+        private void updateListView()
+        {
+            this.listCalibration.Items.Clear();
+            foreach (double key in this.calibration.Keys)
+            {
+                this.listCalibration.Items.Add(new ListViewItem(new string[] {
+                    string.Format("{0:0.000}", this.calibration[key].Height),
+                    string.Format("{0:0.000}", this.calibration[key].FocalPower),
+                }));
+            }
+
+            this.listCalibration.Columns[0].Width = 105;
+            this.listCalibration.Columns[1].Width = 105;
+        }
+
         protected class CalibrationPoint
         {
             public double Height { get; set; }

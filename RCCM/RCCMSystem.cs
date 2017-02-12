@@ -42,21 +42,21 @@ namespace RCCM
             int i;
             int calibration1Rows = settings.json["nfov 1"]["calibration"].Count();
             Console.WriteLine(calibration1Rows);
-            double[,] calibration1 = new double[2, calibration1Rows];
+            double[,] calibration1 = new double[calibration1Rows, 2];
             i = 0;
             foreach (JArray row in settings.json["nfov 1"]["calibration"].Children())
             {
-                calibration1[0, i] = (double) row[0];
-                calibration1[1, i] = (double) row[1];
+                calibration1[i, 0] = (double) row[0];
+                calibration1[i, 1] = (double) row[1];
                 i++;
             }
             int calibration2Rows = settings.json["nfov 2"]["calibration"].Count();
-            double[,] calibration2 = new double[2, calibration2Rows];
+            double[,] calibration2 = new double[calibration2Rows, 2];
             i = 0;
             foreach (JArray row in settings.json["nfov 1"]["calibration"].Children())
             {
-                calibration1[0, i] = (double)row[0];
-                calibration1[1, i] = (double)row[1];
+                calibration1[i, 0] = (double)row[0];
+                calibration1[i, 1] = (double)row[1];
                 i++;
             }
             // Create lens controller

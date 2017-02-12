@@ -35,10 +35,11 @@
             this.btnApplyCalibration = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.calibrationTable = new System.Windows.Forms.DataGridView();
+            this.listCalibration = new System.Windows.Forms.ListView();
+            this.columnHeight = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnFocalPower = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.heightEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.focalPowerEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.calibrationTable)).BeginInit();
             this.SuspendLayout();
             // 
             // heightEdit
@@ -111,23 +112,36 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // calibrationTable
+            // listCalibration
             // 
-            this.calibrationTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.calibrationTable.Location = new System.Drawing.Point(15, 12);
-            this.calibrationTable.MultiSelect = false;
-            this.calibrationTable.Name = "calibrationTable";
-            this.calibrationTable.RowHeadersVisible = false;
-            this.calibrationTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.calibrationTable.Size = new System.Drawing.Size(211, 193);
-            this.calibrationTable.TabIndex = 8;
+            this.listCalibration.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeight,
+            this.columnFocalPower});
+            this.listCalibration.FullRowSelect = true;
+            this.listCalibration.Location = new System.Drawing.Point(12, 12);
+            this.listCalibration.MultiSelect = false;
+            this.listCalibration.Name = "listCalibration";
+            this.listCalibration.Size = new System.Drawing.Size(214, 193);
+            this.listCalibration.TabIndex = 8;
+            this.listCalibration.UseCompatibleStateImageBehavior = false;
+            this.listCalibration.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeight
+            // 
+            this.columnHeight.Text = "Height (mm)";
+            this.columnHeight.Width = 105;
+            // 
+            // columnFocalPower
+            // 
+            this.columnFocalPower.Text = "Focal Power";
+            this.columnFocalPower.Width = 105;
             // 
             // LensCalibrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(238, 324);
-            this.Controls.Add(this.calibrationTable);
+            this.Controls.Add(this.listCalibration);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnApplyCalibration);
@@ -139,7 +153,6 @@
             this.Text = "Lens Calibration";
             ((System.ComponentModel.ISupportInitialize)(this.heightEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.focalPowerEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.calibrationTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,6 +167,8 @@
         private System.Windows.Forms.Button btnApplyCalibration;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.DataGridView calibrationTable;
+        private System.Windows.Forms.ListView listCalibration;
+        private System.Windows.Forms.ColumnHeader columnHeight;
+        private System.Windows.Forms.ColumnHeader columnFocalPower;
     }
 }
