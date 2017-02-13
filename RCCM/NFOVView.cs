@@ -19,6 +19,7 @@ namespace RCCM
         public NFOV NFOV1 { get; set; }
         public NFOV NFOV2 { get; set; }
         public int ActiveIndex { get; set; }
+        public int ActivePoint { get; set; }
         private float displayScale = 0.25f;
         public bool Drawing { get; private set; }
         public PointF drawnLineStart;
@@ -35,6 +36,7 @@ namespace RCCM
             this.cracks = cracks;
             this.Drawing = false;
             this.ActiveIndex = -1;
+            this.ActivePoint = -1;
         }
 
         /// <summary>
@@ -74,13 +76,22 @@ namespace RCCM
             // Draw each crack on the image
             foreach (MeasurementSequence crack in cracks)
             {
-                crack.plot(g);
+                crack.plot(g, scaleX);
             }
             // Draw segment that user is creating with mouse
             if (ActiveIndex >= 0 && this.Drawing)
             {
                 Color c = cracks[ActiveIndex].Color;
                 g.DrawLine(new Pen(Color.FromArgb(128, c), 0), this.drawnLineStart, this.drawnLineEnd);
+            }
+            // Highlight selected point
+            if (this.ActivePoint >= 0 && this.ActiveIndex >= 0)
+            {
+                Measurement m = this.cracks[this.ActiveIndex].getPoint(this.ActivePoint);
+                RectangleF point = new RectangleF(0, 0, 10.0f / scaleX, 10.0f / scaleX);
+                point.X = (float) m.X - point.Width / 2.0f;
+                point.Y = (float) m.Y - point.Height / 2.0f;
+                g.FillEllipse(new SolidBrush(this.cracks[this.ActiveIndex].Color), point);
             }
         }
         
@@ -134,7 +145,7 @@ namespace RCCM
         /// <summary>
         /// Begin drawing new segment in active MeasurementSequence from user mouse input
         /// </summary>
-        /// /// <param name="x">Mouse x location in pixels</param>
+        /// <param name="x">Mouse x location in pixels</param>
         /// <param name="y">Mouse y location in pixels</param>
         /// <param name="w">Canvas width in pixels</param>
         /// <param name="h">Canvas height in pixels</param>
@@ -164,6 +175,28 @@ namespace RCCM
                 // Create end point
                 this.drawnLineEnd.X = pos.X + pix.X;
                 this.drawnLineEnd.Y = pos.Y + pix.Y;
+            }
+        }
+
+        /// <summary>
+        /// Create new point in active measurement sequence at mouse location
+        /// </summary>
+        /// <param name="x">Mouse x location in pixels</param>
+        /// <param name="y">Mouse y location in pixels</param>
+        /// <param name="w">Canvas width in pixels</param>
+        /// <param name="h">Canvas height in pixels</param>
+        public void createPoint(int x, int y, int w, int h)
+        {
+            if (this.ActiveIndex >= 0)
+            {
+                // Get mouse location in global coordinates
+                NFOV nfov = this.rccm.ActiveStage == RCCMStage.RCCM1 ? this.rccm.NFOV1 : this.rccm.NFOV2;
+                PointF pos = this.rccm.getNFOVLocation(this.rccm.ActiveStage);
+                double pixX = nfov.Scale * (x - w / 2.0) / this.displayScale;
+                double pixY = nfov.Scale * (y - h / 2.0) / this.displayScale;
+                PointF pix = this.rccm.fineVectorToGlobalVector(pixX, pixY);
+                Measurement p0 = new Measurement(this.rccm, this.rccm.ActiveStage, pix.X, pix.Y);
+                this.cracks[this.ActiveIndex].addPoint(p0);
             }
         }
     }

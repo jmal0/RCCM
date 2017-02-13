@@ -135,10 +135,10 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.colorDlg = new System.Windows.Forms.ColorDialog();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nFOV1LensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDlg = new System.Windows.Forms.ColorDialog();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -823,6 +823,7 @@
             this.listPoints.ScrollAlwaysVisible = true;
             this.listPoints.Size = new System.Drawing.Size(126, 95);
             this.listPoints.TabIndex = 19;
+            this.listPoints.SelectedIndexChanged += new System.EventHandler(this.listPoints_SelectedIndexChanged);
             // 
             // btnCrosshairMeasure
             // 
@@ -1221,7 +1222,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -1247,7 +1248,7 @@
             // nFOV1LensToolStripMenuItem
             // 
             this.nFOV1LensToolStripMenuItem.Name = "nFOV1LensToolStripMenuItem";
-            this.nFOV1LensToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nFOV1LensToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.nFOV1LensToolStripMenuItem.Text = "NFOV 1 Lens";
             this.nFOV1LensToolStripMenuItem.Click += new System.EventHandler(this.nFOV1LensToolStripMenuItem_Click);
             // 

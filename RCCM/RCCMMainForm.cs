@@ -38,11 +38,6 @@ namespace RCCM
 
         protected RCCMStage activeStage;
 
-        protected bool drawing;
-        protected Point drawnLineStart;
-        protected Point drawnLineEnd;
-        static double NFOVIMAGE_SCALE = 0.25;
-
         protected TestResults test;
         
         protected PanelView view;
@@ -73,9 +68,6 @@ namespace RCCM
             this.nfovRepaintTimer.Tick += new EventHandler(refreshPanelView);
 
             this.cracks = new List<MeasurementSequence>();
-
-            this.drawnLineStart = new Point(0, 0);
-            this.drawnLineEnd = new Point(0, 0);
 
             this.test = new TestResults(this.chartCracks, this.chartCycles);
 
@@ -380,7 +372,11 @@ namespace RCCM
 
         private void nfovImage_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                this.nfovView.createPoint(e.X, e.Y, this.nfovImage.Width, this.nfovImage.Height);
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 this.nfovView.createDrawnLine(e.X, e.Y, this.nfovImage.Width, this.nfovImage.Height);
             }
@@ -652,6 +648,11 @@ namespace RCCM
         {
             LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM1);
             form.Show();
+        }
+
+        private void listPoints_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.nfovView.ActivePoint = this.listPoints.SelectedIndex;
         }
     }
 }

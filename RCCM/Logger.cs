@@ -16,7 +16,7 @@ namespace RCCM
         {
             Console.WriteLine(str);
 
-            string metadata = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff} {1}:{2}:{3}", DateTime.Now, path, caller, lineNumber);
+            string metadata = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff} {1}:{2}:{3}", DateTime.Now, path, lineNumber, caller);
             Logfile.WriteLine(metadata + " - " + str);
         }
 

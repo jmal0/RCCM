@@ -90,21 +90,29 @@ namespace RCCM
         /// Plot the line segments of this measurement sequence on a graphics container
         /// </summary>
         /// <param name="axes">Graphics object of the container that will display the plot</param>
-        public void plot(Graphics axes)
+        public void plot(Graphics axes, float scale)
         {
             if (this.points.Count > 1)
             {
-                Pen pen = new Pen(this.Color, 0);
+                Pen pen = new Pen(this.Color, 1.0f / scale);
+                Brush brush = new SolidBrush(this.Color);
                 pen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-
-                PointF p0, p1;
-
+                RectangleF point = new RectangleF(0, 0, 5.0f / scale, 5.0f / scale);
+                    
                 // Draw each line segment
+                PointF p0, p1;
                 p0 = new PointF((float) this.points[0].X, (float) this.points[0].Y);
+                point.X = (float) p0.X - point.Width / 2.0f;
+                point.Y = (float) p0.Y - point.Height / 2.0f;
+                axes.FillEllipse(brush, point);
                 for (int i = 1; i < this.points.Count; i++)
                 {
                     p1 = new PointF((float)this.points[i].X, (float)this.points[i].Y);
                     axes.DrawLine(pen, p0, p1);
+                    // Draw point at line segment vertex
+                    point.X = (float) p1.X - point.Width / 2.0f;
+                    point.Y = (float) p1.Y - point.Height / 2.0f;
+                    axes.FillEllipse(brush, point);
                     p0 = p1;
                 }
             }
