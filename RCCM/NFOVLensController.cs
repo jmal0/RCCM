@@ -16,11 +16,14 @@ namespace RCCM
     public class NFOVLensController
     {
         public static string GET_VOLTAGE_CMD = "AN3";
-        public static string SETPOINT_CMD = "RA1,0";
-        public static string SET_NPOINTS_CMD = "RA1";
+        public static string GET_STATUS_CMD = "ST";
+        public static string SETPOINT_CMD = "RA1,2";
+        public static string SET_NPOINTS_CMD = "RA1,1";
         public static string SET_FOCALPOWER_CMD = "RS1";
+        public static string SAVE_CALIBRATION_CMD = "AW";
 
         public static Regex PARSE_GET = new Regex(@"Ig([0-9]+)");
+        public static Regex PARSE_GETOUTPUT = new Regex(@"AF(\s)+([0-9.-]+)");
 
         protected ControllerManager manager;
         public IController NFOV1Controller { get; private set; }
@@ -107,6 +110,28 @@ namespace RCCM
             }
         }
 
+        public double getFocalPower(RCCMStage stage)
+        {
+            // Get controller based on specified stage
+            IController controller = stage == RCCMStage.RCCM1 ? this.NFOV1Controller : this.NFOV2Controller;
+
+            // Send get input command and pull reading from resulting string
+            string response;
+            try
+            {
+                response = controller.SendCommand(NFOVLensController.GET_STATUS_CMD);
+                Console.WriteLine(response.Substring(0, 1000));
+            }
+            catch
+            {
+                return -10000;
+            }
+            Match m = NFOVLensController.PARSE_GETOUTPUT.Match(response.Substring(0,1024));
+            Console.WriteLine("Match: " + m.Value);
+            // Convert reading to distance
+            return Double.Parse(m.Value.Substring(3));            
+        }
+
         /// <summary>
         /// Applies a calibration to the lens. This scales the focal power based off the distance sensor reading according to a piecewise linear interpolant
         /// </summary>        
@@ -134,8 +159,9 @@ namespace RCCM
                 // Apply each calibration point
                 for (int i = 0; i < rows; i++)
                 {
-                    this.NFOV1Controller.SendCommand(string.Format("{0},{1},{2},{3}", NFOVLensController.SETPOINT_CMD, i, data[i, 0], data[i, 1]));
+                    string response = controller.SendCommand(string.Format("{0},{1},{2},{3}", NFOVLensController.SETPOINT_CMD, i, data[i, 1], data[i, 0]));
                 }
+                controller.SendCommand(string.Format("{0}", NFOVLensController.SAVE_CALIBRATION_CMD));
                 this.NFOV1Calibration = data;
             }
             catch
@@ -167,7 +193,7 @@ namespace RCCM
 
         public static double ToHeight(double inputVoltage)
         {
-            return 0.226667 * inputVoltage - 21.0667; 
+            return 44.4444 * inputVoltage + 5.5555; 
         }
     }
 }

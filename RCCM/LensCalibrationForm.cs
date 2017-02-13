@@ -31,10 +31,13 @@ namespace RCCM
                 for (int i = 0; i < this.oldCalibration.GetLength(0); i++)
                 {
                     this.calibration.Add(this.oldCalibration[i, 0], 
-                                         new CalibrationPoint(NFOVLensController.ToHeight(this.oldCalibration[i, 0]), this.oldCalibration[i, 1]));
+                                         new CalibrationPoint(this.oldCalibration[i, 0], this.oldCalibration[i, 1]));
                 }
             }
 
+            // Set text box values
+            this.heightEdit.Value = (decimal) this.controller.getHeight(this.stage);
+            this.focalPowerEdit.Value = (decimal) this.controller.getFocalPower(this.stage);
             this.updateListView();
         }
 
@@ -95,7 +98,7 @@ namespace RCCM
             int i = 0;
             foreach (double key in this.calibration.Keys)
             {
-                array[i, 0] = this.calibration[key].Height;
+                array[i, 0] = this.calibration[key].InputPower;
                 array[i, 1] = this.calibration[key].FocalPower;
                 i++;
             }
@@ -108,7 +111,7 @@ namespace RCCM
             foreach (double key in this.calibration.Keys)
             {
                 this.listCalibration.Items.Add(new ListViewItem(new string[] {
-                    string.Format("{0:0.000}", this.calibration[key].Height),
+                    string.Format("{0:0.000}", NFOVLensController.ToHeight(this.calibration[key].InputPower)),
                     string.Format("{0:0.000}", this.calibration[key].FocalPower),
                 }));
             }
@@ -119,12 +122,12 @@ namespace RCCM
 
         protected class CalibrationPoint
         {
-            public double Height { get; set; }
+            public double InputPower { get; set; }
             public double FocalPower { get; set; }
 
-            public CalibrationPoint(double h, double f)
+            public CalibrationPoint(double i, double f)
             {
-                this.Height = h;
+                this.InputPower = i;
                 this.FocalPower = f;
             }
         }

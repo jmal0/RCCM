@@ -45,6 +45,16 @@
             // heightEdit
             // 
             this.heightEdit.Location = new System.Drawing.Point(84, 211);
+            this.heightEdit.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.heightEdit.Minimum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            -2147483648});
             this.heightEdit.Name = "heightEdit";
             this.heightEdit.Size = new System.Drawing.Size(142, 20);
             this.heightEdit.TabIndex = 0;
@@ -59,6 +69,16 @@
             0,
             65536});
             this.focalPowerEdit.Location = new System.Drawing.Point(84, 237);
+            this.focalPowerEdit.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.focalPowerEdit.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.focalPowerEdit.Name = "focalPowerEdit";
             this.focalPowerEdit.Size = new System.Drawing.Size(142, 20);
             this.focalPowerEdit.TabIndex = 1;

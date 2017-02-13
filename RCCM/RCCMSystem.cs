@@ -53,10 +53,10 @@ namespace RCCM
             int calibration2Rows = settings.json["nfov 2"]["calibration"].Count();
             double[,] calibration2 = new double[calibration2Rows, 2];
             i = 0;
-            foreach (JArray row in settings.json["nfov 1"]["calibration"].Children())
+            foreach (JArray row in settings.json["nfov 2"]["calibration"].Children())
             {
-                calibration1[i, 0] = (double)row[0];
-                calibration1[i, 1] = (double)row[1];
+                calibration2[i, 0] = (double)row[0];
+                calibration2[i, 1] = (double)row[1];
                 i++;
             }
             // Create lens controller
