@@ -159,11 +159,11 @@ namespace RCCM
             }
             catch (FC2Exception ex)
             {
-                Console.WriteLine("Failed to stop camera: " + ex.Message);
+                Logger.Out("Failed to stop camera: " + ex.Message);
             }
             catch (NullReferenceException)
             {
-                Console.WriteLine("Camera is null");
+                Logger.Out("Camera is null");
             }
         }
 
@@ -222,7 +222,7 @@ namespace RCCM
                 }
                 catch (FC2Exception ex)
                 {
-                    Console.WriteLine("Error: " + ex.Message);
+                    Logger.Out("Error: " + ex.Message);
                     continue;
                 }
 
@@ -294,14 +294,14 @@ namespace RCCM
                         break;
                 }
 
-                Console.WriteLine("Appending {0} images to AVI file {1}...", imageList.Count, aviFileName);
+                Logger.Out(string.Format("Appending {0} images to AVI file {1}...", imageList.Count, aviFileName));
 
                 for (int imageCnt = 0; imageCnt < imageList.Count; imageCnt++)
                 {
                     // Append the image to AVI file
                     aviRecorder.AVIAppend(imageList[imageCnt]);
 
-                    Console.WriteLine("Appended image {0}", imageCnt);
+                    Logger.Out(string.Format("Appended image {0}", imageCnt));
                 }
 
                 aviRecorder.AVIClose();

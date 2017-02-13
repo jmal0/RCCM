@@ -122,6 +122,8 @@ namespace RCCM
             {
                 this.wfov1.stopRecord();
             }
+
+            Logger.Save();
         }
 
         #region WFOV
@@ -324,7 +326,7 @@ namespace RCCM
         private void btnNfovSnap_Click(object sender, EventArgs e)
         {
             string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-            Console.WriteLine(textImageDir.Text + "\\" + timestamp + ".bmp");
+            Logger.Out(textImageDir.Text + "\\" + timestamp + ".bmp");
             this.nfov1.snap(textImageDir.Text + "\\"+ timestamp + ".bmp");
         }
 
@@ -483,7 +485,7 @@ namespace RCCM
             {
                 Measurement pt = new Measurement(this.rccm, RCCMStage.RCCM1, 0, 0);
                 this.cracks[index].addPoint(pt);
-                Console.WriteLine(this.cracks[index]);
+                Logger.Out(this.cracks[index].ToString());
                 // Refresh list of points
                 this.updateMeasurementControls(index);
             }

@@ -112,6 +112,7 @@
     <Compile Include="LensCalibrationForm.Designer.cs">
       <DependentUpon>LensCalibrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="NFOVView.cs" />
     <Compile Include="PanelView.cs" />
     <Compile Include="RCCMMainForm.cs">

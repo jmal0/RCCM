@@ -41,7 +41,7 @@ namespace RCCM
             // Read NFOV lens calibrations into double arrays
             int i;
             int calibration1Rows = settings.json["nfov 1"]["calibration"].Count();
-            Console.WriteLine(calibration1Rows);
+            Logger.Out(calibration1Rows.ToString());
             double[,] calibration1 = new double[calibration1Rows, 2];
             i = 0;
             foreach (JArray row in settings.json["nfov 1"]["calibration"].Children())
@@ -163,7 +163,7 @@ namespace RCCM
         public double setPosition(string axis, double value)
         {
             double result = this.motors[axis].setPos(value);
-            Console.WriteLine(axis + " " + value);
+            Logger.Out(axis + " " + value);
             return result;
         }
 
@@ -200,7 +200,7 @@ namespace RCCM
 
         public void readHeight1()
         {
-            Console.WriteLine(this.LensController.getHeight(RCCMStage.RCCM1));
+            Logger.Out(this.LensController.getHeight(RCCMStage.RCCM1).ToString());
         }
     }
 }

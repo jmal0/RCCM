@@ -33,7 +33,7 @@ namespace RCCM
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Logger.Out(ex.ToString());
                 return false;
             }
             
@@ -53,7 +53,7 @@ namespace RCCM
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Logger.Out(ex.ToString());
                 return false;
             }
         }
