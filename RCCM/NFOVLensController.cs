@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using Gardasoft.Controller.API.Exceptions;
 using Gardasoft.Controller.API.Interfaces;
@@ -17,13 +18,15 @@ namespace RCCM
     {
         public static string GET_VOLTAGE_CMD = "AN3";
         public static string GET_STATUS_CMD = "ST";
-        public static string SETPOINT_CMD = "RA1,2";
-        public static string SET_NPOINTS_CMD = "RA1,1";
+        public static string SETPOINT_CMD = "RA1";
+        public static string SET_NPOINTS_CMD = "RA1";
         public static string SET_FOCALPOWER_CMD = "RS1";
         public static string SAVE_CALIBRATION_CMD = "AW";
 
         public static Regex PARSE_GET = new Regex(@"Ig([0-9]+)");
         public static Regex PARSE_GETOUTPUT = new Regex(@"AF(\s)+([0-9.-]+)");
+
+        public static int UPDATE_PERIOD = 50;
 
         protected ControllerManager manager;
         public IController NFOV1Controller { get; private set; }
@@ -32,6 +35,8 @@ namespace RCCM
         public double[,] NFOV1Calibration { get; private set; }
         public double[,] NFOV2Calibration { get; private set; }
 
+        protected Timer focusTimer;
+
         public NFOVLensController(int nfov1Serial, int nfov2Serial, double[,] calibration1, double[,] calibration2)
         {
             this.manager = ControllerManager.Instance();
@@ -39,7 +44,6 @@ namespace RCCM
             try
             {
                 this.NFOV1Controller = this.manager.ControllerFromSerialNumber(nfov1Serial);
-                this.NFOV1Calibration = calibration1; // DELETE THIS
                 if (this.NFOV1Controller == null)
                 {
                     System.Windows.Forms.MessageBox.Show("NFOV 1 Lens controller disconnected or invalid.");
@@ -56,7 +60,6 @@ namespace RCCM
             try
             {
                 this.NFOV2Controller = this.manager.ControllerFromSerialNumber(nfov2Serial);
-                this.NFOV2Calibration = calibration2; // DELETE THIS
                 if (this.NFOV2Controller == null)
                 {
                     System.Windows.Forms.MessageBox.Show("NFOV 2 Lens controller disconnected or invalid.");
@@ -69,6 +72,66 @@ namespace RCCM
             catch (GardasoftException err)
             {
                 System.Windows.Forms.MessageBox.Show("Error connencting to NFOV 2 Lens controller. Error meassage:\n\n" + err.ToString());
+            }
+
+            // Create timer to call countLoop periodically
+            this.focusTimer = new Timer();
+            this.focusTimer.Enabled = false;
+            this.focusTimer.Interval = NFOVLensController.UPDATE_PERIOD;
+            this.focusTimer.Tick += new EventHandler(focusLoop);
+        }
+        
+        private void focusLoop(object sender, EventArgs e)
+        {
+            if (this.NFOV1Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
+            {
+                double input = this.getReading(RCCMStage.RCCM1);
+                double pow = 0;
+                int i;
+                int n = this.NFOV1Calibration.GetLength(0);
+                for (i = 0; i < n && input < this.NFOV1Calibration[i, 0]; i++) ;
+                if (i >= n - 1)
+                {
+                    pow = this.NFOV1Calibration[n - 1, 1];
+                }
+                else if (i == 0)
+                {
+                    pow = this.NFOV1Calibration[0, 1];
+                }
+                else
+                {
+                    double m = (this.NFOV1Calibration[i + 1, 1] - this.NFOV1Calibration[i, 1])
+                               / (this.NFOV1Calibration[i + 1, 0] - this.NFOV1Calibration[i, 0]);
+                    double x = input - this.NFOV1Calibration[i, 0];
+                    double b = this.NFOV1Calibration[i, 1];
+                    pow = m*x + b;
+                }
+                this.setFocalPower(pow, RCCMStage.RCCM1);
+            }
+            if (this.NFOV2Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
+            {
+                double input = this.getReading(RCCMStage.RCCM2);
+                double pow = 0;
+                int i;
+                int n = this.NFOV2Calibration.GetLength(0);
+                for (i = 0; i < n && input < this.NFOV2Calibration[i, 0]; i++) ;
+                if (i >= n - 1)
+                {
+                    pow = this.NFOV2Calibration[n - 1, 1];
+                }
+                else if (i == 0)
+                {
+                    pow = this.NFOV2Calibration[0, 1];
+                }
+                else
+                {
+                    double m = (this.NFOV2Calibration[i + 1, 1] - this.NFOV2Calibration[i, 1])
+                               / (this.NFOV2Calibration[i + 1, 0] - this.NFOV2Calibration[i, 0]);
+                    double x = input - this.NFOV2Calibration[i, 0];
+                    double b = this.NFOV2Calibration[i, 1];
+                    pow = m * x + b;
+                }
+                this.setFocalPower(pow, RCCMStage.RCCM2);
             }
         }
 
@@ -159,7 +222,7 @@ namespace RCCM
                 // Apply each calibration point
                 for (int i = 0; i < rows; i++)
                 {
-                    string response = controller.SendCommand(string.Format("{0},{1},{2},{3}", NFOVLensController.SETPOINT_CMD, i, data[i, 1], data[i, 0]));
+                    string response = controller.SendCommand(string.Format("{0},{1},{2},{3}", NFOVLensController.SETPOINT_CMD, i, data[i, 0], data[i, 1]));
                 }
                 controller.SendCommand(string.Format("{0}", NFOVLensController.SAVE_CALIBRATION_CMD));
                 this.NFOV1Calibration = data;
