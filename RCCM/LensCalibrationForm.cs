@@ -39,6 +39,8 @@ namespace RCCM
             this.heightEdit.Value = (decimal) this.controller.getHeight(this.stage);
             this.focalPowerEdit.Value = (decimal) this.controller.getFocalPower(this.stage);
             this.updateListView();
+
+            this.controller.pauseFocusing();
         }
 
         private void heightEdit_ValueChanged(object sender, EventArgs e)
@@ -130,6 +132,11 @@ namespace RCCM
                 this.InputPower = i;
                 this.FocalPower = f;
             }
+        }
+
+        private void LensCalibrationForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.controller.resumeFocusing();
         }
     }
 }

@@ -171,6 +171,7 @@
             this.Controls.Add(this.heightEdit);
             this.Name = "LensCalibrationForm";
             this.Text = "Lens Calibration";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LensCalibrationForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.heightEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.focalPowerEdit)).EndInit();
             this.ResumeLayout(false);

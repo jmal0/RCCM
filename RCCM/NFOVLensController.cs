@@ -79,58 +79,23 @@ namespace RCCM
             this.focusTimer.Enabled = false;
             this.focusTimer.Interval = NFOVLensController.UPDATE_PERIOD;
             this.focusTimer.Tick += new EventHandler(focusLoop);
+            this.focusTimer.Start();
         }
         
         private void focusLoop(object sender, EventArgs e)
         {
-            if (this.NFOV1Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
+            if (this.NFOV1Controller != null && this.NFOV1Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
             {
                 double input = this.getReading(RCCMStage.RCCM1);
-                double pow = 0;
-                int i;
-                int n = this.NFOV1Calibration.GetLength(0);
-                for (i = 0; i < n && input < this.NFOV1Calibration[i, 0]; i++) ;
-                if (i >= n - 1)
-                {
-                    pow = this.NFOV1Calibration[n - 1, 1];
-                }
-                else if (i == 0)
-                {
-                    pow = this.NFOV1Calibration[0, 1];
-                }
-                else
-                {
-                    double m = (this.NFOV1Calibration[i + 1, 1] - this.NFOV1Calibration[i, 1])
-                               / (this.NFOV1Calibration[i + 1, 0] - this.NFOV1Calibration[i, 0]);
-                    double x = input - this.NFOV1Calibration[i, 0];
-                    double b = this.NFOV1Calibration[i, 1];
-                    pow = m*x + b;
-                }
+                double pow = NFOVLensController.pwlInterp(this.NFOV1Calibration, input);
+
+                Console.WriteLine(input + " " + pow);
                 this.setFocalPower(pow, RCCMStage.RCCM1);
             }
-            if (this.NFOV2Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
+            if (this.NFOV2Controller != null && this.NFOV2Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
             {
                 double input = this.getReading(RCCMStage.RCCM2);
-                double pow = 0;
-                int i;
-                int n = this.NFOV2Calibration.GetLength(0);
-                for (i = 0; i < n && input < this.NFOV2Calibration[i, 0]; i++) ;
-                if (i >= n - 1)
-                {
-                    pow = this.NFOV2Calibration[n - 1, 1];
-                }
-                else if (i == 0)
-                {
-                    pow = this.NFOV2Calibration[0, 1];
-                }
-                else
-                {
-                    double m = (this.NFOV2Calibration[i + 1, 1] - this.NFOV2Calibration[i, 1])
-                               / (this.NFOV2Calibration[i + 1, 0] - this.NFOV2Calibration[i, 0]);
-                    double x = input - this.NFOV2Calibration[i, 0];
-                    double b = this.NFOV2Calibration[i, 1];
-                    pow = m * x + b;
-                }
+                double pow = NFOVLensController.pwlInterp(this.NFOV2Calibration, input);
                 this.setFocalPower(pow, RCCMStage.RCCM2);
             }
         }
@@ -190,7 +155,6 @@ namespace RCCM
                 return -10000;
             }
             Match m = NFOVLensController.PARSE_GETOUTPUT.Match(response.Substring(0,1024));
-            Console.WriteLine("Match: " + m.Value);
             // Convert reading to distance
             return Double.Parse(m.Value.Substring(3));            
         }
@@ -218,13 +182,13 @@ namespace RCCM
             // Set number of points in calibration
             try
             {
-                controller.SendCommand(string.Format("{0},{1}", NFOVLensController.SET_NPOINTS_CMD, rows));
+                //controller.SendCommand(string.Format("{0},{1}", NFOVLensController.SET_NPOINTS_CMD, rows));
                 // Apply each calibration point
                 for (int i = 0; i < rows; i++)
                 {
-                    string response = controller.SendCommand(string.Format("{0},{1},{2},{3}", NFOVLensController.SETPOINT_CMD, i, data[i, 0], data[i, 1]));
+                    //string response = controller.SendCommand(string.Format("{0},{1},{2},{3}", NFOVLensController.SETPOINT_CMD, i, data[i, 0], data[i, 1]));
                 }
-                controller.SendCommand(string.Format("{0}", NFOVLensController.SAVE_CALIBRATION_CMD));
+                //controller.SendCommand(string.Format("{0}", NFOVLensController.SAVE_CALIBRATION_CMD));
                 this.NFOV1Calibration = data;
             }
             catch
@@ -257,6 +221,41 @@ namespace RCCM
         public static double ToHeight(double inputVoltage)
         {
             return 44.4444 * inputVoltage + 5.5555; 
+        }
+
+        public void pauseFocusing()
+        {
+            this.focusTimer.Stop();
+        }
+
+        public void resumeFocusing()
+        {
+            this.focusTimer.Start();
+        }
+
+        private static double pwlInterp(double[,] data, double val)
+        {
+            int i = 0;
+            int n = data.GetLength(0);
+            
+            while (i < n && val > data[i, 0])
+            {
+                i++;
+            }
+            if (i == n)
+            {
+                return data[n - 1, 1];
+            }
+            if (i == 0)
+            {
+                return data[0, 1];
+            }
+
+            double m = (data[i, 1] - data[i - 1, 1])
+                       / (data[i, 0] - data[i - 1, 0]);
+            double x = val - data[i - 1, 0];
+            double b = data[i - 1, 1];
+            return m * x + b;
         }
     }
 }
