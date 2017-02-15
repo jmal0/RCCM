@@ -11,6 +11,8 @@ using Gardasoft.Controller.API.Managers;
 using Gardasoft.Controller.API.Model;
 using Gardasoft.Controller.API.EventsArgs;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RCCM
 {
@@ -43,6 +45,7 @@ namespace RCCM
             this.manager.DiscoverControllers();
             try
             {
+                this.NFOV1Calibration = calibration1;
                 this.NFOV1Controller = this.manager.ControllerFromSerialNumber(nfov1Serial);
                 if (this.NFOV1Controller == null)
                 {
@@ -59,6 +62,7 @@ namespace RCCM
             }
             try
             {
+                this.NFOV2Calibration = calibration2;
                 this.NFOV2Controller = this.manager.ControllerFromSerialNumber(nfov2Serial);
                 if (this.NFOV2Controller == null)
                 {
@@ -175,9 +179,19 @@ namespace RCCM
             {
                 return false;
             }
-            
+
             // Get controller based on specified stage
-            IController controller = stage == RCCMStage.RCCM1 ? this.NFOV1Controller : this.NFOV2Controller;
+            IController controller;
+            if (stage == RCCMStage.RCCM1)
+            {
+                controller = this.NFOV1Controller;
+                this.NFOV1Calibration = data;
+            }
+            else
+            {
+                controller = this.NFOV2Controller;
+                this.NFOV2Calibration = data;
+            }
 
             // Set number of points in calibration
             try
@@ -189,7 +203,6 @@ namespace RCCM
                     //string response = controller.SendCommand(string.Format("{0},{1},{2},{3}", NFOVLensController.SETPOINT_CMD, i, data[i, 0], data[i, 1]));
                 }
                 //controller.SendCommand(string.Format("{0}", NFOVLensController.SAVE_CALIBRATION_CMD));
-                this.NFOV1Calibration = data;
             }
             catch
             {
@@ -256,6 +269,13 @@ namespace RCCM
             double x = val - data[i - 1, 0];
             double b = data[i - 1, 1];
             return m * x + b;
+        }
+
+        public void saveToJSON(Settings settings)
+        {
+            settings.json["nfov 1"]["calibration"] = JArray.FromObject(this.NFOV1Calibration);
+            settings.json["nfov 2"]["calibration"] = JArray.FromObject(this.NFOV2Calibration);
+            settings.save();
         }
     }
 }

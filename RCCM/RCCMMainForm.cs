@@ -116,6 +116,7 @@ namespace RCCM
             }
 
             Logger.Save();
+            this.settings.save();
         }
 
         #region WFOV
@@ -644,15 +645,21 @@ namespace RCCM
             this.Close();
         }
 
-        private void nFOV1LensToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM1);
-            form.Show();
-        }
-
         private void listPoints_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.nfovView.ActivePoint = this.listPoints.SelectedIndex;
+        }
+
+        private void nFOV1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM1, this.settings);
+            form.Show();
+        }
+
+        private void nFOV2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM2, this.settings);
+            form.Show();
         }
     }
 }

@@ -101,11 +101,13 @@ namespace RCCM
             catch (TIS.Imaging.ICException err)
             {
                 System.Windows.Forms.MessageBox.Show("Error occurred while initializing WFOV camera. WFOV will be unavailable.\n\n" + err.ToString());
+                Logger.Out(err.ToString());
                 this.Available = false;
             }
             catch (System.IO.IOException err)
             {
                 System.Windows.Forms.MessageBox.Show("WFOV configuration file missing or invalid.");
+                Logger.Out(err.ToString());
                 this.Available = false;
             }
             this.recording = false;

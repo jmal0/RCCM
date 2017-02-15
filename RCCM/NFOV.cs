@@ -96,6 +96,7 @@ namespace RCCM
             catch (Exception ex)
             {
                 // Connection unsuccessful
+                Logger.Out(ex.ToString());
                 return false;
             }
             // Set embedded timestamp to on
@@ -125,10 +126,12 @@ namespace RCCM
             catch (FC2Exception ex)
             {
                 // Nothing to do here
+                Logger.Out(ex.ToString());
             }
             catch (NullReferenceException ex)
             {
                 // Nothing to do here
+                Logger.Out(ex.ToString());
             }
         }
 

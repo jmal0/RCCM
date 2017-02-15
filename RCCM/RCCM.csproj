@@ -138,6 +138,8 @@
     <Compile Include="Settings.cs" />
     <Compile Include="StepperMotor.cs" />
     <Compile Include="TestResults.cs" />
+    <Compile Include="TrioController.cs" />
+    <Compile Include="TrioStepperMotor.cs" />
     <Compile Include="VirtualMotor.cs" />
     <Compile Include="WFOV.cs" />
     <EmbeddedResource Include="LensCalibrationForm.resx">
@@ -208,6 +210,15 @@
   <ItemGroup>
     <COMReference Include="MODBUSRTULib">
       <Guid>{4144938A-0A28-4089-972E-FDE74E491161}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="TrioPCLib">
+      <Guid>{F1933964-74B0-11D3-8A13-00403393B236}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>

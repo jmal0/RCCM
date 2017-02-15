@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -139,6 +139,8 @@
             this.nFOV1LensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.nFOV1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nFOV2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -1122,16 +1124,16 @@
             // 
             // chartCycles
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCycles.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartCycles.Legends.Add(legend1);
+            chartArea7.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.chartCycles.Legends.Add(legend7);
             this.chartCycles.Location = new System.Drawing.Point(6, 295);
             this.chartCycles.Name = "chartCycles";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCycles.Series.Add(series1);
+            series7.ChartArea = "ChartArea1";
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chartCycles.Series.Add(series7);
             this.chartCycles.Size = new System.Drawing.Size(623, 255);
             this.chartCycles.TabIndex = 7;
             this.chartCycles.Text = "chart2";
@@ -1197,16 +1199,16 @@
             // 
             // chartCracks
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartCracks.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartCracks.Legends.Add(legend2);
+            chartArea8.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend8);
             this.chartCracks.Location = new System.Drawing.Point(6, 38);
             this.chartCracks.Name = "chartCracks";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartCracks.Series.Add(series2);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.chartCracks.Series.Add(series8);
             this.chartCracks.Size = new System.Drawing.Size(623, 255);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
@@ -1247,10 +1249,26 @@
             // 
             // nFOV1LensToolStripMenuItem
             // 
+            this.nFOV1LensToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nFOV1ToolStripMenuItem,
+            this.nFOV2ToolStripMenuItem});
             this.nFOV1LensToolStripMenuItem.Name = "nFOV1LensToolStripMenuItem";
-            this.nFOV1LensToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.nFOV1LensToolStripMenuItem.Text = "NFOV 1 Lens";
-            this.nFOV1LensToolStripMenuItem.Click += new System.EventHandler(this.nFOV1LensToolStripMenuItem_Click);
+            this.nFOV1LensToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.nFOV1LensToolStripMenuItem.Text = "Lens Calibration";
+            // 
+            // nFOV1ToolStripMenuItem
+            // 
+            this.nFOV1ToolStripMenuItem.Name = "nFOV1ToolStripMenuItem";
+            this.nFOV1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nFOV1ToolStripMenuItem.Text = "NFOV 1";
+            this.nFOV1ToolStripMenuItem.Click += new System.EventHandler(this.nFOV1ToolStripMenuItem_Click);
+            // 
+            // nFOV2ToolStripMenuItem
+            // 
+            this.nFOV2ToolStripMenuItem.Name = "nFOV2ToolStripMenuItem";
+            this.nFOV2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.nFOV2ToolStripMenuItem.Text = "NFOV 2";
+            this.nFOV2ToolStripMenuItem.Click += new System.EventHandler(this.nFOV2ToolStripMenuItem_Click);
             // 
             // RCCMMainForm
             // 
@@ -1422,6 +1440,8 @@
         private System.Windows.Forms.TextBox nfov2SN;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nFOV1LensToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nFOV1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nFOV2ToolStripMenuItem;
     }
 }
 
