@@ -627,7 +627,7 @@ namespace RCCM
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            this.rccm.setCycleFrequency((double) this.numericUpDown1.Value);
+            this.rccm.setCycleFrequency((double) this.editCycleFreq.Value);
         }
 
         private void panelView_Paint(object sender, PaintEventArgs e)
