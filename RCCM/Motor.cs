@@ -14,7 +14,6 @@ namespace RCCM
         // Step position 
         protected double commandPos = 0;
         protected bool homed = false;
-        protected string status = "NOT READY";
         // Maintained list of motion settings and limits
         protected Dictionary<string, double> settings;
 
@@ -31,6 +30,7 @@ namespace RCCM
 
         abstract public double getPos();
         abstract public double setPos(double cmd);
+        abstract public double moveRel(double dist);
 
         /// <summary>
         /// Set a motor property
@@ -59,6 +59,8 @@ namespace RCCM
             return this.settings[property];
         }
 
-        abstract public string initialize();
+        abstract public bool initialize();
+
+        abstract public Dictionary<string, double> getAllProperties();
     }
 }

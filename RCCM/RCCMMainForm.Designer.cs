@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend17 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea18 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend18 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -66,8 +66,15 @@
             this.label9 = new System.Windows.Forms.Label();
             this.wfov1Config = new System.Windows.Forms.TextBox();
             this.tabPageMotion = new System.Windows.Forms.TabPage();
+            this.btnMotorStatus = new System.Windows.Forms.Button();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.radioMoveRel = new System.Windows.Forms.RadioButton();
+            this.radioMoveAbs = new System.Windows.Forms.RadioButton();
             this.panelView = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.fine2ZIndicator = new System.Windows.Forms.TextBox();
+            this.fine2YIndicator = new System.Windows.Forms.TextBox();
+            this.fine2XIndicator = new System.Windows.Forms.TextBox();
             this.fine2ZPos = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.fine2YPos = new System.Windows.Forms.NumericUpDown();
@@ -75,6 +82,9 @@
             this.fine2XPos = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.fine1ZIndicator = new System.Windows.Forms.TextBox();
+            this.fine1YIndicator = new System.Windows.Forms.TextBox();
+            this.fine1XIndicator = new System.Windows.Forms.TextBox();
             this.fine1ZPos = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.fine1YPos = new System.Windows.Forms.NumericUpDown();
@@ -82,6 +92,8 @@
             this.fine1XPos = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.coarseYIndicator = new System.Windows.Forms.TextBox();
+            this.coarseXIndicator = new System.Windows.Forms.TextBox();
             this.coarseYPos = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.coarseXPos = new System.Windows.Forms.NumericUpDown();
@@ -147,10 +159,10 @@
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.textCycle = new System.Windows.Forms.TextBox();
             this.textPressure = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
+            this.textCycle = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -159,6 +171,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPageMotion.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelView)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).BeginInit();
@@ -487,6 +500,8 @@
             // 
             // tabPageMotion
             // 
+            this.tabPageMotion.Controls.Add(this.btnMotorStatus);
+            this.tabPageMotion.Controls.Add(this.groupBox13);
             this.tabPageMotion.Controls.Add(this.panelView);
             this.tabPageMotion.Controls.Add(this.groupBox3);
             this.tabPageMotion.Controls.Add(this.groupBox2);
@@ -494,10 +509,53 @@
             this.tabPageMotion.Location = new System.Drawing.Point(4, 22);
             this.tabPageMotion.Name = "tabPageMotion";
             this.tabPageMotion.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMotion.Size = new System.Drawing.Size(756, 446);
+            this.tabPageMotion.Size = new System.Drawing.Size(756, 560);
             this.tabPageMotion.TabIndex = 1;
             this.tabPageMotion.Text = "Motion";
             this.tabPageMotion.UseVisualStyleBackColor = true;
+            // 
+            // btnMotorStatus
+            // 
+            this.btnMotorStatus.Location = new System.Drawing.Point(657, 88);
+            this.btnMotorStatus.Name = "btnMotorStatus";
+            this.btnMotorStatus.Size = new System.Drawing.Size(90, 20);
+            this.btnMotorStatus.TabIndex = 4;
+            this.btnMotorStatus.Text = "Motor Status";
+            this.btnMotorStatus.UseVisualStyleBackColor = true;
+            this.btnMotorStatus.Click += new System.EventHandler(this.btnMotorStatus_Click);
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.radioMoveRel);
+            this.groupBox13.Controls.Add(this.radioMoveAbs);
+            this.groupBox13.Location = new System.Drawing.Point(657, 6);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(90, 70);
+            this.groupBox13.TabIndex = 4;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "Mode";
+            // 
+            // radioMoveRel
+            // 
+            this.radioMoveRel.AutoSize = true;
+            this.radioMoveRel.Location = new System.Drawing.Point(6, 42);
+            this.radioMoveRel.Name = "radioMoveRel";
+            this.radioMoveRel.Size = new System.Drawing.Size(64, 17);
+            this.radioMoveRel.TabIndex = 13;
+            this.radioMoveRel.Text = "Relative";
+            this.radioMoveRel.UseVisualStyleBackColor = true;
+            // 
+            // radioMoveAbs
+            // 
+            this.radioMoveAbs.AutoSize = true;
+            this.radioMoveAbs.Checked = true;
+            this.radioMoveAbs.Location = new System.Drawing.Point(6, 19);
+            this.radioMoveAbs.Name = "radioMoveAbs";
+            this.radioMoveAbs.Size = new System.Drawing.Size(66, 17);
+            this.radioMoveAbs.TabIndex = 12;
+            this.radioMoveAbs.TabStop = true;
+            this.radioMoveAbs.Text = "Absolute";
+            this.radioMoveAbs.UseVisualStyleBackColor = true;
             // 
             // panelView
             // 
@@ -511,27 +569,54 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.fine2ZIndicator);
+            this.groupBox3.Controls.Add(this.fine2YIndicator);
+            this.groupBox3.Controls.Add(this.fine2XIndicator);
             this.groupBox3.Controls.Add(this.fine2ZPos);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.fine2YPos);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.fine2XPos);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Location = new System.Drawing.Point(342, 6);
+            this.groupBox3.Location = new System.Drawing.Point(440, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(162, 102);
+            this.groupBox3.Size = new System.Drawing.Size(211, 102);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Fine 2";
+            // 
+            // fine2ZIndicator
+            // 
+            this.fine2ZIndicator.Location = new System.Drawing.Point(123, 70);
+            this.fine2ZIndicator.Name = "fine2ZIndicator";
+            this.fine2ZIndicator.ReadOnly = true;
+            this.fine2ZIndicator.Size = new System.Drawing.Size(80, 20);
+            this.fine2ZIndicator.TabIndex = 20;
+            // 
+            // fine2YIndicator
+            // 
+            this.fine2YIndicator.Location = new System.Drawing.Point(123, 44);
+            this.fine2YIndicator.Name = "fine2YIndicator";
+            this.fine2YIndicator.ReadOnly = true;
+            this.fine2YIndicator.Size = new System.Drawing.Size(80, 20);
+            this.fine2YIndicator.TabIndex = 19;
+            // 
+            // fine2XIndicator
+            // 
+            this.fine2XIndicator.Location = new System.Drawing.Point(123, 18);
+            this.fine2XIndicator.Name = "fine2XIndicator";
+            this.fine2XIndicator.ReadOnly = true;
+            this.fine2XIndicator.Size = new System.Drawing.Size(80, 20);
+            this.fine2XIndicator.TabIndex = 18;
             // 
             // fine2ZPos
             // 
             this.fine2ZPos.DecimalPlaces = 3;
             this.fine2ZPos.Location = new System.Drawing.Point(27, 70);
             this.fine2ZPos.Name = "fine2ZPos";
-            this.fine2ZPos.Size = new System.Drawing.Size(120, 20);
+            this.fine2ZPos.Size = new System.Drawing.Size(90, 20);
             this.fine2ZPos.TabIndex = 5;
-            this.fine2ZPos.ValueChanged += new System.EventHandler(this.fine2ZPos_ValueChanged);
+            this.fine2ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2ZPos_KeyDown);
             // 
             // label6
             // 
@@ -547,9 +632,9 @@
             this.fine2YPos.DecimalPlaces = 3;
             this.fine2YPos.Location = new System.Drawing.Point(27, 44);
             this.fine2YPos.Name = "fine2YPos";
-            this.fine2YPos.Size = new System.Drawing.Size(120, 20);
+            this.fine2YPos.Size = new System.Drawing.Size(90, 20);
             this.fine2YPos.TabIndex = 3;
-            this.fine2YPos.ValueChanged += new System.EventHandler(this.fine2YPos_ValueChanged);
+            this.fine2YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2YPos_KeyDown);
             // 
             // label7
             // 
@@ -565,9 +650,9 @@
             this.fine2XPos.DecimalPlaces = 3;
             this.fine2XPos.Location = new System.Drawing.Point(27, 18);
             this.fine2XPos.Name = "fine2XPos";
-            this.fine2XPos.Size = new System.Drawing.Size(120, 20);
+            this.fine2XPos.Size = new System.Drawing.Size(90, 20);
             this.fine2XPos.TabIndex = 1;
-            this.fine2XPos.ValueChanged += new System.EventHandler(this.fine2XPos_ValueChanged);
+            this.fine2XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2XPos_KeyDown);
             // 
             // label8
             // 
@@ -580,27 +665,54 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.fine1ZIndicator);
+            this.groupBox2.Controls.Add(this.fine1YIndicator);
+            this.groupBox2.Controls.Add(this.fine1XIndicator);
             this.groupBox2.Controls.Add(this.fine1ZPos);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.fine1YPos);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.fine1XPos);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(174, 6);
+            this.groupBox2.Location = new System.Drawing.Point(223, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(162, 102);
+            this.groupBox2.Size = new System.Drawing.Size(211, 102);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fine 1";
+            // 
+            // fine1ZIndicator
+            // 
+            this.fine1ZIndicator.Location = new System.Drawing.Point(123, 70);
+            this.fine1ZIndicator.Name = "fine1ZIndicator";
+            this.fine1ZIndicator.ReadOnly = true;
+            this.fine1ZIndicator.Size = new System.Drawing.Size(80, 20);
+            this.fine1ZIndicator.TabIndex = 17;
+            // 
+            // fine1YIndicator
+            // 
+            this.fine1YIndicator.Location = new System.Drawing.Point(123, 44);
+            this.fine1YIndicator.Name = "fine1YIndicator";
+            this.fine1YIndicator.ReadOnly = true;
+            this.fine1YIndicator.Size = new System.Drawing.Size(80, 20);
+            this.fine1YIndicator.TabIndex = 16;
+            // 
+            // fine1XIndicator
+            // 
+            this.fine1XIndicator.Location = new System.Drawing.Point(123, 18);
+            this.fine1XIndicator.Name = "fine1XIndicator";
+            this.fine1XIndicator.ReadOnly = true;
+            this.fine1XIndicator.Size = new System.Drawing.Size(80, 20);
+            this.fine1XIndicator.TabIndex = 15;
             // 
             // fine1ZPos
             // 
             this.fine1ZPos.DecimalPlaces = 3;
             this.fine1ZPos.Location = new System.Drawing.Point(27, 70);
             this.fine1ZPos.Name = "fine1ZPos";
-            this.fine1ZPos.Size = new System.Drawing.Size(120, 20);
+            this.fine1ZPos.Size = new System.Drawing.Size(90, 20);
             this.fine1ZPos.TabIndex = 5;
-            this.fine1ZPos.ValueChanged += new System.EventHandler(this.fine1ZPos_ValueChanged);
+            this.fine1ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1ZPos_KeyDown);
             // 
             // label5
             // 
@@ -616,9 +728,9 @@
             this.fine1YPos.DecimalPlaces = 3;
             this.fine1YPos.Location = new System.Drawing.Point(27, 44);
             this.fine1YPos.Name = "fine1YPos";
-            this.fine1YPos.Size = new System.Drawing.Size(120, 20);
+            this.fine1YPos.Size = new System.Drawing.Size(90, 20);
             this.fine1YPos.TabIndex = 3;
-            this.fine1YPos.ValueChanged += new System.EventHandler(this.fine1YPos_ValueChanged);
+            this.fine1YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1YPos_KeyDown);
             // 
             // label3
             // 
@@ -634,9 +746,9 @@
             this.fine1XPos.DecimalPlaces = 3;
             this.fine1XPos.Location = new System.Drawing.Point(27, 18);
             this.fine1XPos.Name = "fine1XPos";
-            this.fine1XPos.Size = new System.Drawing.Size(120, 20);
+            this.fine1XPos.Size = new System.Drawing.Size(90, 20);
             this.fine1XPos.TabIndex = 1;
-            this.fine1XPos.ValueChanged += new System.EventHandler(this.fine1XPos_ValueChanged);
+            this.fine1XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1XPos_KeyDown);
             // 
             // label4
             // 
@@ -649,25 +761,43 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.coarseYIndicator);
+            this.groupBox1.Controls.Add(this.coarseXIndicator);
             this.groupBox1.Controls.Add(this.coarseYPos);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.coarseXPos);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(162, 72);
+            this.groupBox1.Size = new System.Drawing.Size(211, 72);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Coarse";
+            // 
+            // coarseYIndicator
+            // 
+            this.coarseYIndicator.Location = new System.Drawing.Point(123, 44);
+            this.coarseYIndicator.Name = "coarseYIndicator";
+            this.coarseYIndicator.ReadOnly = true;
+            this.coarseYIndicator.Size = new System.Drawing.Size(80, 20);
+            this.coarseYIndicator.TabIndex = 14;
+            // 
+            // coarseXIndicator
+            // 
+            this.coarseXIndicator.Location = new System.Drawing.Point(123, 18);
+            this.coarseXIndicator.Name = "coarseXIndicator";
+            this.coarseXIndicator.ReadOnly = true;
+            this.coarseXIndicator.Size = new System.Drawing.Size(80, 20);
+            this.coarseXIndicator.TabIndex = 13;
             // 
             // coarseYPos
             // 
             this.coarseYPos.DecimalPlaces = 3;
             this.coarseYPos.Location = new System.Drawing.Point(27, 44);
             this.coarseYPos.Name = "coarseYPos";
-            this.coarseYPos.Size = new System.Drawing.Size(120, 20);
+            this.coarseYPos.Size = new System.Drawing.Size(90, 20);
             this.coarseYPos.TabIndex = 3;
-            this.coarseYPos.ValueChanged += new System.EventHandler(this.coarseYPos_ValueChanged);
+            this.coarseYPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseYPos_KeyDown);
             // 
             // label2
             // 
@@ -683,9 +813,9 @@
             this.coarseXPos.DecimalPlaces = 3;
             this.coarseXPos.Location = new System.Drawing.Point(27, 18);
             this.coarseXPos.Name = "coarseXPos";
-            this.coarseXPos.Size = new System.Drawing.Size(120, 20);
+            this.coarseXPos.Size = new System.Drawing.Size(90, 20);
             this.coarseXPos.TabIndex = 1;
-            this.coarseXPos.ValueChanged += new System.EventHandler(this.coarseXPos_ValueChanged);
+            this.coarseXPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseXPos_KeyDown);
             // 
             // label1
             // 
@@ -1132,16 +1262,16 @@
             // 
             // chartCycles
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCycles.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartCycles.Legends.Add(legend1);
+            chartArea17.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea17);
+            legend17.Name = "Legend1";
+            this.chartCycles.Legends.Add(legend17);
             this.chartCycles.Location = new System.Drawing.Point(14, 286);
             this.chartCycles.Name = "chartCycles";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCycles.Series.Add(series1);
+            series17.ChartArea = "ChartArea1";
+            series17.Legend = "Legend1";
+            series17.Name = "Series1";
+            this.chartCycles.Series.Add(series17);
             this.chartCycles.Size = new System.Drawing.Size(623, 271);
             this.chartCycles.TabIndex = 7;
             this.chartCycles.Text = "chart2";
@@ -1156,16 +1286,16 @@
             // 
             // chartCracks
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartCracks.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartCracks.Legends.Add(legend2);
+            chartArea18.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea18);
+            legend18.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend18);
             this.chartCracks.Location = new System.Drawing.Point(6, 6);
             this.chartCracks.Name = "chartCracks";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartCracks.Series.Add(series2);
+            series18.ChartArea = "ChartArea1";
+            series18.Legend = "Legend1";
+            series18.Name = "Series1";
+            this.chartCracks.Series.Add(series18);
             this.chartCracks.Size = new System.Drawing.Size(623, 271);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
@@ -1335,23 +1465,6 @@
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Test Status";
             // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 26);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(33, 13);
-            this.label25.TabIndex = 11;
-            this.label25.Text = "Cycle";
-            // 
-            // textCycle
-            // 
-            this.textCycle.Location = new System.Drawing.Point(45, 24);
-            this.textCycle.Name = "textCycle";
-            this.textCycle.ReadOnly = true;
-            this.textCycle.Size = new System.Drawing.Size(82, 20);
-            this.textCycle.TabIndex = 12;
-            // 
             // textPressure
             // 
             this.textPressure.Location = new System.Drawing.Point(187, 24);
@@ -1368,6 +1481,23 @@
             this.label26.Size = new System.Drawing.Size(48, 13);
             this.label26.TabIndex = 13;
             this.label26.Text = "Pressure";
+            // 
+            // textCycle
+            // 
+            this.textCycle.Location = new System.Drawing.Point(45, 24);
+            this.textCycle.Name = "textCycle";
+            this.textCycle.ReadOnly = true;
+            this.textCycle.Size = new System.Drawing.Size(82, 20);
+            this.textCycle.TabIndex = 12;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 26);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(33, 13);
+            this.label25.TabIndex = 11;
+            this.label25.Text = "Cycle";
             // 
             // RCCMMainForm
             // 
@@ -1397,6 +1527,8 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabPageMotion.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelView)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -1559,6 +1691,18 @@
         private System.Windows.Forms.TextBox textCycle;
         private System.Windows.Forms.TextBox textPressure;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Button btnMotorStatus;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.RadioButton radioMoveRel;
+        private System.Windows.Forms.RadioButton radioMoveAbs;
+        private System.Windows.Forms.TextBox fine2ZIndicator;
+        private System.Windows.Forms.TextBox fine2YIndicator;
+        private System.Windows.Forms.TextBox fine2XIndicator;
+        private System.Windows.Forms.TextBox fine1ZIndicator;
+        private System.Windows.Forms.TextBox fine1YIndicator;
+        private System.Windows.Forms.TextBox fine1XIndicator;
+        private System.Windows.Forms.TextBox coarseYIndicator;
+        private System.Windows.Forms.TextBox coarseXIndicator;
     }
 }
 

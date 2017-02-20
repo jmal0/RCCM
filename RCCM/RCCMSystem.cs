@@ -6,13 +6,14 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AxTrioPCLib;
 
 namespace RCCM
 {
     public class RCCMSystem
     {
-        private static string[] AXES = new string[8] { "coarse X", "coarse Y", "fine 1 X", "fine 1 Y", "fine 1 Z", "fine 2 X", "fine 2 Y", "fine 2 Z" };
-        private static string[] MOTOR_PROPERTIES = new string[2] { "low position limit", "high position limit" };
+        public static string[] AXES = new string[8] { "coarse X", "coarse Y", "fine 1 X", "fine 1 Y", "fine 1 Z", "fine 2 X", "fine 2 Y", "fine 2 Z" };
+        public static string[] MOTOR_PROPERTIES = new string[2] { "low position limit", "high position limit" };
 
         protected WFOV wfov1;
         protected WFOV wfov2;
@@ -32,6 +33,8 @@ namespace RCCM
         protected PointF rccm2Offset;
         public double FineStageAngle { get; private set; }
         protected double[,] fineStageRotation;
+
+        public TrioController triopc { get; private set; }
 
         public RCCMSystem(Settings settings)
         {
@@ -67,21 +70,7 @@ namespace RCCM
 
             // TODO: lol yeah
             this.ActiveStage = RCCMStage.RCCM1;
-
-            // Initialize each motor and apply settings
-            this.motors = new Dictionary<string, Motor>();
-            foreach (string motorName in RCCMSystem.AXES)
-            {
-                switch ((string) settings.json[motorName]["type"])
-                {
-                    case "virtual":
-                        this.motors.Add(motorName, new VirtualMotor());
-                        break;
-                    default:
-                        throw new NotImplementedException("Unknown motor type setting encountered for " + motorName);
-                }
-            }
-
+            
             // Create cycle counter with test frequency specified in settings
             // Convert frequency to period in milliseconds
             double freq = (int) settings.json["cycle frequency"];
@@ -99,10 +88,8 @@ namespace RCCM
             this.fineStageRotation[0, 1] = Math.Sin(this.FineStageAngle * Math.PI / 180.0);
             this.fineStageRotation[1, 0] = -Math.Sin(this.FineStageAngle * Math.PI / 180.0);
             this.fineStageRotation[1, 1] = Math.Cos(this.FineStageAngle * Math.PI / 180.0);
-            // Apply settings
-            applyMotorSettings(settings);
         }
-        
+
         // UNUSED
         public Region getImageLimits()
         {
@@ -144,6 +131,36 @@ namespace RCCM
 
         #region Motors
 
+        public void initializeMotion(AxTrioPC axTrioPC, Settings settings)
+        {
+            // Create handler for Trio controller communication
+            this.triopc = new TrioController(axTrioPC);
+
+            // Initialize each motor and apply settings
+            this.motors = new Dictionary<string, Motor>();
+            foreach (string motorName in RCCMSystem.AXES)
+            {
+                switch ((string)settings.json[motorName]["type"])
+                {
+                    case "virtual":
+                        this.motors.Add(motorName, new VirtualMotor());
+                        break;
+                    case "stepper":
+                        this.motors.Add(motorName, new TrioStepperMotor(this.triopc, (short)settings.json[motorName]["axis number"]));
+                        break;
+                    default:
+                        throw new NotImplementedException("Unknown motor type setting encountered for " + motorName);
+                }
+            }
+            // Apply settings
+            applyMotorSettings(settings);
+        }
+
+        public Dictionary<string, double> getAxisStatus(string axis)
+        {
+            return this.motors[axis].getAllProperties();
+        }
+
         public void applyMotorSettings(Settings settings)
         {
             foreach (string motorName in RCCMSystem.AXES)
@@ -163,10 +180,16 @@ namespace RCCM
         public double setPosition(string axis, double value)
         {
             double result = this.motors[axis].setPos(value);
-            Logger.Out(axis + " " + value);
+            Logger.Out(axis + " moveAbs " + value);
             return result;
         }
 
+        public double moveRelative(string axis, double dist)
+        {
+            double result = this.motors[axis].moveRel(dist);
+            Logger.Out(axis + " moveRel " + dist);
+            return result;
+        }
         #endregion
 
         #region Cycles

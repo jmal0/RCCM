@@ -43,15 +43,32 @@ namespace RCCM
         protected PanelView view;
         protected NFOVView nfovView;
 
+        protected ComponentResourceManager resources;
+        protected AxTrioPCLib.AxTrioPC triopc;
+
         public RCCMMainForm(RCCMSystem sys, Settings settings)
         {
+            // Need to load the ActiveX state or something, I'm not actually sure
+            this.resources = new ComponentResourceManager(typeof(RCCMMainForm));
+            // Create Trio controller ActiveX control and initialize
+            this.triopc = new AxTrioPCLib.AxTrioPC();
+            ((System.ComponentModel.ISupportInitialize)(this.triopc)).BeginInit();
+            this.Controls.Add(this.triopc);
+            this.triopc.Name = "AxTrioPC1";
+            this.triopc.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("AxTrioPC1.OcxState")));
+            ((System.ComponentModel.ISupportInitialize)(this.triopc)).EndInit();
+            
             InitializeComponent();
 
             this.settings = settings;
             this.applyUISettings(this.settings);
 
             this.rccm = sys;
-
+            
+            // Create controller for handling motion commands
+            this.rccm.initializeMotion(this.triopc, this.settings);
+            this.triopc.Refresh();
+            
             this.nfov1 = this.rccm.NFOV1;
             this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
 
@@ -240,44 +257,86 @@ namespace RCCM
 
         #region Motion
 
-        private void coarseXPos_ValueChanged(object sender, EventArgs e)
+        private void coarseXPos_KeyDown(object sender, KeyEventArgs e)
         {
-            this.rccm.setPosition("coarse X", (double) coarseXPos.Value);
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.moveStage("coarse X", (double)coarseXPos.Value);
+            }
         }
 
-        private void coarseYPos_ValueChanged(object sender, EventArgs e)
+        private void coarseYPos_KeyDown(object sender, KeyEventArgs e)
         {
-            this.rccm.setPosition("coarse Y", (double) coarseYPos.Value);
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.moveStage("coarse Y", (double)coarseYPos.Value);
+            }
         }
 
-        private void fine1XPos_ValueChanged(object sender, EventArgs e)
+        private void fine1XPos_KeyDown(object sender, KeyEventArgs e)
         {
-            this.rccm.setPosition("fine 1 X", (double) fine1XPos.Value);
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.moveStage("fine 1 X", (double)fine1XPos.Value);
+            }
         }
 
-        private void fine1YPos_ValueChanged(object sender, EventArgs e)
+        private void fine1YPos_KeyDown(object sender, KeyEventArgs e)
         {
-            this.rccm.setPosition("fine 1 X", (double) fine1YPos.Value);
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.moveStage("fine 1 Y", (double)fine1YPos.Value);
+            }
         }
 
-        private void fine1ZPos_ValueChanged(object sender, EventArgs e)
+        private void fine1ZPos_KeyDown(object sender, KeyEventArgs e)
         {
-            this.rccm.setPosition("fine 1 X", (double) fine1ZPos.Value);
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.moveStage("fine 1 Z", (double)fine1ZPos.Value);
+            }
         }
 
-        private void fine2XPos_ValueChanged(object sender, EventArgs e)
+        private void fine2XPos_KeyDown(object sender, KeyEventArgs e)
         {
-            this.rccm.setPosition("fine 2 X", (double) fine2XPos.Value);
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.moveStage("fine 2 X", (double)fine2XPos.Value);
+            }
         }
 
-        private void fine2YPos_ValueChanged(object sender, EventArgs e)
+        private void fine2YPos_KeyDown(object sender, KeyEventArgs e)
         {
-            this.rccm.setPosition("fine 2 Y", (double) fine2YPos.Value);
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.moveStage("fine 2 Y", (double)fine2YPos.Value);
+            }
         }
 
-        private void fine2ZPos_ValueChanged(object sender, EventArgs e)
+        private void fine2ZPos_KeyDown(object sender, KeyEventArgs e)
         {
-            this.rccm.setPosition("fine 2 Z", (double) fine2ZPos.Value);
+            if(e.KeyCode == Keys.Enter)
+            {
+                this.moveStage("fine 2 Z", (double)fine2ZPos.Value);
+            }
+        }
+
+        private void moveStage(string axis, double value)
+        {
+            if (this.radioMoveAbs.Checked)
+            {
+                this.rccm.setPosition(axis, value);
+            }
+            else if (this.radioMoveRel.Checked)
+            {
+                this.rccm.moveRelative(axis, value);
+            }
+        }
+        
+        private void btnMotorStatus_Click(object sender, EventArgs e)
+        {
+            var properties = this.rccm.getAxisStatus("coarse X");
+            MessageBox.Show(string.Join("\n", properties));
         }
 
         #endregion
@@ -583,16 +642,16 @@ namespace RCCM
             switch (keyData)
             {
                 case Keys.W:
-                    this.rccm.setPosition(yAxis, yPos + 0.1);
+                    this.rccm.moveRelative(yAxis, yPos + 0.1);
                     break;
                 case Keys.A:
-                    this.rccm.setPosition(xAxis, xPos - 0.1);
+                    this.rccm.moveRelative(xAxis, xPos - 0.1);
                     break;
                 case Keys.S:
-                    this.rccm.setPosition(yAxis, yPos - 0.1);
+                    this.rccm.moveRelative(yAxis, yPos - 0.1);
                     break;
                 case Keys.D:
-                    this.rccm.setPosition(xAxis, xPos + 0.1);
+                    this.rccm.moveRelative(xAxis, xPos + 0.1);
                     break;
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
@@ -638,6 +697,14 @@ namespace RCCM
         private void refreshPanelView(object sender, EventArgs e)
         {
             this.panelView.Invalidate();
+            this.coarseXIndicator.Text = this.rccm.getPosition("coarse X").ToString();
+            this.coarseYIndicator.Text = this.rccm.getPosition("coarse Y").ToString();
+            this.fine1XIndicator.Text = this.rccm.getPosition("fine 1 X").ToString();
+            this.fine1YIndicator.Text = this.rccm.getPosition("fine 1 Y").ToString();
+            this.fine1ZIndicator.Text = this.rccm.getPosition("fine 1 Z").ToString();
+            this.fine2XIndicator.Text = this.rccm.getPosition("fine 2 X").ToString();
+            this.fine2YIndicator.Text = this.rccm.getPosition("fine 2 Y").ToString();
+            this.fine2ZIndicator.Text = this.rccm.getPosition("fine 2 Z").ToString();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

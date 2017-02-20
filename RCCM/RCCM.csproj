@@ -68,6 +68,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxInterop.TrioPCLib">
+      <HintPath>..\..\..\..\..\..\Downloads\ActiveXTestVCS\bin\Debug\AxInterop.TrioPCLib.dll</HintPath>
+    </Reference>
     <Reference Include="FlyCap2CameraControld_v140">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Point Grey Research\FlyCapture2\bin64\vs2015\FlyCap2CameraControld_v140.dll</HintPath>
     </Reference>
@@ -136,7 +139,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RCCMSystem.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="StepperMotor.cs" />
     <Compile Include="TestResults.cs" />
     <Compile Include="TrioController.cs" />
     <Compile Include="TrioStepperMotor.cs" />
