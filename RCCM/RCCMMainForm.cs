@@ -55,6 +55,7 @@ namespace RCCM
             ((System.ComponentModel.ISupportInitialize)(this.triopc)).BeginInit();
             this.Controls.Add(this.triopc);
             this.triopc.Name = "AxTrioPC1";
+            this.triopc.Visible = false;
             this.triopc.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("AxTrioPC1.OcxState")));
             ((System.ComponentModel.ISupportInitialize)(this.triopc)).EndInit();
             
@@ -511,8 +512,10 @@ namespace RCCM
                 for (int i = 0; i < this.cracks[measurementIndex].CountPoints; i++)
                 {
                     Measurement m = this.cracks[measurementIndex].getPoint(i);
-                    this.listPoints.Items.Add(string.Format("{0:0.0000, -10} {1:0.0000, -10}", m.X, m.Y));
+                    this.listPoints.Items.Add(string.Format("{0:0.000} {1:0.000}", m.X, m.Y));
                 }
+                // Update crack length plot
+                this.test.plotCracks(this.cracks);
             }
         }
 
@@ -531,7 +534,6 @@ namespace RCCM
                 this.listMeasurements.Items.RemoveAt(deleteIndex);
                 updateMeasurementControls(-1);
             }
-            this.test.plotCracks(this.cracks);
         }
         
         private void btnCrosshairMeasure_Click(object sender, EventArgs e)
@@ -544,7 +546,7 @@ namespace RCCM
                 Logger.Out(this.cracks[index].ToString());
                 // Refresh list of points
                 this.updateMeasurementControls(index);
-            }
+            }            
         }
 
         private void btnDeletePoint_Click(object sender, EventArgs e)
@@ -556,8 +558,6 @@ namespace RCCM
                 this.cracks[mIndex].removePoint(ptIndex);
                 // Refresh list of points
                 this.updateMeasurementControls(mIndex);
-                
-                this.test.plotCracks(this.cracks);
             }
         }
 

@@ -140,6 +140,12 @@ namespace RCCM
             this.motors = new Dictionary<string, Motor>();
             foreach (string motorName in RCCMSystem.AXES)
             {
+                // If controller is not open, all motors must be virtual
+                if (!this.triopc.Open)
+                {
+                    this.motors.Add(motorName, new VirtualMotor());
+                    continue;
+                }
                 switch ((string)settings.json[motorName]["type"])
                 {
                     case "virtual":
@@ -165,7 +171,7 @@ namespace RCCM
         {
             foreach (string motorName in RCCMSystem.AXES)
             {
-                foreach (string property in RCCMSystem.MOTOR_PROPERTIES)
+                foreach (string property in Motor.MOTOR_SETTINGS)
                 {
                     this.motors[motorName].setProperty(property, (double) settings.json[motorName][property]);
                 }

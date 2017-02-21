@@ -56,14 +56,14 @@ namespace RCCM
         /// </summary>
         public int ZoomMin
         {
-            get { return this.VCDProp.RangeMin(VCDIDs.VCDID_Focus); }
+            get { return this.VCDProp.RangeMin(VCDIDs.VCDID_Zoom); }
         }
         /// <summary>
         /// Maximum zoom level of the camera
         /// </summary>
         public int ZoomMax
         {
-            get { return this.VCDProp.RangeMax(VCDIDs.VCDID_Focus); }
+            get { return this.VCDProp.RangeMax(VCDIDs.VCDID_Zoom); }
         }
 
         #endregion

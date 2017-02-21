@@ -40,10 +40,6 @@ namespace RCCM
             for (short ax = 0; ax < TrioController.NUMBER_AXES; ax++)
             {
                 this.triopc.SetAxisVariable("ATYPE", ax, TrioController.ATYPE);
-                this.triopc.SetAxisVariable("UNITS", ax, 50000 * 16);
-                this.triopc.SetAxisVariable("SPEED", ax, 1);
-                this.triopc.SetAxisVariable("ACCEL", ax, 100);
-                this.triopc.SetAxisVariable("DECEL", ax, 100);
                 this.triopc.SetAxisVariable("SERVO", ax, 0);
                 this.triopc.SetAxisVariable("AXIS_ENABLE", ax, 1);
             }
@@ -101,6 +97,15 @@ namespace RCCM
             if (this.triopc.IsOpen(TrioController.PORT_ID) && this.triopc.GetAxisVariable(property, nAxis, out dReadVar))
             {
                 return dReadVar;
+            }
+            throw new Exception(string.Format("Invalid property: {0}", property));
+        }
+
+        public bool SetAxisProperty(string property, double value, short nAxis)
+        {
+            if (this.triopc.IsOpen(TrioController.PORT_ID))
+            {
+                return this.triopc.SetAxisVariable(property, nAxis, value);
             }
             throw new Exception(string.Format("Invalid property: {0}", property));
         }

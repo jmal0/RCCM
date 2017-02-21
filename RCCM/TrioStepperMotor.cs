@@ -9,6 +9,15 @@ namespace RCCM
 {
     public class TrioStepperMotor : Motor
     {
+        public static Dictionary<string, string> TRIO_PROPERTY_MAP = new Dictionary<string, string>{
+            { "microstep per mm", "UNITS" },
+            { "velocity", "SPEED" },
+            { "acceleration", "ACCEL" },
+            { "deceleration", "DECEL" },
+            { "low position limit", "AXIS_RS_LIMIT" },
+            { "high position limit", "AXIS_FS_LIMIT" }
+        };
+
         private TrioController controller;
         private short axisNum;
 
@@ -102,6 +111,20 @@ namespace RCCM
                 properties[property] = this.controller.GetAxisProperty(property, this.axisNum);
             }
             return properties;
+        }
+
+        public override double getProperty(string property)
+        {
+            string variable = TrioStepperMotor.TRIO_PROPERTY_MAP[property];
+            return this.controller.GetAxisProperty(variable, this.axisNum);
+        }
+
+        public override bool setProperty(string property, double value)
+        {
+            string variable = TrioStepperMotor.TRIO_PROPERTY_MAP[property];
+            Console.WriteLine(variable + " " + value);
+            this.settings[property] = value;
+            return this.controller.SetAxisProperty(variable, value, this.axisNum);
         }
     }
 }

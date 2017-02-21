@@ -11,6 +11,7 @@ namespace RCCM
     /// </summary>
     abstract public class Motor
     {
+        public static string[] MOTOR_SETTINGS = { "microstep per mm", "velocity", "acceleration", "deceleration", "low position limit", "high position limit" };
         // Step position 
         protected double commandPos = 0;
         protected bool homed = false;
@@ -22,10 +23,10 @@ namespace RCCM
             this.settings = new Dictionary<string, double>();
 
             // Create required keys for settings
-            this.settings["velocity"] = 0;
-            this.settings["acceleration"] = 0;
-            this.settings["low position limit"] = 0;
-            this.settings["high position limit"] = 0;
+            foreach (string setting in Motor.MOTOR_SETTINGS)
+            {
+                this.settings[setting] = 0;
+            }
         }
 
         abstract public double getPos();
@@ -37,14 +38,13 @@ namespace RCCM
         /// </summary>
         /// <param name="property">Property name</param>
         /// <param name="value">Property value</param>
-        /// <returns>Previous value of property</returns>
-        public double setProperty(string property, double value)
+        /// <returns>True if property set is successful</returns>
+        public virtual bool setProperty(string property, double value)
         {
             if (this.settings.ContainsKey(property))
             {
-                double previous = this.settings[property];
                 this.settings[property] = value;
-                return previous;
+                return true;
             }
             throw new ArgumentException("Invalid property name");
         }
@@ -54,7 +54,7 @@ namespace RCCM
         /// </summary>
         /// <param name="property">Name of the property</param>
         /// <returns>The value of the specified property</returns>
-        public double getProperty(string property)
+        public virtual double getProperty(string property)
         {
             return this.settings[property];
         }

@@ -29,27 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend17 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea18 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend18 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend21 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea22 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend22 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.nfov2SN = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.nfov2ControllerSN = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.nfov2Scale = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.nfov1SN = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.nfov1ControllerSN = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.nfov1Scale = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -245,61 +237,23 @@
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.label19);
-            this.groupBox8.Controls.Add(this.nfov2SN);
-            this.groupBox8.Controls.Add(this.label23);
-            this.groupBox8.Controls.Add(this.nfov2ControllerSN);
             this.groupBox8.Controls.Add(this.label16);
             this.groupBox8.Controls.Add(this.nfov2Scale);
-            this.groupBox8.Location = new System.Drawing.Point(8, 219);
+            this.groupBox8.Location = new System.Drawing.Point(6, 168);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(200, 112);
+            this.groupBox8.Size = new System.Drawing.Size(200, 48);
             this.groupBox8.TabIndex = 5;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "NFOV 2";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(7, 46);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(43, 13);
-            this.label19.TabIndex = 7;
-            this.label19.Text = "Serial #";
-            // 
-            // nfov2SN
-            // 
-            this.nfov2SN.Location = new System.Drawing.Point(82, 43);
-            this.nfov2SN.Name = "nfov2SN";
-            this.nfov2SN.Size = new System.Drawing.Size(100, 20);
-            this.nfov2SN.TabIndex = 8;
-            this.nfov2SN.Text = "0";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(6, 72);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(90, 13);
-            this.label23.TabIndex = 6;
-            this.label23.Text = "Controller Serial #";
-            // 
-            // nfov2ControllerSN
-            // 
-            this.nfov2ControllerSN.Location = new System.Drawing.Point(103, 69);
-            this.nfov2ControllerSN.Name = "nfov2ControllerSN";
-            this.nfov2ControllerSN.Size = new System.Drawing.Size(79, 20);
-            this.nfov2ControllerSN.TabIndex = 2;
-            this.nfov2ControllerSN.Text = "0";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(7, 20);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(66, 13);
+            this.label16.Size = new System.Drawing.Size(50, 13);
             this.label16.TabIndex = 0;
-            this.label16.Text = "Inches/Pixel";
+            this.label16.Text = "mm/Pixel";
             // 
             // nfov2Scale
             // 
@@ -307,65 +261,27 @@
             this.nfov2Scale.Name = "nfov2Scale";
             this.nfov2Scale.Size = new System.Drawing.Size(100, 20);
             this.nfov2Scale.TabIndex = 0;
-            this.nfov2Scale.Text = "0.0003";
+            this.nfov2Scale.Text = "9.08";
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.label18);
-            this.groupBox7.Controls.Add(this.nfov1SN);
-            this.groupBox7.Controls.Add(this.label22);
-            this.groupBox7.Controls.Add(this.nfov1ControllerSN);
             this.groupBox7.Controls.Add(this.label15);
             this.groupBox7.Controls.Add(this.nfov1Scale);
             this.groupBox7.Location = new System.Drawing.Point(6, 114);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(200, 99);
+            this.groupBox7.Size = new System.Drawing.Size(200, 48);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "NFOV 1";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(7, 46);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(43, 13);
-            this.label18.TabIndex = 3;
-            this.label18.Text = "Serial #";
-            // 
-            // nfov1SN
-            // 
-            this.nfov1SN.Location = new System.Drawing.Point(82, 43);
-            this.nfov1SN.Name = "nfov1SN";
-            this.nfov1SN.Size = new System.Drawing.Size(100, 20);
-            this.nfov1SN.TabIndex = 4;
-            this.nfov1SN.Text = "16396117";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(7, 72);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(90, 13);
-            this.label22.TabIndex = 2;
-            this.label22.Text = "Controller Serial #";
-            // 
-            // nfov1ControllerSN
-            // 
-            this.nfov1ControllerSN.Location = new System.Drawing.Point(103, 69);
-            this.nfov1ControllerSN.Name = "nfov1ControllerSN";
-            this.nfov1ControllerSN.Size = new System.Drawing.Size(79, 20);
-            this.nfov1ControllerSN.TabIndex = 1;
-            this.nfov1ControllerSN.Text = "641395";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(7, 20);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(66, 13);
+            this.label15.Size = new System.Drawing.Size(50, 13);
             this.label15.TabIndex = 0;
-            this.label15.Text = "Inches/Pixel";
+            this.label15.Text = "mm/Pixel";
             // 
             // nfov1Scale
             // 
@@ -373,7 +289,7 @@
             this.nfov1Scale.Name = "nfov1Scale";
             this.nfov1Scale.Size = new System.Drawing.Size(100, 20);
             this.nfov1Scale.TabIndex = 0;
-            this.nfov1Scale.Text = "0.0003";
+            this.nfov1Scale.Text = "9.08";
             this.nfov1Scale.TextChanged += new System.EventHandler(this.nfov1Scale_TextChanged);
             // 
             // groupBox6
@@ -1262,16 +1178,16 @@
             // 
             // chartCycles
             // 
-            chartArea17.Name = "ChartArea1";
-            this.chartCycles.ChartAreas.Add(chartArea17);
-            legend17.Name = "Legend1";
-            this.chartCycles.Legends.Add(legend17);
+            chartArea21.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea21);
+            legend21.Name = "Legend1";
+            this.chartCycles.Legends.Add(legend21);
             this.chartCycles.Location = new System.Drawing.Point(14, 286);
             this.chartCycles.Name = "chartCycles";
-            series17.ChartArea = "ChartArea1";
-            series17.Legend = "Legend1";
-            series17.Name = "Series1";
-            this.chartCycles.Series.Add(series17);
+            series21.ChartArea = "ChartArea1";
+            series21.Legend = "Legend1";
+            series21.Name = "Series1";
+            this.chartCycles.Series.Add(series21);
             this.chartCycles.Size = new System.Drawing.Size(623, 271);
             this.chartCycles.TabIndex = 7;
             this.chartCycles.Text = "chart2";
@@ -1286,16 +1202,16 @@
             // 
             // chartCracks
             // 
-            chartArea18.Name = "ChartArea1";
-            this.chartCracks.ChartAreas.Add(chartArea18);
-            legend18.Name = "Legend1";
-            this.chartCracks.Legends.Add(legend18);
+            chartArea22.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea22);
+            legend22.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend22);
             this.chartCracks.Location = new System.Drawing.Point(6, 6);
             this.chartCracks.Name = "chartCracks";
-            series18.ChartArea = "ChartArea1";
-            series18.Legend = "Legend1";
-            series18.Name = "Series1";
-            this.chartCracks.Series.Add(series18);
+            series22.ChartArea = "ChartArea1";
+            series22.Legend = "Legend1";
+            series22.Name = "Series1";
+            this.chartCracks.Series.Add(series22);
             this.chartCracks.Size = new System.Drawing.Size(623, 271);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
@@ -1653,10 +1569,6 @@
         private System.Windows.Forms.Button btnDeletePoint;
         private System.Windows.Forms.Button btnCrosshairMeasure;
         private System.Windows.Forms.Label colorPicker;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.TextBox nfov2ControllerSN;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox nfov1ControllerSN;
         private System.Windows.Forms.Button btnDeleteSequence;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox listPoints;
@@ -1668,10 +1580,6 @@
         private System.Windows.Forms.Button btnSaveAllCracks;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.PictureBox panelView;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox nfov1SN;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox nfov2SN;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nFOV1LensToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nFOV1ToolStripMenuItem;
