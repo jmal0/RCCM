@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend21 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea22 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend22 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend13 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend14 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -1178,16 +1178,16 @@
             // 
             // chartCycles
             // 
-            chartArea21.Name = "ChartArea1";
-            this.chartCycles.ChartAreas.Add(chartArea21);
-            legend21.Name = "Legend1";
-            this.chartCycles.Legends.Add(legend21);
+            chartArea13.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea13);
+            legend13.Name = "Legend1";
+            this.chartCycles.Legends.Add(legend13);
             this.chartCycles.Location = new System.Drawing.Point(14, 286);
             this.chartCycles.Name = "chartCycles";
-            series21.ChartArea = "ChartArea1";
-            series21.Legend = "Legend1";
-            series21.Name = "Series1";
-            this.chartCycles.Series.Add(series21);
+            series13.ChartArea = "ChartArea1";
+            series13.Legend = "Legend1";
+            series13.Name = "Series1";
+            this.chartCycles.Series.Add(series13);
             this.chartCycles.Size = new System.Drawing.Size(623, 271);
             this.chartCycles.TabIndex = 7;
             this.chartCycles.Text = "chart2";
@@ -1202,16 +1202,16 @@
             // 
             // chartCracks
             // 
-            chartArea22.Name = "ChartArea1";
-            this.chartCracks.ChartAreas.Add(chartArea22);
-            legend22.Name = "Legend1";
-            this.chartCracks.Legends.Add(legend22);
+            chartArea14.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea14);
+            legend14.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend14);
             this.chartCracks.Location = new System.Drawing.Point(6, 6);
             this.chartCracks.Name = "chartCracks";
-            series22.ChartArea = "ChartArea1";
-            series22.Legend = "Legend1";
-            series22.Name = "Series1";
-            this.chartCracks.Series.Add(series22);
+            series14.ChartArea = "ChartArea1";
+            series14.Legend = "Legend1";
+            series14.Name = "Series1";
+            this.chartCracks.Series.Add(series14);
             this.chartCracks.Size = new System.Drawing.Size(623, 271);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
@@ -1284,6 +1284,7 @@
             // 
             // editCycleFreq
             // 
+            this.editCycleFreq.DecimalPlaces = 2;
             this.editCycleFreq.Location = new System.Drawing.Point(191, 24);
             this.editCycleFreq.Name = "editCycleFreq";
             this.editCycleFreq.Size = new System.Drawing.Size(121, 20);
@@ -1293,6 +1294,7 @@
             0,
             0,
             0});
+            this.editCycleFreq.Click += new System.EventHandler(this.editCycleFreq_Click);
             // 
             // btnStopTest
             // 
@@ -1302,6 +1304,7 @@
             this.btnStopTest.Size = new System.Drawing.Size(26, 26);
             this.btnStopTest.TabIndex = 8;
             this.btnStopTest.UseVisualStyleBackColor = true;
+            this.btnStopTest.Click += new System.EventHandler(this.btnStopTest_Click);
             // 
             // btnStartTest
             // 
@@ -1311,6 +1314,7 @@
             this.btnStartTest.Size = new System.Drawing.Size(26, 26);
             this.btnStartTest.TabIndex = 7;
             this.btnStartTest.UseVisualStyleBackColor = true;
+            this.btnStartTest.Click += new System.EventHandler(this.btnStartTest_Click);
             // 
             // btnPauseTest
             // 
@@ -1320,6 +1324,7 @@
             this.btnPauseTest.Size = new System.Drawing.Size(26, 26);
             this.btnPauseTest.TabIndex = 6;
             this.btnPauseTest.UseVisualStyleBackColor = true;
+            this.btnPauseTest.Click += new System.EventHandler(this.btnPauseTest_Click);
             // 
             // radioButton3
             // 

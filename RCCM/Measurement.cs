@@ -39,7 +39,7 @@ namespace RCCM
         public Measurement(RCCMSystem rccm, RCCMStage fine, double pixelX, double pixelY)
         {
             this.timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
-            this.Cycle = rccm.getCycle();
+            this.Cycle = rccm.Counter.Cycle;
             this.pressure = 0; // TODO
 
             this.coarseX = rccm.getPosition("coarse X");

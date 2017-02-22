@@ -27,7 +27,7 @@ namespace RCCM
 
         protected Dictionary<string, Motor> motors;
 
-        protected CycleCounter counter;
+        public CycleCounter Counter { get; private set; }
 
         protected PointF rccm1Offset;
         protected PointF rccm2Offset;
@@ -74,7 +74,7 @@ namespace RCCM
             // Create cycle counter with test frequency specified in settings
             // Convert frequency to period in milliseconds
             double freq = (int) settings.json["cycle frequency"];
-            this.counter = new CycleCounter((int) Math.Round(1000.0 / freq));
+            this.Counter = new CycleCounter((int) Math.Round(1000.0 / freq));
 
             // Save position vectors from pivot plate center to NFOV cameras
             this.rccm1Offset = new PointF((float) settings.json["fine 1"]["x"],
@@ -196,35 +196,6 @@ namespace RCCM
             Logger.Out(axis + " moveRel " + dist);
             return result;
         }
-        #endregion
-
-        #region Cycles
-        
-        public int getCycle()
-        {
-            return this.counter.Cycle;
-        }
-
-        public bool setCycleFrequency(double freq)
-        {
-            if (freq > 0)
-            {
-                this.counter.setPeriod((int) Math.Round(1000.0 / freq));
-                return true;
-            }
-            return false;
-        }
-
-        public void startCounting()
-        {
-            this.counter.start();
-        }
-
-        public void stopCounting()
-        {
-            this.counter.stop();
-        }
-
         #endregion
 
         public void readHeight1()

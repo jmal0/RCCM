@@ -23,22 +23,38 @@ namespace RCCM
         /// </summary>
         public int Cycle { get; set; }
 
+        protected int period;
+        /// <summary>
+        /// Cycle period in milliseconds
+        /// </summary>
+        public int Period
+        {
+            get { return this.period; }
+            set { this.period = value; this.countTimer.Interval = value; }
+        }
+        
+        // Environment tick count of last cycle increment
+        protected int lastTick;
+
+        /// <summary>
+        /// Amplitude of pressure signal 
+        /// </summary>
+        public double Amplitude { get; set; }
+
         public CycleCounter(int period)
         {
             // Create timer to call countLoop periodically
             this.countTimer = new Timer();
             this.countTimer.Enabled = false;
-            this.countTimer.Interval = period;
+            this.period = period;
+            this.countTimer.Interval = this.period;
             this.countTimer.Tick += new EventHandler(countLoop);
 
             // Intialize properties to indicate inactive status
             this.Active = false;
             this.Cycle = 0;
-        }
-
-        public void setPeriod(int period)
-        {
-            this.countTimer.Interval = period;
+            this.Amplitude = 1;
+            this.lastTick = Environment.TickCount;
         }
 
         /// <summary>
@@ -48,6 +64,7 @@ namespace RCCM
         {
             this.countTimer.Start();
             this.Active = true;
+            this.lastTick = Environment.TickCount;
         }
 
         /// <summary>
@@ -59,6 +76,7 @@ namespace RCCM
             this.Cycle = cycle;
             this.countTimer.Start();
             this.Active = true;
+            this.lastTick = Environment.TickCount;
         }
         
         /// <summary>
@@ -78,6 +96,31 @@ namespace RCCM
         private void countLoop(object sender, EventArgs e)
         {
             this.Cycle += 1;
+            this.lastTick = Environment.TickCount;
+        }
+
+        /// <summary>
+        /// Get current pressure reading (simulated with sine curve)
+        /// <returns>current pressure reading</returns>
+        /// </summary>
+        public double GetPressure()
+        {
+            return this.Amplitude * Math.Sin(2 * Math.PI * ((double)Environment.TickCount / this.Period));
+        }
+
+        /// <summary>
+        /// Elapsed time in test from current cycle and elapsed time since last tick
+        /// </summary>
+        public int GetElapsed()
+        {
+            if (this.Active)
+            {
+                return this.Cycle * this.Period + Environment.TickCount - this.lastTick;
+            }
+            else
+            {
+                return this.Cycle * this.Period;
+            }
         }
     }
 }

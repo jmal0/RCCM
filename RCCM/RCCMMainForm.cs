@@ -87,7 +87,7 @@ namespace RCCM
 
             this.cracks = new List<MeasurementSequence>();
 
-            this.test = new TestResults(this.chartCracks, this.chartCycles);
+            this.test = new TestResults(this.rccm, this.settings, this.chartCracks, this.chartCycles, this.textCycle, this.textPressure);
 
             this.view = new PanelView(this.rccm, settings);
             this.nfovView = new NFOVView(this.rccm, this.cracks);
@@ -642,16 +642,16 @@ namespace RCCM
             switch (keyData)
             {
                 case Keys.W:
-                    this.rccm.moveRelative(yAxis, yPos + 0.1);
+                    this.rccm.moveRelative(yAxis, 0.1);
                     break;
                 case Keys.A:
-                    this.rccm.moveRelative(xAxis, xPos - 0.1);
+                    this.rccm.moveRelative(xAxis, -0.1);
                     break;
                 case Keys.S:
-                    this.rccm.moveRelative(yAxis, yPos - 0.1);
+                    this.rccm.moveRelative(yAxis, -0.1);
                     break;
                 case Keys.D:
-                    this.rccm.moveRelative(xAxis, xPos + 0.1);
+                    this.rccm.moveRelative(xAxis, 0.1);
                     break;
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
@@ -668,26 +668,35 @@ namespace RCCM
 
         private void btnStartTest_Click(object sender, EventArgs e)
         {
-            this.rccm.startCounting();
+            this.rccm.Counter.start();
             this.btnStartTest.Enabled = false;
             this.btnPauseTest.Enabled = true;
             this.btnStopTest.Enabled = true;
         }
 
-        #endregion
-
         private void btnPauseTest_Click(object sender, EventArgs e)
         {
-            this.rccm.stopCounting();
+            this.rccm.Counter.stop();
             this.btnStartTest.Enabled = true;
             this.btnPauseTest.Enabled = false;
             this.btnStopTest.Enabled = false;
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void btnStopTest_Click(object sender, EventArgs e)
         {
-            this.rccm.setCycleFrequency((double) this.editCycleFreq.Value);
+            this.rccm.Counter.stop();
+            this.btnStartTest.Enabled = true;
+            this.btnPauseTest.Enabled = false;
+            this.btnStopTest.Enabled = false;
+            this.btnSaveAllCracks_Click(null, null);
         }
+
+        private void editCycleFreq_Click(object sender, EventArgs e)
+        {
+            this.rccm.Counter.Period = (int)(2000.0 * Math.PI * (double)this.editCycleFreq.Value);
+        }
+
+        #endregion
 
         private void panelView_Paint(object sender, PaintEventArgs e)
         {

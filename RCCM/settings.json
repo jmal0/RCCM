@@ -22,7 +22,7 @@
     "home Y": 0.0,
     // Motion settings
     "coarse X": {
-        "type": "stepper",
+        "type": "virtual",
 		"axis number": 0,
 		"microstep per mm": 80000.0,
         "mm per rev": 0.1,
@@ -48,8 +48,8 @@
 		"velocity": 10.0
     },
     "fine 1 X": {
-        "type": "virtual",
-		"axis number": 2,
+        "type": "stepper",
+		"axis number": 0,
 		"microstep per mm": 80000.0,
 		"mm per rev": 0.1,
 		"velocity": 10.0,
@@ -160,5 +160,6 @@
     // UI Settings
     "repaint period": 100,
     // Test settings
-    "cycle frequency": 1
+    "cycle frequency": 1,
+	"pressure readings saved": 100
 }
