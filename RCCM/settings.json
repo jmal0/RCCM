@@ -52,11 +52,11 @@
 		"axis number": 0,
 		"microstep per mm": 80000.0,
 		"mm per rev": 0.1,
-		"velocity": 10.0,
-		"acceleration": 10,
-		"deceleration": 10,
-        "low position limit": 0.0,
-        "high position limit": 508.0,
+		"velocity": 100.0,
+		"acceleration": 100,
+		"deceleration": 100,
+        "low position limit": -1200.0,
+        "high position limit": 1200,//508.0,
         "step": 0.0005
     },
     "fine 1 Y": {
@@ -130,7 +130,7 @@
     "nfov 1": {
         "camera serial": 16396117,
         "controller serial": 641395,
-        "microns / pixel": 0.00905,
+        "microns / pixel": 0.011,
         "height": 2048,
         "width": 2448,
         "calibration": [
@@ -145,7 +145,7 @@
     "nfov 2": {
         "camera serial": 0,
         "controller serial": 0,
-        "microns / pixel": 0.00905,
+        "microns / pixel": 0.011,
         "height": 2048,
         "width": 2448,
         "calibration": [

@@ -24,6 +24,10 @@ namespace RCCM
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// Width of line
+        /// </summary>
+        public float LineSize { get; set; }
+        /// <summary>
         /// Number of points in sequence
         /// </summary>
         public int CountPoints
@@ -31,11 +35,12 @@ namespace RCCM
             get { return this.points.Count; }
         }
         
-        public MeasurementSequence(Color uiColor, string uiName, RCCMStage uiParent)
+        public MeasurementSequence(Color uiColor, string uiName, float uiSize, RCCMStage uiParent)
         {
             this.points = new List<Measurement>();
             this.Color = Color.FromArgb(128, uiColor); // 50% transparent
             this.Name = uiName;
+            this.LineSize = uiSize;
             this.parent = uiParent;
         }
 
@@ -94,10 +99,10 @@ namespace RCCM
         {
             if (this.points.Count > 1)
             {
-                Pen pen = new Pen(this.Color, 1.0f / scale);
+                Pen pen = new Pen(this.Color, this.LineSize / scale);
                 Brush brush = new SolidBrush(this.Color);
                 pen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-                RectangleF point = new RectangleF(0, 0, 5.0f / scale, 5.0f / scale);
+                RectangleF point = new RectangleF(0, 0, 5.0f * this.LineSize / scale, 5.0f * this.LineSize / scale);
                     
                 // Draw each line segment
                 PointF p0, p1;

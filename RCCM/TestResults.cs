@@ -86,7 +86,6 @@ namespace RCCM
             if (this.counter.Active)
             {
                 this.cycleChart.Series[0].Points.AddXY(this.counter.GetElapsed() / 1000.0, this.counter.GetPressure());
-                Console.WriteLine(this.counter.GetElapsed() / 1000.0);
                 if (this.cycleChart.Series[0].Points.Count > this.savedReadings)
                 {
                     this.cycleChart.Series[0].Points.RemoveAt(0);

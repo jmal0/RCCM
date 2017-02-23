@@ -336,7 +336,7 @@ namespace RCCM
         
         private void btnMotorStatus_Click(object sender, EventArgs e)
         {
-            var properties = this.rccm.getAxisStatus("coarse X");
+            var properties = this.rccm.getAxisStatus("fine 1 X");
             MessageBox.Show(string.Join("\n", properties));
         }
 
@@ -491,7 +491,7 @@ namespace RCCM
             DialogResult result = dlg.ShowDialog();
             if (result == DialogResult.OK)
             {
-                MeasurementSequence newCrack = new MeasurementSequence(dlg.getColor(), dlg.getName(), dlg.getStage());
+                MeasurementSequence newCrack = new MeasurementSequence(dlg.GetColor(), dlg.GetName(), dlg.GetLineSize(), dlg.GetStage());
                 this.measurementCounter++;
                 this.cracks.Add(newCrack);
                 

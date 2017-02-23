@@ -46,7 +46,7 @@ namespace RCCM
         /// Get color selected with color picker dialog on form 
         /// </summary>
         /// <returns>The selected color</returns>
-        public Color getColor()
+        public Color GetColor()
         {
             return this.colorPicker.BackColor;
         }
@@ -55,16 +55,25 @@ namespace RCCM
         /// Get name defined on form 
         /// </summary>
         /// <returns>The given name for the MeasurementSequence</returns>
-        public string getName()
+        public string GetName()
         {
             return this.textName.Text;
+        }
+        
+        /// <summary>
+        /// Get line size defined on form 
+        /// </summary>
+        /// <returns>The given line size for the MeasurementSequence</returns>
+        public float GetLineSize()
+        {
+            return (float) this.editLineSize.Value;
         }
 
         /// <summary>
         /// Get select parent stage from form 
         /// </summary>
         /// <returns>The enum value for the parent stage of the MeasurementSequence</returns>
-        public RCCMStage getStage()
+        public RCCMStage GetStage()
         {
             if (this.radioRccm1.Checked)
             {

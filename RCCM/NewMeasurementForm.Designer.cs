@@ -38,14 +38,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.editLineSize = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editLineSize)).BeginInit();
             this.SuspendLayout();
             // 
             // textName
             // 
             this.textName.Location = new System.Drawing.Point(53, 6);
             this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(100, 20);
+            this.textName.Size = new System.Drawing.Size(97, 20);
             this.textName.TabIndex = 0;
             // 
             // radioRccm1
@@ -74,7 +77,7 @@
             // 
             this.groupBox1.Controls.Add(this.radioRccm1);
             this.groupBox1.Controls.Add(this.radioRccm2);
-            this.groupBox1.Location = new System.Drawing.Point(15, 49);
+            this.groupBox1.Location = new System.Drawing.Point(12, 75);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(138, 71);
             this.groupBox1.TabIndex = 3;
@@ -112,7 +115,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(15, 127);
+            this.btnOK.Location = new System.Drawing.Point(12, 152);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(65, 26);
             this.btnOK.TabIndex = 21;
@@ -122,7 +125,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(89, 127);
+            this.btnCancel.Location = new System.Drawing.Point(86, 152);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(65, 26);
             this.btnCancel.TabIndex = 22;
@@ -130,11 +133,45 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Line Size";
+            // 
+            // editLineSize
+            // 
+            this.editLineSize.DecimalPlaces = 1;
+            this.editLineSize.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.editLineSize.Location = new System.Drawing.Point(68, 49);
+            this.editLineSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.editLineSize.Name = "editLineSize";
+            this.editLineSize.Size = new System.Drawing.Size(82, 20);
+            this.editLineSize.TabIndex = 24;
+            this.editLineSize.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // NewMeasurementSequenceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(169, 161);
+            this.ClientSize = new System.Drawing.Size(166, 187);
+            this.Controls.Add(this.editLineSize);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label2);
@@ -146,6 +183,7 @@
             this.Text = "New";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editLineSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,5 +201,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown editLineSize;
     }
 }
