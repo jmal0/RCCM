@@ -46,7 +46,7 @@ namespace RCCM
         protected ComponentResourceManager resources;
         protected AxTrioPCLib.AxTrioPC triopc;
 
-        public RCCMMainForm(RCCMSystem sys, Settings settings)
+        public RCCMMainForm(Settings settings)
         {
             // Need to load the ActiveX state or something, I'm not actually sure
             this.resources = new ComponentResourceManager(typeof(RCCMMainForm));
@@ -58,13 +58,13 @@ namespace RCCM
             this.triopc.Visible = false;
             this.triopc.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("AxTrioPC1.OcxState")));
             ((System.ComponentModel.ISupportInitialize)(this.triopc)).EndInit();
-            
+
+            this.rccm = new RCCMSystem(settings);
+
             InitializeComponent();
 
             this.settings = settings;
             this.applyUISettings(this.settings);
-
-            this.rccm = sys;
             
             // Create controller for handling motion commands
             this.rccm.initializeMotion(this.triopc, this.settings);
@@ -117,10 +117,10 @@ namespace RCCM
 
             this.nfov1.initialize();
 
+            this.view.setTransform(this.panelView.CreateGraphics());
+
             this.nfovRepaintTimer.Start();
             this.panelRepaintTimer.Start();
-
-            this.view.setTransform(this.panelView.CreateGraphics());
         }
         
         private void RCCMMainForm_FormClosed(object sender, FormClosedEventArgs e)

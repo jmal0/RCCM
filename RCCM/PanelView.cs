@@ -16,15 +16,20 @@ namespace RCCM
         protected readonly RCCMSystem rccm;
 
         protected Pen pen;
+        protected Brush panelBrush;
         protected Brush coarseBrush;
         protected Brush fineBrush;
         // Rectangles holding travel distances and positions of stages
         protected RectangleF panel;
+        protected RectangleF coarse;
         protected RectangleF fine1;
         protected RectangleF fine2;
         // Constant position offsets of rectangles
+        protected SizeF panelOffset;
         protected SizeF fine1Offset;
         protected SizeF fine2Offset;
+        // Rotation of panel
+        protected float panelAngle;
         // Graphics transform mapping pixels to global coordinate system
         protected Matrix transform;
         // Positions of stages
@@ -39,10 +44,17 @@ namespace RCCM
         {
             this.rccm = rccm;
             // Create rectangle for displaying panel
-            float w = (float) settings.json["panel"]["width"];
-            float h = (float) settings.json["panel"]["height"];
-            this.panel = new RectangleF(0, 0, w, h);
-            // Create rectangles for displaying
+            float xPanel = (float)settings.json["panel"]["x offset"];
+            float yPanel = (float)settings.json["panel"]["y offset"];
+            float wPanel = (float)settings.json["panel"]["width"];
+            float hPanel = (float)settings.json["panel"]["height"];
+            this.panelAngle = (float)settings.json["panel"]["rotation"];
+            this.panel = new RectangleF(xPanel, yPanel, wPanel, hPanel);
+            // Create rectangle for displaying coarse stages
+            float wCoarse = (float)settings.json["coarse stage"]["x travel"];
+            float hCoarse = (float)settings.json["coarse stage"]["y travel"];
+            this.coarse = new RectangleF(0, 0, wCoarse, hCoarse);
+            // Create rectangles for displaying fine stages
             float xFine1 = (float)settings.json["fine 1"]["x"];
             float yFine1 = (float)settings.json["fine 1"]["y"];
             float wFine1 = (float)settings.json["fine 1"]["x travel"];
@@ -58,7 +70,8 @@ namespace RCCM
             this.fine1 = new RectangleF(xFine1, yFine1, wFine1, hFine1);
             this.fine2 = new RectangleF(xFine2, yFine2, wFine2, hFine2);
             // Create brushes/pens to draw with
-            this.coarseBrush = new SolidBrush(Color.FromArgb(128, Color.Gray));
+            this.panelBrush = new SolidBrush(Color.FromArgb(255, Color.Gray));
+            this.coarseBrush = new SolidBrush(Color.FromArgb(128, Color.LightGray));
             this.fineBrush = new SolidBrush(Color.FromArgb(128, Color.Green));
             this.pen = new Pen(Color.Black);
             // Initialize matrix for holding coordinate system transform
@@ -77,24 +90,49 @@ namespace RCCM
             // Set axis limits
             g.Transform = this.transform;
 
-            // Draw coarse axis travel region
-            g.FillRectangle(this.coarseBrush, this.panel);
-            // Draw coarse axis position crosshair
-            g.DrawLine(this.pen, this.panel.Left + this.coarseXPos, this.panel.Top, this.panel.Left + this.coarseXPos, this.panel.Bottom); // Vert
-            g.DrawLine(this.pen, this.panel.Left, this.panel.Top + this.coarseYPos, this.panel.Right, this.panel.Top + this.coarseYPos); // Horiz
-
+            // Draw panel
             // Rotate drawing about pivot plate location (translate to location, rotate, translate back)
-            g.TranslateTransform(-this.fine1.Width / 2 + this.coarseXPos, -this.fine1.Height / 2 + this.coarseYPos);
-            g.RotateTransform((float) -this.rccm.FineStageAngle);
-            g.TranslateTransform(this.fine1.Width / 2 - this.coarseXPos, this.fine1.Height / 2 - this.coarseYPos);
-            // Draw fine axis travel region
+            this.rotateAt(g, this.panelAngle, this.panel.X, this.panel.Y);
+            g.FillRectangle(this.panelBrush, this.panel);
+            this.rotateAt(g, -this.panelAngle, this.panel.X, this.panel.Y);
+
+            // Draw coarse axis travel region
+            g.FillRectangle(this.coarseBrush, this.coarse);
+            // Draw coarse axis position crosshair
+            g.DrawLine(this.pen, this.coarse.Left + this.coarseXPos, this.coarse.Top, this.coarse.Left + this.coarseXPos, this.coarse.Bottom); // Vert
+            g.DrawLine(this.pen, this.coarse.Left, this.coarse.Top + this.coarseYPos, this.coarse.Right, this.coarse.Top + this.coarseYPos); // Horiz
+
+            // Draw fine 1 axis travel region and position crosshair
+            float fine1x = this.coarseXPos + this.fine1Offset.Width;
+            float fine1y = this.coarseYPos + this.fine1Offset.Height;
+            this.rotateAt(g, (float)this.rccm.FineStageAngle, fine1x, fine1y);
             g.FillRectangle(this.fineBrush, this.fine1);
-            g.FillRectangle(this.fineBrush, this.fine2);
-            // Draw position crosshairs
             g.DrawLine(this.pen, this.fine1.Left + this.fine1XPos, this.fine1.Top, this.fine1.Left + this.fine1XPos, this.fine1.Bottom); // Vert
             g.DrawLine(this.pen, this.fine1.Left, this.fine1.Top + this.fine1YPos, this.fine1.Right, this.fine1.Top + this.fine1YPos); // Horiz
+            this.rotateAt(g, (float)-this.rccm.FineStageAngle, fine1x, fine1y);
+
+            // Draw fine 2 axis travel region and position crosshair
+            float fine2x = this.coarseXPos + this.fine2Offset.Width;
+            float fine2y = this.coarseYPos + this.fine2Offset.Height;
+            this.rotateAt(g, (float)this.rccm.FineStageAngle, fine2x, fine2y);
+            g.FillRectangle(this.fineBrush, this.fine2);
             g.DrawLine(this.pen, this.fine2.Left + this.fine2XPos, this.fine2.Top, this.fine2.Left + this.fine2XPos, this.fine2.Bottom); // Vert
             g.DrawLine(this.pen, this.fine2.Left, this.fine2.Top + this.fine2YPos, this.fine2.Right, this.fine2.Top + this.fine2YPos); // Horiz
+            this.rotateAt(g, (float)-this.rccm.FineStageAngle, fine2x, fine2y);
+        }
+
+        /// <summary>
+        /// Rotate graphics transform about a certain point
+        /// </summary>
+        /// <param name="g">Graphics object</param>
+        /// <param name="angle">Angle of rotation</param>
+        /// <param name="x">X coordinate of rotation center (top left corner)</param>
+        /// <param name="y">Y coordinate of rotation center (top left corner)</param>
+        private void rotateAt(Graphics g, float angle, float x, float y)
+        {
+            g.TranslateTransform(x, y);
+            g.RotateTransform(-angle);
+            g.TranslateTransform(-x, -y);
         }
 
         /// <summary>
@@ -104,8 +142,8 @@ namespace RCCM
         public void setTransform(Graphics g)
         {
             RectangleF bounds = g.VisibleClipBounds;
-            float rccmXSize = this.panel.Width + this.fine1.Width + this.fine2.Width;
-            float rccmYSize = this.panel.Height + this.fine1.Height + this.fine2.Height;
+            float rccmXSize = this.coarse.Width + this.fine1.Width + this.fine2.Width;
+            float rccmYSize = this.coarse.Height + this.fine1.Height + this.fine2.Height;
             float scaleX = bounds.Width / rccmXSize;
             float scaleY = bounds.Height / rccmYSize;
             float scale = Math.Min(scaleX, scaleY);

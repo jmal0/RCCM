@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -138,6 +138,8 @@
             this.nFOV1LensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nFOV1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nFOV2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label24 = new System.Windows.Forms.Label();
@@ -155,8 +157,6 @@
             this.label26 = new System.Windows.Forms.Label();
             this.textCycle = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -1180,16 +1180,16 @@
             // 
             // chartCycles
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCycles.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartCycles.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartCycles.Legends.Add(legend3);
             this.chartCycles.Location = new System.Drawing.Point(14, 286);
             this.chartCycles.Name = "chartCycles";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCycles.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartCycles.Series.Add(series3);
             this.chartCycles.Size = new System.Drawing.Size(623, 271);
             this.chartCycles.TabIndex = 7;
             this.chartCycles.Text = "chart2";
@@ -1204,16 +1204,16 @@
             // 
             // chartCracks
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartCracks.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartCracks.Legends.Add(legend2);
+            chartArea4.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend4);
             this.chartCracks.Location = new System.Drawing.Point(6, 6);
             this.chartCracks.Name = "chartCracks";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartCracks.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartCracks.Series.Add(series4);
             this.chartCracks.Size = new System.Drawing.Size(623, 271);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
@@ -1275,6 +1275,21 @@
             this.nFOV2ToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.nFOV2ToolStripMenuItem.Text = "NFOV 2";
             this.nFOV2ToolStripMenuItem.Click += new System.EventHandler(this.nFOV2ToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // label24
             // 
@@ -1423,21 +1438,6 @@
             this.label25.TabIndex = 11;
             this.label25.Text = "Cycle";
             // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1450,6 +1450,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RCCMMainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RCCM";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RCCMMainForm_FormClosed);
             this.Load += new System.EventHandler(this.RCCMMainForm_Load);

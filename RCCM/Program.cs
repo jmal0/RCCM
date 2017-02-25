@@ -40,11 +40,9 @@ namespace RCCM
                 }
 
                 Settings settings;
-                RCCMSystem rccm;
                 try
                 {
                     settings = new Settings(filename);
-                    rccm = new RCCMSystem(settings);
                 }
                 catch (Exception ex)
                 {
@@ -53,7 +51,7 @@ namespace RCCM
                 }
 
                 // Start GUI
-                Application.Run(new RCCMMainForm(rccm, settings));
+                Application.Run(new RCCMMainForm(settings));
             }
         }
     }
