@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RCCM
+namespace RCCM.UI
 {
     /// <summary>
     /// GUI for adjusting NFOV lens focus calibration

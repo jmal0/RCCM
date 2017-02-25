@@ -15,7 +15,7 @@ using TIS.Imaging;
 using FlyCapture2Managed;
 using FlyCapture2Managed.Gui;
 
-namespace RCCM
+namespace RCCM.UI
 {
     public partial class RCCMMainForm : Form
     {

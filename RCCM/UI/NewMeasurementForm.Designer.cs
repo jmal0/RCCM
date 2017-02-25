@@ -1,4 +1,4 @@
-﻿namespace RCCM
+﻿namespace RCCM.UI
 {
     partial class NewMeasurementSequenceForm
     {
