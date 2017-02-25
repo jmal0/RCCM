@@ -24,7 +24,7 @@ namespace RCCM
         public bool Drawing { get; private set; }
         public PointF drawnLineStart;
         public PointF drawnLineEnd;
-
+        
         /// <summary>
         /// Initialize NFOV display
         /// </summary>
@@ -49,11 +49,10 @@ namespace RCCM
             // Get active camera
             NFOV nfov = this.rccm.ActiveStage == RCCMStage.RCCM1 ? this.rccm.NFOV1 : this.rccm.NFOV2;
             // Display live image from NFOV camera
-            Bitmap liveImg = nfov.getLiveImage();
-            if (liveImg != null)
+            if (nfov.Connected)
             {
-                Bitmap img = new Bitmap(liveImg, new Size(612, 512));
-                g.DrawImage(img, 0, 0);
+                Bitmap img = new Bitmap(nfov.getLiveImage(), 612, 512);
+                g.DrawImage(img, 0, 0, 612, 512);
                 img.Dispose();
             }
 

@@ -160,7 +160,7 @@
             this.editLineSize.Size = new System.Drawing.Size(82, 20);
             this.editLineSize.TabIndex = 24;
             this.editLineSize.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});

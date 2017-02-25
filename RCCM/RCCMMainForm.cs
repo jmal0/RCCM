@@ -716,15 +716,12 @@ namespace RCCM
             this.fine2ZIndicator.Text = this.rccm.getPosition("fine 2 Z").ToString();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void listPoints_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.nfovView.ActivePoint = this.listPoints.SelectedIndex;
         }
+
+        #region Menu Items
 
         private void nFOV1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -737,5 +734,18 @@ namespace RCCM
             LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM2, this.settings);
             form.Show();
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutRCCMForm form = new AboutRCCMForm();
+            form.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        #endregion
     }
 }

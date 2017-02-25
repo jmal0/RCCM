@@ -107,6 +107,12 @@
     <Reference Include="TIS.Imaging.ICImagingControl34, Version=3.4.4.2595, Culture=neutral, PublicKeyToken=257805929e8b7928, processorArchitecture=x86" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutRCCMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutRCCMForm.Designer.cs">
+      <DependentUpon>AboutRCCMForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CycleCounter.cs" />
     <Compile Include="definitions.cs" />
     <Compile Include="LensCalibrationForm.cs">
@@ -144,6 +150,9 @@
     <Compile Include="TrioStepperMotor.cs" />
     <Compile Include="VirtualMotor.cs" />
     <Compile Include="WFOV.cs" />
+    <EmbeddedResource Include="AboutRCCMForm.resx">
+      <DependentUpon>AboutRCCMForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LensCalibrationForm.resx">
       <DependentUpon>LensCalibrationForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -228,6 +237,15 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\drexel-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\faa-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\wjhtc.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

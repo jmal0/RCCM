@@ -34,11 +34,15 @@ namespace RCCM
         protected uint serial;
         protected ManagedCameraBase camera;
         protected ManagedImage rawImage;
-        protected ManagedImage processedImage;
+        public ManagedImage ProcessedImage { get; private set; }
         protected bool grabImages;
         protected AutoResetEvent grabThreadExited;
         protected BackgroundWorker grabThread;
 
+        /// <summary>
+        /// Indicates if camera is connected
+        /// </summary>
+        public bool Connected { get; private set; }
         /// <summary>
         /// Camera microns / pixel calibration
         /// </summary>
@@ -76,7 +80,7 @@ namespace RCCM
             this.camera = new ManagedGigECamera();
             // Initialize images
             this.rawImage = new ManagedImage();
-            this.processedImage = new ManagedImage();
+            this.ProcessedImage = new ManagedImage();
             // Event that occurs when grab thead is exited
             this.grabThreadExited = new AutoResetEvent(false);            
         }
@@ -97,6 +101,7 @@ namespace RCCM
             {
                 // Connection unsuccessful
                 Logger.Out(ex.ToString());
+                this.Connected = false;
                 return false;
             }
             // Set embedded timestamp to on
@@ -107,6 +112,7 @@ namespace RCCM
             this.camera.StartCapture();
             this.grabImages = true;
             this.StartGrabLoop();
+            this.Connected = true;
             return true;
         }
 
@@ -231,7 +237,7 @@ namespace RCCM
 
                 lock (this)
                 {
-                    this.rawImage.Convert(PixelFormat.PixelFormatBgr, this.processedImage);
+                    this.rawImage.Convert(PixelFormat.PixelFormatMono8, this.ProcessedImage);
                 }
 
                 worker.ReportProgress(0);
@@ -257,7 +263,7 @@ namespace RCCM
         {
             // Get the Bitmap object. Bitmaps are only valid if the
             // pixel format of the ManagedImage is RGB or RGBU.
-            System.Drawing.Bitmap bitmap = processedImage.bitmap;
+            System.Drawing.Bitmap bitmap = this.rawImage.bitmap;
             // Save the image
             bitmap.Save(filename);
         }
@@ -335,7 +341,7 @@ namespace RCCM
         /// <returns>Live image as a bitmap</returns>
         public System.Drawing.Bitmap getLiveImage()
         {
-            return this.processedImage.bitmap;
+            return this.ProcessedImage.bitmap;
         }
     }
 }
