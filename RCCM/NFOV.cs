@@ -261,11 +261,14 @@ namespace RCCM
         /// <param name="filename">Full path where image will be saved</param>
         public void snap(string filename)
         {
-            // Get the Bitmap object. Bitmaps are only valid if the
-            // pixel format of the ManagedImage is RGB or RGBU.
-            System.Drawing.Bitmap bitmap = this.rawImage.bitmap;
-            // Save the image
-            bitmap.Save(filename);
+            if (this.Connected)
+            {
+                // Get the Bitmap object. Bitmaps are only valid if the
+                // pixel format of the ManagedImage is RGB or RGBU.
+                System.Drawing.Bitmap bitmap = this.rawImage.bitmap;
+                // Save the image
+                bitmap.Save(filename);
+            }
         }
 
         private void SaveAviHelper(AviType aviType, ref List<ManagedImage> imageList, string aviFileName, float frameRate)

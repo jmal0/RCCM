@@ -106,8 +106,7 @@ namespace RCCM
             if (this.cracks[this.ActiveIndex].CountPoints == 0)
             {
                 // Convert pixel coordinates to global coordinates
-                Measurement p0 = new Measurement(this.rccm, this.rccm.ActiveStage, this.drawnLineStart.X - pos.X, 
-                                                                                   this.drawnLineStart.Y - pos.Y);
+                Measurement p0 = new Measurement(this.rccm, this.rccm.ActiveStage, this.drawnLineStart.X - pos.X, this.drawnLineStart.Y - pos.Y);
                 this.cracks[ActiveIndex].addPoint(p0);
             }
             // Add end point (in all situations)

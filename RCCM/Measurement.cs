@@ -38,7 +38,10 @@ namespace RCCM
 
         public Measurement(RCCMSystem rccm, RCCMStage fine, double pixelX, double pixelY)
         {
+            // Get timestamp and save NFOV image
+            NFOV nfov = fine == RCCMStage.RCCM1 ? rccm.NFOV1 : rccm.NFOV2;
             this.timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
+            nfov.snap(this.timestamp + ".bmp");
             this.Cycle = rccm.Counter.Cycle;
             this.pressure = 0; // TODO
 
