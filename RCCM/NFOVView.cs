@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace RCCM
     public class NFOVView
     {
         private readonly RCCMSystem rccm;
-        private readonly List<MeasurementSequence> cracks;
+        private readonly ObservableCollection<MeasurementSequence> cracks;
 
         public NFOV NFOV1 { get; set; }
         public NFOV NFOV2 { get; set; }
@@ -30,7 +31,7 @@ namespace RCCM
         /// </summary>
         /// <param name="rccm">RCCMSystem object, needed for getting location and zoom status</param>
         /// <param name="cracks">List of cracks to display</param>
-        public NFOVView(RCCMSystem rccm, List<MeasurementSequence> cracks)
+        public NFOVView(RCCMSystem rccm, ObservableCollection<MeasurementSequence> cracks)
         {
             this.rccm = rccm;
             this.cracks = cracks;

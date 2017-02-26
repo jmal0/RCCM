@@ -14,6 +14,7 @@ using TIS.Imaging;
 // NFOV Imports
 using FlyCapture2Managed;
 using FlyCapture2Managed.Gui;
+using System.Collections.ObjectModel;
 
 namespace RCCM.UI
 {
@@ -29,7 +30,7 @@ namespace RCCM.UI
         protected Timer panelRepaintTimer;
 
         // List of measurement objects and counter for default naming convention
-        protected List<MeasurementSequence> cracks;
+        protected ObservableCollection<MeasurementSequence> cracks;
         protected int measurementCounter = 0;
 
         // Flag to indicate if NFOV camera is recording video
@@ -52,12 +53,12 @@ namespace RCCM.UI
             this.resources = new ComponentResourceManager(typeof(RCCMMainForm));
             // Create Trio controller ActiveX control and initialize
             this.triopc = new AxTrioPCLib.AxTrioPC();
-            ((System.ComponentModel.ISupportInitialize)(this.triopc)).BeginInit();
+            ((ISupportInitialize)(this.triopc)).BeginInit();
             this.Controls.Add(this.triopc);
             this.triopc.Name = "AxTrioPC1";
             this.triopc.Visible = false;
-            this.triopc.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("AxTrioPC1.OcxState")));
-            ((System.ComponentModel.ISupportInitialize)(this.triopc)).EndInit();
+            this.triopc.OcxState = ((AxHost.State)(resources.GetObject("AxTrioPC1.OcxState")));
+            ((ISupportInitialize)(this.triopc)).EndInit();
 
             this.rccm = new RCCMSystem(settings);
 
@@ -85,9 +86,9 @@ namespace RCCM.UI
             this.nfovRepaintTimer.Interval = (int)this.settings.json["repaint period"];
             this.nfovRepaintTimer.Tick += new EventHandler(refreshPanelView);
 
-            this.cracks = new List<MeasurementSequence>();
+            this.cracks = new ObservableCollection<MeasurementSequence>();
 
-            this.test = new TestResults(this.rccm, this.settings, this.chartCracks, this.chartCycles, this.textCycle, this.textPressure);
+            this.test = new TestResults(this.rccm, this.settings, this.cracks, this.chartCracks, this.chartCycles, this.textCycle, this.textPressure, this.listCrackSelection);
 
             this.view = new PanelView(this.rccm, settings);
             this.nfovView = new NFOVView(this.rccm, this.cracks);
@@ -515,7 +516,7 @@ namespace RCCM.UI
                     this.listPoints.Items.Add(string.Format("{0:0.000} {1:0.000}", m.X, m.Y));
                 }
                 // Update crack length plot
-                this.test.plotCracks(this.cracks);
+                this.test.plotCracks();
             }
         }
 
@@ -559,6 +560,11 @@ namespace RCCM.UI
                 // Refresh list of points
                 this.updateMeasurementControls(mIndex);
             }
+        }
+
+        private void listCracksSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.test.plotCracks();
         }
 
         private void btnSaveCrack_Click(object sender, EventArgs e)

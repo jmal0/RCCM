@@ -30,10 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
@@ -129,7 +128,6 @@
             this.btnWfovStart = new System.Windows.Forms.Button();
             this.tabPageResults = new System.Windows.Forms.TabPage();
             this.chartCycles = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.listCrackSelection = new System.Windows.Forms.CheckedListBox();
             this.chartCracks = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -157,6 +155,7 @@
             this.label26 = new System.Windows.Forms.Label();
             this.textCycle = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.listCrackSelection = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -1167,8 +1166,8 @@
             // 
             // tabPageResults
             // 
-            this.tabPageResults.Controls.Add(this.chartCycles);
             this.tabPageResults.Controls.Add(this.listCrackSelection);
+            this.tabPageResults.Controls.Add(this.chartCycles);
             this.tabPageResults.Controls.Add(this.chartCracks);
             this.tabPageResults.Location = new System.Drawing.Point(4, 22);
             this.tabPageResults.Name = "tabPageResults";
@@ -1182,32 +1181,21 @@
             // 
             chartArea3.Name = "ChartArea1";
             this.chartCycles.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartCycles.Legends.Add(legend3);
             this.chartCycles.Location = new System.Drawing.Point(14, 286);
             this.chartCycles.Name = "chartCycles";
             series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
             series3.Name = "Series1";
             this.chartCycles.Series.Add(series3);
-            this.chartCycles.Size = new System.Drawing.Size(623, 271);
+            this.chartCycles.Size = new System.Drawing.Size(736, 271);
             this.chartCycles.TabIndex = 7;
             this.chartCycles.Text = "chart2";
-            // 
-            // listCrackSelection
-            // 
-            this.listCrackSelection.FormattingEnabled = true;
-            this.listCrackSelection.Location = new System.Drawing.Point(635, 6);
-            this.listCrackSelection.Name = "listCrackSelection";
-            this.listCrackSelection.Size = new System.Drawing.Size(115, 94);
-            this.listCrackSelection.TabIndex = 6;
             // 
             // chartCracks
             // 
             chartArea4.Name = "ChartArea1";
             this.chartCracks.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chartCracks.Legends.Add(legend4);
+            legend2.Name = "Legend1";
+            this.chartCracks.Legends.Add(legend2);
             this.chartCracks.Location = new System.Drawing.Point(6, 6);
             this.chartCracks.Name = "chartCracks";
             series4.ChartArea = "ChartArea1";
@@ -1438,6 +1426,16 @@
             this.label25.TabIndex = 11;
             this.label25.Text = "Cycle";
             // 
+            // listCrackSelection
+            // 
+            this.listCrackSelection.FormattingEnabled = true;
+            this.listCrackSelection.Location = new System.Drawing.Point(630, 6);
+            this.listCrackSelection.Name = "listCrackSelection";
+            this.listCrackSelection.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.listCrackSelection.Size = new System.Drawing.Size(120, 277);
+            this.listCrackSelection.TabIndex = 8;
+            this.listCrackSelection.SelectedIndexChanged += new System.EventHandler(this.listCracksSelection_SelectedIndexChanged);
+            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1599,7 +1597,6 @@
         private System.Windows.Forms.TabPage tabPageResults;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCracks;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCycles;
-        private System.Windows.Forms.CheckedListBox listCrackSelection;
         private System.Windows.Forms.Button btnSaveCrack;
         private System.Windows.Forms.Button btnSaveAllCracks;
         private System.Windows.Forms.GroupBox groupBox9;
@@ -1637,6 +1634,7 @@
         private System.Windows.Forms.TextBox coarseXIndicator;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ListBox listCrackSelection;
     }
 }
 

@@ -156,17 +156,12 @@ namespace RCCM
         }
 
         /// <summary>
-        /// Display name, color, and list of point in sequence
+        /// Return name identifying this sequence
         /// </summary>
-        /// <returns>String describing sequence</returns>
+        /// <returns>Sequence name</returns>
         public override string ToString()
         {
-            string description = this.Name + "\n" + this.Color.ToString() + "\n";
-            foreach (Measurement pt in this.points)
-            {
-                description += pt.X + "\t" + pt.Y + "\n";
-            }
-            return description;
+            return this.Name;
         }
     }
 }
