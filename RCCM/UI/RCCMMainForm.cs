@@ -761,5 +761,11 @@ namespace RCCM.UI
         }
 
         #endregion
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            NFOVViewForm form = new NFOVViewForm();
+            form.Show();
+        }
     }
 }

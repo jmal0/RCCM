@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace RCCM.UI
 {
-    public partial class Form1 : Form
+    public partial class NFOVViewForm : Form
     {
-        public Form1()
+        public NFOVViewForm()
         {
             InitializeComponent();
+        }
+
+        private void NFOVViewForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

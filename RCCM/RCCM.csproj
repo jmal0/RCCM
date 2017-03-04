@@ -122,11 +122,11 @@
     </Compile>
     <Compile Include="CycleCounter.cs" />
     <Compile Include="definitions.cs" />
-    <Compile Include="UI\Form1.cs">
+    <Compile Include="UI\NFOVViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="UI\NFOVViewForm.Designer.cs">
+      <DependentUpon>NFOVViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\LensCalibrationForm.cs">
       <SubType>Form</SubType>
@@ -166,8 +166,8 @@
     <EmbeddedResource Include="UI\AboutRCCMForm.resx">
       <DependentUpon>AboutRCCMForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="UI\NFOVViewForm.resx">
+      <DependentUpon>NFOVViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\LensCalibrationForm.resx">
       <DependentUpon>LensCalibrationForm.cs</DependentUpon>

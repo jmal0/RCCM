@@ -157,6 +157,7 @@
             this.btnWfovSnap = new System.Windows.Forms.Button();
             this.btnWfovStart = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -213,6 +214,7 @@
             // 
             // tabPageSetup
             // 
+            this.tabPageSetup.Controls.Add(this.button2);
             this.tabPageSetup.Controls.Add(this.button1);
             this.tabPageSetup.Controls.Add(this.groupBox8);
             this.tabPageSetup.Controls.Add(this.groupBox7);
@@ -1437,6 +1439,16 @@
             this.btnWfovStart.UseVisualStyleBackColor = true;
             this.btnWfovStart.Click += new System.EventHandler(this.btnWfovStart_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(212, 153);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "NFOV 1";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1637,6 +1649,7 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ListBox listCrackSelection;
+        private System.Windows.Forms.Button button2;
     }
 }
 
