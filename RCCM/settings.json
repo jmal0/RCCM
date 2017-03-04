@@ -1,11 +1,11 @@
 {
     // Panel/local coordinate system Settings
     "panel": {
-		"x offset": 10.0,
-		"y offset": 10.0,
+		"x offset": 0.0,
+		"y offset": 0.0,
 		"width": 2540,
         "height": 1220,
-		"rotation": 1.0,
+		"rotation": 5.0,
     },
 	// Settings for panel graphic
 	"coarse stage": {
@@ -27,7 +27,7 @@
         "y travel": 508.0 
     },
     // Coordinate System settings
-    "rotation angle": 10.0,
+    "rotation angle": 0.0,
     // Motion settings
     "coarse X": {
         "type": "virtual",
@@ -138,7 +138,7 @@
     "nfov 1": {
         "camera serial": 16396117,
         "controller serial": 641395,
-        "microns / pixel": 0.011,
+        "microns / pixel": 6.62,
         "height": 2048,
         "width": 2448,
         "calibration": [
@@ -153,7 +153,7 @@
     "nfov 2": {
         "camera serial": 0,
         "controller serial": 0,
-        "microns / pixel": 0.011,
+        "microns / pixel": 11.0,
         "height": 2048,
         "width": 2448,
         "calibration": [

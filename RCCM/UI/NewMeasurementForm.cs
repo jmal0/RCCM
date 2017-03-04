@@ -13,9 +13,9 @@ namespace RCCM.UI
     /// <summary>
     /// Form for defining settings for a new MeasurementSequence
     /// </summary>
-    public partial class NewMeasurementSequenceForm : Form
+    public partial class NewMeasurementForm : Form
     {
-        public NewMeasurementSequenceForm(string defaultName)
+        public NewMeasurementForm(string defaultName)
         {
             InitializeComponent();
             this.textName.Text = defaultName;
@@ -43,21 +43,21 @@ namespace RCCM.UI
         }
 
         /// <summary>
-        /// Get color selected with color picker dialog on form 
-        /// </summary>
-        /// <returns>The selected color</returns>
-        public Color GetColor()
-        {
-            return this.colorPicker.BackColor;
-        }
-
-        /// <summary>
         /// Get name defined on form 
         /// </summary>
         /// <returns>The given name for the MeasurementSequence</returns>
         public string GetName()
         {
             return this.textName.Text;
+        }
+
+        /// <summary>
+        /// Get color selected with color picker dialog on form 
+        /// </summary>
+        /// <returns>The selected color</returns>
+        public Color GetColor()
+        {
+            return this.colorPicker.BackColor;
         }
         
         /// <summary>
@@ -66,7 +66,33 @@ namespace RCCM.UI
         /// <returns>The given line size for the MeasurementSequence</returns>
         public float GetLineSize()
         {
-            return (float) this.editLineSize.Value;
+            return (float)this.editLineSize.Value;
+        }
+
+        /// <summary>
+        /// Get crack orientation defined on form
+        /// </summary>
+        /// <returns>Orientation angle of crack</returns>
+        public double GetOrientation()
+        {
+            return (double)this.editOrientation.Value;
+        }
+        
+        /// <summary>
+        /// Get selected measurement mode from form
+        /// </summary>
+        /// <returns>The enum value for the selected measurement mode</returns>
+        public MeasurementMode GetMode()
+        {
+            if (this.radioMeasureProjection.Checked)
+            {
+                return MeasurementMode.Projection;
+            }
+            if (this.radioMeasureTip.Checked)
+            {
+                return MeasurementMode.Tip;
+            }
+            return MeasurementMode.Total;
         }
 
         /// <summary>

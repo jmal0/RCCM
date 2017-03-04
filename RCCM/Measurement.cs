@@ -15,18 +15,11 @@ namespace RCCM
         /// <summary>
         /// Fields for CSV header explaining the ordering of data in measurement file
         /// </summary>
-        public static string[] CSV_HEADER = { "Timestamp", "Cycle", "Pressure", "X", "Y", "Coarse X", "Coarse Y", "Fine X", "Fine Y", "Pixel X", "Pixel Y"};
-
+        public static string[] CSV_HEADER = { "Timestamp", "Cycle", "Length", "Pressure", "X", "Y", "Coarse X", "Coarse Y", "Fine X", "Fine Y", "Pixel X", "Pixel Y"};
+        /// <summary>
+        /// Cycle number when measurement was taken
+        /// </summary>
         public int Cycle { get; private set; }
-        protected double pressure;
-        protected string timestamp;
-
-        protected double coarseX;
-        protected double coarseY;
-        protected double fineX;
-        protected double fineY;
-        protected double pixelX;
-        protected double pixelY;
         /// <summary>
         /// Global X coordinate where measurement was taken
         /// </summary>
@@ -35,6 +28,19 @@ namespace RCCM
         /// Global Y coordinate where measurement was taken
         /// </summary>
         public double Y { get; private set; }
+        /// <summary>
+        /// Length of crack at this measurement
+        /// </summary>
+        public double CrackLength { get; set; }
+        // Other important metadata about measurement
+        protected double pressure;
+        protected string timestamp;
+        protected double coarseX;
+        protected double coarseY;
+        protected double fineX;
+        protected double fineY;
+        protected double pixelX;
+        protected double pixelY;
 
         public Measurement(RCCMSystem rccm, RCCMStage fine, double pixelX, double pixelY)
         {
@@ -62,16 +68,17 @@ namespace RCCM
         /// <returns>CSV string representing this Measurement</returns>
         public string toCSVString()
         {
-            return this.timestamp + "," +
-                   this.Cycle     + "," +
-                   this.pressure  + "," +
-                   this.X         + "," +
-                   this.Y         + "," +
-                   this.coarseX   + "," +
-                   this.coarseY   + "," +
-                   this.fineX     + "," +
-                   this.fineY     + "," +
-                   this.pixelX    + "," +
+            return this.timestamp   + "," +
+                   this.Cycle       + "," +
+                   this.CrackLength + "," +
+                   this.pressure    + "," +
+                   this.X           + "," +
+                   this.Y           + "," +
+                   this.coarseX     + "," +
+                   this.coarseY     + "," +
+                   this.fineX       + "," +
+                   this.fineY       + "," +
+                   this.pixelX      + "," +
                    this.pixelY;
         }
     }

@@ -82,16 +82,17 @@ namespace RCCM
             if (ActiveIndex >= 0 && this.Drawing)
             {
                 Color c = cracks[ActiveIndex].Color;
-                g.DrawLine(new Pen(Color.FromArgb(128, c), 0), this.drawnLineStart, this.drawnLineEnd);
+                g.DrawLine(new Pen(Color.FromArgb(128, c), cracks[ActiveIndex].LineSize / scaleX), this.drawnLineStart, this.drawnLineEnd);
             }
             // Highlight selected point
             if (this.ActivePoint >= 0 && this.ActiveIndex >= 0)
             {
-                Measurement m = this.cracks[this.ActiveIndex].getPoint(this.ActivePoint);
-                RectangleF point = new RectangleF(0, 0, 10.0f / scaleX, 10.0f / scaleX);
+                MeasurementSequence crack = this.cracks[this.ActiveIndex];
+                Measurement m = crack.getPoint(this.ActivePoint);
+                RectangleF point = new RectangleF(0, 0, 10.0f * crack.LineSize / scaleX, 10.0f * crack.LineSize / scaleX);
                 point.X = (float) m.X - point.Width / 2.0f;
                 point.Y = (float) m.Y - point.Height / 2.0f;
-                g.FillEllipse(new SolidBrush(this.cracks[this.ActiveIndex].Color), point);
+                g.FillEllipse(new SolidBrush(crack.Color), point);
             }
         }
         

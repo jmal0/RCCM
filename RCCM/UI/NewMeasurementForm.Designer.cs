@@ -1,6 +1,6 @@
 ﻿namespace RCCM.UI
 {
-    partial class NewMeasurementSequenceForm
+    partial class NewMeasurementForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewMeasurementSequenceForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewMeasurementForm));
             this.textName = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.radioRccm1 = new System.Windows.Forms.RadioButton();

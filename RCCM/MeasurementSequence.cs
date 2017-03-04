@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RCCM.UI;
 
 namespace RCCM
 {
@@ -28,6 +29,32 @@ namespace RCCM
         /// </summary>
         public float LineSize { get; set; }
         /// <summary>
+        /// Angular orientation (in degrees) of initial notch relative to panel coordinate system
+        /// </summary>
+        public double Orientation
+        {
+            get { return this.orientation; }
+            set 
+            {
+                this.orientation = Orientation;
+                this.RecomputeLength();
+            }
+        }
+        private double orientation;
+        /// <summary>
+        /// Method to use for crack length calculation
+        /// </summary>
+        public MeasurementMode Mode
+        {
+            get { return this.mode; }
+            set
+            {
+                this.mode = Mode;
+                this.RecomputeLength();
+            }
+        }
+        private MeasurementMode mode;
+        /// <summary>
         /// Number of points in sequence
         /// </summary>
         public int CountPoints
@@ -35,13 +62,26 @@ namespace RCCM
             get { return this.points.Count; }
         }
         
-        public MeasurementSequence(Color uiColor, string uiName, float uiSize, RCCMStage uiParent)
+        public MeasurementSequence(Color uiColor, string uiName, float uiSize, float uiOrientation, MeasurementMode uiMode, RCCMStage uiParent)
         {
             this.points = new List<Measurement>();
-            this.Color = Color.FromArgb(128, uiColor); // 50% transparent
             this.Name = uiName;
+            this.Color = Color.FromArgb(128, uiColor); // 50% transparent
             this.LineSize = uiSize;
+            this.Orientation = uiOrientation;
+            this.Mode = uiMode;
             this.parent = uiParent;
+        }
+
+        public MeasurementSequence(NewMeasurementForm parentForm)
+        {
+            this.points = new List<Measurement>();
+            this.Name = parentForm.GetName();
+            this.Color = Color.FromArgb(128, parentForm.GetColor()); // 50% transparent
+            this.LineSize = parentForm.GetLineSize();
+            this.Orientation = parentForm.GetOrientation();
+            this.Mode = parentForm.GetMode();
+            this.parent = parentForm.GetStage();
         }
 
         /// <summary>
@@ -51,6 +91,8 @@ namespace RCCM
         public void addPoint(Measurement pt)
         {
             this.points.Add(pt);
+            double length = this.CalculateLength(this.CountPoints - 1);
+            this.points[this.CountPoints - 1].CrackLength = length;
         }
 
         /// <summary>
@@ -86,6 +128,7 @@ namespace RCCM
             if (index >= 0 && index < this.points.Count)
             {
                 this.points.RemoveAt(index);
+                this.RecomputeLength();
                 return true;
             }
             return false;
@@ -162,6 +205,52 @@ namespace RCCM
         public override string ToString()
         {
             return this.Name;
+        }
+
+        /// <summary>
+        /// Calculate the length of the crack at the specified measurement
+        /// </summary>
+        /// <param name="ind">Index in measurement sequence of the desired measurement</param>
+        /// <returns>Crack length when specified measurement was made</returns>
+        public double CalculateLength(int ind)
+        {
+            if (ind == 0)
+            {
+                return 0.0;
+            }
+            double dx, dy;
+            switch (this.Mode)
+            {
+                case MeasurementMode.Projection:
+                    dx = this.points[ind].X - this.points[0].X;
+                    dy = this.points[ind].Y - this.points[0].Y;
+                    return dx * Math.Cos(Math.PI / 180.0 * this.Orientation) + dy * Math.Sin(Math.PI / 180.0 * this.Orientation);
+                case MeasurementMode.Tip:
+                    dx = this.points[ind].X - this.points[0].X;
+                    dy = this.points[ind].Y - this.points[0].Y;
+                    return Math.Sqrt(dx * dx + dy * dy);
+                case MeasurementMode.Total:
+                    dx = this.points[ind].X - this.points[ind - 1].X;
+                    dy = this.points[ind].Y - this.points[ind - 1].Y;
+                    return Math.Sqrt(dx * dx + dy * dy);
+                default:
+                    // Use tip to tip calculation by default
+                    dx = this.points[ind].X - this.points[0].X;
+                    dy = this.points[ind].Y - this.points[0].Y;
+                    return Math.Sqrt(dx * dx + dy * dy);
+            }
+        }
+
+        /// <summary>
+        /// Recalculate length of crack at time of each measurement
+        /// </summary>
+        public void RecomputeLength()
+        {
+            for (int i = 0; i < this.CountPoints; i++)
+            {
+                double length = this.CalculateLength(i);
+                this.points[i].CrackLength = length;
+            }
         }
     }
 }

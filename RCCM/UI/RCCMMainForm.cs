@@ -488,11 +488,11 @@ namespace RCCM.UI
 
         private void btnNewSequence_Click(object sender, EventArgs e)
         {
-            NewMeasurementSequenceForm dlg = new NewMeasurementSequenceForm("Crack " + this.measurementCounter);
+            NewMeasurementForm dlg = new NewMeasurementForm("Crack " + this.measurementCounter);
             DialogResult result = dlg.ShowDialog();
             if (result == DialogResult.OK)
             {
-                MeasurementSequence newCrack = new MeasurementSequence(dlg.GetColor(), dlg.GetName(), dlg.GetLineSize(), dlg.GetStage());
+                MeasurementSequence newCrack = new MeasurementSequence(dlg);
                 this.measurementCounter++;
                 this.cracks.Add(newCrack);
                 
@@ -559,6 +559,7 @@ namespace RCCM.UI
                 this.cracks[mIndex].removePoint(ptIndex);
                 // Refresh list of points
                 this.updateMeasurementControls(mIndex);
+                this.listPoints.SelectedIndex = -1;
             }
         }
 

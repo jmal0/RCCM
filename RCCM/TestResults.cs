@@ -32,10 +32,10 @@ namespace RCCM
             Title crackChartTitle = new Title("Crack Length vs Cycle Number");
             this.crackChart.Titles.Add(crackChartTitle);
             this.crackChart.ChartAreas[0].AxisX.Title = "Cycle";
-            this.crackChart.ChartAreas[0].AxisY.Title = "da/dN";
+            this.crackChart.ChartAreas[0].AxisY.Title = "Crack Length";
             // Initialize pressure vs time chart
             this.cycleChart = cycleChart;
-            Title cycleChartTitle = new Title("Crack Length vs Cycle Number");
+            Title cycleChartTitle = new Title("Pressure Reading history");
             this.cycleChart.Titles.Add(cycleChartTitle);
             this.cycleChart.ChartAreas[0].AxisX.Title = "Time (s)";
             this.cycleChart.ChartAreas[0].AxisY.Title = "Pressure";
@@ -138,8 +138,14 @@ namespace RCCM
                 Series crackSeries = new Series(crack.Name);
                 crackSeries.ChartType = SeriesChartType.Line;
 
-                Tuple<double[], double[]> data = calculateParisLaw(crack);
-                crackSeries.Points.DataBindXY(data.Item1, data.Item2);
+                double[] cycles = new double[crack.CountPoints];
+                double[] lengths = new double[crack.CountPoints];
+                for (int i = 0; i < crack.CountPoints; i++)
+                {
+                    cycles[i] = crack.getPoint(i).Cycle;
+                    lengths[i] = crack.getPoint(i).CrackLength;
+                }
+                crackSeries.Points.DataBindXY(cycles, lengths);
 
                 this.crackChart.Series.Add(crackSeries);
             }
