@@ -65,7 +65,7 @@ namespace RCCM.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap drexel_logo {
             get {
-                object obj = ResourceManager.GetObject("drexel-logo", resourceCulture);
+                object obj = ResourceManager.GetObject("drexel_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -75,7 +75,7 @@ namespace RCCM.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap faa_logo {
             get {
-                object obj = ResourceManager.GetObject("faa-logo", resourceCulture);
+                object obj = ResourceManager.GetObject("faa_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

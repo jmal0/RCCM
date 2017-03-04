@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewMeasurementSequenceForm));
             this.textName = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.radioRccm1 = new System.Windows.Forms.RadioButton();
@@ -40,8 +41,16 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.editLineSize = new System.Windows.Forms.NumericUpDown();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioMeasureTotal = new System.Windows.Forms.RadioButton();
+            this.radioMeasureProjection = new System.Windows.Forms.RadioButton();
+            this.radioMeasureTip = new System.Windows.Forms.RadioButton();
+            this.editOrientation = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editLineSize)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editOrientation)).BeginInit();
             this.SuspendLayout();
             // 
             // textName
@@ -77,7 +86,7 @@
             // 
             this.groupBox1.Controls.Add(this.radioRccm1);
             this.groupBox1.Controls.Add(this.radioRccm2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 75);
+            this.groupBox1.Location = new System.Drawing.Point(12, 201);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(138, 71);
             this.groupBox1.TabIndex = 3;
@@ -115,7 +124,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(12, 152);
+            this.btnOK.Location = new System.Drawing.Point(12, 278);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(65, 26);
             this.btnOK.TabIndex = 21;
@@ -125,7 +134,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(86, 152);
+            this.btnCancel.Location = new System.Drawing.Point(86, 278);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(65, 26);
             this.btnCancel.TabIndex = 22;
@@ -150,14 +159,14 @@
             0,
             0,
             65536});
-            this.editLineSize.Location = new System.Drawing.Point(68, 49);
+            this.editLineSize.Location = new System.Drawing.Point(75, 49);
             this.editLineSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.editLineSize.Name = "editLineSize";
-            this.editLineSize.Size = new System.Drawing.Size(82, 20);
+            this.editLineSize.Size = new System.Drawing.Size(75, 20);
             this.editLineSize.TabIndex = 24;
             this.editLineSize.Value = new decimal(new int[] {
             2,
@@ -165,11 +174,90 @@
             0,
             0});
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioMeasureTotal);
+            this.groupBox2.Controls.Add(this.radioMeasureProjection);
+            this.groupBox2.Controls.Add(this.radioMeasureTip);
+            this.groupBox2.Location = new System.Drawing.Point(12, 101);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(138, 94);
+            this.groupBox2.TabIndex = 26;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Measurement mode";
+            // 
+            // radioMeasureTotal
+            // 
+            this.radioMeasureTotal.AutoSize = true;
+            this.radioMeasureTotal.Location = new System.Drawing.Point(6, 65);
+            this.radioMeasureTotal.Name = "radioMeasureTotal";
+            this.radioMeasureTotal.Size = new System.Drawing.Size(81, 17);
+            this.radioMeasureTotal.TabIndex = 3;
+            this.radioMeasureTotal.Text = "Total length";
+            this.radioMeasureTotal.UseVisualStyleBackColor = true;
+            // 
+            // radioMeasureProjection
+            // 
+            this.radioMeasureProjection.AutoSize = true;
+            this.radioMeasureProjection.Checked = true;
+            this.radioMeasureProjection.Location = new System.Drawing.Point(6, 19);
+            this.radioMeasureProjection.Name = "radioMeasureProjection";
+            this.radioMeasureProjection.Size = new System.Drawing.Size(72, 17);
+            this.radioMeasureProjection.TabIndex = 1;
+            this.radioMeasureProjection.TabStop = true;
+            this.radioMeasureProjection.Text = "Projection";
+            this.radioMeasureProjection.UseVisualStyleBackColor = true;
+            // 
+            // radioMeasureTip
+            // 
+            this.radioMeasureTip.AutoSize = true;
+            this.radioMeasureTip.Location = new System.Drawing.Point(6, 42);
+            this.radioMeasureTip.Name = "radioMeasureTip";
+            this.radioMeasureTip.Size = new System.Drawing.Size(66, 17);
+            this.radioMeasureTip.TabIndex = 2;
+            this.radioMeasureTip.Text = "Tip to tip";
+            this.radioMeasureTip.UseVisualStyleBackColor = true;
+            // 
+            // editOrientation
+            // 
+            this.editOrientation.DecimalPlaces = 1;
+            this.editOrientation.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.editOrientation.Location = new System.Drawing.Point(75, 75);
+            this.editOrientation.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.editOrientation.Minimum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            -2147483648});
+            this.editOrientation.Name = "editOrientation";
+            this.editOrientation.Size = new System.Drawing.Size(75, 20);
+            this.editOrientation.TabIndex = 28;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 77);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 13);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Orientation";
+            // 
             // NewMeasurementSequenceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(166, 187);
+            this.ClientSize = new System.Drawing.Size(166, 312);
+            this.Controls.Add(this.editOrientation);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.editLineSize);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCancel);
@@ -179,11 +267,15 @@
             this.Controls.Add(this.colorPicker);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textName);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewMeasurementSequenceForm";
             this.Text = "New";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editLineSize)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editOrientation)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,5 +295,11 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown editLineSize;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radioMeasureTotal;
+        private System.Windows.Forms.RadioButton radioMeasureProjection;
+        private System.Windows.Forms.RadioButton radioMeasureTip;
+        private System.Windows.Forms.NumericUpDown editOrientation;
+        private System.Windows.Forms.Label label4;
     }
 }

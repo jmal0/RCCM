@@ -132,8 +132,8 @@ namespace RCCM
                 NFOV nfov = this.rccm.ActiveStage == RCCMStage.RCCM1 ? this.rccm.NFOV1 : this.rccm.NFOV2;
                 PointF pos = this.rccm.getNFOVLocation(this.rccm.ActiveStage);
                 // Convert mouse coordinates to global coordinate system units
-                double pixX = nfov.Scale * (x - w / 2.0) / this.displayScale;
-                double pixY = nfov.Scale * (y - h / 2.0) / this.displayScale;
+                double pixX = nfov.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
+                double pixY = nfov.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
                 // Rotate pixel vector into global position vector
                 PointF pix = this.rccm.fineVectorToGlobalVector(pixX, pixY);
                 this.drawnLineEnd.X = pos.X + pix.X;
@@ -156,8 +156,8 @@ namespace RCCM
                 // Get mouse location in global coordinates
                 NFOV nfov = this.rccm.ActiveStage == RCCMStage.RCCM1 ? this.rccm.NFOV1 : this.rccm.NFOV2;
                 PointF pos = this.rccm.getNFOVLocation(this.rccm.ActiveStage);
-                double pixX = nfov.Scale * (x - w / 2.0) / this.displayScale;
-                double pixY = nfov.Scale * (y - h / 2.0) / this.displayScale;
+                double pixX = nfov.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
+                double pixY = nfov.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
                 PointF pix = this.rccm.fineVectorToGlobalVector(pixX, pixY);
                 // Create start point - use last crack vertex if active crack is started.
                 if (this.cracks[this.ActiveIndex].CountPoints > 0)
@@ -191,8 +191,8 @@ namespace RCCM
                 // Get mouse location in global coordinates
                 NFOV nfov = this.rccm.ActiveStage == RCCMStage.RCCM1 ? this.rccm.NFOV1 : this.rccm.NFOV2;
                 PointF pos = this.rccm.getNFOVLocation(this.rccm.ActiveStage);
-                double pixX = nfov.Scale * (x - w / 2.0) / this.displayScale;
-                double pixY = nfov.Scale * (y - h / 2.0) / this.displayScale;
+                double pixX = nfov.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
+                double pixY = nfov.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
                 PointF pix = this.rccm.fineVectorToGlobalVector(pixX, pixY);
                 Measurement p0 = new Measurement(this.rccm, this.rccm.ActiveStage, pix.X, pix.Y);
                 this.cracks[this.ActiveIndex].addPoint(p0);

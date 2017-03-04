@@ -124,7 +124,7 @@
   <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="faa-logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="faa_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\faa-logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="snap" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -133,7 +133,7 @@
   <data name="pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\pause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="drexel-logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="drexel_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\drexel-logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="record" type="System.Resources.ResXFileRef, System.Windows.Forms">

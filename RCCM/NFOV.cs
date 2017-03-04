@@ -52,14 +52,14 @@ namespace RCCM
         /// </summary>
         public double Height
         {
-            get { return this.Scale * NFOV.IMG_HEIGHT; }
+            get { return this.Scale / 1000.0 * NFOV.IMG_HEIGHT; }
         }        
         /// <summary>
         /// Height in mm of image
         /// </summary>
         public double Width
         {
-            get { return this.Scale * NFOV.IMG_WIDTH; }
+            get { return this.Scale / 1000.0 * NFOV.IMG_WIDTH; }
         }
         /// <summary>
         /// Flag indicating if camera is recording video
@@ -203,7 +203,7 @@ namespace RCCM
                 try
                 {
                     this.camera.RetrieveBuffer(this.rawImage);
-
+                    /*
                     if (this.Recording && i < 100)
                     {
                         ManagedImage tempImage = new ManagedImage(rawImage);
@@ -228,6 +228,7 @@ namespace RCCM
                         this.SaveAviHelper(AviType.H264, ref imageList, "test.avi", frameRateToUse);
                         imageList.Clear();
                     }
+                    */
                 }
                 catch (FC2Exception ex)
                 {
@@ -265,7 +266,7 @@ namespace RCCM
             {
                 // Get the Bitmap object. Bitmaps are only valid if the
                 // pixel format of the ManagedImage is RGB or RGBU.
-                System.Drawing.Bitmap bitmap = this.rawImage.bitmap;
+                System.Drawing.Bitmap bitmap = this.ProcessedImage.bitmap;
                 // Save the image
                 bitmap.Save(filename);
             }

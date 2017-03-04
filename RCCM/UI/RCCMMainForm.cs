@@ -588,13 +588,18 @@ namespace RCCM.UI
 
         private void nfov1Scale_TextChanged(object sender, EventArgs e)
         {
-            this.nfov1.Scale = Double.Parse(nfov1Scale.Text);
+            if (this.nfov1 != null)
+            {
+                this.nfov1.Scale = Double.Parse(this.nfov1Scale.Text);
+            }
         }
 
         #region Settings
 
         public void applyUISettings(Settings settings)
         {
+            this.nfov1Scale.Text = (string)settings.json["nfov 1"]["microns / pixel"];
+            this.nfov2Scale.Text = (string)settings.json["nfov 2"]["microns / pixel"];
             // Make NumericUpDown increment property equal to motor minimum step size
             this.coarseXPos.Increment = (decimal) settings.json["coarse X"]["step"];
             this.coarseYPos.Increment = (decimal) settings.json["coarse Y"]["step"];

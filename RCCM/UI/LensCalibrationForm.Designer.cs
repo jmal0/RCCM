@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LensCalibrationForm));
             this.heightEdit = new System.Windows.Forms.NumericUpDown();
             this.focalPowerEdit = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -169,6 +170,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.focalPowerEdit);
             this.Controls.Add(this.heightEdit);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LensCalibrationForm";
             this.Text = "Lens Calibration";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LensCalibrationForm_FormClosing);
