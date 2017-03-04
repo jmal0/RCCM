@@ -106,7 +106,7 @@ namespace RCCM
             {
                 return this.points[ind];
             }
-            throw new ArgumentOutOfRangeException();
+            return null;
         }
 
         /// <summary>
@@ -140,19 +140,21 @@ namespace RCCM
         /// <param name="axes">Graphics object of the container that will display the plot</param>
         public void plot(Graphics axes, float scale)
         {
-            if (this.points.Count > 1)
+            if (this.points.Count > 0)
             {
-                Pen pen = new Pen(this.Color, this.LineSize / scale);
-                Brush brush = new SolidBrush(this.Color);
-                pen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-                RectangleF point = new RectangleF(0, 0, 5.0f * this.LineSize / scale, 5.0f * this.LineSize / scale);
-                    
-                // Draw each line segment
+                // Drawing object
+                Pen pen = new Pen(this.Color, this.LineSize / scale); // Used to draw lines
+                Brush brush = new SolidBrush(this.Color); // Used to draw points
+                RectangleF point = new RectangleF(0, 0, 5.0f * this.LineSize / scale, 5.0f * this.LineSize / scale); // Rectangle with dimensions for drawing a point
+                pen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center; // Center line on coordinates
+                
                 PointF p0, p1;
+                // Draw first point
                 p0 = new PointF((float) this.points[0].X, (float) this.points[0].Y);
                 point.X = (float) p0.X - point.Width / 2.0f;
                 point.Y = (float) p0.Y - point.Height / 2.0f;
                 axes.FillEllipse(brush, point);
+                // Draw each line segment
                 for (int i = 1; i < this.points.Count; i++)
                 {
                     p1 = new PointF((float)this.points[i].X, (float)this.points[i].Y);

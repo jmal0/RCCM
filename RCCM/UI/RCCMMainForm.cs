@@ -523,6 +523,7 @@ namespace RCCM.UI
         private void listMeasurements_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.nfovView.ActiveIndex = this.listMeasurements.SelectedIndex;
+            this.nfovView.ActivePoint = -1;
             updateMeasurementControls(this.listMeasurements.SelectedIndex);
         }
 
@@ -533,6 +534,7 @@ namespace RCCM.UI
             {
                 this.cracks.RemoveAt(deleteIndex);
                 this.listMeasurements.Items.RemoveAt(deleteIndex);
+                this.listMeasurements.SelectedIndex = -1;
                 updateMeasurementControls(-1);
             }
         }
@@ -558,8 +560,8 @@ namespace RCCM.UI
             {
                 this.cracks[mIndex].removePoint(ptIndex);
                 // Refresh list of points
-                this.updateMeasurementControls(mIndex);
                 this.listPoints.SelectedIndex = -1;
+                this.updateMeasurementControls(mIndex);
             }
         }
 
