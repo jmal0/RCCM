@@ -63,6 +63,15 @@ namespace RCCM
             get { return this.points.Count; }
         }
         
+        /// <summary>
+        /// Create a new measurement sequence with all parameters specified
+        /// </summary>
+        /// <param name="uiColor">Color of line representation on NFOV image</param>
+        /// <param name="uiName">Name identifying crack</param>
+        /// <param name="uiSize">Thickness of line on NFOV image</param>
+        /// <param name="uiOrientation">Angular orientation (degrees) of initial crack notch</param>
+        /// <param name="uiMode">Crack length calculation method</param>
+        /// <param name="uiParent">Parent stage</param>
         public MeasurementSequence(Color uiColor, string uiName, float uiSize, float uiOrientation, MeasurementMode uiMode, RCCMStage uiParent)
         {
             this.points = new List<Measurement>();
@@ -74,6 +83,10 @@ namespace RCCM
             this.Parent = uiParent;
         }
 
+        /// <summary>
+        /// Create the measurement sequence defined by the NewMeasurementSequence form
+        /// </summary>
+        /// <param name="parentForm"></param>
         public MeasurementSequence(NewMeasurementForm parentForm)
         {
             this.points = new List<Measurement>();

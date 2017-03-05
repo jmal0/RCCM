@@ -520,7 +520,13 @@ namespace RCCM.UI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            NFOVViewForm form = new NFOVViewForm(this.rccm, Program.Settings, this.rccm.NFOV1, this.cracks);
+            NFOVViewForm form = new NFOVViewForm(this.rccm, this.nfov1, this.cracks);
+            form.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov1, this.cracks);
             form.Show();
         }
     }

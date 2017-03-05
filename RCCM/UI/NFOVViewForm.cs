@@ -69,10 +69,9 @@ namespace RCCM.UI
         /// Initialize NFOV display
         /// </summary>
         /// <param name="rccm">RCCMSystem object, needed for getting location and zoom status</param>
-        /// <param name="settings">Settings object for initialization</param>
         /// <param name="camera">NFOV camera to display</param>
         /// <param name="cracks">List of cracks to display</param>
-        public NFOVViewForm(RCCMSystem rccm, Settings settings, NFOV camera, ObservableCollection<MeasurementSequence> cracks)
+        public NFOVViewForm(RCCMSystem rccm, NFOV camera, ObservableCollection<MeasurementSequence> cracks)
         {
             this.rccm = rccm;
             this.camera = camera;
@@ -83,7 +82,7 @@ namespace RCCM.UI
             this.ActivePoint = -1;
             this.measurementCounter = 0;
             this.nfovRepaintTimer = new Timer();
-            this.nfovRepaintTimer.Interval = (int)settings.json["repaint period"];
+            this.nfovRepaintTimer.Interval = (int)Program.Settings.json["repaint period"];
             InitializeComponent();
         }
 
@@ -370,6 +369,25 @@ namespace RCCM.UI
             this.ActivePoint = -1;
         }
 
+        private void btnEditSequence_Click(object sender, EventArgs e)
+        {
+            if (this.crackIndexValid())
+            {
+                MeasurementSequence crack = this.cracks[this.ActiveIndex];
+                NewMeasurementForm form = new NewMeasurementForm(crack);
+                DialogResult result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    crack.Name = form.GetName();
+                    crack.Color = Color.FromArgb(128, form.GetColor());
+                    crack.LineSize = form.GetLineSize();
+                    crack.Orientation = form.GetOrientation();
+                    crack.Parent = form.GetStage();
+                    this.updateMeasurementControls();
+                }
+            }
+        }
+
         private void btnNewSequence_Click(object sender, EventArgs e)
         {
             NewMeasurementForm dlg = new NewMeasurementForm("Crack " + this.measurementCounter);
@@ -485,33 +503,20 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Ensure that selected crack index is a valid array index of cracks
+        /// </summary>
         private bool crackIndexValid()
         {
             return this.ActiveIndex >= 0 && this.ActiveIndex < this.cracks.Count;
         }
 
+        /// <summary>
+        /// Ensure that selected point index is a valid array index of active crack points
+        /// </summary>
         private bool pointIndexValid()
         {
             return this.crackIndexValid() && this.ActivePoint >= 0 && this.ActivePoint < this.cracks[this.ActiveIndex].CountPoints;
-        }
-
-        private void btnEditSequence_Click(object sender, EventArgs e)
-        {
-            if (this.crackIndexValid())
-            {
-                MeasurementSequence crack = this.cracks[this.ActiveIndex];
-                NewMeasurementForm form = new NewMeasurementForm(crack);
-                DialogResult result = form.ShowDialog();
-                if (result == DialogResult.OK)
-                {
-                    crack.Name = form.GetName();
-                    crack.Color = Color.FromArgb(128, form.GetColor());
-                    crack.LineSize = form.GetLineSize();
-                    crack.Orientation = form.GetOrientation();
-                    crack.Parent = form.GetStage();
-                    this.updateMeasurementControls();
-                }
-            }
         }
     }
 }

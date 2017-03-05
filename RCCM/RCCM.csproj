@@ -161,6 +161,12 @@
     <Compile Include="TestResults.cs" />
     <Compile Include="TrioController.cs" />
     <Compile Include="TrioStepperMotor.cs" />
+    <Compile Include="UI\WFOVViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WFOVViewForm.Designer.cs">
+      <DependentUpon>WFOVViewForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="VirtualMotor.cs" />
     <Compile Include="WFOV.cs" />
     <EmbeddedResource Include="UI\AboutRCCMForm.resx">
@@ -188,6 +194,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\WFOVViewForm.resx">
+      <DependentUpon>WFOVViewForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
