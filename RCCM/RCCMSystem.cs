@@ -14,12 +14,11 @@ namespace RCCM
     {
         public static string[] AXES = new string[8] { "coarse X", "coarse Y", "fine 1 X", "fine 1 Y", "fine 1 Z", "fine 2 X", "fine 2 Y", "fine 2 Z" };
         public static string[] MOTOR_PROPERTIES = new string[2] { "low position limit", "high position limit" };
-
-        protected WFOV wfov1;
-        protected WFOV wfov2;
         
         public NFOV NFOV1 { get; }
         public NFOV NFOV2 { get; }
+        public WFOV WFOV1 { get; }
+        public WFOV WFOV2 { get; }
 
         public RCCMStage ActiveStage { get; private set; }
 
@@ -67,6 +66,10 @@ namespace RCCM
                                                          (int) Program.Settings.json["nfov 2"]["controller serial"],
                                                          calibration1,
                                                          calibration2);
+
+            // Initialize WFOV cameras
+            this.WFOV1 = new WFOV((string)Program.Settings.json["wfov 1"]["configuration file"]);
+            this.WFOV2 = new WFOV((string)Program.Settings.json["wfov 2"]["configuration file"]);
 
             // TODO: lol yeah
             this.ActiveStage = RCCMStage.RCCM1;

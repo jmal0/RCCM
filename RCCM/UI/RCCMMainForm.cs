@@ -25,7 +25,8 @@ namespace RCCM.UI
         protected NFOV nfov1;
         protected NFOV nfov2;
         protected WFOV wfov1;
-        
+        protected WFOV wfov2;
+
         protected Timer panelRepaintTimer;
 
         // List of measurement objects and counter for default naming convention
@@ -70,7 +71,8 @@ namespace RCCM.UI
             
             this.nfov1 = this.rccm.NFOV1;
             this.nfov2 = this.rccm.NFOV2;
-            this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
+            this.wfov1 = this.rccm.WFOV1;
+            this.wfov2 = this.rccm.WFOV2;
 
             this.activeStage = RCCMStage.RCCM1;
             
@@ -89,24 +91,6 @@ namespace RCCM.UI
         
         private void RCCMMainForm_Load(object sender, EventArgs e)
         {
-            if (this.wfov1.Available)
-            {
-                this.wfov1.initialize();
-                btnWfovStart.Enabled = true;
-
-                //  Setup the range of the zoom and focus sliders.
-                sliderZoom.Minimum = this.wfov1.ZoomMin;
-                sliderZoom.Maximum = this.wfov1.ZoomMax;
-                sliderFocus.Minimum = this.wfov1.FocusMin;
-                sliderFocus.Maximum = this.wfov1.FocusMax;
-
-                //  Set the sliders to the current zoom and focus values.
-                sliderZoom.Value = this.wfov1.Zoom;
-                textZoom.Text = this.wfov1.Zoom.ToString();
-                sliderFocus.Value = this.wfov1.Focus;
-                textFocus.Text = this.wfov1.Focus.ToString();
-            }
-
             this.nfov1.initialize();
 
             this.view.setTransform(this.panelView.CreateGraphics());
@@ -118,133 +102,9 @@ namespace RCCM.UI
         {
             this.nfov1.disconnect();
 
-            if (this.wfov1Recording)
-            {
-                this.wfov1.stopRecord();
-            }
-
             Logger.Save();
             Program.Settings.save();
         }
-
-        #region WFOV
-
-        private void btnWfovStart_Click(object sender, EventArgs e)
-        {
-            this.wfov1.start();
-
-            // Update button states
-            if (wfovContainer.DeviceValid)
-            {
-                enableWfovControls();
-                btnWfovStop.Enabled = true;
-            }
-        }
-
-        private void btnWfovStop_Click(object sender, EventArgs e)
-        {
-            this.wfov1.stop();
-
-            // Update button states
-            if (!wfovContainer.LiveVideoRunning)
-            {
-                disableWfovControls();
-                btnWfovStart.Enabled = true;
-            }
-        }
-        
-        private void btnWfovSnap_Click(object sender, EventArgs e)
-        {
-            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-            this.wfov1.snapImage(textImageDir.Text + "\\" + timestamp + ".png");
-        }
-
-        private void btnProperties_Click(object sender, EventArgs e)
-        {
-            if (wfovContainer.DeviceValid)
-            {
-                this.wfov1.editProperties();
-            }
-        }
-        
-        private void btnWfovRecord_Click(object sender, EventArgs e)
-        {
-            if (wfovContainer.DeviceValid)
-            {
-                if (this.wfov1Recording == false)
-                {
-                    string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-                    this.wfov1.record(this.textVideoDir.Text + "\\" + timestamp + ".avi");
-                    this.wfov1Recording = true;
-                    btnWfovRecord.BackColor = Color.Gray;
-                    btnWfovStart.Enabled = false;
-                    btnWfovSnap.Enabled = false;
-                }
-                else
-                {
-                    this.wfov1.stopRecord();
-                    this.wfov1Recording = false;
-                    MessageBox.Show("Recording stopped");
-                    btnWfovRecord.BackColor = Color.Transparent;                    
-                    this.recording = false;
-                    btnWfovStart.Enabled = true;
-                    btnWfovSnap.Enabled = true;
-                }
-            }
-        }
-
-        private void btnFocus_Click(object sender, EventArgs e)
-        {
-            btnFocus.Enabled = false;
-            int newFocus = this.wfov1.autoFocus();
-            this.sliderFocus.Value = newFocus;
-            this.textFocus.Text = newFocus.ToString();
-            btnFocus.Enabled = true;
-        }
-        
-        private void sliderZoom_Scroll(object sender, EventArgs e)
-        {
-            if (wfovContainer.DeviceValid)
-            {
-                this.wfov1.Zoom = sliderZoom.Value;
-                textZoom.Text = sliderZoom.Value.ToString();
-            }
-        }
-
-        private void sliderFocus_Scroll(object sender, EventArgs e)
-        {
-            if (wfovContainer.DeviceValid)
-            {
-                this.wfov1.Focus = sliderFocus.Value;
-                textFocus.Text = sliderFocus.Value.ToString();
-            }
-        }
-
-        private void enableWfovControls()
-        {
-            btnWfovStart.Enabled = true;
-            btnWfovStop.Enabled = true;
-            btnWfovSnap.Enabled = true;
-            btnWfovRecord.Enabled = true;
-            btnWfovProperties.Enabled = true;
-            btnFocus.Enabled = true;
-            sliderFocus.Enabled = true;
-            sliderZoom.Enabled = true;
-        }
-
-        private void disableWfovControls()
-        {
-            btnWfovStart.Enabled = false;
-            btnWfovStop.Enabled = false;
-            btnWfovSnap.Enabled = false;
-            btnWfovRecord.Enabled = false;
-            btnWfovProperties.Enabled = false;
-            btnFocus.Enabled = false;
-            sliderFocus.Enabled = false;
-            sliderZoom.Enabled = false;
-        }
-
-        #endregion
 
         #region Motion
 
@@ -518,15 +378,26 @@ namespace RCCM.UI
 
         #endregion
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnNFOV1Open_Click(object sender, EventArgs e)
         {
             NFOVViewForm form = new NFOVViewForm(this.rccm, this.nfov1, this.cracks);
             form.Show();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnNFOV2Open_Click(object sender, EventArgs e)
+        {
+            NFOVViewForm form = new NFOVViewForm(this.rccm, this.nfov2, this.cracks);
+            form.Show();
+        }
+        private void btnWFOV1Open_Click(object sender, EventArgs e)
         {
             WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov1, this.cracks);
+            form.Show();
+        }
+
+        private void btnWFOV2Open_Click(object sender, EventArgs e)
+        {
+            WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov2, this.cracks);
             form.Show();
         }
     }

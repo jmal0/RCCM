@@ -135,6 +135,9 @@
     "wfov 1": { 
         "configuration file": "config\\WFOV1.xml" 
     },
+	"wfov 2": { 
+        "configuration file": "config\\WFOV2.xml" 
+    },
     "nfov 1": {
         "camera serial": 16396117,
         "controller serial": 641395,

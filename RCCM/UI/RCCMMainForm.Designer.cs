@@ -64,20 +64,6 @@
             this.listCrackSelection = new System.Windows.Forms.ListBox();
             this.chartCycles = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartCracks = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tabPageWfov = new System.Windows.Forms.TabPage();
-            this.btnWfovStop = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.textFocus = new System.Windows.Forms.TextBox();
-            this.textZoom = new System.Windows.Forms.TextBox();
-            this.sliderFocus = new System.Windows.Forms.TrackBar();
-            this.label11 = new System.Windows.Forms.Label();
-            this.btnFocus = new System.Windows.Forms.Button();
-            this.sliderZoom = new System.Windows.Forms.TrackBar();
-            this.btnWfovProperties = new System.Windows.Forms.Button();
-            this.wfovContainer = new TIS.Imaging.ICImagingControl();
-            this.btnWfovRecord = new System.Windows.Forms.Button();
-            this.btnWfovSnap = new System.Windows.Forms.Button();
-            this.btnWfovStart = new System.Windows.Forms.Button();
             this.tabPageMotion = new System.Windows.Forms.TabPage();
             this.btnMotorStatus = new System.Windows.Forms.Button();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -112,10 +98,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panelView = new System.Windows.Forms.PictureBox();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnWFOV2Open = new System.Windows.Forms.Button();
+            this.btnNFOV2Open = new System.Windows.Forms.Button();
+            this.btnWFOV1Open = new System.Windows.Forms.Button();
+            this.btnNFOV1Open = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -148,10 +134,6 @@
             this.tabPageResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartCracks)).BeginInit();
-            this.tabPageWfov.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sliderZoom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).BeginInit();
             this.tabPageMotion.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -448,175 +430,6 @@
             this.chartCracks.Size = new System.Drawing.Size(623, 271);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
-            // 
-            // tabPageWfov
-            // 
-            this.tabPageWfov.Controls.Add(this.btnWfovStop);
-            this.tabPageWfov.Controls.Add(this.label12);
-            this.tabPageWfov.Controls.Add(this.textFocus);
-            this.tabPageWfov.Controls.Add(this.textZoom);
-            this.tabPageWfov.Controls.Add(this.sliderFocus);
-            this.tabPageWfov.Controls.Add(this.label11);
-            this.tabPageWfov.Controls.Add(this.btnFocus);
-            this.tabPageWfov.Controls.Add(this.sliderZoom);
-            this.tabPageWfov.Controls.Add(this.btnWfovProperties);
-            this.tabPageWfov.Controls.Add(this.wfovContainer);
-            this.tabPageWfov.Controls.Add(this.btnWfovRecord);
-            this.tabPageWfov.Controls.Add(this.btnWfovSnap);
-            this.tabPageWfov.Controls.Add(this.btnWfovStart);
-            this.tabPageWfov.Location = new System.Drawing.Point(4, 22);
-            this.tabPageWfov.Name = "tabPageWfov";
-            this.tabPageWfov.Size = new System.Drawing.Size(756, 560);
-            this.tabPageWfov.TabIndex = 2;
-            this.tabPageWfov.Text = "WFOV";
-            this.tabPageWfov.UseVisualStyleBackColor = true;
-            // 
-            // btnWfovStop
-            // 
-            this.btnWfovStop.Enabled = false;
-            this.btnWfovStop.Image = global::RCCM.Properties.Resources.stop;
-            this.btnWfovStop.Location = new System.Drawing.Point(35, 489);
-            this.btnWfovStop.Name = "btnWfovStop";
-            this.btnWfovStop.Size = new System.Drawing.Size(26, 26);
-            this.btnWfovStop.TabIndex = 18;
-            this.btnWfovStop.UseVisualStyleBackColor = true;
-            this.btnWfovStop.Click += new System.EventHandler(this.btnWfovStop_Click);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(699, 3);
-            this.label12.Name = "label12";
-            this.label12.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label12.Size = new System.Drawing.Size(46, 13);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "Focus";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textFocus
-            // 
-            this.textFocus.Enabled = false;
-            this.textFocus.Location = new System.Drawing.Point(700, 487);
-            this.textFocus.Name = "textFocus";
-            this.textFocus.Size = new System.Drawing.Size(45, 20);
-            this.textFocus.TabIndex = 13;
-            this.textFocus.Text = "0";
-            this.textFocus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textZoom
-            // 
-            this.textZoom.Enabled = false;
-            this.textZoom.Location = new System.Drawing.Point(649, 487);
-            this.textZoom.Name = "textZoom";
-            this.textZoom.Size = new System.Drawing.Size(45, 20);
-            this.textZoom.TabIndex = 10;
-            this.textZoom.Text = "0";
-            this.textZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // sliderFocus
-            // 
-            this.sliderFocus.Enabled = false;
-            this.sliderFocus.Location = new System.Drawing.Point(700, 19);
-            this.sliderFocus.Maximum = 100;
-            this.sliderFocus.Name = "sliderFocus";
-            this.sliderFocus.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.sliderFocus.Size = new System.Drawing.Size(45, 464);
-            this.sliderFocus.TabIndex = 12;
-            this.sliderFocus.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.sliderFocus.Scroll += new System.EventHandler(this.sliderFocus_Scroll);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(649, 3);
-            this.label11.Name = "label11";
-            this.label11.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label11.Size = new System.Drawing.Size(44, 13);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "Zoom";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnFocus
-            // 
-            this.btnFocus.Enabled = false;
-            this.btnFocus.Location = new System.Drawing.Point(221, 489);
-            this.btnFocus.Name = "btnFocus";
-            this.btnFocus.Size = new System.Drawing.Size(75, 26);
-            this.btnFocus.TabIndex = 9;
-            this.btnFocus.Text = "Autofocus";
-            this.btnFocus.UseVisualStyleBackColor = true;
-            this.btnFocus.Click += new System.EventHandler(this.btnFocus_Click);
-            // 
-            // sliderZoom
-            // 
-            this.sliderZoom.Enabled = false;
-            this.sliderZoom.Location = new System.Drawing.Point(649, 19);
-            this.sliderZoom.Maximum = 100;
-            this.sliderZoom.Name = "sliderZoom";
-            this.sliderZoom.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.sliderZoom.Size = new System.Drawing.Size(45, 464);
-            this.sliderZoom.TabIndex = 8;
-            this.sliderZoom.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.sliderZoom.Scroll += new System.EventHandler(this.sliderZoom_Scroll);
-            // 
-            // btnWfovProperties
-            // 
-            this.btnWfovProperties.Enabled = false;
-            this.btnWfovProperties.Location = new System.Drawing.Point(140, 489);
-            this.btnWfovProperties.Name = "btnWfovProperties";
-            this.btnWfovProperties.Size = new System.Drawing.Size(75, 26);
-            this.btnWfovProperties.TabIndex = 3;
-            this.btnWfovProperties.Text = "Properties";
-            this.btnWfovProperties.UseVisualStyleBackColor = true;
-            this.btnWfovProperties.Click += new System.EventHandler(this.btnProperties_Click);
-            // 
-            // wfovContainer
-            // 
-            this.wfovContainer.AutoSize = true;
-            this.wfovContainer.BackColor = System.Drawing.Color.White;
-            this.wfovContainer.DeviceListChangedExecutionMode = TIS.Imaging.EventExecutionMode.Invoke;
-            this.wfovContainer.DeviceLostExecutionMode = TIS.Imaging.EventExecutionMode.AsyncInvoke;
-            this.wfovContainer.ImageAvailableExecutionMode = TIS.Imaging.EventExecutionMode.MultiThreaded;
-            this.wfovContainer.LiveDisplayPosition = new System.Drawing.Point(0, 0);
-            this.wfovContainer.Location = new System.Drawing.Point(3, 3);
-            this.wfovContainer.MaximumSize = new System.Drawing.Size(1280, 960);
-            this.wfovContainer.Name = "wfovContainer";
-            this.wfovContainer.Size = new System.Drawing.Size(640, 480);
-            this.wfovContainer.TabIndex = 1;
-            // 
-            // btnWfovRecord
-            // 
-            this.btnWfovRecord.BackColor = System.Drawing.Color.Transparent;
-            this.btnWfovRecord.Enabled = false;
-            this.btnWfovRecord.Image = global::RCCM.Properties.Resources.record;
-            this.btnWfovRecord.Location = new System.Drawing.Point(108, 489);
-            this.btnWfovRecord.Name = "btnWfovRecord";
-            this.btnWfovRecord.Size = new System.Drawing.Size(26, 26);
-            this.btnWfovRecord.TabIndex = 5;
-            this.btnWfovRecord.UseVisualStyleBackColor = false;
-            this.btnWfovRecord.Click += new System.EventHandler(this.btnWfovRecord_Click);
-            // 
-            // btnWfovSnap
-            // 
-            this.btnWfovSnap.Enabled = false;
-            this.btnWfovSnap.Image = global::RCCM.Properties.Resources.snap;
-            this.btnWfovSnap.Location = new System.Drawing.Point(67, 489);
-            this.btnWfovSnap.Name = "btnWfovSnap";
-            this.btnWfovSnap.Size = new System.Drawing.Size(35, 26);
-            this.btnWfovSnap.TabIndex = 4;
-            this.btnWfovSnap.UseVisualStyleBackColor = true;
-            this.btnWfovSnap.Click += new System.EventHandler(this.btnWfovSnap_Click);
-            // 
-            // btnWfovStart
-            // 
-            this.btnWfovStart.Enabled = false;
-            this.btnWfovStart.Image = global::RCCM.Properties.Resources.play;
-            this.btnWfovStart.Location = new System.Drawing.Point(3, 489);
-            this.btnWfovStart.Name = "btnWfovStart";
-            this.btnWfovStart.Size = new System.Drawing.Size(26, 26);
-            this.btnWfovStart.TabIndex = 2;
-            this.btnWfovStart.UseVisualStyleBackColor = true;
-            this.btnWfovStart.Click += new System.EventHandler(this.btnWfovStart_Click);
             // 
             // tabPageMotion
             // 
@@ -948,10 +761,10 @@
             // 
             // tabPageSetup
             // 
-            this.tabPageSetup.Controls.Add(this.button5);
-            this.tabPageSetup.Controls.Add(this.button4);
-            this.tabPageSetup.Controls.Add(this.button3);
-            this.tabPageSetup.Controls.Add(this.button2);
+            this.tabPageSetup.Controls.Add(this.btnWFOV2Open);
+            this.tabPageSetup.Controls.Add(this.btnNFOV2Open);
+            this.tabPageSetup.Controls.Add(this.btnWFOV1Open);
+            this.tabPageSetup.Controls.Add(this.btnNFOV1Open);
             this.tabPageSetup.Controls.Add(this.button1);
             this.tabPageSetup.Controls.Add(this.groupBox8);
             this.tabPageSetup.Controls.Add(this.groupBox7);
@@ -966,43 +779,45 @@
             this.tabPageSetup.Text = "Setup";
             this.tabPageSetup.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnWFOV2Open
             // 
-            this.button5.Location = new System.Drawing.Point(293, 178);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "WFOV 2";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnWFOV2Open.Location = new System.Drawing.Point(293, 178);
+            this.btnWFOV2Open.Name = "btnWFOV2Open";
+            this.btnWFOV2Open.Size = new System.Drawing.Size(75, 23);
+            this.btnWFOV2Open.TabIndex = 10;
+            this.btnWFOV2Open.Text = "WFOV 2";
+            this.btnWFOV2Open.UseVisualStyleBackColor = true;
+            this.btnWFOV2Open.Click += new System.EventHandler(this.btnWFOV2Open_Click);
             // 
-            // button4
+            // btnNFOV2Open
             // 
-            this.button4.Location = new System.Drawing.Point(293, 153);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "NFOV 2";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnNFOV2Open.Location = new System.Drawing.Point(293, 153);
+            this.btnNFOV2Open.Name = "btnNFOV2Open";
+            this.btnNFOV2Open.Size = new System.Drawing.Size(75, 23);
+            this.btnNFOV2Open.TabIndex = 9;
+            this.btnNFOV2Open.Text = "NFOV 2";
+            this.btnNFOV2Open.UseVisualStyleBackColor = true;
+            this.btnNFOV2Open.Click += new System.EventHandler(this.btnNFOV2Open_Click);
             // 
-            // button3
+            // btnWFOV1Open
             // 
-            this.button3.Location = new System.Drawing.Point(212, 178);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "WFOV 1";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnWFOV1Open.Location = new System.Drawing.Point(212, 178);
+            this.btnWFOV1Open.Name = "btnWFOV1Open";
+            this.btnWFOV1Open.Size = new System.Drawing.Size(75, 23);
+            this.btnWFOV1Open.TabIndex = 8;
+            this.btnWFOV1Open.Text = "WFOV 1";
+            this.btnWFOV1Open.UseVisualStyleBackColor = true;
+            this.btnWFOV1Open.Click += new System.EventHandler(this.btnWFOV1Open_Click);
             // 
-            // button2
+            // btnNFOV1Open
             // 
-            this.button2.Location = new System.Drawing.Point(212, 153);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "NFOV 1";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnNFOV1Open.Location = new System.Drawing.Point(212, 153);
+            this.btnNFOV1Open.Name = "btnNFOV1Open";
+            this.btnNFOV1Open.Size = new System.Drawing.Size(75, 23);
+            this.btnNFOV1Open.TabIndex = 7;
+            this.btnNFOV1Open.Text = "NFOV 1";
+            this.btnNFOV1Open.UseVisualStyleBackColor = true;
+            this.btnNFOV1Open.Click += new System.EventHandler(this.btnNFOV1Open_Click);
             // 
             // button1
             // 
@@ -1198,7 +1013,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabPageSetup);
             this.tabControl1.Controls.Add(this.tabPageMotion);
-            this.tabControl1.Controls.Add(this.tabPageWfov);
             this.tabControl1.Controls.Add(this.tabPageResults);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tabControl1.Location = new System.Drawing.Point(0, 85);
@@ -1236,11 +1050,6 @@
             this.tabPageResults.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartCracks)).EndInit();
-            this.tabPageWfov.ResumeLayout(false);
-            this.tabPageWfov.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sliderZoom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).EndInit();
             this.tabPageMotion.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
@@ -1309,20 +1118,6 @@
         private System.Windows.Forms.ListBox listCrackSelection;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCycles;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCracks;
-        private System.Windows.Forms.TabPage tabPageWfov;
-        private System.Windows.Forms.Button btnWfovStop;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textFocus;
-        private System.Windows.Forms.TextBox textZoom;
-        private System.Windows.Forms.TrackBar sliderFocus;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button btnFocus;
-        private System.Windows.Forms.TrackBar sliderZoom;
-        private System.Windows.Forms.Button btnWfovProperties;
-        private TIS.Imaging.ICImagingControl wfovContainer;
-        private System.Windows.Forms.Button btnWfovRecord;
-        private System.Windows.Forms.Button btnWfovSnap;
-        private System.Windows.Forms.Button btnWfovStart;
         private System.Windows.Forms.TabPage tabPageMotion;
         private System.Windows.Forms.Button btnMotorStatus;
         private System.Windows.Forms.GroupBox groupBox13;
@@ -1357,7 +1152,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox panelView;
         private System.Windows.Forms.TabPage tabPageSetup;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnNFOV1Open;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label16;
@@ -1381,9 +1176,9 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.DirectoryServices.DirectoryEntry directoryEntry;
         private System.Windows.Forms.BindingSource bindingSource2;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnWFOV2Open;
+        private System.Windows.Forms.Button btnNFOV2Open;
+        private System.Windows.Forms.Button btnWFOV1Open;
     }
 }
 

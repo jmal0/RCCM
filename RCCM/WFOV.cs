@@ -16,7 +16,7 @@ namespace RCCM
     public class WFOV
     {
         #region Properties
-
+        
         /// <summary>
         /// Flag to indicate connection status of WFOV camera
         /// </summary>
@@ -82,34 +82,20 @@ namespace RCCM
         /// Flag to indicate if a video is being recorded
         /// </summary>
         public bool Recording { get; private set; }
+        /// <summary>
+        /// File path to configuration file from which camera is initialized
+        /// </summary>
+        public string configFile { get; set; }
         
         #endregion
 
         /// <summary>
-        /// Constructor for WFOV camera
+        /// Create WFOV camera from configuration file
         /// </summary>
-        /// <param name="ui_ic">User control for displaying live image</param>
         /// <param name="configFile">Configuration xml file from which settings will be loaded</param>
-        public WFOV(TIS.Imaging.ICImagingControl ui_ic, string configFile)
+        public WFOV(string configFile)
         {
-            this.ic = ui_ic;
-            try
-            {
-                this.ic.LoadDeviceStateFromFile(configFile, true);
-                this.Available = true;
-            }
-            catch (TIS.Imaging.ICException err)
-            {
-                System.Windows.Forms.MessageBox.Show("Error occurred while initializing WFOV camera. WFOV will be unavailable.\n\n" + err.ToString());
-                Logger.Out(err.ToString());
-                this.Available = false;
-            }
-            catch (System.IO.IOException err)
-            {
-                System.Windows.Forms.MessageBox.Show("WFOV configuration file missing or invalid.");
-                Logger.Out(err.ToString());
-                this.Available = false;
-            }
+            this.configFile = configFile;
             this.Recording = false;
         }
 
@@ -118,13 +104,38 @@ namespace RCCM
         /// <summary>
         /// Connect to camera. Will fail if configuration file referred to invalid or disconnected camera
         /// </summary>
-        public void initialize()
+        /// <returns>True if initialization is successful</returns>
+        public bool initialize(ICImagingControl ic)
         {
+            this.ic = ic;
+            try
+            {
+                this.ic.LoadDeviceStateFromFile(this.configFile, true);
+                this.Available = true;
+            }
+            catch (TIS.Imaging.ICException err)
+            {
+                System.Windows.Forms.MessageBox.Show("Error occurred while initializing WFOV camera. WFOV will be unavailable.\n\n" + err.ToString());
+                Logger.Out(err.ToString());
+                this.Available = false;
+                return false;
+            }
+            catch (System.IO.IOException err)
+            {
+                System.Windows.Forms.MessageBox.Show("WFOV configuration file missing or invalid.");
+                Logger.Out(err.ToString());
+                this.Available = false;
+                return false;
+            }
+
             if (this.ic.DeviceValid)
             {
                 this.ic.LivePrepare();
                 this.VCDProp = VCDSimpleModule.GetSimplePropertyContainer(this.ic.VCDPropertyItems);
+                return true;
             }
+            System.Windows.Forms.MessageBox.Show("Failed to initialize WFOV camera");
+            return false;
         }
 
         /// <summary>
@@ -162,6 +173,7 @@ namespace RCCM
                     this.stopRecord();
                 }
                 this.ic.LiveSuspend();
+                this.ic.SaveDeviceStateToFile(this.configFile);
             }
         }
 

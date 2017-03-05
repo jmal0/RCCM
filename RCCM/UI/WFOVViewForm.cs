@@ -27,6 +27,36 @@ namespace RCCM.UI
             InitializeComponent();
         }
 
+        private void WFOVViewForm_Load(object sender, EventArgs e)
+        {
+            bool success = this.camera.initialize(this.wfovContainer);
+            if (success)
+            {
+                btnWfovStart.Enabled = true;
+
+                //  Setup the range of the zoom and focus sliders.
+                sliderZoom.Minimum = this.camera.ZoomMin;
+                sliderZoom.Maximum = this.camera.ZoomMax;
+                sliderFocus.Minimum = this.camera.FocusMin;
+                sliderFocus.Maximum = this.camera.FocusMax;
+
+                //  Set the sliders to the current zoom and focus values.
+                sliderZoom.Value = this.camera.Zoom;
+                textZoom.Text = this.camera.Zoom.ToString();
+                sliderFocus.Value = this.camera.Focus;
+                textFocus.Text = this.camera.Focus.ToString();
+            }
+        }
+
+        private void WFOVViewForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.camera.Recording)
+            {
+                this.camera.stopRecord();
+            }
+            this.camera.stop();
+        }
+
         private void btnWfovStart_Click(object sender, EventArgs e)
         {
             this.camera.start();
@@ -58,7 +88,7 @@ namespace RCCM.UI
             this.camera.snapImage(dir + "\\" + timestamp + ".png");
         }
 
-        private void btnProperties_Click(object sender, EventArgs e)
+        private void btnWfovProperties_Click(object sender, EventArgs e)
         {
             if (wfovContainer.DeviceValid)
             {
@@ -74,7 +104,7 @@ namespace RCCM.UI
                 {
                     string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
                     string dir = (string)Program.Settings.json["video directory"];
-                    this.camera.record(dir + "\\" + timestamp + ".avi");
+                    this.camera.record(dir + @"\" + timestamp + ".avi");
                     btnWfovRecord.BackColor = Color.Gray;
                     btnWfovStart.Enabled = false;
                     btnWfovSnap.Enabled = false;
