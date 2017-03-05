@@ -51,6 +51,9 @@
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.btnStartTest = new System.Windows.Forms.Button();
+            this.btnPauseTest = new System.Windows.Forms.Button();
+            this.btnStopTest = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.textPressure = new System.Windows.Forms.TextBox();
@@ -62,6 +65,7 @@
             this.chartCycles = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartCracks = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPageWfov = new System.Windows.Forms.TabPage();
+            this.btnWfovStop = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.textFocus = new System.Windows.Forms.TextBox();
             this.textZoom = new System.Windows.Forms.TextBox();
@@ -71,6 +75,9 @@
             this.sliderZoom = new System.Windows.Forms.TrackBar();
             this.btnWfovProperties = new System.Windows.Forms.Button();
             this.wfovContainer = new TIS.Imaging.ICImagingControl();
+            this.btnWfovRecord = new System.Windows.Forms.Button();
+            this.btnWfovSnap = new System.Windows.Forms.Button();
+            this.btnWfovStart = new System.Windows.Forms.Button();
             this.tabPageMotion = new System.Windows.Forms.TabPage();
             this.btnMotorStatus = new System.Windows.Forms.Button();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -103,7 +110,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.coarseXPos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.panelView = new System.Windows.Forms.PictureBox();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -127,19 +138,8 @@
             this.wfov1Config = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.directoryEntry = new System.DirectoryServices.DirectoryEntry();
-            this.btnStartTest = new System.Windows.Forms.Button();
-            this.btnPauseTest = new System.Windows.Forms.Button();
-            this.btnStopTest = new System.Windows.Forms.Button();
-            this.panelView = new System.Windows.Forms.PictureBox();
-            this.btnWfovStop = new System.Windows.Forms.Button();
-            this.btnWfovRecord = new System.Windows.Forms.Button();
-            this.btnWfovSnap = new System.Windows.Forms.Button();
-            this.btnWfovStart = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBox10.SuspendLayout();
@@ -165,6 +165,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelView)).BeginInit();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -172,7 +173,6 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).BeginInit();
             this.SuspendLayout();
@@ -320,6 +320,36 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Test Controls";
             // 
+            // btnStartTest
+            // 
+            this.btnStartTest.Image = global::RCCM.Properties.Resources.play;
+            this.btnStartTest.Location = new System.Drawing.Point(6, 19);
+            this.btnStartTest.Name = "btnStartTest";
+            this.btnStartTest.Size = new System.Drawing.Size(26, 26);
+            this.btnStartTest.TabIndex = 7;
+            this.btnStartTest.UseVisualStyleBackColor = true;
+            this.btnStartTest.Click += new System.EventHandler(this.btnStartTest_Click);
+            // 
+            // btnPauseTest
+            // 
+            this.btnPauseTest.Image = global::RCCM.Properties.Resources.pause;
+            this.btnPauseTest.Location = new System.Drawing.Point(35, 19);
+            this.btnPauseTest.Name = "btnPauseTest";
+            this.btnPauseTest.Size = new System.Drawing.Size(26, 26);
+            this.btnPauseTest.TabIndex = 6;
+            this.btnPauseTest.UseVisualStyleBackColor = true;
+            this.btnPauseTest.Click += new System.EventHandler(this.btnPauseTest_Click);
+            // 
+            // btnStopTest
+            // 
+            this.btnStopTest.Image = global::RCCM.Properties.Resources.stop;
+            this.btnStopTest.Location = new System.Drawing.Point(67, 19);
+            this.btnStopTest.Name = "btnStopTest";
+            this.btnStopTest.Size = new System.Drawing.Size(26, 26);
+            this.btnStopTest.TabIndex = 8;
+            this.btnStopTest.UseVisualStyleBackColor = true;
+            this.btnStopTest.Click += new System.EventHandler(this.btnStopTest_Click);
+            // 
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.textPressure);
@@ -441,6 +471,17 @@
             this.tabPageWfov.Text = "WFOV";
             this.tabPageWfov.UseVisualStyleBackColor = true;
             // 
+            // btnWfovStop
+            // 
+            this.btnWfovStop.Enabled = false;
+            this.btnWfovStop.Image = global::RCCM.Properties.Resources.stop;
+            this.btnWfovStop.Location = new System.Drawing.Point(35, 489);
+            this.btnWfovStop.Name = "btnWfovStop";
+            this.btnWfovStop.Size = new System.Drawing.Size(26, 26);
+            this.btnWfovStop.TabIndex = 18;
+            this.btnWfovStop.UseVisualStyleBackColor = true;
+            this.btnWfovStop.Click += new System.EventHandler(this.btnWfovStop_Click);
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -542,6 +583,40 @@
             this.wfovContainer.Name = "wfovContainer";
             this.wfovContainer.Size = new System.Drawing.Size(640, 480);
             this.wfovContainer.TabIndex = 1;
+            // 
+            // btnWfovRecord
+            // 
+            this.btnWfovRecord.BackColor = System.Drawing.Color.Transparent;
+            this.btnWfovRecord.Enabled = false;
+            this.btnWfovRecord.Image = global::RCCM.Properties.Resources.record;
+            this.btnWfovRecord.Location = new System.Drawing.Point(108, 489);
+            this.btnWfovRecord.Name = "btnWfovRecord";
+            this.btnWfovRecord.Size = new System.Drawing.Size(26, 26);
+            this.btnWfovRecord.TabIndex = 5;
+            this.btnWfovRecord.UseVisualStyleBackColor = false;
+            this.btnWfovRecord.Click += new System.EventHandler(this.btnWfovRecord_Click);
+            // 
+            // btnWfovSnap
+            // 
+            this.btnWfovSnap.Enabled = false;
+            this.btnWfovSnap.Image = global::RCCM.Properties.Resources.snap;
+            this.btnWfovSnap.Location = new System.Drawing.Point(67, 489);
+            this.btnWfovSnap.Name = "btnWfovSnap";
+            this.btnWfovSnap.Size = new System.Drawing.Size(35, 26);
+            this.btnWfovSnap.TabIndex = 4;
+            this.btnWfovSnap.UseVisualStyleBackColor = true;
+            this.btnWfovSnap.Click += new System.EventHandler(this.btnWfovSnap_Click);
+            // 
+            // btnWfovStart
+            // 
+            this.btnWfovStart.Enabled = false;
+            this.btnWfovStart.Image = global::RCCM.Properties.Resources.play;
+            this.btnWfovStart.Location = new System.Drawing.Point(3, 489);
+            this.btnWfovStart.Name = "btnWfovStart";
+            this.btnWfovStart.Size = new System.Drawing.Size(26, 26);
+            this.btnWfovStart.TabIndex = 2;
+            this.btnWfovStart.UseVisualStyleBackColor = true;
+            this.btnWfovStart.Click += new System.EventHandler(this.btnWfovStart_Click);
             // 
             // tabPageMotion
             // 
@@ -861,6 +936,16 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "X";
             // 
+            // panelView
+            // 
+            this.panelView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelView.Location = new System.Drawing.Point(6, 114);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(742, 434);
+            this.panelView.TabIndex = 3;
+            this.panelView.TabStop = false;
+            this.panelView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelView_Paint);
+            // 
             // tabPageSetup
             // 
             this.tabPageSetup.Controls.Add(this.button5);
@@ -880,6 +965,34 @@
             this.tabPageSetup.TabIndex = 0;
             this.tabPageSetup.Text = "Setup";
             this.tabPageSetup.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(293, 178);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 10;
+            this.button5.Text = "WFOV 2";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(293, 153);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 9;
+            this.button4.Text = "NFOV 2";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(212, 178);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "WFOV 1";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -1094,119 +1207,6 @@
             this.tabControl1.Size = new System.Drawing.Size(764, 586);
             this.tabControl1.TabIndex = 0;
             // 
-            // btnStartTest
-            // 
-            this.btnStartTest.Image = global::RCCM.Properties.Resources.play;
-            this.btnStartTest.Location = new System.Drawing.Point(6, 19);
-            this.btnStartTest.Name = "btnStartTest";
-            this.btnStartTest.Size = new System.Drawing.Size(26, 26);
-            this.btnStartTest.TabIndex = 7;
-            this.btnStartTest.UseVisualStyleBackColor = true;
-            this.btnStartTest.Click += new System.EventHandler(this.btnStartTest_Click);
-            // 
-            // btnPauseTest
-            // 
-            this.btnPauseTest.Image = global::RCCM.Properties.Resources.pause;
-            this.btnPauseTest.Location = new System.Drawing.Point(35, 19);
-            this.btnPauseTest.Name = "btnPauseTest";
-            this.btnPauseTest.Size = new System.Drawing.Size(26, 26);
-            this.btnPauseTest.TabIndex = 6;
-            this.btnPauseTest.UseVisualStyleBackColor = true;
-            this.btnPauseTest.Click += new System.EventHandler(this.btnPauseTest_Click);
-            // 
-            // btnStopTest
-            // 
-            this.btnStopTest.Image = global::RCCM.Properties.Resources.stop;
-            this.btnStopTest.Location = new System.Drawing.Point(67, 19);
-            this.btnStopTest.Name = "btnStopTest";
-            this.btnStopTest.Size = new System.Drawing.Size(26, 26);
-            this.btnStopTest.TabIndex = 8;
-            this.btnStopTest.UseVisualStyleBackColor = true;
-            this.btnStopTest.Click += new System.EventHandler(this.btnStopTest_Click);
-            // 
-            // panelView
-            // 
-            this.panelView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelView.Location = new System.Drawing.Point(6, 114);
-            this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(742, 434);
-            this.panelView.TabIndex = 3;
-            this.panelView.TabStop = false;
-            this.panelView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelView_Paint);
-            // 
-            // btnWfovStop
-            // 
-            this.btnWfovStop.Enabled = false;
-            this.btnWfovStop.Image = global::RCCM.Properties.Resources.stop;
-            this.btnWfovStop.Location = new System.Drawing.Point(35, 489);
-            this.btnWfovStop.Name = "btnWfovStop";
-            this.btnWfovStop.Size = new System.Drawing.Size(26, 26);
-            this.btnWfovStop.TabIndex = 18;
-            this.btnWfovStop.UseVisualStyleBackColor = true;
-            this.btnWfovStop.Click += new System.EventHandler(this.btnWfovStop_Click);
-            // 
-            // btnWfovRecord
-            // 
-            this.btnWfovRecord.BackColor = System.Drawing.Color.Transparent;
-            this.btnWfovRecord.Enabled = false;
-            this.btnWfovRecord.Image = global::RCCM.Properties.Resources.record;
-            this.btnWfovRecord.Location = new System.Drawing.Point(108, 489);
-            this.btnWfovRecord.Name = "btnWfovRecord";
-            this.btnWfovRecord.Size = new System.Drawing.Size(26, 26);
-            this.btnWfovRecord.TabIndex = 5;
-            this.btnWfovRecord.UseVisualStyleBackColor = false;
-            this.btnWfovRecord.Click += new System.EventHandler(this.btnWfovRecord_Click);
-            // 
-            // btnWfovSnap
-            // 
-            this.btnWfovSnap.Enabled = false;
-            this.btnWfovSnap.Image = global::RCCM.Properties.Resources.snap;
-            this.btnWfovSnap.Location = new System.Drawing.Point(67, 489);
-            this.btnWfovSnap.Name = "btnWfovSnap";
-            this.btnWfovSnap.Size = new System.Drawing.Size(35, 26);
-            this.btnWfovSnap.TabIndex = 4;
-            this.btnWfovSnap.UseVisualStyleBackColor = true;
-            this.btnWfovSnap.Click += new System.EventHandler(this.btnWfovSnap_Click);
-            // 
-            // btnWfovStart
-            // 
-            this.btnWfovStart.Enabled = false;
-            this.btnWfovStart.Image = global::RCCM.Properties.Resources.play;
-            this.btnWfovStart.Location = new System.Drawing.Point(3, 489);
-            this.btnWfovStart.Name = "btnWfovStart";
-            this.btnWfovStart.Size = new System.Drawing.Size(26, 26);
-            this.btnWfovStart.TabIndex = 2;
-            this.btnWfovStart.UseVisualStyleBackColor = true;
-            this.btnWfovStart.Click += new System.EventHandler(this.btnWfovStart_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(212, 178);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "WFOV 1";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(293, 153);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "NFOV 2";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(293, 178);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "WFOV 2";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1258,6 +1258,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelView)).EndInit();
             this.tabPageSetup.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
@@ -1270,7 +1271,6 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).EndInit();
             this.ResumeLayout(false);

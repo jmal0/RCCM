@@ -250,7 +250,7 @@
             this.label4.TabIndex = 27;
             this.label4.Text = "Orientation";
             // 
-            // NewMeasurementSequenceForm
+            // NewMeasurementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -268,7 +268,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "NewMeasurementSequenceForm";
+            this.Name = "NewMeasurementForm";
             this.Text = "New";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

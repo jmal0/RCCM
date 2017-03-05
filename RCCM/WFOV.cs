@@ -73,7 +73,7 @@ namespace RCCM
         /// <summary>
         /// Imaging user control for displaying the live image
         /// </summary>
-        protected TIS.Imaging.ICImagingControl ic;
+        protected ICImagingControl ic;
         /// <summary>
         /// Camera properties accessor
         /// </summary>
@@ -81,7 +81,7 @@ namespace RCCM
         /// <summary>
         /// Flag to indicate if a video is being recorded
         /// </summary>
-        protected bool recording;
+        public bool Recording { get; private set; }
         
         #endregion
 
@@ -110,7 +110,7 @@ namespace RCCM
                 Logger.Out(err.ToString());
                 this.Available = false;
             }
-            this.recording = false;
+            this.Recording = false;
         }
 
         #region Methods
@@ -123,7 +123,6 @@ namespace RCCM
             if (this.ic.DeviceValid)
             {
                 this.ic.LivePrepare();
-
                 this.VCDProp = VCDSimpleModule.GetSimplePropertyContainer(this.ic.VCDPropertyItems);
             }
         }
@@ -158,7 +157,7 @@ namespace RCCM
         {
             if (this.ic.LiveVideoRunning)
             {
-                if (this.recording)
+                if (this.Recording)
                 {
                     this.stopRecord();
                 }
@@ -195,10 +194,10 @@ namespace RCCM
         {
             if (this.ic.DeviceValid)
             {
-                if (this.recording == false)
+                if (this.Recording == false)
                 {
                     this.ic.AviStartCapture(filename, this.ic.AviCompressors[0]);
-                    this.recording = true;
+                    this.Recording = true;
                 }
             }
         }
@@ -209,7 +208,7 @@ namespace RCCM
         public void stopRecord()
         {
             this.ic.AviStopCapture();
-            this.recording = false;
+            this.Recording = false;
             if (this.ic.DeviceValid)
             {
                 this.ic.LiveStart();

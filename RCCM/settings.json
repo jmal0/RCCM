@@ -128,8 +128,8 @@
         "step": 0.0005
     },
     // File settings
-    "image directory": "C:\\Pictures\\RCCM",
-    "video directory": "C:\\Videos\\RCCM",
+    "image directory": "C:\\Users\\John\\Pictures\\RCCM",
+    "video directory": "C:\\Users\\John\\Videos\\RCCM",
     "test data directory": "data",
     // Camera settings
     "wfov 1": { 

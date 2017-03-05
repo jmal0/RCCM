@@ -8,6 +8,7 @@ using System.Threading;
 
 using FlyCapture2Managed;
 using FlyCapture2Managed.Gui;
+using System.Windows.Forms;
 
 namespace RCCM
 {
@@ -32,7 +33,7 @@ namespace RCCM
         static int IMG_WIDTH = 2448;
 
         protected uint serial;
-        protected ManagedCameraBase camera;
+        protected ManagedCamera camera;
         protected ManagedImage rawImage;
         public ManagedImage ProcessedImage { get; private set; }
         protected bool grabImages;
@@ -76,7 +77,7 @@ namespace RCCM
             this.Scale = pix2um;
             this.Recording = false;
             // Initialize camera object. Connection occurs when initialize() is called
-            this.camera = new ManagedGigECamera();
+            this.camera = new ManagedCamera();
             // Initialize images
             this.rawImage = new ManagedImage();
             this.ProcessedImage = new ManagedImage();
@@ -145,12 +146,20 @@ namespace RCCM
         /// </summary>
         public void start()
         {
-            if (this.Connected)
+            try
             {
-                this.camera.StartCapture();
-                this.grabImages = true;
-
-                StartGrabLoop();
+                if (this.Connected)
+                {
+                    this.camera.StartCapture();
+                    this.grabImages = true;
+                    StartGrabLoop();
+                }
+            }
+            catch (FC2Exception ex)
+            {
+                this.Connected = false;
+                MessageBox.Show("Failed to start camera");
+                Logger.Out("Failed to start camera: " + ex.Message);
             }
         }
 
@@ -257,6 +266,34 @@ namespace RCCM
             CameraControlDialog camCtlDlg = new CameraControlDialog();
             camCtlDlg.Show();
         }
+
+        /*
+        public void setMode()
+        {
+            const Mode Format7Mode = Mode.Mode0;
+            const PixelFormat Format7PixelFormat = PixelFormat.PixelFormatMono8;
+            // Query for available Format 7 modes
+            bool supported = false;
+            Format7Info fmt7Info = this.camera.GetFormat7Info(Format7Mode, ref supported);
+
+            Format7ImageSettings fmt7ImageSettings = new Format7ImageSettings();
+            fmt7ImageSettings.mode = Format7Mode;
+            fmt7ImageSettings.width = fmt7Info.maxWidth;
+            fmt7ImageSettings.height = fmt7Info.maxHeight;
+            fmt7ImageSettings.offsetX = 0;
+            fmt7ImageSettings.offsetY = 0;
+            fmt7ImageSettings.pixelFormat = Format7PixelFormat;
+
+            bool settingsValid = false;
+            Format7PacketInfo fmt7PacketInfo = this.camera.ValidateFormat7Settings(
+                fmt7ImageSettings,
+                ref settingsValid);
+            
+            this.camera.SetFormat7Configuration(
+               fmt7ImageSettings,
+               fmt7PacketInfo.recommendedBytesPerPacket);
+        }
+        */
 
         /// <summary>
         /// Save live image to file

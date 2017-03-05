@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WFOVViewForm));
             this.wfovContainer = new TIS.Imaging.ICImagingControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnFocus = new System.Windows.Forms.Button();
+            this.btnWfovProperties = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
             this.textFocus = new System.Windows.Forms.TextBox();
@@ -39,8 +42,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.sliderZoom = new System.Windows.Forms.TrackBar();
             this.btnWfovStop = new System.Windows.Forms.Button();
-            this.btnFocus = new System.Windows.Forms.Button();
-            this.btnWfovProperties = new System.Windows.Forms.Button();
             this.btnWfovRecord = new System.Windows.Forms.Button();
             this.btnWfovSnap = new System.Windows.Forms.Button();
             this.btnWfovStart = new System.Windows.Forms.Button();
@@ -54,11 +55,13 @@
             // 
             // wfovContainer
             // 
+            this.wfovContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.wfovContainer.AutoSize = true;
             this.wfovContainer.BackColor = System.Drawing.Color.White;
             this.wfovContainer.DeviceListChangedExecutionMode = TIS.Imaging.EventExecutionMode.Invoke;
             this.wfovContainer.DeviceLostExecutionMode = TIS.Imaging.EventExecutionMode.AsyncInvoke;
-            this.wfovContainer.Dock = System.Windows.Forms.DockStyle.Top;
             this.wfovContainer.ImageAvailableExecutionMode = TIS.Imaging.EventExecutionMode.MultiThreaded;
             this.wfovContainer.LiveDisplayPosition = new System.Drawing.Point(0, 0);
             this.wfovContainer.Location = new System.Drawing.Point(0, 0);
@@ -71,6 +74,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 646F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -97,8 +101,30 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(644, 545);
+            this.panel1.Size = new System.Drawing.Size(640, 507);
             this.panel1.TabIndex = 4;
+            // 
+            // btnFocus
+            // 
+            this.btnFocus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnFocus.Enabled = false;
+            this.btnFocus.Location = new System.Drawing.Point(218, 483);
+            this.btnFocus.Name = "btnFocus";
+            this.btnFocus.Size = new System.Drawing.Size(75, 26);
+            this.btnFocus.TabIndex = 23;
+            this.btnFocus.Text = "Autofocus";
+            this.btnFocus.UseVisualStyleBackColor = true;
+            // 
+            // btnWfovProperties
+            // 
+            this.btnWfovProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnWfovProperties.Enabled = false;
+            this.btnWfovProperties.Location = new System.Drawing.Point(137, 483);
+            this.btnWfovProperties.Name = "btnWfovProperties";
+            this.btnWfovProperties.Size = new System.Drawing.Size(75, 26);
+            this.btnWfovProperties.TabIndex = 20;
+            this.btnWfovProperties.Text = "Properties";
+            this.btnWfovProperties.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -109,9 +135,9 @@
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.sliderZoom);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(653, 3);
+            this.panel2.Location = new System.Drawing.Point(649, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(147, 545);
+            this.panel2.Size = new System.Drawing.Size(147, 507);
             this.panel2.TabIndex = 5;
             // 
             // label12
@@ -180,6 +206,7 @@
             // 
             // btnWfovStop
             // 
+            this.btnWfovStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnWfovStop.Enabled = false;
             this.btnWfovStop.Image = global::RCCM.Properties.Resources.stop;
             this.btnWfovStop.Location = new System.Drawing.Point(32, 483);
@@ -188,28 +215,9 @@
             this.btnWfovStop.TabIndex = 24;
             this.btnWfovStop.UseVisualStyleBackColor = true;
             // 
-            // btnFocus
-            // 
-            this.btnFocus.Enabled = false;
-            this.btnFocus.Location = new System.Drawing.Point(218, 483);
-            this.btnFocus.Name = "btnFocus";
-            this.btnFocus.Size = new System.Drawing.Size(75, 26);
-            this.btnFocus.TabIndex = 23;
-            this.btnFocus.Text = "Autofocus";
-            this.btnFocus.UseVisualStyleBackColor = true;
-            // 
-            // btnWfovProperties
-            // 
-            this.btnWfovProperties.Enabled = false;
-            this.btnWfovProperties.Location = new System.Drawing.Point(137, 483);
-            this.btnWfovProperties.Name = "btnWfovProperties";
-            this.btnWfovProperties.Size = new System.Drawing.Size(75, 26);
-            this.btnWfovProperties.TabIndex = 20;
-            this.btnWfovProperties.Text = "Properties";
-            this.btnWfovProperties.UseVisualStyleBackColor = true;
-            // 
             // btnWfovRecord
             // 
+            this.btnWfovRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnWfovRecord.BackColor = System.Drawing.Color.Transparent;
             this.btnWfovRecord.Enabled = false;
             this.btnWfovRecord.Image = global::RCCM.Properties.Resources.record;
@@ -221,6 +229,7 @@
             // 
             // btnWfovSnap
             // 
+            this.btnWfovSnap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnWfovSnap.Enabled = false;
             this.btnWfovSnap.Image = global::RCCM.Properties.Resources.snap;
             this.btnWfovSnap.Location = new System.Drawing.Point(64, 483);
@@ -231,6 +240,8 @@
             // 
             // btnWfovStart
             // 
+            this.btnWfovStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnWfovStart.BackgroundImage = global::RCCM.Properties.Resources.play;
             this.btnWfovStart.Enabled = false;
             this.btnWfovStart.Image = global::RCCM.Properties.Resources.play;
             this.btnWfovStart.Location = new System.Drawing.Point(0, 483);
@@ -245,6 +256,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(757, 513);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WFOVViewForm";
             this.Text = "WFOVViewForm";
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).EndInit();
@@ -257,6 +269,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.sliderFocus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderZoom)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

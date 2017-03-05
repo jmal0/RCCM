@@ -242,7 +242,7 @@ namespace RCCM.UI
         {
             e.Graphics.ResetTransform(); // Reset transform to draw NFOV image
             // Display live image from NFOV camera
-            if (this.camera.Connected)
+            if (this.camera.Connected&& this.camera.getLiveImage() != null)
             {
                 Bitmap img = new Bitmap(this.camera.getLiveImage(), 612, 512);
                 e.Graphics.DrawImage(img, 0, 0, 612, 512);
@@ -334,8 +334,8 @@ namespace RCCM.UI
         {
             string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
             string dir = (string)Program.Settings.json["image directory"];
-            Logger.Out(dir + "\\" + timestamp + ".bmp");
-            this.camera.snap(dir + "\\" + timestamp + ".bmp");
+            Logger.Out(dir + @"\" + timestamp + ".bmp");
+            this.camera.snap(dir + @"\" + timestamp + ".bmp");
         }
 
         private void btnNfovRecord_Click(object sender, EventArgs e)
