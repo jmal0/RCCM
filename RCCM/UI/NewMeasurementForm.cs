@@ -21,6 +21,36 @@ namespace RCCM.UI
             this.textName.Text = defaultName;
         }
 
+        public NewMeasurementForm(MeasurementSequence crack)
+        {
+            InitializeComponent();
+            this.textName.Text = crack.Name;
+            this.colorPicker.BackColor = crack.Color;
+            this.editLineSize.Value = (decimal)crack.LineSize;
+            this.editOrientation.Value = (decimal)crack.Orientation;
+            switch (crack.Mode)
+            {
+                case MeasurementMode.Projection:
+                    this.radioMeasureProjection.Checked = true;
+                    break;
+                case MeasurementMode.Tip:
+                    this.radioMeasureProjection.Checked = true;
+                    break;
+                case MeasurementMode.Total:
+                    this.radioMeasureProjection.Checked = true;
+                    break;
+            }
+            switch (crack.Parent)
+            {
+                case RCCMStage.RCCM1:
+                    this.radioRccm1.Checked = true;
+                    break;
+                case RCCMStage.RCCM2:
+                    this.radioRccm2.Checked = true;
+                    break;
+            }
+        }
+
         private void btnOK_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;

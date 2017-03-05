@@ -21,12 +21,11 @@ namespace RCCM.UI
     public partial class RCCMMainForm : Form
     {
         protected RCCMSystem rccm;
-        protected Settings settings;
 
         protected NFOV nfov1;
+        protected NFOV nfov2;
         protected WFOV wfov1;
-
-        protected Timer nfovRepaintTimer;
+        
         protected Timer panelRepaintTimer;
 
         // List of measurement objects and counter for default naming convention
@@ -42,12 +41,11 @@ namespace RCCM.UI
         protected TestResults test;
         
         protected PanelView view;
-        protected NFOVView nfovView;
 
         protected ComponentResourceManager resources;
         protected AxTrioPCLib.AxTrioPC triopc;
 
-        public RCCMMainForm(Settings settings)
+        public RCCMMainForm()
         {
             // Need to load the ActiveX state or something, I'm not actually sure
             this.resources = new ComponentResourceManager(typeof(RCCMMainForm));
@@ -60,39 +58,32 @@ namespace RCCM.UI
             this.triopc.OcxState = ((AxHost.State)(resources.GetObject("AxTrioPC1.OcxState")));
             ((ISupportInitialize)(this.triopc)).EndInit();
 
-            this.rccm = new RCCMSystem(settings);
+            this.rccm = new RCCMSystem();
 
             InitializeComponent();
-
-            this.settings = settings;
-            this.applyUISettings(this.settings);
+            
+            this.applyUISettings(Program.Settings);
             
             // Create controller for handling motion commands
-            this.rccm.initializeMotion(this.triopc, this.settings);
+            this.rccm.initializeMotion(this.triopc);
             this.triopc.Refresh();
             
             this.nfov1 = this.rccm.NFOV1;
+            this.nfov2 = this.rccm.NFOV2;
             this.wfov1 = new WFOV(this.wfovContainer, this.wfov1Config.Text);
 
             this.activeStage = RCCMStage.RCCM1;
-
-            this.nfovRepaintTimer = new Timer();
-            this.nfovRepaintTimer.Enabled = true;
-            this.nfovRepaintTimer.Interval = (int) this.settings.json["repaint period"];
-            this.nfovRepaintTimer.Tick += new EventHandler(refreshNfov);
-
+            
             this.panelRepaintTimer = new Timer();
-            this.nfovRepaintTimer.Enabled = true;
-            this.nfovRepaintTimer.Interval = (int)this.settings.json["repaint period"];
-            this.nfovRepaintTimer.Tick += new EventHandler(refreshPanelView);
+            this.panelRepaintTimer.Enabled = true;
+            this.panelRepaintTimer.Interval = (int)Program.Settings.json["repaint period"];
+            this.panelRepaintTimer.Tick += new EventHandler(refreshPanelView);
 
             this.cracks = new ObservableCollection<MeasurementSequence>();
 
-            this.test = new TestResults(this.rccm, this.settings, this.cracks, this.chartCracks, this.chartCycles, this.textCycle, this.textPressure, this.listCrackSelection);
+            this.test = new TestResults(this.rccm, this.cracks, this.chartCracks, this.chartCycles, this.textCycle, this.textPressure, this.listCrackSelection);
 
-            this.view = new PanelView(this.rccm, settings);
-            this.nfovView = new NFOVView(this.rccm, this.cracks);
-
+            this.view = new PanelView(this.rccm);
             Show();
         }
         
@@ -119,14 +110,12 @@ namespace RCCM.UI
             this.nfov1.initialize();
 
             this.view.setTransform(this.panelView.CreateGraphics());
-
-            this.nfovRepaintTimer.Start();
+            
             this.panelRepaintTimer.Start();
         }
         
         private void RCCMMainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.nfovRepaintTimer.Stop();
             this.nfov1.disconnect();
 
             if (this.wfov1Recording)
@@ -135,7 +124,7 @@ namespace RCCM.UI
             }
 
             Logger.Save();
-            this.settings.save();
+            Program.Settings.save();
         }
 
         #region WFOV
@@ -342,258 +331,22 @@ namespace RCCM.UI
         }
 
         #endregion
-
-        #region NFOV
-
-        private void btnNfovStart_Click(object sender, EventArgs e)
-        {
-            this.nfov1.start();
-            this.nfovRepaintTimer.Start();
-
-            btnNfovStart.Enabled = false;
-            btnNfovStop.Enabled = true;
-            btnNfovSnap.Enabled = true;
-            btnNfovRecord.Enabled = true;
-        }
-
-        private void btnNfovStop_Click(object sender, EventArgs e)
-        {
-            this.nfov1.stop();
-            this.nfovRepaintTimer.Stop();
-
-            btnNfovStart.Enabled = true;
-            btnNfovStop.Enabled = false;
-            btnNfovSnap.Enabled = false;
-            btnNfovRecord.Enabled = false;
-        }
-
-        private void refreshNfov(object sender, EventArgs e)
-        {
-            this.nfovImage.Invalidate();
-        }
-
-        private void btnNfovProperties_Click(object sender, EventArgs e)
-        {
-            this.nfov1.showPropertiesDlg();
-        }
-
-        private void btnNfovSnap_Click(object sender, EventArgs e)
-        {
-            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-            Logger.Out(textImageDir.Text + "\\" + timestamp + ".bmp");
-            this.nfov1.snap(textImageDir.Text + "\\"+ timestamp + ".bmp");
-        }
-
-        private void btnNfovRecord_Click(object sender, EventArgs e)
-        {
-            if (this.nfov1.Recording)
-            {
-                // Stop recording
-                this.nfov1.Recording = false;
-                btnNfovRecord.BackColor = Color.Transparent;
-                System.Windows.Forms.MessageBox.Show("Recording stopped");
-                btnNfovStart.Enabled = true;
-                btnNfovStop.Enabled = true;
-                btnNfovSnap.Enabled = true;
-
-            }
-            else
-            {
-                // Start recording
-                string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-                //this.nfov1.record(this.textVideoDir + "\\" + timestamp + ".avi");
-                this.nfov1.Recording = true;
-                btnNfovRecord.BackColor = Color.Gray;
-                btnNfovStart.Enabled = false;
-                btnNfovStop.Enabled = false;
-                btnNfovSnap.Enabled = false;
-            }
-        }
-
-        private void enableNfovControls()
-        {
-            btnNfovStart.Enabled = true;
-            btnNfovStop.Enabled = true;
-            btnNfovSnap.Enabled = true;
-            btnNfovRecord.Enabled = true;
-            btnNfovProperties.Enabled = true;
-        }
-
-        private void disableNfovControls()
-        {
-            btnNfovStart.Enabled = false;
-            btnNfovStop.Enabled = false;
-            btnNfovSnap.Enabled = false;
-            btnNfovRecord.Enabled = false;
-            btnNfovProperties.Enabled = false;
-        }
-
-        #endregion
-
-        #region Measurement
-
-        private void nfovImage_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                this.nfovView.createPoint(e.X, e.Y, this.nfovImage.Width, this.nfovImage.Height);
-            }
-            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                this.nfovView.createDrawnLine(e.X, e.Y, this.nfovImage.Width, this.nfovImage.Height);
-            }
-        }
-
-        private void nfovImage_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (this.nfovView.Drawing)
-            {
-                // Move end of line to mouse location
-                this.nfovView.moveDrawnLineEnd(e.X, e.Y, this.nfovImage.Width, this.nfovImage.Height);
-            }
-        }
-
-        private void nfovImage_MouseUp(object sender, MouseEventArgs e)
-        {
-            int index = this.listMeasurements.SelectedIndex;
-            if (nfovView.Drawing)
-            {
-                nfovView.createSegment();
-            }
-            // Refresh list of points
-            this.updateMeasurementControls(this.listMeasurements.SelectedIndex);
-        }
-
-        private void nfovImage_Paint(object sender, PaintEventArgs e)
-        {
-            this.nfovView.paint(e.Graphics);           
-        }
-
-        private void colorPicker_Click(object sender, EventArgs e)
-        {
-            DialogResult result = this.colorDlg.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                // Set measurement color
-                this.colorPicker.BackColor = colorDlg.Color;
-
-                // Set measurement color
-                int index = this.listMeasurements.SelectedIndex;
-                if (index >= 0)
-                {
-                    this.cracks[index].Color = colorDlg.Color;
-                }
-            }
-        }
-
-        private void btnNewSequence_Click(object sender, EventArgs e)
-        {
-            NewMeasurementForm dlg = new NewMeasurementForm("Crack " + this.measurementCounter);
-            DialogResult result = dlg.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                MeasurementSequence newCrack = new MeasurementSequence(dlg);
-                this.measurementCounter++;
-                this.cracks.Add(newCrack);
-                
-                this.listMeasurements.Items.Add(newCrack.Name);
-                this.listMeasurements.SelectedIndex = this.cracks.Count - 1;
-            }
-            dlg.Dispose();
-        }
-
-        private void updateMeasurementControls(int measurementIndex)
-        {
-            if (measurementIndex >= 0 && measurementIndex < this.listMeasurements.Items.Count)
-            {
-                this.colorPicker.BackColor = this.cracks[measurementIndex].Color;
-                this.textLineName.Text = this.cracks[measurementIndex].Name;
-
-                this.listPoints.Items.Clear();
-                for (int i = 0; i < this.cracks[measurementIndex].CountPoints; i++)
-                {
-                    Measurement m = this.cracks[measurementIndex].getPoint(i);
-                    this.listPoints.Items.Add(string.Format("{0:0.000} {1:0.000}", m.X, m.Y));
-                }
-                // Update crack length plot
-                this.test.plotCracks();
-            }
-        }
-
-        private void listMeasurements_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.nfovView.ActiveIndex = this.listMeasurements.SelectedIndex;
-            this.nfovView.ActivePoint = -1;
-            updateMeasurementControls(this.listMeasurements.SelectedIndex);
-        }
-
-        private void btnDeleteSequence_Click(object sender, EventArgs e)
-        {
-            int deleteIndex = this.listMeasurements.SelectedIndex;
-            if (deleteIndex >= 0 && deleteIndex < this.listMeasurements.Items.Count)
-            {
-                this.cracks.RemoveAt(deleteIndex);
-                this.listMeasurements.Items.RemoveAt(deleteIndex);
-                this.listMeasurements.SelectedIndex = -1;
-                updateMeasurementControls(-1);
-            }
-        }
         
-        private void btnCrosshairMeasure_Click(object sender, EventArgs e)
-        {
-            int index = this.listMeasurements.SelectedIndex;
-            if (index >= 0)
-            {
-                Measurement pt = new Measurement(this.rccm, RCCMStage.RCCM1, 0, 0);
-                this.cracks[index].addPoint(pt);
-                Logger.Out(this.cracks[index].ToString());
-                // Refresh list of points
-                this.updateMeasurementControls(index);
-            }            
-        }
-
-        private void btnDeletePoint_Click(object sender, EventArgs e)
-        {
-            int mIndex = this.listMeasurements.SelectedIndex;
-            int ptIndex = this.listPoints.SelectedIndex;
-            if (mIndex >= 0 && ptIndex >= 0)
-            {
-                this.cracks[mIndex].removePoint(ptIndex);
-                // Refresh list of points
-                this.listPoints.SelectedIndex = -1;
-                this.updateMeasurementControls(mIndex);
-            }
-        }
-
-        private void listCracksSelection_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.test.plotCracks();
-        }
-
-        private void btnSaveCrack_Click(object sender, EventArgs e)
-        {
-            int index = this.listMeasurements.SelectedIndex;
-            if (index >= 0)
-            {
-                this.cracks[index].writeToFile(this.textDataDir.Text);
-            }
-        }
-
-        private void btnSaveAllCracks_Click(object sender, EventArgs e)
-        {
-            foreach (MeasurementSequence crack in this.cracks)
-            {
-                crack.writeToFile(this.textDataDir.Text);
-            }
-        }
-
-        #endregion
-
         private void nfov1Scale_TextChanged(object sender, EventArgs e)
         {
-            if (this.nfov1 != null)
+            double scale;
+            if (this.nfov1 != null && Double.TryParse(this.nfov1Scale.Text, out scale))
             {
-                this.nfov1.Scale = Double.Parse(this.nfov1Scale.Text);
+                this.nfov1.Scale = scale;
+            }
+        }
+
+        private void nfov2Scale_TextChanged(object sender, EventArgs e)
+        {
+            double scale;
+            if (this.nfov2 != null && Double.TryParse(this.nfov1Scale.Text, out scale))
+            {
+                this.nfov2.Scale = scale;
             }
         }
 
@@ -680,6 +433,11 @@ namespace RCCM.UI
 
         #region Fatigue Testing
 
+        private void listCracksSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.test.plotCracks();
+        }
+
         private void btnStartTest_Click(object sender, EventArgs e)
         {
             this.rccm.Counter.start();
@@ -702,7 +460,10 @@ namespace RCCM.UI
             this.btnStartTest.Enabled = true;
             this.btnPauseTest.Enabled = false;
             this.btnStopTest.Enabled = false;
-            this.btnSaveAllCracks_Click(null, null);
+            foreach (MeasurementSequence crack in this.cracks)
+            {
+                crack.WriteToFile(this.textDataDir.Text, true);
+            }
         }
 
         private void editCycleFreq_Click(object sender, EventArgs e)
@@ -730,22 +491,17 @@ namespace RCCM.UI
             this.fine2ZIndicator.Text = this.rccm.getPosition("fine 2 Z").ToString();
         }
 
-        private void listPoints_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.nfovView.ActivePoint = this.listPoints.SelectedIndex;
-        }
-
         #region Menu Items
 
         private void nFOV1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM1, this.settings);
+            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM1, Program.Settings);
             form.Show();
         }
 
         private void nFOV2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM2, this.settings);
+            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM2, Program.Settings);
             form.Show();
         }
 
@@ -764,7 +520,7 @@ namespace RCCM.UI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            NFOVViewForm form = new NFOVViewForm();
+            NFOVViewForm form = new NFOVViewForm(this.rccm, Program.Settings, this.rccm.NFOV1, this.cracks);
             form.Show();
         }
     }

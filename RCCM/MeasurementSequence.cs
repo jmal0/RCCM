@@ -13,9 +13,10 @@ namespace RCCM
     {
         // List of points of crack vertices and relevant metadata
         protected List<Measurement> points;
-        // Enum value indicating which set of fine axes capturing these measurements
-        protected RCCMStage parent;
-        
+        /// <summary>
+        /// Enum value indicating which set of fine axes capturing these measurements
+        /// </summary>
+        public RCCMStage Parent { get; set; }        
         /// <summary>
         /// Color of line to display
         /// </summary>
@@ -70,7 +71,7 @@ namespace RCCM
             this.LineSize = uiSize;
             this.Orientation = uiOrientation;
             this.Mode = uiMode;
-            this.parent = uiParent;
+            this.Parent = uiParent;
         }
 
         public MeasurementSequence(NewMeasurementForm parentForm)
@@ -81,18 +82,19 @@ namespace RCCM
             this.LineSize = parentForm.GetLineSize();
             this.Orientation = parentForm.GetOrientation();
             this.Mode = parentForm.GetMode();
-            this.parent = parentForm.GetStage();
+            this.Parent = parentForm.GetStage();
         }
 
         /// <summary>
         /// Add a point to the list of vertices in this sequence
         /// </summary>
         /// <param name="pt">Crack vertex</param>
-        public void addPoint(Measurement pt)
+        public void AddPoint(Measurement pt)
         {
             this.points.Add(pt);
             double length = this.CalculateLength(this.CountPoints - 1);
             this.points[this.CountPoints - 1].CrackLength = length;
+            this.WriteToFile((string)Program.Settings.json["test data directory"], true);
         }
 
         /// <summary>
@@ -100,7 +102,7 @@ namespace RCCM
         /// </summary>
         /// <param name="ind">Index of measurement to return</param>
         /// <returns>Measurement at this index if it is valid</returns>
-        public Measurement getPoint(int ind)
+        public Measurement GetPoint(int ind)
         {
             if (ind >= 0 && ind < this.points.Count)
             {
@@ -113,7 +115,7 @@ namespace RCCM
         /// Get last Measurement in sequence
         /// </summary>
         /// <returns>Measurement at last index</returns>
-        public Measurement getLastPoint()
+        public Measurement GetLastPoint()
         {
             return this.points[this.points.Count - 1];
         }
@@ -129,6 +131,7 @@ namespace RCCM
             {
                 this.points.RemoveAt(index);
                 this.RecomputeLength();
+                this.WriteToFile((string)Program.Settings.json["test data directory"], true);
                 return true;
             }
             return false;
@@ -138,7 +141,7 @@ namespace RCCM
         /// Plot the line segments of this measurement sequence on a graphics container
         /// </summary>
         /// <param name="axes">Graphics object of the container that will display the plot</param>
-        public void plot(Graphics axes, float scale)
+        public void Plot(Graphics axes, float scale)
         {
             if (this.points.Count > 0)
             {
@@ -172,22 +175,27 @@ namespace RCCM
         /// Create a filename with identifying information about sequence
         /// </summary>
         /// <returns>Filename formatted with current timestamp, crack name, and .csv extension</returns>
-        public string getFileName()
+        public string GetFileName()
         {
             string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
             return timestamp + "-" + this.Name +".csv";
         }
-
+        
         /// <summary>
         /// Write measurement to file. Formatted as one line header followed with a line for each crack vertex
         /// </summary>
-        /// <param name="filename"></param>
-        public void writeToFile(string path)
+        /// <param name="path">Filename and directory path where data will be saved</param>
+        /// <param name="autoName">If true, filename will be automatically defined</param>
+        public void WriteToFile(string path, bool autoName)
         {
-            using (StreamWriter file = new StreamWriter(path + "\\" + this.getFileName()))
+            if (autoName)
+            {
+                path += "\\" + this.GetFileName();
+            }
+            using (StreamWriter file = new StreamWriter(path))
             {
                 // Write column headers
-                for(int i = 0; i < Measurement.CSV_HEADER.Length; i++)
+                for (int i = 0; i < Measurement.CSV_HEADER.Length; i++)
                 {
                     file.Write(Measurement.CSV_HEADER[i] + ",");
                 }
@@ -199,7 +207,6 @@ namespace RCCM
                 }
             }
         }
-
         /// <summary>
         /// Return name identifying this sequence
         /// </summary>

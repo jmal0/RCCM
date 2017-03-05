@@ -9,8 +9,10 @@ using RCCM.UI;
 
 namespace RCCM
 {
-    static class Program
+    public static class Program
     {
+        public static Settings Settings { get; set; }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -39,11 +41,10 @@ namespace RCCM
                 {
                     filename = args[0];
                 }
-
-                Settings settings;
+                
                 try
                 {
-                    settings = new Settings(filename);
+                    Program.Settings = new Settings(filename);
                 }
                 catch (Exception ex)
                 {
@@ -52,7 +53,7 @@ namespace RCCM
                 }
 
                 // Start GUI
-                Application.Run(new RCCMMainForm(settings));
+                Application.Run(new RCCMMainForm());
             }
         }
     }

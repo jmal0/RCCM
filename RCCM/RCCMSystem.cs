@@ -36,35 +36,35 @@ namespace RCCM
 
         public TrioController triopc { get; private set; }
 
-        public RCCMSystem(Settings settings)
+        public RCCMSystem()
         {
-            this.NFOV1 = new NFOV((uint) settings.json["nfov 1"]["camera serial"],
-                                  (double) settings.json["nfov 1"]["microns / pixel"]);
+            this.NFOV1 = new NFOV((uint)Program.Settings.json["nfov 1"]["camera serial"],
+                                  (double) Program.Settings.json["nfov 1"]["microns / pixel"]);
 
             // Read NFOV lens calibrations into double arrays
             int i;
-            int calibration1Rows = settings.json["nfov 1"]["calibration"].Count();
+            int calibration1Rows = Program.Settings.json["nfov 1"]["calibration"].Count();
             Logger.Out(calibration1Rows.ToString());
             double[,] calibration1 = new double[calibration1Rows, 2];
             i = 0;
-            foreach (JArray row in settings.json["nfov 1"]["calibration"].Children())
+            foreach (JArray row in Program.Settings.json["nfov 1"]["calibration"].Children())
             {
                 calibration1[i, 0] = (double) row[0];
                 calibration1[i, 1] = (double) row[1];
                 i++;
             }
-            int calibration2Rows = settings.json["nfov 2"]["calibration"].Count();
+            int calibration2Rows = Program.Settings.json["nfov 2"]["calibration"].Count();
             double[,] calibration2 = new double[calibration2Rows, 2];
             i = 0;
-            foreach (JArray row in settings.json["nfov 2"]["calibration"].Children())
+            foreach (JArray row in Program.Settings.json["nfov 2"]["calibration"].Children())
             {
                 calibration2[i, 0] = (double)row[0];
                 calibration2[i, 1] = (double)row[1];
                 i++;
             }
             // Create lens controller
-            this.LensController = new NFOVLensController((int) settings.json["nfov 1"]["controller serial"],
-                                                         (int) settings.json["nfov 2"]["controller serial"],
+            this.LensController = new NFOVLensController((int) Program.Settings.json["nfov 1"]["controller serial"],
+                                                         (int) Program.Settings.json["nfov 2"]["controller serial"],
                                                          calibration1,
                                                          calibration2);
 
@@ -73,16 +73,16 @@ namespace RCCM
             
             // Create cycle counter with test frequency specified in settings
             // Convert frequency to period in milliseconds
-            double freq = (int) settings.json["cycle frequency"];
+            double freq = (int)Program.Settings.json["cycle frequency"];
             this.Counter = new CycleCounter((int) Math.Round(1000.0 / freq));
 
             // Save position vectors from pivot plate center to NFOV cameras
-            this.rccm1Offset = new PointF((float) settings.json["fine 1"]["x"],
-                                          (float) settings.json["fine 1"]["y"]);
-            this.rccm2Offset = new PointF((float) settings.json["fine 2"]["x"],
-                                          (float) settings.json["fine 2"]["y"]);
+            this.rccm1Offset = new PointF((float)Program.Settings.json["fine 1"]["x"],
+                                          (float)Program.Settings.json["fine 1"]["y"]);
+            this.rccm2Offset = new PointF((float)Program.Settings.json["fine 2"]["x"],
+                                          (float)Program.Settings.json["fine 2"]["y"]);
             // Create rotation matrix representing rotation plate angle
-            this.FineStageAngle = (double) settings.json["rotation angle"];
+            this.FineStageAngle = (double) Program.Settings.json["rotation angle"];
             this.fineStageRotation = new double[2,2];
             this.fineStageRotation[0, 0] = Math.Cos(this.FineStageAngle * Math.PI / 180.0);
             this.fineStageRotation[0, 1] = Math.Sin(this.FineStageAngle * Math.PI / 180.0);
@@ -131,7 +131,7 @@ namespace RCCM
 
         #region Motors
 
-        public void initializeMotion(AxTrioPC axTrioPC, Settings settings)
+        public void initializeMotion(AxTrioPC axTrioPC)
         {
             // Create handler for Trio controller communication
             this.triopc = new TrioController(axTrioPC);
@@ -146,20 +146,20 @@ namespace RCCM
                     this.motors.Add(motorName, new VirtualMotor());
                     continue;
                 }
-                switch ((string)settings.json[motorName]["type"])
+                switch ((string)Program.Settings.json[motorName]["type"])
                 {
                     case "virtual":
                         this.motors.Add(motorName, new VirtualMotor());
                         break;
                     case "stepper":
-                        this.motors.Add(motorName, new TrioStepperMotor(this.triopc, (short)settings.json[motorName]["axis number"]));
+                        this.motors.Add(motorName, new TrioStepperMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"]));
                         break;
                     default:
                         throw new NotImplementedException("Unknown motor type setting encountered for " + motorName);
                 }
             }
             // Apply settings
-            applyMotorSettings(settings);
+            applyMotorSettings();
         }
 
         public Dictionary<string, double> getAxisStatus(string axis)
@@ -167,13 +167,13 @@ namespace RCCM
             return this.motors[axis].getAllProperties();
         }
 
-        public void applyMotorSettings(Settings settings)
+        public void applyMotorSettings()
         {
             foreach (string motorName in RCCMSystem.AXES)
             {
                 foreach (string property in Motor.MOTOR_SETTINGS)
                 {
-                    this.motors[motorName].setProperty(property, (double) settings.json[motorName][property]);
+                    this.motors[motorName].setProperty(property, (double) Program.Settings.json[motorName][property]);
                 }
             }
         }

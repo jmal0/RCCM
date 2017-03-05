@@ -40,29 +40,29 @@ namespace RCCM
         protected float fine2XPos;
         protected float fine2YPos;
 
-        public PanelView(RCCMSystem rccm, Settings settings)
+        public PanelView(RCCMSystem rccm)
         {
             this.rccm = rccm;
             // Create rectangle for displaying panel
-            float xPanel = (float)settings.json["panel"]["x offset"];
-            float yPanel = (float)settings.json["panel"]["y offset"];
-            float wPanel = (float)settings.json["panel"]["width"];
-            float hPanel = (float)settings.json["panel"]["height"];
-            this.panelAngle = (float)settings.json["panel"]["rotation"];
+            float xPanel = (float)Program.Settings.json["panel"]["x offset"];
+            float yPanel = (float)Program.Settings.json["panel"]["y offset"];
+            float wPanel = (float)Program.Settings.json["panel"]["width"];
+            float hPanel = (float)Program.Settings.json["panel"]["height"];
+            this.panelAngle = (float)Program.Settings.json["panel"]["rotation"];
             this.panel = new RectangleF(xPanel, yPanel, wPanel, hPanel);
             // Create rectangle for displaying coarse stages
-            float wCoarse = (float)settings.json["coarse stage"]["x travel"];
-            float hCoarse = (float)settings.json["coarse stage"]["y travel"];
+            float wCoarse = (float)Program.Settings.json["coarse stage"]["x travel"];
+            float hCoarse = (float)Program.Settings.json["coarse stage"]["y travel"];
             this.coarse = new RectangleF(0, 0, wCoarse, hCoarse);
             // Create rectangles for displaying fine stages
-            float xFine1 = (float)settings.json["fine 1"]["x"];
-            float yFine1 = (float)settings.json["fine 1"]["y"];
-            float wFine1 = (float)settings.json["fine 1"]["x travel"];
-            float hFine1 = (float)settings.json["fine 1"]["y travel"];
-            float xFine2 = (float)settings.json["fine 2"]["x"];
-            float yFine2 = (float)settings.json["fine 2"]["y"];
-            float wFine2 = (float)settings.json["fine 2"]["x travel"];
-            float hFine2 = (float)settings.json["fine 2"]["y travel"];
+            float xFine1 = (float)Program.Settings.json["fine 1"]["x"];
+            float yFine1 = (float)Program.Settings.json["fine 1"]["y"];
+            float wFine1 = (float)Program.Settings.json["fine 1"]["x travel"];
+            float hFine1 = (float)Program.Settings.json["fine 1"]["y travel"];
+            float xFine2 = (float)Program.Settings.json["fine 2"]["x"];
+            float yFine2 = (float)Program.Settings.json["fine 2"]["y"];
+            float wFine2 = (float)Program.Settings.json["fine 2"]["x travel"];
+            float hFine2 = (float)Program.Settings.json["fine 2"]["y travel"];
             PointF fine1Off = this.rccm.fineVectorToGlobalVector(xFine1, yFine1);
             PointF fine2Off = this.rccm.fineVectorToGlobalVector(xFine2, yFine2);
             this.fine1Offset = new SizeF(fine1Off.X, fine1Off.Y);

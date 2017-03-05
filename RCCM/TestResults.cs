@@ -22,7 +22,7 @@ namespace RCCM
         protected Timer updateControlsTimer;
         protected int savedReadings;
 
-        public TestResults(RCCMSystem rccm, Settings settings, ObservableCollection<MeasurementSequence> cracks, Chart crackChart, Chart cycleChart, TextBox cycleIndicator, TextBox pressureIndicator, ListBox crackSelection)
+        public TestResults(RCCMSystem rccm, ObservableCollection<MeasurementSequence> cracks, Chart crackChart, Chart cycleChart, TextBox cycleIndicator, TextBox pressureIndicator, ListBox crackSelection)
         {
             // Initialize Paris law chart
             this.cracks = cracks;
@@ -50,11 +50,11 @@ namespace RCCM
             // Create timer for updating test controls
             this.updateControlsTimer = new Timer();
             this.updateControlsTimer.Enabled = false;
-            this.updateControlsTimer.Interval = (int) settings.json["repaint period"];
+            this.updateControlsTimer.Interval = (int)Program.Settings.json["repaint period"];
             this.updateControlsTimer.Tick += new EventHandler(updateTestControls);
             this.updateControlsTimer.Start();
             // Create list for holding past pressure readings
-            this.savedReadings = (int) settings.json["pressure readings saved"];
+            this.savedReadings = (int)Program.Settings.json["pressure readings saved"];
         }
 
         private void cracksChangedHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -85,13 +85,13 @@ namespace RCCM
                 return new Tuple<double[], double[]>(cycles, slopes);
             }
 
-            double originX = crack.getPoint(0).X;
-            double originY = crack.getPoint(0).Y;
+            double originX = crack.GetPoint(0).X;
+            double originY = crack.GetPoint(0).Y;
             double lastA = 0;
             double lastN = 0;
             for (int i = 0; i<crack.CountPoints;i++)
             {
-                Measurement point = crack.getPoint(i);
+                Measurement point = crack.GetPoint(i);
                 // Calculate length of crack from origin
                 double a = Math.Sqrt(Math.Pow((point.X - originX), 2) + Math.Pow((point.Y - originY), 2));
                 cycles[i] = point.Cycle;
@@ -142,8 +142,8 @@ namespace RCCM
                 double[] lengths = new double[crack.CountPoints];
                 for (int i = 0; i < crack.CountPoints; i++)
                 {
-                    cycles[i] = crack.getPoint(i).Cycle;
-                    lengths[i] = crack.getPoint(i).CrackLength;
+                    cycles[i] = crack.GetPoint(i).Cycle;
+                    lengths[i] = crack.GetPoint(i).CrackLength;
                 }
                 crackSeries.Points.DataBindXY(cycles, lengths);
 

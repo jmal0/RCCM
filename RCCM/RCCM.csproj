@@ -101,6 +101,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -135,7 +136,6 @@
       <DependentUpon>LensCalibrationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logger.cs" />
-    <Compile Include="NFOVView.cs" />
     <Compile Include="PanelView.cs" />
     <Compile Include="UI\RCCMMainForm.cs">
       <SubType>Form</SubType>

@@ -65,7 +65,6 @@ namespace RCCM
         /// Flag indicating if camera is recording video
         /// </summary>
         public bool Recording { get; set; }
-
         /// <summary>
         /// Create a NFOV camera from its serial number and apply the specified calibration
         /// </summary>
@@ -146,10 +145,13 @@ namespace RCCM
         /// </summary>
         public void start()
         {
-            this.camera.StartCapture();
-            this.grabImages = true;
+            if (this.Connected)
+            {
+                this.camera.StartCapture();
+                this.grabImages = true;
 
-            StartGrabLoop();
+                StartGrabLoop();
+            }
         }
 
         /// <summary>
