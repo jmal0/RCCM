@@ -68,8 +68,10 @@ namespace RCCM
                                                          calibration2);
 
             // Initialize WFOV cameras
-            this.WFOV1 = new WFOV((string)Program.Settings.json["wfov 1"]["configuration file"]);
-            this.WFOV2 = new WFOV((string)Program.Settings.json["wfov 2"]["configuration file"]);
+            this.WFOV1 = new WFOV((string)Program.Settings.json["wfov 1"]["configuration file"],
+                                  (double)Program.Settings.json["wfov 1"]["microns / pixel"]);
+            this.WFOV2 = new WFOV((string)Program.Settings.json["wfov 2"]["configuration file"],
+                                  (double)Program.Settings.json["wfov 2"]["microns / pixel"]);
 
             // TODO: lol yeah
             this.ActiveStage = RCCMStage.RCCM1;

@@ -15,12 +15,39 @@ namespace RCCM
     /// </summary>
     public class WFOV
     {
+        /// <summary>
+        /// Height in pixels of image
+        /// </summary>
+        static int IMG_HEIGHT = 960;
+        /// <summary>
+        /// Width in pixels of image
+        /// </summary>
+        static int IMG_WIDTH = 1280;
+
         #region Properties
-        
+
         /// <summary>
         /// Flag to indicate connection status of WFOV camera
         /// </summary>
         public bool Available { get; private set; }
+        /// <summary>
+        /// Camera microns / pixel calibration
+        /// </summary>
+        public double Scale { get; set; }
+        /// <summary>
+        /// Height in mm of image
+        /// </summary>
+        public double Height
+        {
+            get { return this.Scale / 1000.0 * WFOV.IMG_HEIGHT; }
+        }
+        /// <summary>
+        /// Height in mm of image
+        /// </summary>
+        public double Width
+        {
+            get { return this.Scale / 1000.0 * WFOV.IMG_WIDTH; }
+        }
         /// <summary>
         /// Zoom level of the camera, an integer between 0 and 100
         /// </summary>
@@ -93,9 +120,10 @@ namespace RCCM
         /// Create WFOV camera from configuration file
         /// </summary>
         /// <param name="configFile">Configuration xml file from which settings will be loaded</param>
-        public WFOV(string configFile)
+        public WFOV(string configFile, double pix2um)
         {
             this.configFile = configFile;
+            this.Scale = pix2um;
             this.Recording = false;
         }
 

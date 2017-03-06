@@ -126,6 +126,10 @@
             this.directoryEntry = new System.DirectoryServices.DirectoryEntry();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.label11 = new System.Windows.Forms.Label();
+            this.wfov1Scale = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.wfov2Scale = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBox10.SuspendLayout();
@@ -833,7 +837,7 @@
             // 
             this.groupBox8.Controls.Add(this.label16);
             this.groupBox8.Controls.Add(this.nfov2Scale);
-            this.groupBox8.Location = new System.Drawing.Point(6, 168);
+            this.groupBox8.Location = new System.Drawing.Point(8, 232);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(200, 48);
             this.groupBox8.TabIndex = 5;
@@ -862,7 +866,7 @@
             // 
             this.groupBox7.Controls.Add(this.label15);
             this.groupBox7.Controls.Add(this.nfov1Scale);
-            this.groupBox7.Location = new System.Drawing.Point(6, 114);
+            this.groupBox7.Location = new System.Drawing.Point(8, 178);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(200, 48);
             this.groupBox7.TabIndex = 4;
@@ -955,11 +959,13 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Controls.Add(this.wfov2Scale);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.wfov2Config);
-            this.groupBox5.Location = new System.Drawing.Point(6, 60);
+            this.groupBox5.Location = new System.Drawing.Point(6, 87);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 48);
+            this.groupBox5.Size = new System.Drawing.Size(200, 75);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "WFOV 2";
@@ -983,11 +989,13 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label11);
+            this.groupBox4.Controls.Add(this.wfov1Scale);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.wfov1Config);
             this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 48);
+            this.groupBox4.Size = new System.Drawing.Size(200, 75);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "WFOV 1";
@@ -1020,6 +1028,40 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(764, 586);
             this.tabControl1.TabIndex = 0;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(7, 46);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(64, 13);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "micron/pixel";
+            // 
+            // wfov1Scale
+            // 
+            this.wfov1Scale.Location = new System.Drawing.Point(82, 43);
+            this.wfov1Scale.Name = "wfov1Scale";
+            this.wfov1Scale.Size = new System.Drawing.Size(100, 20);
+            this.wfov1Scale.TabIndex = 2;
+            this.wfov1Scale.Text = "9.08";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(7, 46);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(64, 13);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "micron/pixel";
+            // 
+            // wfov2Scale
+            // 
+            this.wfov2Scale.Location = new System.Drawing.Point(82, 43);
+            this.wfov2Scale.Name = "wfov2Scale";
+            this.wfov2Scale.Size = new System.Drawing.Size(100, 20);
+            this.wfov2Scale.TabIndex = 4;
+            this.wfov2Scale.Text = "9.08";
             // 
             // RCCMMainForm
             // 
@@ -1179,6 +1221,10 @@
         private System.Windows.Forms.Button btnWFOV2Open;
         private System.Windows.Forms.Button btnNFOV2Open;
         private System.Windows.Forms.Button btnWFOV1Open;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox wfov2Scale;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox wfov1Scale;
     }
 }
 

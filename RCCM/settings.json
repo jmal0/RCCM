@@ -133,10 +133,12 @@
     "test data directory": "data",
     // Camera settings
     "wfov 1": { 
-        "configuration file": "config\\WFOV1.xml" 
+        "configuration file": "config\\WFOV1.xml",
+		"microns / pixel": 6.62
     },
 	"wfov 2": { 
-        "configuration file": "config\\WFOV2.xml" 
+        "configuration file": "config\\WFOV2.xml",
+		"microns / pixel": 6.62
     },
     "nfov 1": {
         "camera serial": 16396117,

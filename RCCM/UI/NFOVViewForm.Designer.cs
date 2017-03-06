@@ -63,9 +63,6 @@
             // 
             // groupBox9
             // 
-            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox9.AutoSize = true;
             this.groupBox9.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox9.Controls.Add(this.btnEditSequence);
@@ -73,6 +70,7 @@
             this.groupBox9.Controls.Add(this.btnNewSequence);
             this.groupBox9.Controls.Add(this.btnDeleteSequence);
             this.groupBox9.Controls.Add(this.btnSaveCrack);
+            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox9.Location = new System.Drawing.Point(3, 3);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -258,12 +256,10 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.checkCrosshair);
             this.groupBox1.Controls.Add(this.btnCrosshairMeasure);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 254);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -274,13 +270,11 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.AutoSize = true;
             this.groupBox2.Controls.Add(this.listPoints);
             this.groupBox2.Controls.Add(this.btnGotoPoint);
             this.groupBox2.Controls.Add(this.btnDeletePoint);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(3, 344);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -312,9 +306,9 @@
             this.panelMeasurementControl.AutoSize = true;
             this.panelMeasurementControl.ColumnCount = 1;
             this.panelMeasurementControl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.panelMeasurementControl.Controls.Add(this.groupBox2, 0, 2);
             this.panelMeasurementControl.Controls.Add(this.groupBox9, 0, 0);
             this.panelMeasurementControl.Controls.Add(this.groupBox1, 0, 1);
+            this.panelMeasurementControl.Controls.Add(this.groupBox2, 0, 2);
             this.panelMeasurementControl.Location = new System.Drawing.Point(615, 3);
             this.panelMeasurementControl.Name = "panelMeasurementControl";
             this.panelMeasurementControl.RowCount = 3;
