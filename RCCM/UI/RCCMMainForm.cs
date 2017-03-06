@@ -59,15 +59,11 @@ namespace RCCM.UI
             this.triopc.OcxState = ((AxHost.State)(resources.GetObject("AxTrioPC1.OcxState")));
             ((ISupportInitialize)(this.triopc)).EndInit();
 
-            this.rccm = new RCCMSystem();
+            this.rccm = new RCCMSystem(this.triopc);
 
             InitializeComponent();
             
             this.applyUISettings(Program.Settings);
-            
-            // Create controller for handling motion commands
-            this.rccm.initializeMotion(this.triopc);
-            this.triopc.Refresh();
             
             this.nfov1 = this.rccm.NFOV1;
             this.nfov2 = this.rccm.NFOV2;
@@ -176,17 +172,17 @@ namespace RCCM.UI
         {
             if (this.radioMoveAbs.Checked)
             {
-                this.rccm.setPosition(axis, value);
+                this.rccm.motors[axis].setPos(value);
             }
             else if (this.radioMoveRel.Checked)
             {
-                this.rccm.moveRelative(axis, value);
+                this.rccm.motors[axis].setPos(value);
             }
         }
         
         private void btnMotorStatus_Click(object sender, EventArgs e)
         {
-            var properties = this.rccm.getAxisStatus("fine 1 X");
+            var properties = this.rccm.motors["fine 1 X"].getAllProperties();
             MessageBox.Show(string.Join("\n", properties));
         }
 
@@ -216,6 +212,8 @@ namespace RCCM.UI
         {
             this.nfov1Scale.Text = (string)settings.json["nfov 1"]["microns / pixel"];
             this.nfov2Scale.Text = (string)settings.json["nfov 2"]["microns / pixel"];
+            this.wfov1Scale.Text = (string)settings.json["wfov 1"]["microns / pixel"];
+            this.wfov2Scale.Text = (string)settings.json["wfov 2"]["microns / pixel"];
             // Make NumericUpDown increment property equal to motor minimum step size
             this.coarseXPos.Increment = (decimal) settings.json["coarse X"]["step"];
             this.coarseYPos.Increment = (decimal) settings.json["coarse Y"]["step"];
@@ -262,23 +260,23 @@ namespace RCCM.UI
             string yAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 Y" : "fine 2 Y";
 
             // Get current stage position
-            double xPos = this.rccm.getPosition(xAxis);
-            double yPos = this.rccm.getPosition(yAxis);
+            double xPos = this.rccm.motors[xAxis].getPos();
+            double yPos = this.rccm.motors[yAxis].getPos();
 
             // Jog motors
             switch (keyData)
             {
                 case Keys.W:
-                    this.rccm.moveRelative(yAxis, 0.1);
+                    this.rccm.motors[xAxis].moveRel(0.1);
                     break;
                 case Keys.A:
-                    this.rccm.moveRelative(xAxis, -0.1);
+                    this.rccm.motors[xAxis].moveRel(-0.1);
                     break;
                 case Keys.S:
-                    this.rccm.moveRelative(yAxis, -0.1);
+                    this.rccm.motors[yAxis].moveRel(-0.1);
                     break;
                 case Keys.D:
-                    this.rccm.moveRelative(xAxis, 0.1);
+                    this.rccm.motors[yAxis].moveRel(0.1);
                     break;
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
@@ -341,14 +339,14 @@ namespace RCCM.UI
         private void refreshPanelView(object sender, EventArgs e)
         {
             this.panelView.Invalidate();
-            this.coarseXIndicator.Text = this.rccm.getPosition("coarse X").ToString();
-            this.coarseYIndicator.Text = this.rccm.getPosition("coarse Y").ToString();
-            this.fine1XIndicator.Text = this.rccm.getPosition("fine 1 X").ToString();
-            this.fine1YIndicator.Text = this.rccm.getPosition("fine 1 Y").ToString();
-            this.fine1ZIndicator.Text = this.rccm.getPosition("fine 1 Z").ToString();
-            this.fine2XIndicator.Text = this.rccm.getPosition("fine 2 X").ToString();
-            this.fine2YIndicator.Text = this.rccm.getPosition("fine 2 Y").ToString();
-            this.fine2ZIndicator.Text = this.rccm.getPosition("fine 2 Z").ToString();
+            this.coarseXIndicator.Text = this.rccm.motors["coarse X"].getPos().ToString();
+            this.coarseYIndicator.Text = this.rccm.motors["coarse Y"].getPos().ToString();
+            this.fine1XIndicator.Text = this.rccm.motors["fine 1 X"].getPos().ToString();
+            this.fine1YIndicator.Text = this.rccm.motors["fine 1 Y"].getPos().ToString();
+            this.fine1ZIndicator.Text = this.rccm.motors["fine 1 Z"].getPos().ToString();
+            this.fine2XIndicator.Text = this.rccm.motors["fine 2 X"].getPos().ToString();
+            this.fine2YIndicator.Text = this.rccm.motors["fine 2 Y"].getPos().ToString();
+            this.fine2ZIndicator.Text = this.rccm.motors["fine 2 Z"].getPos().ToString();
         }
 
         #region Menu Items

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AxTrioPCLib;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace RCCM
 {
@@ -153,6 +154,22 @@ namespace RCCM
         public bool Stop()
         {
             return this.triopc.RapidStop();
+        }
+
+        public void WaitForEndOfMove(short nAxis)
+        {
+            double distRemaining = 0;
+            bool bWaiting;
+
+            bWaiting = true;
+            while (bWaiting)
+            {
+                Console.WriteLine("waiting");
+                Thread.Sleep(100);
+                if (this.triopc.Base(1, nAxis))
+                    this.triopc.GetVariable("REMAIN", out distRemaining);
+                bWaiting = Math.Abs(distRemaining) > 0.001;
+            }
         }
     }
 }

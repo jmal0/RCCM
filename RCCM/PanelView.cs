@@ -155,12 +155,12 @@ namespace RCCM
         public void updatePositions()
         {
             // Get positions from rccm
-            this.coarseXPos = (float) this.rccm.getPosition("coarse X");
-            this.coarseYPos = (float) this.rccm.getPosition("coarse Y");
-            this.fine1XPos = (float) this.rccm.getPosition("fine 1 X");
-            this.fine1YPos = (float) this.rccm.getPosition("fine 1 Y");
-            this.fine2XPos = (float) this.rccm.getPosition("fine 2 X");
-            this.fine2YPos = (float) this.rccm.getPosition("fine 2 Y");
+            this.coarseXPos = (float)this.rccm.motors["coarse X"].getPos();
+            this.coarseYPos = (float) this.rccm.motors["coarse Y"].getPos();
+            this.fine1XPos = (float) this.rccm.motors["fine 1 X"].getPos();
+            this.fine1YPos = (float) this.rccm.motors["fine 1 Y"].getPos();
+            this.fine2XPos = (float) this.rccm.motors["fine 2 X"].getPos();
+            this.fine2YPos = (float) this.rccm.motors["fine 2 Y"].getPos();
             // Move fine stage rectangles
             PointF coarsePos = new PointF(this.coarseXPos, this.coarseYPos);
             this.fine1.Location = PointF.Add(coarsePos, this.fine1Offset);

@@ -65,23 +65,12 @@ namespace RCCM
             return settings;
         }
 
-        // TODO: utilize maybe?
-        /*
-        private double update(double dt)
+        /// <summary>
+        /// Since move is applied instantaneously, no waiting necessary
+        /// </summary>
+        public override void waitForEndOfMove()
         {
-            double v = this.settings["velocity"];
-            if (this.pos < this.commandPos)
-            {
-                this.pos = Math.Min(this.pos + v * dt, this.commandPos);
-                return this.pos;
-            }
-            if (this.pos > this.commandPos)
-            {
-                this.pos = Math.Max(this.pos - v * dt, this.commandPos);
-                return this.pos;
-            }
-            return this.commandPos;
+            return;
         }
-        */
     }
 }

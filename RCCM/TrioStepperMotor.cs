@@ -126,5 +126,10 @@ namespace RCCM
             this.settings[property] = value;
             return this.controller.SetAxisProperty(variable, value, this.axisNum);
         }
+
+        public override void waitForEndOfMove()
+        {
+            this.controller.WaitForEndOfMove(this.axisNum);
+        }
     }
 }

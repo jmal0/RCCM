@@ -62,5 +62,7 @@ namespace RCCM
         abstract public bool initialize();
 
         abstract public Dictionary<string, double> getAllProperties();
+
+        abstract public void waitForEndOfMove();
     }
 }

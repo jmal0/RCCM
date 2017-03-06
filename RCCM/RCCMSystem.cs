@@ -20,11 +20,9 @@ namespace RCCM
         public WFOV WFOV1 { get; }
         public WFOV WFOV2 { get; }
 
-        public RCCMStage ActiveStage { get; private set; }
-
         public NFOVLensController LensController { get; private set; }
 
-        protected Dictionary<string, Motor> motors;
+        public Dictionary<string, Motor> motors { get; private set; }
 
         public CycleCounter Counter { get; private set; }
 
@@ -35,8 +33,10 @@ namespace RCCM
 
         public TrioController triopc { get; private set; }
 
-        public RCCMSystem()
+        public RCCMSystem(AxTrioPC axTrioPC)
         {
+            this.initializeMotion(axTrioPC);
+
             this.NFOV1 = new NFOV((uint)Program.Settings.json["nfov 1"]["camera serial"],
                                   (double)Program.Settings.json["nfov 1"]["microns / pixel"]);
 
@@ -72,9 +72,6 @@ namespace RCCM
                                   (double)Program.Settings.json["wfov 1"]["microns / pixel"]);
             this.WFOV2 = new WFOV((string)Program.Settings.json["wfov 2"]["configuration file"],
                                   (double)Program.Settings.json["wfov 2"]["microns / pixel"]);
-
-            // TODO: lol yeah
-            this.ActiveStage = RCCMStage.RCCM1;
             
             // Create cycle counter with test frequency specified in settings
             // Convert frequency to period in milliseconds
@@ -95,32 +92,21 @@ namespace RCCM
             this.fineStageRotation[1, 1] = Math.Cos(this.FineStageAngle * Math.PI / 180.0);
         }
 
-        // UNUSED
-        public Region getImageLimits()
-        {
-            float imgWidth = (float) this.NFOV1.Width;
-            float imgHeight = (float) this.NFOV1.Height;
-
-            float topLeftX = (float) (this.getPosition("coarse X") + this.getPosition("fine 1 X") - imgWidth / 2);
-            float topLeftY = (float) (this.getPosition("coarse X") + this.getPosition("fine 1 X") - imgHeight / 2);
-            return new Region(new RectangleF(topLeftX, topLeftY, imgWidth, imgHeight));
-        }
-
         public PointF getNFOVLocation(RCCMStage stage)
         {
-            PointF coarselocation = new PointF((float)this.getPosition("coarse X"),
-                                               (float)this.getPosition("coarse Y"));
+            PointF coarselocation = new PointF((float)this.motors["coarse X"].getPos(),
+                                               (float)this.motors["coarse Y"].getPos());
             double xOffset;
             double yOffset;
             if (stage == RCCMStage.RCCM1)
             {
-                xOffset = this.rccm1Offset.X + this.getPosition("fine 1 X");
-                yOffset = this.rccm1Offset.Y + this.getPosition("fine 1 Y");
+                xOffset = this.rccm1Offset.X + this.motors["fine 1 X"].getPos();
+                yOffset = this.rccm1Offset.Y + this.motors["fine 1 Y"].getPos();
             }
             else
             {
-                xOffset = this.rccm2Offset.X + this.getPosition("fine 2 X");
-                yOffset = this.rccm2Offset.Y + this.getPosition("fine 2 Y");
+                xOffset = this.rccm2Offset.X + this.motors["fine 2 X"].getPos();
+                yOffset = this.rccm2Offset.Y + this.motors["fine 2 Y"].getPos();
             }
             double xOffRotated = this.fineStageRotation[0, 0] * xOffset + this.fineStageRotation[0, 1] * yOffset;
             double yOffRotated = this.fineStageRotation[1, 0] * xOffset + this.fineStageRotation[1, 1] * yOffset;
@@ -136,7 +122,7 @@ namespace RCCM
 
         #region Motors
 
-        public void initializeMotion(AxTrioPC axTrioPC)
+        private void initializeMotion(AxTrioPC axTrioPC)
         {
             // Create handler for Trio controller communication
             this.triopc = new TrioController(axTrioPC);
@@ -167,11 +153,6 @@ namespace RCCM
             applyMotorSettings();
         }
 
-        public Dictionary<string, double> getAxisStatus(string axis)
-        {
-            return this.motors[axis].getAllProperties();
-        }
-
         public void applyMotorSettings()
         {
             foreach (string motorName in RCCMSystem.AXES)
@@ -182,25 +163,7 @@ namespace RCCM
                 }
             }
         }
-
-        public double getPosition(string axis)
-        {
-            return this.motors[axis].getPos();
-        }
-
-        public double setPosition(string axis, double value)
-        {
-            double result = this.motors[axis].setPos(value);
-            Logger.Out(axis + " moveAbs " + value);
-            return result;
-        }
-
-        public double moveRelative(string axis, double dist)
-        {
-            double result = this.motors[axis].moveRel(dist);
-            Logger.Out(axis + " moveRel " + dist);
-            return result;
-        }
+        
         #endregion
 
         public void readHeight1()

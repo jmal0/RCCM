@@ -51,10 +51,10 @@ namespace RCCM
             this.Cycle = rccm.Counter.Cycle;
             this.pressure = 0; // TODO
 
-            this.coarseX = rccm.getPosition("coarse X");
-            this.coarseY = rccm.getPosition("coarse Y");
-            this.fineX = fine == RCCMStage.RCCM1 ? rccm.getPosition("fine 1 X") : rccm.getPosition("fine 2 X");
-            this.fineY = fine == RCCMStage.RCCM1 ? rccm.getPosition("fine 1 Y") : rccm.getPosition("fine 2 Y");
+            this.coarseX = rccm.motors["coarse X"].getPos();
+            this.coarseY = rccm.motors["coarse Y"].getPos();
+            this.fineX = fine == RCCMStage.RCCM1 ? rccm.motors["fine 1 X"].getPos() : rccm.motors["fine 2 X"].getPos();
+            this.fineY = fine == RCCMStage.RCCM1 ? rccm.motors["fine 1 Y"].getPos() : rccm.motors["fine 2 Y"].getPos();
             this.pixelX = pixelX;
             this.pixelY = pixelY;
             PointF globalPosition = rccm.getNFOVLocation(fine);
