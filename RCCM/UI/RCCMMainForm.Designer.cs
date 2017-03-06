@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RCCMMainForm));
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,28 +47,30 @@
             this.colorDlg = new System.Windows.Forms.ColorDialog();
             this.label24 = new System.Windows.Forms.Label();
             this.editCycleFreq = new System.Windows.Forms.NumericUpDown();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioRCCM1 = new System.Windows.Forms.RadioButton();
+            this.radioRCCM2 = new System.Windows.Forms.RadioButton();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.radioCoarse = new System.Windows.Forms.RadioButton();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.btnStartTest = new System.Windows.Forms.Button();
             this.btnPauseTest = new System.Windows.Forms.Button();
             this.btnStopTest = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.textPressure = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.textCycle = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
             this.tabPageResults = new System.Windows.Forms.TabPage();
-            this.listCrackSelection = new System.Windows.Forms.ListBox();
-            this.chartCycles = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tableLayoutResults = new System.Windows.Forms.TableLayoutPanel();
             this.chartCracks = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.listCrackSelection = new System.Windows.Forms.ListBox();
             this.tabPageMotion = new System.Windows.Forms.TabPage();
+            this.tableLayoutMotion = new System.Windows.Forms.TableLayoutPanel();
+            this.panelView = new System.Windows.Forms.PictureBox();
+            this.panelMotionButtons = new System.Windows.Forms.Panel();
+            this.btnSetHome = new System.Windows.Forms.Button();
+            this.btnHome = new System.Windows.Forms.Button();
             this.btnMotorStatus = new System.Windows.Forms.Button();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.radioMoveRel = new System.Windows.Forms.RadioButton();
             this.radioMoveAbs = new System.Windows.Forms.RadioButton();
+            this.panelMotionControls = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.fine2ZIndicator = new System.Windows.Forms.TextBox();
             this.fine2YIndicator = new System.Windows.Forms.TextBox();
@@ -96,7 +98,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.coarseXPos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.panelView = new System.Windows.Forms.PictureBox();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.btnWFOV2Open = new System.Windows.Forms.Button();
             this.btnNFOV2Open = new System.Windows.Forms.Button();
@@ -117,29 +118,41 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textImageDir = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.wfov2Scale = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.wfov2Config = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.wfov1Scale = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.wfov1Config = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPagePressure = new System.Windows.Forms.TabPage();
+            this.chartCycles = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.directoryEntry = new System.DirectoryServices.DirectoryEntry();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.label11 = new System.Windows.Forms.Label();
-            this.wfov1Scale = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.wfov2Scale = new System.Windows.Forms.TextBox();
+            this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
+            this.panelTestControls = new System.Windows.Forms.Panel();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.textPressure = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.textCycle = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBox10.SuspendLayout();
             this.groupBox11.SuspendLayout();
-            this.groupBox12.SuspendLayout();
             this.tabPageResults.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).BeginInit();
+            this.tableLayoutResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCracks)).BeginInit();
             this.tabPageMotion.SuspendLayout();
+            this.tableLayoutMotion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelView)).BeginInit();
+            this.panelMotionButtons.SuspendLayout();
             this.groupBox13.SuspendLayout();
+            this.panelMotionControls.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fine2YPos)).BeginInit();
@@ -151,7 +164,6 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelView)).BeginInit();
             this.tabPageSetup.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -159,8 +171,13 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tabPagePressure.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).BeginInit();
+            this.tableLayoutMain.SuspendLayout();
+            this.panelTestControls.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem
@@ -239,7 +256,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(99, 26);
+            this.label24.Location = new System.Drawing.Point(99, 24);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(86, 13);
             this.label24.TabIndex = 10;
@@ -248,7 +265,7 @@
             // editCycleFreq
             // 
             this.editCycleFreq.DecimalPlaces = 2;
-            this.editCycleFreq.Location = new System.Drawing.Point(191, 24);
+            this.editCycleFreq.Location = new System.Drawing.Point(191, 22);
             this.editCycleFreq.Name = "editCycleFreq";
             this.editCycleFreq.Size = new System.Drawing.Size(121, 20);
             this.editCycleFreq.TabIndex = 9;
@@ -259,38 +276,50 @@
             0});
             this.editCycleFreq.Click += new System.EventHandler(this.editCycleFreq_Click);
             // 
-            // radioButton3
+            // radioRCCM1
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Checked = true;
-            this.radioButton3.Location = new System.Drawing.Point(6, 24);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(62, 17);
-            this.radioButton3.TabIndex = 11;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "RCCM1";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioRCCM1.AutoSize = true;
+            this.radioRCCM1.Location = new System.Drawing.Point(6, 42);
+            this.radioRCCM1.Name = "radioRCCM1";
+            this.radioRCCM1.Size = new System.Drawing.Size(62, 17);
+            this.radioRCCM1.TabIndex = 11;
+            this.radioRCCM1.Text = "RCCM1";
+            this.radioRCCM1.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // radioRCCM2
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(69, 24);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(62, 17);
-            this.radioButton4.TabIndex = 12;
-            this.radioButton4.Text = "RCCM2";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioRCCM2.AutoSize = true;
+            this.radioRCCM2.Location = new System.Drawing.Point(6, 62);
+            this.radioRCCM2.Name = "radioRCCM2";
+            this.radioRCCM2.Size = new System.Drawing.Size(62, 17);
+            this.radioRCCM2.TabIndex = 12;
+            this.radioRCCM2.Text = "RCCM2";
+            this.radioRCCM2.UseVisualStyleBackColor = true;
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.radioButton4);
-            this.groupBox10.Controls.Add(this.radioButton3);
-            this.groupBox10.Location = new System.Drawing.Point(620, 27);
+            this.groupBox10.Controls.Add(this.radioCoarse);
+            this.groupBox10.Controls.Add(this.radioRCCM2);
+            this.groupBox10.Controls.Add(this.radioRCCM1);
+            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox10.Location = new System.Drawing.Point(0, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(132, 52);
+            this.groupBox10.Size = new System.Drawing.Size(106, 88);
             this.groupBox10.TabIndex = 19;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Stage Selection";
+            // 
+            // radioCoarse
+            // 
+            this.radioCoarse.AutoSize = true;
+            this.radioCoarse.Checked = true;
+            this.radioCoarse.Location = new System.Drawing.Point(6, 19);
+            this.radioCoarse.Name = "radioCoarse";
+            this.radioCoarse.Size = new System.Drawing.Size(58, 17);
+            this.radioCoarse.TabIndex = 13;
+            this.radioCoarse.TabStop = true;
+            this.radioCoarse.Text = "Coarse";
+            this.radioCoarse.UseVisualStyleBackColor = true;
             // 
             // groupBox11
             // 
@@ -299,9 +328,10 @@
             this.groupBox11.Controls.Add(this.label24);
             this.groupBox11.Controls.Add(this.btnPauseTest);
             this.groupBox11.Controls.Add(this.btnStopTest);
-            this.groupBox11.Location = new System.Drawing.Point(12, 27);
+            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox11.Location = new System.Drawing.Point(0, 0);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(318, 52);
+            this.groupBox11.Size = new System.Drawing.Size(318, 49);
             this.groupBox11.TabIndex = 19;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Test Controls";
@@ -309,7 +339,7 @@
             // btnStartTest
             // 
             this.btnStartTest.Image = global::RCCM.Properties.Resources.play;
-            this.btnStartTest.Location = new System.Drawing.Point(6, 19);
+            this.btnStartTest.Location = new System.Drawing.Point(6, 17);
             this.btnStartTest.Name = "btnStartTest";
             this.btnStartTest.Size = new System.Drawing.Size(26, 26);
             this.btnStartTest.TabIndex = 7;
@@ -319,7 +349,7 @@
             // btnPauseTest
             // 
             this.btnPauseTest.Image = global::RCCM.Properties.Resources.pause;
-            this.btnPauseTest.Location = new System.Drawing.Point(35, 19);
+            this.btnPauseTest.Location = new System.Drawing.Point(35, 17);
             this.btnPauseTest.Name = "btnPauseTest";
             this.btnPauseTest.Size = new System.Drawing.Size(26, 26);
             this.btnPauseTest.TabIndex = 6;
@@ -329,145 +359,157 @@
             // btnStopTest
             // 
             this.btnStopTest.Image = global::RCCM.Properties.Resources.stop;
-            this.btnStopTest.Location = new System.Drawing.Point(67, 19);
+            this.btnStopTest.Location = new System.Drawing.Point(67, 17);
             this.btnStopTest.Name = "btnStopTest";
             this.btnStopTest.Size = new System.Drawing.Size(26, 26);
             this.btnStopTest.TabIndex = 8;
             this.btnStopTest.UseVisualStyleBackColor = true;
             this.btnStopTest.Click += new System.EventHandler(this.btnStopTest_Click);
             // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.textPressure);
-            this.groupBox12.Controls.Add(this.label26);
-            this.groupBox12.Controls.Add(this.textCycle);
-            this.groupBox12.Controls.Add(this.label25);
-            this.groupBox12.Location = new System.Drawing.Point(336, 27);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(278, 52);
-            this.groupBox12.TabIndex = 20;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Test Status";
-            // 
-            // textPressure
-            // 
-            this.textPressure.Location = new System.Drawing.Point(187, 24);
-            this.textPressure.Name = "textPressure";
-            this.textPressure.ReadOnly = true;
-            this.textPressure.Size = new System.Drawing.Size(85, 20);
-            this.textPressure.TabIndex = 14;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(133, 26);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(48, 13);
-            this.label26.TabIndex = 13;
-            this.label26.Text = "Pressure";
-            // 
-            // textCycle
-            // 
-            this.textCycle.Location = new System.Drawing.Point(45, 24);
-            this.textCycle.Name = "textCycle";
-            this.textCycle.ReadOnly = true;
-            this.textCycle.Size = new System.Drawing.Size(82, 20);
-            this.textCycle.TabIndex = 12;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 26);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(33, 13);
-            this.label25.TabIndex = 11;
-            this.label25.Text = "Cycle";
-            // 
             // tabPageResults
             // 
-            this.tabPageResults.Controls.Add(this.listCrackSelection);
-            this.tabPageResults.Controls.Add(this.chartCycles);
-            this.tabPageResults.Controls.Add(this.chartCracks);
+            this.tabPageResults.Controls.Add(this.tableLayoutResults);
             this.tabPageResults.Location = new System.Drawing.Point(4, 22);
             this.tabPageResults.Name = "tabPageResults";
             this.tabPageResults.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResults.Size = new System.Drawing.Size(756, 560);
+            this.tabPageResults.Size = new System.Drawing.Size(750, 284);
             this.tabPageResults.TabIndex = 4;
             this.tabPageResults.Text = "Test Results";
             this.tabPageResults.UseVisualStyleBackColor = true;
             // 
-            // listCrackSelection
+            // tableLayoutResults
             // 
-            this.listCrackSelection.FormattingEnabled = true;
-            this.listCrackSelection.Location = new System.Drawing.Point(630, 6);
-            this.listCrackSelection.Name = "listCrackSelection";
-            this.listCrackSelection.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listCrackSelection.Size = new System.Drawing.Size(120, 277);
-            this.listCrackSelection.TabIndex = 8;
-            this.listCrackSelection.SelectedIndexChanged += new System.EventHandler(this.listCracksSelection_SelectedIndexChanged);
-            // 
-            // chartCycles
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCycles.ChartAreas.Add(chartArea1);
-            this.chartCycles.Location = new System.Drawing.Point(14, 286);
-            this.chartCycles.Name = "chartCycles";
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
-            this.chartCycles.Series.Add(series1);
-            this.chartCycles.Size = new System.Drawing.Size(736, 271);
-            this.chartCycles.TabIndex = 7;
-            this.chartCycles.Text = "chart2";
+            this.tableLayoutResults.ColumnCount = 2;
+            this.tableLayoutResults.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutResults.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutResults.Controls.Add(this.chartCracks, 0, 0);
+            this.tableLayoutResults.Controls.Add(this.listCrackSelection, 1, 0);
+            this.tableLayoutResults.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutResults.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutResults.Name = "tableLayoutResults";
+            this.tableLayoutResults.RowCount = 1;
+            this.tableLayoutResults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutResults.Size = new System.Drawing.Size(744, 278);
+            this.tableLayoutResults.TabIndex = 9;
             // 
             // chartCracks
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartCracks.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chartCracks.ChartAreas.Add(chartArea1);
+            this.chartCracks.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Name = "Legend1";
             this.chartCracks.Legends.Add(legend1);
-            this.chartCracks.Location = new System.Drawing.Point(6, 6);
+            this.chartCracks.Location = new System.Drawing.Point(3, 3);
             this.chartCracks.Name = "chartCracks";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartCracks.Series.Add(series2);
-            this.chartCracks.Size = new System.Drawing.Size(623, 271);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCracks.Series.Add(series1);
+            this.chartCracks.Size = new System.Drawing.Size(589, 272);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
             // 
+            // listCrackSelection
+            // 
+            this.listCrackSelection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listCrackSelection.FormattingEnabled = true;
+            this.listCrackSelection.Location = new System.Drawing.Point(598, 3);
+            this.listCrackSelection.Name = "listCrackSelection";
+            this.listCrackSelection.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.listCrackSelection.Size = new System.Drawing.Size(143, 272);
+            this.listCrackSelection.TabIndex = 8;
+            this.listCrackSelection.SelectedIndexChanged += new System.EventHandler(this.listCracksSelection_SelectedIndexChanged);
+            // 
             // tabPageMotion
             // 
-            this.tabPageMotion.Controls.Add(this.btnMotorStatus);
-            this.tabPageMotion.Controls.Add(this.groupBox13);
-            this.tabPageMotion.Controls.Add(this.groupBox3);
-            this.tabPageMotion.Controls.Add(this.groupBox2);
-            this.tabPageMotion.Controls.Add(this.groupBox1);
-            this.tabPageMotion.Controls.Add(this.panelView);
+            this.tabPageMotion.Controls.Add(this.tableLayoutMotion);
             this.tabPageMotion.Location = new System.Drawing.Point(4, 22);
             this.tabPageMotion.Name = "tabPageMotion";
             this.tabPageMotion.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMotion.Size = new System.Drawing.Size(756, 560);
+            this.tabPageMotion.Size = new System.Drawing.Size(750, 284);
             this.tabPageMotion.TabIndex = 1;
             this.tabPageMotion.Text = "Motion";
             this.tabPageMotion.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutMotion
+            // 
+            this.tableLayoutMotion.ColumnCount = 3;
+            this.tableLayoutMotion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutMotion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.tableLayoutMotion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutMotion.Controls.Add(this.panelView, 1, 0);
+            this.tableLayoutMotion.Controls.Add(this.panelMotionButtons, 2, 0);
+            this.tableLayoutMotion.Controls.Add(this.panelMotionControls, 0, 0);
+            this.tableLayoutMotion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutMotion.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutMotion.Name = "tableLayoutMotion";
+            this.tableLayoutMotion.RowCount = 1;
+            this.tableLayoutMotion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutMotion.Size = new System.Drawing.Size(744, 278);
+            this.tableLayoutMotion.TabIndex = 22;
+            // 
+            // panelView
+            // 
+            this.panelView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelView.Location = new System.Drawing.Point(226, 3);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(403, 272);
+            this.panelView.TabIndex = 23;
+            this.panelView.TabStop = false;
+            this.panelView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelView_Paint);
+            // 
+            // panelMotionButtons
+            // 
+            this.panelMotionButtons.Controls.Add(this.btnSetHome);
+            this.panelMotionButtons.Controls.Add(this.btnHome);
+            this.panelMotionButtons.Controls.Add(this.btnMotorStatus);
+            this.panelMotionButtons.Controls.Add(this.groupBox13);
+            this.panelMotionButtons.Controls.Add(this.groupBox10);
+            this.panelMotionButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMotionButtons.Location = new System.Drawing.Point(635, 3);
+            this.panelMotionButtons.Name = "panelMotionButtons";
+            this.panelMotionButtons.Size = new System.Drawing.Size(106, 272);
+            this.panelMotionButtons.TabIndex = 23;
+            // 
+            // btnSetHome
+            // 
+            this.btnSetHome.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSetHome.Location = new System.Drawing.Point(0, 204);
+            this.btnSetHome.Name = "btnSetHome";
+            this.btnSetHome.Size = new System.Drawing.Size(106, 23);
+            this.btnSetHome.TabIndex = 22;
+            this.btnSetHome.Text = "Set as Home";
+            this.btnSetHome.UseVisualStyleBackColor = true;
+            // 
+            // btnHome
+            // 
+            this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHome.Location = new System.Drawing.Point(0, 181);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(106, 23);
+            this.btnHome.TabIndex = 21;
+            this.btnHome.Text = "Go to Home";
+            this.btnHome.UseVisualStyleBackColor = true;
+            // 
             // btnMotorStatus
             // 
-            this.btnMotorStatus.Location = new System.Drawing.Point(657, 88);
+            this.btnMotorStatus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnMotorStatus.Location = new System.Drawing.Point(0, 158);
             this.btnMotorStatus.Name = "btnMotorStatus";
-            this.btnMotorStatus.Size = new System.Drawing.Size(90, 20);
-            this.btnMotorStatus.TabIndex = 4;
+            this.btnMotorStatus.Size = new System.Drawing.Size(106, 23);
+            this.btnMotorStatus.TabIndex = 20;
             this.btnMotorStatus.Text = "Motor Status";
             this.btnMotorStatus.UseVisualStyleBackColor = true;
-            this.btnMotorStatus.Click += new System.EventHandler(this.btnMotorStatus_Click);
             // 
             // groupBox13
             // 
             this.groupBox13.Controls.Add(this.radioMoveRel);
             this.groupBox13.Controls.Add(this.radioMoveAbs);
-            this.groupBox13.Location = new System.Drawing.Point(657, 6);
+            this.groupBox13.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox13.Location = new System.Drawing.Point(0, 88);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(90, 70);
+            this.groupBox13.Size = new System.Drawing.Size(106, 70);
             this.groupBox13.TabIndex = 4;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Mode";
@@ -494,6 +536,17 @@
             this.radioMoveAbs.Text = "Absolute";
             this.radioMoveAbs.UseVisualStyleBackColor = true;
             // 
+            // panelMotionControls
+            // 
+            this.panelMotionControls.Controls.Add(this.groupBox3);
+            this.panelMotionControls.Controls.Add(this.groupBox2);
+            this.panelMotionControls.Controls.Add(this.groupBox1);
+            this.panelMotionControls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMotionControls.Location = new System.Drawing.Point(3, 3);
+            this.panelMotionControls.Name = "panelMotionControls";
+            this.panelMotionControls.Size = new System.Drawing.Size(217, 272);
+            this.panelMotionControls.TabIndex = 24;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.fine2ZIndicator);
@@ -505,10 +558,11 @@
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.fine2XPos);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Location = new System.Drawing.Point(440, 6);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox3.Location = new System.Drawing.Point(0, 174);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(211, 102);
-            this.groupBox3.TabIndex = 2;
+            this.groupBox3.Size = new System.Drawing.Size(217, 102);
+            this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Fine 2";
             // 
@@ -543,7 +597,6 @@
             this.fine2ZPos.Name = "fine2ZPos";
             this.fine2ZPos.Size = new System.Drawing.Size(90, 20);
             this.fine2ZPos.TabIndex = 5;
-            this.fine2ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2ZPos_KeyDown);
             // 
             // label6
             // 
@@ -561,7 +614,6 @@
             this.fine2YPos.Name = "fine2YPos";
             this.fine2YPos.Size = new System.Drawing.Size(90, 20);
             this.fine2YPos.TabIndex = 3;
-            this.fine2YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2YPos_KeyDown);
             // 
             // label7
             // 
@@ -579,7 +631,6 @@
             this.fine2XPos.Name = "fine2XPos";
             this.fine2XPos.Size = new System.Drawing.Size(90, 20);
             this.fine2XPos.TabIndex = 1;
-            this.fine2XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2XPos_KeyDown);
             // 
             // label8
             // 
@@ -601,10 +652,11 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.fine1XPos);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(223, 6);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(0, 72);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(211, 102);
-            this.groupBox2.TabIndex = 1;
+            this.groupBox2.Size = new System.Drawing.Size(217, 102);
+            this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fine 1";
             // 
@@ -639,7 +691,6 @@
             this.fine1ZPos.Name = "fine1ZPos";
             this.fine1ZPos.Size = new System.Drawing.Size(90, 20);
             this.fine1ZPos.TabIndex = 5;
-            this.fine1ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1ZPos_KeyDown);
             // 
             // label5
             // 
@@ -657,7 +708,6 @@
             this.fine1YPos.Name = "fine1YPos";
             this.fine1YPos.Size = new System.Drawing.Size(90, 20);
             this.fine1YPos.TabIndex = 3;
-            this.fine1YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1YPos_KeyDown);
             // 
             // label3
             // 
@@ -675,7 +725,6 @@
             this.fine1XPos.Name = "fine1XPos";
             this.fine1XPos.Size = new System.Drawing.Size(90, 20);
             this.fine1XPos.TabIndex = 1;
-            this.fine1XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1XPos_KeyDown);
             // 
             // label4
             // 
@@ -694,10 +743,11 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.coarseXPos);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(211, 72);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.Size = new System.Drawing.Size(217, 72);
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Coarse";
             // 
@@ -724,7 +774,6 @@
             this.coarseYPos.Name = "coarseYPos";
             this.coarseYPos.Size = new System.Drawing.Size(90, 20);
             this.coarseYPos.TabIndex = 3;
-            this.coarseYPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseYPos_KeyDown);
             // 
             // label2
             // 
@@ -742,7 +791,6 @@
             this.coarseXPos.Name = "coarseXPos";
             this.coarseXPos.Size = new System.Drawing.Size(90, 20);
             this.coarseXPos.TabIndex = 1;
-            this.coarseXPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseXPos_KeyDown);
             // 
             // label1
             // 
@@ -752,16 +800,6 @@
             this.label1.Size = new System.Drawing.Size(14, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "X";
-            // 
-            // panelView
-            // 
-            this.panelView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelView.Location = new System.Drawing.Point(6, 114);
-            this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(742, 434);
-            this.panelView.TabIndex = 3;
-            this.panelView.TabStop = false;
-            this.panelView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelView_Paint);
             // 
             // tabPageSetup
             // 
@@ -778,7 +816,7 @@
             this.tabPageSetup.Location = new System.Drawing.Point(4, 22);
             this.tabPageSetup.Name = "tabPageSetup";
             this.tabPageSetup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSetup.Size = new System.Drawing.Size(756, 560);
+            this.tabPageSetup.Size = new System.Drawing.Size(750, 284);
             this.tabPageSetup.TabIndex = 0;
             this.tabPageSetup.Text = "Setup";
             this.tabPageSetup.UseVisualStyleBackColor = true;
@@ -970,6 +1008,23 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "WFOV 2";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(7, 46);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(64, 13);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "micron/pixel";
+            // 
+            // wfov2Scale
+            // 
+            this.wfov2Scale.Location = new System.Drawing.Point(82, 43);
+            this.wfov2Scale.Name = "wfov2Scale";
+            this.wfov2Scale.Size = new System.Drawing.Size(100, 20);
+            this.wfov2Scale.TabIndex = 4;
+            this.wfov2Scale.Text = "9.08";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -1000,6 +1055,23 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "WFOV 1";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(7, 46);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(64, 13);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "micron/pixel";
+            // 
+            // wfov1Scale
+            // 
+            this.wfov1Scale.Location = new System.Drawing.Point(82, 43);
+            this.wfov1Scale.Name = "wfov1Scale";
+            this.wfov1Scale.Size = new System.Drawing.Size(100, 20);
+            this.wfov1Scale.TabIndex = 2;
+            this.wfov1Scale.Text = "9.08";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -1022,56 +1094,118 @@
             this.tabControl1.Controls.Add(this.tabPageSetup);
             this.tabControl1.Controls.Add(this.tabPageMotion);
             this.tabControl1.Controls.Add(this.tabPageResults);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabControl1.Location = new System.Drawing.Point(0, 85);
+            this.tabControl1.Controls.Add(this.tabPagePressure);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(3, 58);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(764, 586);
+            this.tabControl1.Size = new System.Drawing.Size(758, 310);
             this.tabControl1.TabIndex = 0;
             // 
-            // label11
+            // tabPagePressure
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 46);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(64, 13);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "micron/pixel";
+            this.tabPagePressure.Controls.Add(this.chartCycles);
+            this.tabPagePressure.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePressure.Name = "tabPagePressure";
+            this.tabPagePressure.Size = new System.Drawing.Size(750, 284);
+            this.tabPagePressure.TabIndex = 5;
+            this.tabPagePressure.Text = "Pressure";
+            this.tabPagePressure.UseVisualStyleBackColor = true;
             // 
-            // wfov1Scale
+            // chartCycles
             // 
-            this.wfov1Scale.Location = new System.Drawing.Point(82, 43);
-            this.wfov1Scale.Name = "wfov1Scale";
-            this.wfov1Scale.Size = new System.Drawing.Size(100, 20);
-            this.wfov1Scale.TabIndex = 2;
-            this.wfov1Scale.Text = "9.08";
+            chartArea2.Name = "ChartArea1";
+            this.chartCycles.ChartAreas.Add(chartArea2);
+            this.chartCycles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartCycles.Location = new System.Drawing.Point(0, 0);
+            this.chartCycles.Name = "chartCycles";
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.chartCycles.Series.Add(series2);
+            this.chartCycles.Size = new System.Drawing.Size(750, 284);
+            this.chartCycles.TabIndex = 8;
+            this.chartCycles.Text = "chart2";
             // 
-            // label12
+            // tableLayoutMain
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(7, 46);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(64, 13);
-            this.label12.TabIndex = 3;
-            this.label12.Text = "micron/pixel";
+            this.tableLayoutMain.ColumnCount = 1;
+            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutMain.Controls.Add(this.tabControl1, 0, 1);
+            this.tableLayoutMain.Controls.Add(this.panelTestControls, 0, 0);
+            this.tableLayoutMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutMain.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutMain.Name = "tableLayoutMain";
+            this.tableLayoutMain.RowCount = 2;
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutMain.Size = new System.Drawing.Size(764, 371);
+            this.tableLayoutMain.TabIndex = 21;
             // 
-            // wfov2Scale
+            // panelTestControls
             // 
-            this.wfov2Scale.Location = new System.Drawing.Point(82, 43);
-            this.wfov2Scale.Name = "wfov2Scale";
-            this.wfov2Scale.Size = new System.Drawing.Size(100, 20);
-            this.wfov2Scale.TabIndex = 4;
-            this.wfov2Scale.Text = "9.08";
+            this.panelTestControls.Controls.Add(this.groupBox12);
+            this.panelTestControls.Controls.Add(this.groupBox11);
+            this.panelTestControls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTestControls.Location = new System.Drawing.Point(3, 3);
+            this.panelTestControls.Name = "panelTestControls";
+            this.panelTestControls.Size = new System.Drawing.Size(758, 49);
+            this.panelTestControls.TabIndex = 1;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.textPressure);
+            this.groupBox12.Controls.Add(this.label26);
+            this.groupBox12.Controls.Add(this.textCycle);
+            this.groupBox12.Controls.Add(this.label25);
+            this.groupBox12.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox12.Location = new System.Drawing.Point(318, 0);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(278, 49);
+            this.groupBox12.TabIndex = 21;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Test Status";
+            // 
+            // textPressure
+            // 
+            this.textPressure.Location = new System.Drawing.Point(187, 22);
+            this.textPressure.Name = "textPressure";
+            this.textPressure.ReadOnly = true;
+            this.textPressure.Size = new System.Drawing.Size(85, 20);
+            this.textPressure.TabIndex = 14;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(133, 24);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(48, 13);
+            this.label26.TabIndex = 13;
+            this.label26.Text = "Pressure";
+            // 
+            // textCycle
+            // 
+            this.textCycle.Location = new System.Drawing.Point(45, 22);
+            this.textCycle.Name = "textCycle";
+            this.textCycle.ReadOnly = true;
+            this.textCycle.Size = new System.Drawing.Size(82, 20);
+            this.textCycle.TabIndex = 12;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 24);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(33, 13);
+            this.label25.TabIndex = 11;
+            this.label25.Text = "Cycle";
             // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 671);
-            this.Controls.Add(this.groupBox12);
-            this.Controls.Add(this.groupBox11);
-            this.Controls.Add(this.groupBox10);
-            this.Controls.Add(this.tabControl1);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(764, 395);
+            this.Controls.Add(this.tableLayoutMain);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -1080,6 +1214,7 @@
             this.Text = "RCCM";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RCCMMainForm_FormClosed);
             this.Load += new System.EventHandler(this.RCCMMainForm_Load);
+            this.Resize += new System.EventHandler(this.RCCMMainForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).EndInit();
@@ -1087,14 +1222,16 @@
             this.groupBox10.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
             this.tabPageResults.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).EndInit();
+            this.tableLayoutResults.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartCracks)).EndInit();
             this.tabPageMotion.ResumeLayout(false);
+            this.tableLayoutMotion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelView)).EndInit();
+            this.panelMotionButtons.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
+            this.panelMotionControls.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).EndInit();
@@ -1109,7 +1246,6 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelView)).EndInit();
             this.tabPageSetup.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
@@ -1122,8 +1258,14 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.tabPagePressure.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).EndInit();
+            this.tableLayoutMain.ResumeLayout(false);
+            this.panelTestControls.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1144,55 +1286,20 @@
         private System.Windows.Forms.Button btnStopTest;
         private System.Windows.Forms.Button btnStartTest;
         private System.Windows.Forms.Button btnPauseTest;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioRCCM1;
+        private System.Windows.Forms.RadioButton radioRCCM2;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.GroupBox groupBox12;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox textCycle;
-        private System.Windows.Forms.TextBox textPressure;
-        private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageResults;
         private System.Windows.Forms.ListBox listCrackSelection;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartCycles;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCracks;
         private System.Windows.Forms.TabPage tabPageMotion;
-        private System.Windows.Forms.Button btnMotorStatus;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.RadioButton radioMoveRel;
         private System.Windows.Forms.RadioButton radioMoveAbs;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox fine2ZIndicator;
-        private System.Windows.Forms.TextBox fine2YIndicator;
-        private System.Windows.Forms.TextBox fine2XIndicator;
-        private System.Windows.Forms.NumericUpDown fine2ZPos;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown fine2YPos;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown fine2XPos;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox fine1ZIndicator;
-        private System.Windows.Forms.TextBox fine1YIndicator;
-        private System.Windows.Forms.TextBox fine1XIndicator;
-        private System.Windows.Forms.NumericUpDown fine1ZPos;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown fine1YPos;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown fine1XPos;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox coarseYIndicator;
-        private System.Windows.Forms.TextBox coarseXIndicator;
-        private System.Windows.Forms.NumericUpDown coarseYPos;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown coarseXPos;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox panelView;
         private System.Windows.Forms.TabPage tabPageSetup;
         private System.Windows.Forms.Button btnNFOV1Open;
         private System.Windows.Forms.Button button1;
@@ -1225,6 +1332,51 @@
         private System.Windows.Forms.TextBox wfov2Scale;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox wfov1Scale;
+        private System.Windows.Forms.RadioButton radioCoarse;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutMotion;
+        private System.Windows.Forms.TabPage tabPagePressure;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartCycles;
+        private System.Windows.Forms.PictureBox panelView;
+        private System.Windows.Forms.Panel panelMotionButtons;
+        private System.Windows.Forms.Panel panelMotionControls;
+        private System.Windows.Forms.Button btnSetHome;
+        private System.Windows.Forms.Button btnHome;
+        private System.Windows.Forms.Button btnMotorStatus;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutResults;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutMain;
+        private System.Windows.Forms.Panel panelTestControls;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.TextBox textPressure;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox textCycle;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox coarseYIndicator;
+        private System.Windows.Forms.TextBox coarseXIndicator;
+        private System.Windows.Forms.NumericUpDown coarseYPos;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown coarseXPos;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox fine2ZIndicator;
+        private System.Windows.Forms.TextBox fine2YIndicator;
+        private System.Windows.Forms.TextBox fine2XIndicator;
+        private System.Windows.Forms.NumericUpDown fine2ZPos;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown fine2YPos;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown fine2XPos;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox fine1ZIndicator;
+        private System.Windows.Forms.TextBox fine1YIndicator;
+        private System.Windows.Forms.TextBox fine1XIndicator;
+        private System.Windows.Forms.NumericUpDown fine1ZPos;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown fine1YPos;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown fine1XPos;
+        private System.Windows.Forms.Label label4;
     }
 }
 

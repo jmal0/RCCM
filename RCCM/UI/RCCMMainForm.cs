@@ -176,7 +176,7 @@ namespace RCCM.UI
             }
             else if (this.radioMoveRel.Checked)
             {
-                this.rccm.motors[axis].setPos(value);
+                this.rccm.motors[axis].moveRel(value);
             }
         }
         
@@ -397,6 +397,16 @@ namespace RCCM.UI
         {
             WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov2, this.cracks);
             form.Show();
+        }
+        private void RCCMMainForm_Resize(object sender, EventArgs e)
+        {
+            Console.WriteLine("hi");
+            if (WindowState != FormWindowState.Minimized)
+            {
+                // Do some stuff
+                Console.WriteLine("h2");
+                this.view.setTransform(this.panelView.CreateGraphics());
+            }            
         }
     }
 }

@@ -27,7 +27,7 @@
         "y travel": 508.0 
     },
     // Coordinate System settings
-    "rotation angle": 0.0,
+    "rotation angle": 5.0,
     // Motion settings
     "coarse X": {
         "type": "virtual",

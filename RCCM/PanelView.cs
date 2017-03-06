@@ -96,29 +96,33 @@ namespace RCCM
             g.FillRectangle(this.panelBrush, this.panel);
             this.rotateAt(g, -this.panelAngle, this.panel.X, this.panel.Y);
 
-            // Draw coarse axis travel region
+            // Draw travel regions and crosshairs
+            float size = 50;
+            float x, y;
+            // Coarse axis travel region
             g.FillRectangle(this.coarseBrush, this.coarse);
-            // Draw coarse axis position crosshair
-            g.DrawLine(this.pen, this.coarse.Left + this.coarseXPos, this.coarse.Top, this.coarse.Left + this.coarseXPos, this.coarse.Bottom); // Vert
-            g.DrawLine(this.pen, this.coarse.Left, this.coarse.Top + this.coarseYPos, this.coarse.Right, this.coarse.Top + this.coarseYPos); // Horiz
-
-            // Draw fine 1 axis travel region and position crosshair
+            // Fine 1 axis travel region
             float fine1x = this.coarseXPos + this.fine1Offset.Width;
             float fine1y = this.coarseYPos + this.fine1Offset.Height;
             this.rotateAt(g, (float)this.rccm.FineStageAngle, fine1x, fine1y);
             g.FillRectangle(this.fineBrush, this.fine1);
-            g.DrawLine(this.pen, this.fine1.Left + this.fine1XPos, this.fine1.Top, this.fine1.Left + this.fine1XPos, this.fine1.Bottom); // Vert
-            g.DrawLine(this.pen, this.fine1.Left, this.fine1.Top + this.fine1YPos, this.fine1.Right, this.fine1.Top + this.fine1YPos); // Horiz
+            // Fine 1 position crosshair
+            x = fine1x + this.fine1XPos;
+            y = fine1y + this.fine1YPos;
+            g.DrawLine(this.pen, x, y - size, x, y + size); // Vert
+            g.DrawLine(this.pen, x - size, y, x + size, y); // Horiz
             this.rotateAt(g, (float)-this.rccm.FineStageAngle, fine1x, fine1y);
-
-            // Draw fine 2 axis travel region and position crosshair
+            // Fine 2 axis travel region
             float fine2x = this.coarseXPos + this.fine2Offset.Width;
             float fine2y = this.coarseYPos + this.fine2Offset.Height;
             this.rotateAt(g, (float)this.rccm.FineStageAngle, fine2x, fine2y);
             g.FillRectangle(this.fineBrush, this.fine2);
-            g.DrawLine(this.pen, this.fine2.Left + this.fine2XPos, this.fine2.Top, this.fine2.Left + this.fine2XPos, this.fine2.Bottom); // Vert
-            g.DrawLine(this.pen, this.fine2.Left, this.fine2.Top + this.fine2YPos, this.fine2.Right, this.fine2.Top + this.fine2YPos); // Horiz
-            this.rotateAt(g, (float)-this.rccm.FineStageAngle, fine2x, fine2y);
+            // Fine 2 position crosshair
+            x = fine2x + this.fine2XPos;
+            y = fine2y + this.fine2YPos;
+            g.DrawLine(this.pen, x, y - size, x, y + size); // Vert
+            g.DrawLine(this.pen, x - size, y, x + size, y); // Horiz
+            this.rotateAt(g, (float)-this.rccm.FineStageAngle, x, y);
         }
 
         /// <summary>
