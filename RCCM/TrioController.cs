@@ -123,10 +123,16 @@ namespace RCCM
 
         public bool MoveAbs(short nAxis, double pos)
         {
-            bool status1 = this.triopc.Cancel(0, nAxis); // Cancel current move
-            bool status2 = this.triopc.Cancel(1, nAxis); // Cancel buffered moves
-            bool status3 = this.triopc.MoveAbs(1, pos, nAxis);
-            return status1 && status2 && status3;
+            double movesBuffered = 0;
+            this.triopc.GetAxisVariable("MOVE_COUNT", nAxis, out movesBuffered);
+            // If moves are buffered, cancel them and wait for them to end
+            if (movesBuffered > 0.01)
+            {
+                this.triopc.Cancel(0, nAxis); // Cancel current move
+                this.triopc.Cancel(1, nAxis); // Cancel buffered move
+                this.WaitForEndOfMove(nAxis); // Wait for axis to stop
+            }
+            return this.triopc.MoveAbs(1, pos, nAxis); // Send new move command
         }
 
         public bool MoveRel(short nAxis, double pos)
@@ -161,13 +167,13 @@ namespace RCCM
             double distRemaining = 0;
             bool bWaiting;
 
-            bWaiting = true;
+            this.triopc.GetAxisVariable("REMAIN", nAxis, out distRemaining);
+            bWaiting = Math.Abs(distRemaining) > 0.001;
             while (bWaiting)
             {
                 Console.WriteLine("waiting");
                 Thread.Sleep(100);
-                if (this.triopc.Base(1, nAxis))
-                    this.triopc.GetVariable("REMAIN", out distRemaining);
+                this.triopc.GetAxisVariable("REMAIN", nAxis, out distRemaining);
                 bWaiting = Math.Abs(distRemaining) > 0.001;
             }
         }

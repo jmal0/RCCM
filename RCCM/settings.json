@@ -60,7 +60,7 @@
 		"axis number": 0,
 		"microstep per mm": 80000.0,
 		"mm per rev": 0.1,
-		"velocity": 100.0,
+		"velocity": 10.0,
 		"acceleration": 100,
 		"deceleration": 100,
         "low position limit": -1200.0,
