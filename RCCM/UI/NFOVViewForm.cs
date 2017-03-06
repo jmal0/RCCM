@@ -241,8 +241,9 @@ namespace RCCM.UI
         private void nfovImage_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.ResetTransform(); // Reset transform to draw NFOV image
+            Pen pen = new Pen(Color.FromArgb(128, Color.Black), 0);
             // Display live image from NFOV camera
-            if (this.camera.Connected&& this.camera.getLiveImage() != null)
+            if (this.camera.Connected && this.camera.getLiveImage() != null)
             {
                 Bitmap img = new Bitmap(this.camera.getLiveImage(), 612, 512);
                 e.Graphics.DrawImage(img, 0, 0, 612, 512);
@@ -251,12 +252,11 @@ namespace RCCM.UI
             // Draw crosshair
             if (this.checkCrosshair.Checked)
             {
-                float size = e.Graphics.ClipBounds.Height / 20.0f;
-                float x = e.Graphics.ClipBounds.Width / 2.0f;
-                float y = e.Graphics.ClipBounds.Height / 2.0f;
-                Pen pen = new Pen(Color.FromArgb(128, Color.Black));
-                e.Graphics.DrawLine(pen, x - size, y, x + size, y);
-                e.Graphics.DrawLine(pen, x, y - size, x, y + size);
+                float midX = e.Graphics.ClipBounds.Width / 2.0f;
+                float midY = e.Graphics.ClipBounds.Height / 2.0f;
+                // Draw crosshair
+                e.Graphics.DrawLine(pen, 0, midY, e.Graphics.ClipBounds.Width, midY);
+                e.Graphics.DrawLine(pen, midX, 0, midX, e.Graphics.ClipBounds.Height);
             }
 
             // Now transform to world coordinates
@@ -270,6 +270,42 @@ namespace RCCM.UI
             float scaleX = bounds.Width / (float)this.camera.Width;
             float scaleY = bounds.Height / (float)this.camera.Height;
             e.Graphics.ScaleTransform(scaleX, scaleY);
+            // Draw ruler (ticks on crosshair at defined spacing
+            if (this.checkCrosshair.Checked)
+            {
+                float size = (float)Program.Settings.json["ruler spacing"] / 1000.0f;
+                float x, y;
+                float midX = e.Graphics.ClipBounds.X + e.Graphics.ClipBounds.Width / 2;
+                float midY = e.Graphics.ClipBounds.Y + e.Graphics.ClipBounds.Height / 2;
+                x = midX + size;
+                while (x < e.Graphics.ClipBounds.X + e.Graphics.ClipBounds.Width)
+                {
+                    float tempSize = Math.Round(Math.Abs(x - midX) / size) == 10.0 ? size : size / 2f;
+                    e.Graphics.DrawLine(pen, x, midY - tempSize, x, midY + tempSize);
+                    x += size;
+                }
+                x = midX - size;
+                while (x > e.Graphics.ClipBounds.X)
+                {
+                    float tempSize = Math.Round(Math.Abs(x - midX) / size) == 10.0 ? size : size / 2f;
+                    e.Graphics.DrawLine(pen, x, midY - tempSize, x, midY + tempSize);
+                    x -= size;
+                }
+                y = midY + size;
+                while (y < e.Graphics.ClipBounds.Y + e.Graphics.ClipBounds.Height)
+                {
+                    float tempSize = Math.Round(Math.Abs(y - midY) / size) == 10.0 ? size : size / 2f;
+                    e.Graphics.DrawLine(pen, midX - tempSize, y, midX + tempSize, y);
+                    y += size;
+                }
+                y = midY - size;
+                while (y > e.Graphics.ClipBounds.Y)
+                {
+                    float tempSize = Math.Round(Math.Abs(y - midY) / size) == 10.0 ? size : size / 2f;
+                    e.Graphics.DrawLine(pen, midX - tempSize, y, midX + tempSize, y);
+                    y -= size;
+                }
+            }            
             // Move to NFOV location (first move origin to image center)
             e.Graphics.TranslateTransform((float)this.camera.Width / 2, (float)this.camera.Height / 2);
             PointF pos = this.rccm.getNFOVLocation(this.stage);
