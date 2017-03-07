@@ -27,7 +27,16 @@ namespace RCCM
 
         protected PointF rccm1Offset;
         protected PointF rccm2Offset;
-        public double FineStageAngle { get; private set; }
+        public double FineStageAngle
+        {
+            get { return this.fineStageAngle; }
+            set
+            {
+                this.fineStageAngle = value;
+                this.setRotationMatrix();
+            }
+        }
+        protected double fineStageAngle;
         protected double[,] fineStageRotation;
 
         public TrioController triopc { get; private set; }
@@ -85,8 +94,12 @@ namespace RCCM
             this.rccm2Offset = new PointF((float)Program.Settings.json["fine 2"]["x"],
                                           (float)Program.Settings.json["fine 2"]["y"]);
             // Create rotation matrix representing rotation plate angle
-            this.FineStageAngle = (double) Program.Settings.json["rotation angle"];
-            this.fineStageRotation = new double[2,2];
+            this.fineStageRotation = new double[2, 2];
+            this.FineStageAngle = (double) Program.Settings.json["rotation angle"];            
+        }
+
+        protected void setRotationMatrix()
+        {
             this.fineStageRotation[0, 0] = Math.Cos(this.FineStageAngle * Math.PI / 180.0);
             this.fineStageRotation[0, 1] = Math.Sin(this.FineStageAngle * Math.PI / 180.0);
             this.fineStageRotation[1, 0] = -Math.Sin(this.FineStageAngle * Math.PI / 180.0);

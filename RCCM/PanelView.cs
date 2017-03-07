@@ -63,12 +63,12 @@ namespace RCCM
             float yFine2 = (float)Program.Settings.json["fine 2"]["y"];
             float wFine2 = (float)Program.Settings.json["fine 2"]["x travel"];
             float hFine2 = (float)Program.Settings.json["fine 2"]["y travel"];
+            this.fine1 = new RectangleF(xFine1, yFine1, wFine1, hFine1);
+            this.fine2 = new RectangleF(xFine2, yFine2, wFine2, hFine2);
             PointF fine1Off = this.rccm.fineVectorToGlobalVector(xFine1, yFine1);
             PointF fine2Off = this.rccm.fineVectorToGlobalVector(xFine2, yFine2);
             this.fine1Offset = new SizeF(fine1Off.X, fine1Off.Y);
             this.fine2Offset = new SizeF(fine2Off.X, fine2Off.Y);
-            this.fine1 = new RectangleF(xFine1, yFine1, wFine1, hFine1);
-            this.fine2 = new RectangleF(xFine2, yFine2, wFine2, hFine2);
             // Create brushes/pens to draw with
             this.panelBrush = new SolidBrush(Color.FromArgb(255, Color.Gray));
             this.coarseBrush = new SolidBrush(Color.FromArgb(128, Color.LightGray));
@@ -169,6 +169,14 @@ namespace RCCM
             PointF coarsePos = new PointF(this.coarseXPos, this.coarseYPos);
             this.fine1.Location = PointF.Add(coarsePos, this.fine1Offset);
             this.fine2.Location = PointF.Add(coarsePos, this.fine2Offset);
+            float xFine1 = (float)Program.Settings.json["fine 1"]["x"];
+            float yFine1 = (float)Program.Settings.json["fine 1"]["y"];
+            float xFine2 = (float)Program.Settings.json["fine 2"]["x"];
+            float yFine2 = (float)Program.Settings.json["fine 2"]["y"];
+            PointF fine1Off = this.rccm.fineVectorToGlobalVector(xFine1, yFine1);
+            PointF fine2Off = this.rccm.fineVectorToGlobalVector(xFine2, yFine2);
+            this.fine1Offset = new SizeF(fine1Off.X, fine1Off.Y);
+            this.fine2Offset = new SizeF(fine2Off.X, fine2Off.Y);
         }
     }
 }

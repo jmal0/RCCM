@@ -188,7 +188,7 @@
     },
     // UI Settings
     "repaint period": 100,
-	"ruler spacing": 1000,
+	"ruler spacing": 250,
     // Test settings
     "cycle frequency": 1,
 	"pressure readings saved": 100

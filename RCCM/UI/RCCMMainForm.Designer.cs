@@ -104,7 +104,6 @@
             this.btnNFOV2Open = new System.Windows.Forms.Button();
             this.btnWFOV1Open = new System.Windows.Forms.Button();
             this.btnNFOV1Open = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
             this.nfov2Scale = new System.Windows.Forms.TextBox();
@@ -131,7 +130,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPagePressure = new System.Windows.Forms.TabPage();
             this.chartCycles = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.directoryEntry = new System.DirectoryServices.DirectoryEntry();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
@@ -141,6 +139,17 @@
             this.label26 = new System.Windows.Forms.Label();
             this.textCycle = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.editRotation = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.label21 = new System.Windows.Forms.Label();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBox10.SuspendLayout();
@@ -179,6 +188,12 @@
             this.tableLayoutMain.SuspendLayout();
             this.panelTestControls.SuspendLayout();
             this.groupBox12.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editRotation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem
@@ -828,11 +843,11 @@
             // 
             // tabPageSetup
             // 
+            this.tabPageSetup.Controls.Add(this.groupBox9);
             this.tabPageSetup.Controls.Add(this.btnWFOV2Open);
             this.tabPageSetup.Controls.Add(this.btnNFOV2Open);
             this.tabPageSetup.Controls.Add(this.btnWFOV1Open);
             this.tabPageSetup.Controls.Add(this.btnNFOV1Open);
-            this.tabPageSetup.Controls.Add(this.button1);
             this.tabPageSetup.Controls.Add(this.groupBox8);
             this.tabPageSetup.Controls.Add(this.groupBox7);
             this.tabPageSetup.Controls.Add(this.groupBox6);
@@ -848,7 +863,7 @@
             // 
             // btnWFOV2Open
             // 
-            this.btnWFOV2Open.Location = new System.Drawing.Point(293, 178);
+            this.btnWFOV2Open.Location = new System.Drawing.Point(569, 176);
             this.btnWFOV2Open.Name = "btnWFOV2Open";
             this.btnWFOV2Open.Size = new System.Drawing.Size(75, 23);
             this.btnWFOV2Open.TabIndex = 10;
@@ -858,7 +873,7 @@
             // 
             // btnNFOV2Open
             // 
-            this.btnNFOV2Open.Location = new System.Drawing.Point(293, 153);
+            this.btnNFOV2Open.Location = new System.Drawing.Point(569, 151);
             this.btnNFOV2Open.Name = "btnNFOV2Open";
             this.btnNFOV2Open.Size = new System.Drawing.Size(75, 23);
             this.btnNFOV2Open.TabIndex = 9;
@@ -868,7 +883,7 @@
             // 
             // btnWFOV1Open
             // 
-            this.btnWFOV1Open.Location = new System.Drawing.Point(212, 178);
+            this.btnWFOV1Open.Location = new System.Drawing.Point(488, 176);
             this.btnWFOV1Open.Name = "btnWFOV1Open";
             this.btnWFOV1Open.Size = new System.Drawing.Size(75, 23);
             this.btnWFOV1Open.TabIndex = 8;
@@ -878,23 +893,13 @@
             // 
             // btnNFOV1Open
             // 
-            this.btnNFOV1Open.Location = new System.Drawing.Point(212, 153);
+            this.btnNFOV1Open.Location = new System.Drawing.Point(488, 151);
             this.btnNFOV1Open.Name = "btnNFOV1Open";
             this.btnNFOV1Open.Size = new System.Drawing.Size(75, 23);
             this.btnNFOV1Open.TabIndex = 7;
             this.btnNFOV1Open.Text = "NFOV 1";
             this.btnNFOV1Open.UseVisualStyleBackColor = true;
             this.btnNFOV1Open.Click += new System.EventHandler(this.btnNFOV1Open_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(212, 124);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox8
             // 
@@ -985,6 +990,7 @@
             this.textDataDir.Size = new System.Drawing.Size(100, 20);
             this.textDataDir.TabIndex = 5;
             this.textDataDir.Text = "data";
+            this.textDataDir.Enter += new System.EventHandler(this.textDataDir_Enter);
             // 
             // label14
             // 
@@ -1002,6 +1008,7 @@
             this.textVideoDir.Size = new System.Drawing.Size(100, 20);
             this.textVideoDir.TabIndex = 1;
             this.textVideoDir.Text = "C:\\Users\\John\\Videos\\RCCM";
+            this.textVideoDir.Enter += new System.EventHandler(this.textVideoDir_Enter);
             // 
             // label13
             // 
@@ -1019,6 +1026,7 @@
             this.textImageDir.Size = new System.Drawing.Size(100, 20);
             this.textImageDir.TabIndex = 0;
             this.textImageDir.Text = "C:\\Users\\John\\Pictures\\RCCM";
+            this.textImageDir.Enter += new System.EventHandler(this.textImageDir_Enter);
             // 
             // groupBox5
             // 
@@ -1224,6 +1232,143 @@
             this.label25.TabIndex = 11;
             this.label25.Text = "Cycle";
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.numericUpDown4);
+            this.groupBox9.Controls.Add(this.label21);
+            this.groupBox9.Controls.Add(this.numericUpDown3);
+            this.groupBox9.Controls.Add(this.label18);
+            this.groupBox9.Controls.Add(this.numericUpDown2);
+            this.groupBox9.Controls.Add(this.label19);
+            this.groupBox9.Controls.Add(this.editRotation);
+            this.groupBox9.Controls.Add(this.label20);
+            this.groupBox9.Location = new System.Drawing.Point(214, 114);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(200, 127);
+            this.groupBox9.TabIndex = 6;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Coordinate System";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(7, 20);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(94, 13);
+            this.label20.TabIndex = 0;
+            this.label20.Text = "Fine stage rotation";
+            // 
+            // editRotation
+            // 
+            this.editRotation.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            327680});
+            this.editRotation.Location = new System.Drawing.Point(107, 18);
+            this.editRotation.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.editRotation.Name = "editRotation";
+            this.editRotation.Size = new System.Drawing.Size(87, 20);
+            this.editRotation.TabIndex = 6;
+            this.editRotation.ValueChanged += new System.EventHandler(this.editRotation_ValueChanged);
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            327680});
+            this.numericUpDown2.Location = new System.Drawing.Point(107, 44);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(87, 20);
+            this.numericUpDown2.TabIndex = 8;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(7, 46);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(72, 13);
+            this.label19.TabIndex = 7;
+            this.label19.Text = "Panel rotation";
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            327680});
+            this.numericUpDown3.Location = new System.Drawing.Point(107, 96);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(87, 20);
+            this.numericUpDown3.TabIndex = 10;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(7, 98);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(73, 13);
+            this.label18.TabIndex = 9;
+            this.label18.Text = "Panel Y offset";
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            327680});
+            this.numericUpDown4.Location = new System.Drawing.Point(107, 70);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown4.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(87, 20);
+            this.numericUpDown4.TabIndex = 12;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(7, 72);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(73, 13);
+            this.label21.TabIndex = 11;
+            this.label21.Text = "Panel X offset";
+            // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1291,6 +1436,13 @@
             this.panelTestControls.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editRotation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1327,7 +1479,6 @@
         private System.Windows.Forms.RadioButton radioMoveAbs;
         private System.Windows.Forms.TabPage tabPageSetup;
         private System.Windows.Forms.Button btnNFOV1Open;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox nfov2Scale;
@@ -1348,7 +1499,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox wfov1Config;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.DirectoryServices.DirectoryEntry directoryEntry;
         private System.Windows.Forms.BindingSource bindingSource2;
         private System.Windows.Forms.Button btnWFOV2Open;
         private System.Windows.Forms.Button btnNFOV2Open;
@@ -1403,6 +1553,17 @@
         private System.Windows.Forms.NumericUpDown fine1XPos;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnMotorProperties;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.NumericUpDown editRotation;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }
 

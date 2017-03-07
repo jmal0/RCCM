@@ -15,6 +15,7 @@ using TIS.Imaging;
 using FlyCapture2Managed;
 using FlyCapture2Managed.Gui;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace RCCM.UI
 {
@@ -63,7 +64,7 @@ namespace RCCM.UI
 
             InitializeComponent();
             
-            this.applyUISettings(Program.Settings);
+            this.applyUISettings();
             
             this.nfov1 = this.rccm.NFOV1;
             this.nfov2 = this.rccm.NFOV2;
@@ -208,38 +209,43 @@ namespace RCCM.UI
 
         #region Settings
 
-        public void applyUISettings(Settings settings)
+        public void applyUISettings()
         {
-            this.nfov1Scale.Text = (string)settings.json["nfov 1"]["microns / pixel"];
-            this.nfov2Scale.Text = (string)settings.json["nfov 2"]["microns / pixel"];
-            this.wfov1Scale.Text = (string)settings.json["wfov 1"]["microns / pixel"];
-            this.wfov2Scale.Text = (string)settings.json["wfov 2"]["microns / pixel"];
+            // Cameras
+            this.nfov1Scale.Text = (string)Program.Settings.json["nfov 1"]["microns / pixel"];
+            this.nfov2Scale.Text = (string)Program.Settings.json["nfov 2"]["microns / pixel"];
+            this.wfov1Scale.Text = (string)Program.Settings.json["wfov 1"]["microns / pixel"];
+            this.wfov2Scale.Text = (string)Program.Settings.json["wfov 2"]["microns / pixel"];
             // Make NumericUpDown increment property equal to motor minimum step size
-            this.coarseXPos.Increment = (decimal) settings.json["coarse X"]["step"];
-            this.coarseYPos.Increment = (decimal) settings.json["coarse Y"]["step"];
-            this.fine1XPos.Increment = (decimal) settings.json["fine 1 X"]["step"];
-            this.fine1YPos.Increment = (decimal) settings.json["fine 1 Y"]["step"];
-            this.fine1ZPos.Increment = (decimal) settings.json["fine 1 Z"]["step"];
-            this.fine2XPos.Increment = (decimal) settings.json["fine 2 X"]["step"];
-            this.fine2YPos.Increment = (decimal) settings.json["fine 2 Y"]["step"];
-            this.fine2ZPos.Increment = (decimal) settings.json["fine 2 Z"]["step"];
+            this.coarseXPos.Increment = (decimal) Program.Settings.json["coarse X"]["step"];
+            this.coarseYPos.Increment = (decimal) Program.Settings.json["coarse Y"]["step"];
+            this.fine1XPos.Increment = (decimal) Program.Settings.json["fine 1 X"]["step"];
+            this.fine1YPos.Increment = (decimal) Program.Settings.json["fine 1 Y"]["step"];
+            this.fine1ZPos.Increment = (decimal) Program.Settings.json["fine 1 Z"]["step"];
+            this.fine2XPos.Increment = (decimal) Program.Settings.json["fine 2 X"]["step"];
+            this.fine2YPos.Increment = (decimal) Program.Settings.json["fine 2 Y"]["step"];
+            this.fine2ZPos.Increment = (decimal) Program.Settings.json["fine 2 Z"]["step"];
             // Apply motor position limits to NumericUpDowns
-            this.coarseXPos.Minimum = (decimal)settings.json["coarse X"]["low position limit"];
-            this.coarseYPos.Minimum = (decimal)settings.json["coarse Y"]["low position limit"];
-            this.fine1XPos.Minimum = (decimal)settings.json["fine 1 X"]["low position limit"];
-            this.fine1YPos.Minimum = (decimal)settings.json["fine 1 Y"]["low position limit"];
-            this.fine1ZPos.Minimum = (decimal)settings.json["fine 1 Z"]["low position limit"];
-            this.fine2XPos.Minimum = (decimal)settings.json["fine 2 X"]["low position limit"];
-            this.fine2YPos.Minimum = (decimal)settings.json["fine 2 Y"]["low position limit"];
-            this.fine2ZPos.Minimum = (decimal)settings.json["fine 2 Z"]["low position limit"];
-            this.coarseXPos.Maximum = (decimal)settings.json["coarse X"]["high position limit"];
-            this.coarseYPos.Maximum = (decimal)settings.json["coarse Y"]["high position limit"];
-            this.fine1XPos.Maximum = (decimal)settings.json["fine 1 X"]["high position limit"];
-            this.fine1YPos.Maximum = (decimal)settings.json["fine 1 Y"]["high position limit"];
-            this.fine1ZPos.Maximum = (decimal)settings.json["fine 1 Z"]["high position limit"];
-            this.fine2XPos.Maximum = (decimal)settings.json["fine 2 X"]["high position limit"];
-            this.fine2YPos.Maximum = (decimal)settings.json["fine 2 Y"]["high position limit"];
-            this.fine2ZPos.Maximum = (decimal)settings.json["fine 2 Z"]["high position limit"];
+            this.coarseXPos.Minimum = (decimal)Program.Settings.json["coarse X"]["low position limit"];
+            this.coarseYPos.Minimum = (decimal)Program.Settings.json["coarse Y"]["low position limit"];
+            this.fine1XPos.Minimum = (decimal)Program.Settings.json["fine 1 X"]["low position limit"];
+            this.fine1YPos.Minimum = (decimal)Program.Settings.json["fine 1 Y"]["low position limit"];
+            this.fine1ZPos.Minimum = (decimal)Program.Settings.json["fine 1 Z"]["low position limit"];
+            this.fine2XPos.Minimum = (decimal)Program.Settings.json["fine 2 X"]["low position limit"];
+            this.fine2YPos.Minimum = (decimal)Program.Settings.json["fine 2 Y"]["low position limit"];
+            this.fine2ZPos.Minimum = (decimal)Program.Settings.json["fine 2 Z"]["low position limit"];
+            this.coarseXPos.Maximum = (decimal)Program.Settings.json["coarse X"]["high position limit"];
+            this.coarseYPos.Maximum = (decimal)Program.Settings.json["coarse Y"]["high position limit"];
+            this.fine1XPos.Maximum = (decimal)Program.Settings.json["fine 1 X"]["high position limit"];
+            this.fine1YPos.Maximum = (decimal)Program.Settings.json["fine 1 Y"]["high position limit"];
+            this.fine1ZPos.Maximum = (decimal)Program.Settings.json["fine 1 Z"]["high position limit"];
+            this.fine2XPos.Maximum = (decimal)Program.Settings.json["fine 2 X"]["high position limit"];
+            this.fine2YPos.Maximum = (decimal)Program.Settings.json["fine 2 Y"]["high position limit"];
+            this.fine2ZPos.Maximum = (decimal)Program.Settings.json["fine 2 Z"]["high position limit"];
+            // Directories
+            this.textImageDir.Text = (string)Program.Settings.json["image directory"];
+            this.textVideoDir.Text = (string)Program.Settings.json["video directory"];
+            this.textDataDir.Text = (string)Program.Settings.json["test data directory"];
         }
 
         #endregion
@@ -430,6 +436,47 @@ namespace RCCM.UI
         {
             MotorSettingsForm form = new MotorSettingsForm(this.rccm);
             form.Show();
+        }
+
+        private void editRotation_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.FineStageAngle = (double) this.editRotation.Value;
+        }
+
+        private void textImageDir_Enter(object sender, EventArgs e)
+        {
+            DialogResult result = this.folderBrowserDialog.ShowDialog();
+            Console.WriteLine(this.folderBrowserDialog.SelectedPath);
+            if (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists)
+            {
+                this.textImageDir.Text = this.folderBrowserDialog.SelectedPath;
+                Program.Settings.json["image directory"] = this.folderBrowserDialog.SelectedPath;
+            }
+        }
+
+        private void textVideoDir_Enter(object sender, EventArgs e)
+        {
+            DialogResult result = this.folderBrowserDialog.ShowDialog();
+            Console.WriteLine(this.folderBrowserDialog.SelectedPath);
+            if (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists)
+            {
+                this.textVideoDir.Text = this.folderBrowserDialog.SelectedPath;
+                Program.Settings.json["video directory"] = this.folderBrowserDialog.SelectedPath;
+            }
+        }
+
+        private void textDataDir_Enter(object sender, EventArgs e)
+        {
+            DialogResult result = this.folderBrowserDialog.ShowDialog();
+            Console.WriteLine(this.folderBrowserDialog.SelectedPath);
+            if (result == DialogResult.OK)
+            {
+                if (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists)
+                {
+                    this.textDataDir.Text = this.folderBrowserDialog.SelectedPath;
+                    Program.Settings.json["test data directory"] = this.folderBrowserDialog.SelectedPath;
+                }
+            }
         }
     }
 }
