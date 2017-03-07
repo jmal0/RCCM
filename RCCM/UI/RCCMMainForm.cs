@@ -400,13 +400,41 @@ namespace RCCM.UI
         }
         private void RCCMMainForm_Resize(object sender, EventArgs e)
         {
-            Console.WriteLine("hi");
             if (WindowState != FormWindowState.Minimized)
             {
                 // Do some stuff
-                Console.WriteLine("h2");
                 this.view.setTransform(this.panelView.CreateGraphics());
-            }            
+            }
+        }
+
+        private void tabPageMotion_Paint(object sender, PaintEventArgs e)
+        {
+            if (WindowState != FormWindowState.Minimized)
+            {
+                // Do some stuff
+                this.view.setTransform(this.panelView.CreateGraphics());
+            }
+        }
+
+        private void btnMotorStatus_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSetHome_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMotorProperties_Click(object sender, EventArgs e)
+        {
+            MotorSettingsForm form = new MotorSettingsForm(this.rccm);
+            form.Show();
         }
     }
 }

@@ -11,8 +11,7 @@ namespace RCCM
     /// </summary>
     abstract public class Motor
     {
-        public static string[] MOTOR_SETTINGS = { "microstep per mm", "velocity", "acceleration", "deceleration", "low position limit", "high position limit" };
-        // Step position 
+        public static string[] MOTOR_SETTINGS = { "velocity", "acceleration", "deceleration", "low position limit", "high position limit", "microstep per mm", "enabled", "home" }; 
         protected double commandPos = 0;
         protected bool homed = false;
         // Maintained list of motion settings and limits
@@ -57,6 +56,11 @@ namespace RCCM
         public virtual double getProperty(string property)
         {
             return this.settings[property];
+        }
+        
+        public void gotoHome()
+        {
+            this.setPos(this.settings["home"]);
         }
 
         abstract public bool initialize();

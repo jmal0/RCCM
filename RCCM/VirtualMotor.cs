@@ -24,6 +24,10 @@ namespace RCCM
         /// <returns>The previous commanded position</returns>
         override public double setPos(double cmd)
         {
+            if (this.getProperty("enabled") == 0)
+            {
+                return this.commandPos;
+            }
             double prev = this.commandPos;
             // Check that position is within range
             if (cmd >= this.settings["low position limit"] && cmd <= this.settings["high position limit"])
@@ -40,6 +44,10 @@ namespace RCCM
         /// <returns>The previous commanded position</returns>
         override public double moveRel(double dist)
         {
+            if (this.getProperty("enabled") == 0)
+            {
+                return this.commandPos;
+            }
             double prev = this.commandPos;
             // Check that position is within range
             double cmd = this.commandPos + dist;
@@ -56,6 +64,10 @@ namespace RCCM
         /// <returns>Initialization status of motor</returns>
         public override bool initialize()
         {
+            if (this.getProperty("enabled") == 0)
+            {
+                return true;
+            }
             this.homed = true;
             return this.homed;
         }

@@ -42,7 +42,6 @@ namespace RCCM
             {
                 this.triopc.SetAxisVariable("ATYPE", ax, TrioController.ATYPE);
                 this.triopc.SetAxisVariable("SERVO", ax, 0);
-                this.triopc.SetAxisVariable("AXIS_ENABLE", ax, 1);
             }
 
             if (this.Open)

@@ -123,6 +123,12 @@
     </Compile>
     <Compile Include="CycleCounter.cs" />
     <Compile Include="definitions.cs" />
+    <Compile Include="UI\MotorSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MotorSettingsForm.Designer.cs">
+      <DependentUpon>MotorSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\NFOVViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +177,9 @@
     <Compile Include="WFOV.cs" />
     <EmbeddedResource Include="UI\AboutRCCMForm.resx">
       <DependentUpon>AboutRCCMForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MotorSettingsForm.resx">
+      <DependentUpon>MotorSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\NFOVViewForm.resx">
       <DependentUpon>NFOVViewForm.cs</DependentUpon>

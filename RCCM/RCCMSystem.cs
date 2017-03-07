@@ -13,7 +13,6 @@ namespace RCCM
     public class RCCMSystem
     {
         public static string[] AXES = new string[8] { "coarse X", "coarse Y", "fine 1 X", "fine 1 Y", "fine 1 Z", "fine 2 X", "fine 2 Y", "fine 2 Z" };
-        public static string[] MOTOR_PROPERTIES = new string[2] { "low position limit", "high position limit" };
         
         public NFOV NFOV1 { get; }
         public NFOV NFOV2 { get; }
@@ -163,7 +162,18 @@ namespace RCCM
                 }
             }
         }
-        
+
+        public void saveMotorSettings()
+        {
+            foreach (string motorName in RCCMSystem.AXES)
+            {
+                foreach (string property in Motor.MOTOR_SETTINGS)
+                {
+                    Program.Settings.json[motorName][property] = this.motors[motorName].getProperty(property);
+                }
+            }
+        }
+
         #endregion
 
         public void readHeight1()

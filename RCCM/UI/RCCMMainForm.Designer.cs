@@ -140,6 +140,7 @@
             this.label26 = new System.Windows.Forms.Label();
             this.textCycle = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.btnMotorProperties = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBox10.SuspendLayout();
@@ -430,6 +431,7 @@
             this.tabPageMotion.TabIndex = 1;
             this.tabPageMotion.Text = "Motion";
             this.tabPageMotion.UseVisualStyleBackColor = true;
+            this.tabPageMotion.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPageMotion_Paint);
             // 
             // tableLayoutMotion
             // 
@@ -461,6 +463,7 @@
             // 
             // panelMotionButtons
             // 
+            this.panelMotionButtons.Controls.Add(this.btnMotorProperties);
             this.panelMotionButtons.Controls.Add(this.btnSetHome);
             this.panelMotionButtons.Controls.Add(this.btnHome);
             this.panelMotionButtons.Controls.Add(this.btnMotorStatus);
@@ -481,6 +484,7 @@
             this.btnSetHome.TabIndex = 22;
             this.btnSetHome.Text = "Set as Home";
             this.btnSetHome.UseVisualStyleBackColor = true;
+            this.btnSetHome.Click += new System.EventHandler(this.btnSetHome_Click);
             // 
             // btnHome
             // 
@@ -491,6 +495,7 @@
             this.btnHome.TabIndex = 21;
             this.btnHome.Text = "Go to Home";
             this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // btnMotorStatus
             // 
@@ -501,6 +506,7 @@
             this.btnMotorStatus.TabIndex = 20;
             this.btnMotorStatus.Text = "Motor Status";
             this.btnMotorStatus.UseVisualStyleBackColor = true;
+            this.btnMotorStatus.Click += new System.EventHandler(this.btnMotorStatus_Click_1);
             // 
             // groupBox13
             // 
@@ -597,6 +603,7 @@
             this.fine2ZPos.Name = "fine2ZPos";
             this.fine2ZPos.Size = new System.Drawing.Size(90, 20);
             this.fine2ZPos.TabIndex = 5;
+            this.fine2ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2ZPos_KeyDown);
             // 
             // label6
             // 
@@ -614,6 +621,7 @@
             this.fine2YPos.Name = "fine2YPos";
             this.fine2YPos.Size = new System.Drawing.Size(90, 20);
             this.fine2YPos.TabIndex = 3;
+            this.fine2YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2YPos_KeyDown);
             // 
             // label7
             // 
@@ -631,6 +639,7 @@
             this.fine2XPos.Name = "fine2XPos";
             this.fine2XPos.Size = new System.Drawing.Size(90, 20);
             this.fine2XPos.TabIndex = 1;
+            this.fine2XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2XPos_KeyDown);
             // 
             // label8
             // 
@@ -691,6 +700,7 @@
             this.fine1ZPos.Name = "fine1ZPos";
             this.fine1ZPos.Size = new System.Drawing.Size(90, 20);
             this.fine1ZPos.TabIndex = 5;
+            this.fine1ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1ZPos_KeyDown);
             // 
             // label5
             // 
@@ -708,6 +718,7 @@
             this.fine1YPos.Name = "fine1YPos";
             this.fine1YPos.Size = new System.Drawing.Size(90, 20);
             this.fine1YPos.TabIndex = 3;
+            this.fine1YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1YPos_KeyDown);
             // 
             // label3
             // 
@@ -725,6 +736,7 @@
             this.fine1XPos.Name = "fine1XPos";
             this.fine1XPos.Size = new System.Drawing.Size(90, 20);
             this.fine1XPos.TabIndex = 1;
+            this.fine1XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1XPos_KeyDown);
             // 
             // label4
             // 
@@ -774,6 +786,7 @@
             this.coarseYPos.Name = "coarseYPos";
             this.coarseYPos.Size = new System.Drawing.Size(90, 20);
             this.coarseYPos.TabIndex = 3;
+            this.coarseYPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseYPos_KeyDown);
             // 
             // label2
             // 
@@ -791,6 +804,7 @@
             this.coarseXPos.Name = "coarseXPos";
             this.coarseXPos.Size = new System.Drawing.Size(90, 20);
             this.coarseXPos.TabIndex = 1;
+            this.coarseXPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseXPos_KeyDown);
             // 
             // label1
             // 
@@ -1199,6 +1213,17 @@
             this.label25.TabIndex = 11;
             this.label25.Text = "Cycle";
             // 
+            // btnMotorProperties
+            // 
+            this.btnMotorProperties.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnMotorProperties.Location = new System.Drawing.Point(0, 227);
+            this.btnMotorProperties.Name = "btnMotorProperties";
+            this.btnMotorProperties.Size = new System.Drawing.Size(106, 23);
+            this.btnMotorProperties.TabIndex = 23;
+            this.btnMotorProperties.Text = "Set Properties";
+            this.btnMotorProperties.UseVisualStyleBackColor = true;
+            this.btnMotorProperties.Click += new System.EventHandler(this.btnMotorProperties_Click);
+            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1377,6 +1402,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown fine1XPos;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnMotorProperties;
     }
 }
 
