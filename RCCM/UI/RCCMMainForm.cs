@@ -416,11 +416,6 @@ namespace RCCM.UI
             }
         }
 
-        private void btnMotorStatus_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnHome_Click(object sender, EventArgs e)
         {
 

@@ -38,6 +38,8 @@ namespace RCCM
 
             this.NFOV1 = new NFOV((uint)Program.Settings.json["nfov 1"]["camera serial"],
                                   (double)Program.Settings.json["nfov 1"]["microns / pixel"]);
+            this.NFOV2 = new NFOV((uint)Program.Settings.json["nfov 2"]["camera serial"],
+                                  (double)Program.Settings.json["nfov 2"]["microns / pixel"]);
 
             // Read NFOV lens calibrations into double arrays
             int i;

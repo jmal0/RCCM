@@ -410,6 +410,7 @@ namespace RCCM.UI
             if (this.crackIndexValid())
             {
                 MeasurementSequence crack = this.cracks[this.ActiveIndex];
+                Console.WriteLine(crack.Mode);
                 NewMeasurementForm form = new NewMeasurementForm(crack);
                 DialogResult result = form.ShowDialog();
                 if (result == DialogResult.OK)
@@ -418,6 +419,7 @@ namespace RCCM.UI
                     crack.Color = Color.FromArgb(128, form.GetColor());
                     crack.LineSize = form.GetLineSize();
                     crack.Orientation = form.GetOrientation();
+                    crack.Mode = form.GetMode();
                     crack.Parent = form.GetStage();
                     this.updateMeasurementControls();
                 }

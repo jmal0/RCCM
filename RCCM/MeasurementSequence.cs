@@ -50,11 +50,11 @@ namespace RCCM
             get { return this.mode; }
             set
             {
-                this.mode = Mode;
+                this.mode = value;
                 this.RecomputeLength();
             }
         }
-        private MeasurementMode mode;
+        protected MeasurementMode mode;
         /// <summary>
         /// Number of points in sequence
         /// </summary>
@@ -254,7 +254,7 @@ namespace RCCM
                 case MeasurementMode.Total:
                     dx = this.points[ind].X - this.points[ind - 1].X;
                     dy = this.points[ind].Y - this.points[ind - 1].Y;
-                    return Math.Sqrt(dx * dx + dy * dy);
+                    return this.points[ind - 1].CrackLength + Math.Sqrt(dx * dx + dy * dy);
                 default:
                     // Use tip to tip calculation by default
                     dx = this.points[ind].X - this.points[0].X;

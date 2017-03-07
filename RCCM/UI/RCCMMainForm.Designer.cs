@@ -64,6 +64,7 @@
             this.tableLayoutMotion = new System.Windows.Forms.TableLayoutPanel();
             this.panelView = new System.Windows.Forms.PictureBox();
             this.panelMotionButtons = new System.Windows.Forms.Panel();
+            this.btnMotorProperties = new System.Windows.Forms.Button();
             this.btnSetHome = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
             this.btnMotorStatus = new System.Windows.Forms.Button();
@@ -140,7 +141,6 @@
             this.label26 = new System.Windows.Forms.Label();
             this.textCycle = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.btnMotorProperties = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBox10.SuspendLayout();
@@ -475,6 +475,17 @@
             this.panelMotionButtons.Size = new System.Drawing.Size(106, 272);
             this.panelMotionButtons.TabIndex = 23;
             // 
+            // btnMotorProperties
+            // 
+            this.btnMotorProperties.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnMotorProperties.Location = new System.Drawing.Point(0, 227);
+            this.btnMotorProperties.Name = "btnMotorProperties";
+            this.btnMotorProperties.Size = new System.Drawing.Size(106, 23);
+            this.btnMotorProperties.TabIndex = 23;
+            this.btnMotorProperties.Text = "Set Properties";
+            this.btnMotorProperties.UseVisualStyleBackColor = true;
+            this.btnMotorProperties.Click += new System.EventHandler(this.btnMotorProperties_Click);
+            // 
             // btnSetHome
             // 
             this.btnSetHome.Dock = System.Windows.Forms.DockStyle.Top;
@@ -506,7 +517,7 @@
             this.btnMotorStatus.TabIndex = 20;
             this.btnMotorStatus.Text = "Motor Status";
             this.btnMotorStatus.UseVisualStyleBackColor = true;
-            this.btnMotorStatus.Click += new System.EventHandler(this.btnMotorStatus_Click_1);
+            this.btnMotorStatus.Click += new System.EventHandler(this.btnMotorStatus_Click);
             // 
             // groupBox13
             // 
@@ -1212,17 +1223,6 @@
             this.label25.Size = new System.Drawing.Size(33, 13);
             this.label25.TabIndex = 11;
             this.label25.Text = "Cycle";
-            // 
-            // btnMotorProperties
-            // 
-            this.btnMotorProperties.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnMotorProperties.Location = new System.Drawing.Point(0, 227);
-            this.btnMotorProperties.Name = "btnMotorProperties";
-            this.btnMotorProperties.Size = new System.Drawing.Size(106, 23);
-            this.btnMotorProperties.TabIndex = 23;
-            this.btnMotorProperties.Text = "Set Properties";
-            this.btnMotorProperties.UseVisualStyleBackColor = true;
-            this.btnMotorProperties.Click += new System.EventHandler(this.btnMotorProperties_Click);
             // 
             // RCCMMainForm
             // 

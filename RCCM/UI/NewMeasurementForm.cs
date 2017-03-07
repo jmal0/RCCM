@@ -28,16 +28,17 @@ namespace RCCM.UI
             this.colorPicker.BackColor = crack.Color;
             this.editLineSize.Value = (decimal)crack.LineSize;
             this.editOrientation.Value = (decimal)crack.Orientation;
+            Console.WriteLine(crack.Mode);
             switch (crack.Mode)
             {
                 case MeasurementMode.Projection:
                     this.radioMeasureProjection.Checked = true;
                     break;
                 case MeasurementMode.Tip:
-                    this.radioMeasureProjection.Checked = true;
+                    this.radioMeasureTip.Checked = true;
                     break;
                 case MeasurementMode.Total:
-                    this.radioMeasureProjection.Checked = true;
+                    this.radioMeasureTotal.Checked = true;
                     break;
             }
             switch (crack.Parent)
