@@ -600,6 +600,7 @@
             // 
             // fine2ZIndicator
             // 
+            this.fine2ZIndicator.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.fine2ZIndicator.Location = new System.Drawing.Point(123, 70);
             this.fine2ZIndicator.Name = "fine2ZIndicator";
             this.fine2ZIndicator.ReadOnly = true;
@@ -608,6 +609,7 @@
             // 
             // fine2YIndicator
             // 
+            this.fine2YIndicator.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.fine2YIndicator.Location = new System.Drawing.Point(123, 44);
             this.fine2YIndicator.Name = "fine2YIndicator";
             this.fine2YIndicator.ReadOnly = true;
@@ -616,6 +618,7 @@
             // 
             // fine2XIndicator
             // 
+            this.fine2XIndicator.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.fine2XIndicator.Location = new System.Drawing.Point(123, 18);
             this.fine2XIndicator.Name = "fine2XIndicator";
             this.fine2XIndicator.ReadOnly = true;
@@ -624,6 +627,7 @@
             // 
             // fine2ZPos
             // 
+            this.fine2ZPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.fine2ZPos.DecimalPlaces = 3;
             this.fine2ZPos.Location = new System.Drawing.Point(27, 70);
             this.fine2ZPos.Name = "fine2ZPos";
@@ -633,6 +637,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 72);
             this.label6.Name = "label6";
@@ -642,6 +647,7 @@
             // 
             // fine2YPos
             // 
+            this.fine2YPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.fine2YPos.DecimalPlaces = 3;
             this.fine2YPos.Location = new System.Drawing.Point(27, 44);
             this.fine2YPos.Name = "fine2YPos";
@@ -651,6 +657,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 46);
             this.label7.Name = "label7";
@@ -660,6 +667,7 @@
             // 
             // fine2XPos
             // 
+            this.fine2XPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.fine2XPos.DecimalPlaces = 3;
             this.fine2XPos.Location = new System.Drawing.Point(27, 18);
             this.fine2XPos.Name = "fine2XPos";
@@ -669,6 +677,7 @@
             // 
             // label8
             // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(7, 20);
             this.label8.Name = "label8";
@@ -697,6 +706,7 @@
             // 
             // fine1ZIndicator
             // 
+            this.fine1ZIndicator.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.fine1ZIndicator.Location = new System.Drawing.Point(123, 70);
             this.fine1ZIndicator.Name = "fine1ZIndicator";
             this.fine1ZIndicator.ReadOnly = true;
@@ -705,6 +715,7 @@
             // 
             // fine1YIndicator
             // 
+            this.fine1YIndicator.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.fine1YIndicator.Location = new System.Drawing.Point(123, 44);
             this.fine1YIndicator.Name = "fine1YIndicator";
             this.fine1YIndicator.ReadOnly = true;
@@ -713,6 +724,7 @@
             // 
             // fine1XIndicator
             // 
+            this.fine1XIndicator.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.fine1XIndicator.Location = new System.Drawing.Point(123, 18);
             this.fine1XIndicator.Name = "fine1XIndicator";
             this.fine1XIndicator.ReadOnly = true;
@@ -721,6 +733,7 @@
             // 
             // fine1ZPos
             // 
+            this.fine1ZPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.fine1ZPos.DecimalPlaces = 3;
             this.fine1ZPos.Location = new System.Drawing.Point(27, 70);
             this.fine1ZPos.Name = "fine1ZPos";
@@ -730,6 +743,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 72);
             this.label5.Name = "label5";
@@ -739,6 +753,7 @@
             // 
             // fine1YPos
             // 
+            this.fine1YPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.fine1YPos.DecimalPlaces = 3;
             this.fine1YPos.Location = new System.Drawing.Point(27, 44);
             this.fine1YPos.Name = "fine1YPos";
@@ -748,6 +763,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 46);
             this.label3.Name = "label3";
@@ -757,6 +773,7 @@
             // 
             // fine1XPos
             // 
+            this.fine1XPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.fine1XPos.DecimalPlaces = 3;
             this.fine1XPos.Location = new System.Drawing.Point(27, 18);
             this.fine1XPos.Name = "fine1XPos";
@@ -766,6 +783,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(7, 20);
             this.label4.Name = "label4";
@@ -791,6 +809,7 @@
             // 
             // coarseYIndicator
             // 
+            this.coarseYIndicator.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.coarseYIndicator.Location = new System.Drawing.Point(123, 44);
             this.coarseYIndicator.Name = "coarseYIndicator";
             this.coarseYIndicator.ReadOnly = true;
@@ -799,6 +818,7 @@
             // 
             // coarseXIndicator
             // 
+            this.coarseXIndicator.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.coarseXIndicator.Location = new System.Drawing.Point(123, 18);
             this.coarseXIndicator.Name = "coarseXIndicator";
             this.coarseXIndicator.ReadOnly = true;
@@ -807,6 +827,7 @@
             // 
             // coarseYPos
             // 
+            this.coarseYPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.coarseYPos.DecimalPlaces = 3;
             this.coarseYPos.Location = new System.Drawing.Point(27, 44);
             this.coarseYPos.Name = "coarseYPos";
@@ -816,6 +837,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 46);
             this.label2.Name = "label2";
@@ -825,6 +847,7 @@
             // 
             // coarseXPos
             // 
+            this.coarseXPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.coarseXPos.DecimalPlaces = 3;
             this.coarseXPos.Location = new System.Drawing.Point(27, 18);
             this.coarseXPos.Name = "coarseXPos";
@@ -834,6 +857,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 20);
             this.label1.Name = "label1";
@@ -844,10 +868,6 @@
             // tabPageSetup
             // 
             this.tabPageSetup.Controls.Add(this.groupBox9);
-            this.tabPageSetup.Controls.Add(this.btnWFOV2Open);
-            this.tabPageSetup.Controls.Add(this.btnNFOV2Open);
-            this.tabPageSetup.Controls.Add(this.btnWFOV1Open);
-            this.tabPageSetup.Controls.Add(this.btnNFOV1Open);
             this.tabPageSetup.Controls.Add(this.groupBox8);
             this.tabPageSetup.Controls.Add(this.groupBox7);
             this.tabPageSetup.Controls.Add(this.groupBox6);
@@ -863,7 +883,7 @@
             // 
             // btnWFOV2Open
             // 
-            this.btnWFOV2Open.Location = new System.Drawing.Point(569, 176);
+            this.btnWFOV2Open.Location = new System.Drawing.Point(679, 26);
             this.btnWFOV2Open.Name = "btnWFOV2Open";
             this.btnWFOV2Open.Size = new System.Drawing.Size(75, 23);
             this.btnWFOV2Open.TabIndex = 10;
@@ -873,7 +893,7 @@
             // 
             // btnNFOV2Open
             // 
-            this.btnNFOV2Open.Location = new System.Drawing.Point(569, 151);
+            this.btnNFOV2Open.Location = new System.Drawing.Point(679, 0);
             this.btnNFOV2Open.Name = "btnNFOV2Open";
             this.btnNFOV2Open.Size = new System.Drawing.Size(75, 23);
             this.btnNFOV2Open.TabIndex = 9;
@@ -883,7 +903,7 @@
             // 
             // btnWFOV1Open
             // 
-            this.btnWFOV1Open.Location = new System.Drawing.Point(488, 176);
+            this.btnWFOV1Open.Location = new System.Drawing.Point(602, 26);
             this.btnWFOV1Open.Name = "btnWFOV1Open";
             this.btnWFOV1Open.Size = new System.Drawing.Size(75, 23);
             this.btnWFOV1Open.TabIndex = 8;
@@ -893,7 +913,7 @@
             // 
             // btnNFOV1Open
             // 
-            this.btnNFOV1Open.Location = new System.Drawing.Point(488, 151);
+            this.btnNFOV1Open.Location = new System.Drawing.Point(602, 0);
             this.btnNFOV1Open.Name = "btnNFOV1Open";
             this.btnNFOV1Open.Size = new System.Drawing.Size(75, 23);
             this.btnNFOV1Open.TabIndex = 7;
@@ -905,7 +925,7 @@
             // 
             this.groupBox8.Controls.Add(this.label16);
             this.groupBox8.Controls.Add(this.nfov2Scale);
-            this.groupBox8.Location = new System.Drawing.Point(8, 232);
+            this.groupBox8.Location = new System.Drawing.Point(8, 222);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(200, 48);
             this.groupBox8.TabIndex = 5;
@@ -934,7 +954,7 @@
             // 
             this.groupBox7.Controls.Add(this.label15);
             this.groupBox7.Controls.Add(this.nfov1Scale);
-            this.groupBox7.Location = new System.Drawing.Point(8, 178);
+            this.groupBox7.Location = new System.Drawing.Point(8, 168);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(200, 48);
             this.groupBox7.TabIndex = 4;
@@ -1177,7 +1197,11 @@
             // panelTestControls
             // 
             this.panelTestControls.Controls.Add(this.groupBox12);
+            this.panelTestControls.Controls.Add(this.btnWFOV2Open);
             this.panelTestControls.Controls.Add(this.groupBox11);
+            this.panelTestControls.Controls.Add(this.btnWFOV1Open);
+            this.panelTestControls.Controls.Add(this.btnNFOV2Open);
+            this.panelTestControls.Controls.Add(this.btnNFOV1Open);
             this.panelTestControls.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTestControls.Location = new System.Drawing.Point(3, 3);
             this.panelTestControls.Name = "panelTestControls";

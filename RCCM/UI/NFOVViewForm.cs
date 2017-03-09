@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -77,6 +78,7 @@ namespace RCCM.UI
             this.camera = camera;
             this.stage = camera == rccm.NFOV1 ? RCCMStage.RCCM1 : RCCMStage.RCCM2;
             this.cracks = cracks;
+            this.cracks.CollectionChanged += cracksChangedHandler;
             this.Drawing = false;
             this.ActiveIndex = -1;
             this.ActivePoint = -1;
@@ -84,6 +86,7 @@ namespace RCCM.UI
             this.nfovRepaintTimer = new Timer();
             this.nfovRepaintTimer.Interval = (int)Program.Settings.json["repaint period"];
             InitializeComponent();
+            this.updateMeasurementControls();
         }
 
         /// <summary>
@@ -436,7 +439,6 @@ namespace RCCM.UI
                 this.measurementCounter++;
                 this.cracks.Add(newCrack);
 
-                this.listMeasurements.Items.Add(newCrack.Name);
                 this.listMeasurements.SelectedIndex = this.cracks.Count - 1;
             }
             dlg.Dispose();
@@ -447,9 +449,8 @@ namespace RCCM.UI
             if (this.crackIndexValid())
             {
                 this.cracks.RemoveAt(this.ActiveIndex);
-                this.listMeasurements.Items.RemoveAt(this.ActiveIndex);
                 this.listMeasurements.SelectedIndex = -1;
-                updateMeasurementControls();
+                this.listMeasurements.Items.RemoveAt(this.ActiveIndex);
             }
         }
 
@@ -555,6 +556,11 @@ namespace RCCM.UI
         private bool pointIndexValid()
         {
             return this.crackIndexValid() && this.ActivePoint >= 0 && this.ActivePoint < this.cracks[this.ActiveIndex].CountPoints;
+        }
+
+        private void cracksChangedHandler(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            this.updateMeasurementControls();
         }
     }
 }
