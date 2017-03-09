@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MotorSettingsForm));
             this.dropdownProperty = new System.Windows.Forms.ComboBox();
             this.editValue = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -159,6 +160,7 @@
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(239, 121);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MotorSettingsForm";
             this.Text = "Motor Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MotorSettingsForm_FormClosing);
