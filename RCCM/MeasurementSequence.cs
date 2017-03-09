@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RCCM.UI;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace RCCM
 {
-    public class MeasurementSequence
+    public class MeasurementSequence : ObservableCollection<Measurement>
     {
         // List of points of crack vertices and relevant metadata
         protected List<Measurement> points;
@@ -24,7 +26,17 @@ namespace RCCM
         /// <summary>
         /// Name of sequence for display
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return this.name; }
+            set
+            {
+                this.name = value;
+                NotifyCollectionChangedEventArgs e = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+                this.OnCollectionChanged(e);
+            }
+        }
+        protected string name;
         /// <summary>
         /// Width of line
         /// </summary>
@@ -108,6 +120,8 @@ namespace RCCM
             double length = this.CalculateLength(this.CountPoints - 1);
             this.points[this.CountPoints - 1].CrackLength = length;
             this.WriteToFile((string)Program.Settings.json["test data directory"], true);
+            NotifyCollectionChangedEventArgs e = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+            this.OnCollectionChanged(e);
         }
 
         /// <summary>
@@ -145,6 +159,8 @@ namespace RCCM
                 this.points.RemoveAt(index);
                 this.RecomputeLength();
                 this.WriteToFile((string)Program.Settings.json["test data directory"], true);
+                NotifyCollectionChangedEventArgs e = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+                this.OnCollectionChanged(e);
                 return true;
             }
             return false;
@@ -273,6 +289,8 @@ namespace RCCM
                 double length = this.CalculateLength(i);
                 this.points[i].CrackLength = length;
             }
+            NotifyCollectionChangedEventArgs e = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+            this.OnCollectionChanged(e);
         }
     }
 }

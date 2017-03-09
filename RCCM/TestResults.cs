@@ -63,15 +63,18 @@ namespace RCCM
             {
                 foreach (MeasurementSequence crack in e.OldItems)
                 {
-                    this.crackSelection.Items.Remove(crack);
+                    int ind = this.cracks.IndexOf(crack);
+                    this.crackSelection.Items.RemoveAt(ind);
                 }
             }
             if (e.NewItems != null)
             {
                 foreach (MeasurementSequence crack in e.NewItems)
                 {
-                    int ind = this.crackSelection.Items.Add(crack);
+                    Console.WriteLine(crack.Name);
+                    int ind = this.crackSelection.Items.Add(new MeasurementSequenceListBoxDelegate(crack));
                     this.crackSelection.SetSelected(ind, true);
+                    (crack as INotifyCollectionChanged).CollectionChanged += delegate (object sender2, NotifyCollectionChangedEventArgs e2) { this.plotCracks(); };
                 }
             }
         }
@@ -133,8 +136,9 @@ namespace RCCM
         public void plotCracks()
         {
             this.crackChart.Series.Clear();
-            foreach (MeasurementSequence crack in this.crackSelection.SelectedItems)
+            foreach (MeasurementSequenceListBoxDelegate crackDelegate in this.crackSelection.SelectedItems)
             {
+                MeasurementSequence crack = crackDelegate.Crack;
                 Series crackSeries = new Series(crack.Name);
                 crackSeries.ChartType = SeriesChartType.Line;
 
@@ -148,6 +152,21 @@ namespace RCCM
                 crackSeries.Points.DataBindXY(cycles, lengths);
 
                 this.crackChart.Series.Add(crackSeries);
+            }
+        }
+
+        protected class MeasurementSequenceListBoxDelegate
+        {
+            public MeasurementSequence Crack { get; private set; }
+            
+            public MeasurementSequenceListBoxDelegate(MeasurementSequence crack)
+            {
+                this.Crack = crack;
+            }
+
+            public override string ToString()
+            {
+                return this.Crack.Name;
             }
         }
     }

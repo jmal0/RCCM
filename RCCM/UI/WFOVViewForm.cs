@@ -65,6 +65,8 @@ namespace RCCM.UI
 
         private void WFOVViewForm_Load(object sender, EventArgs e)
         {
+            this.Text = this.stage == RCCMStage.RCCM1 ? "WFOV 1" : "WFOV 2";
+            // Initialize camera
             bool success = this.camera.initialize(this.wfovContainer);
             if (success)
             {

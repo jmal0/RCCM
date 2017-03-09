@@ -96,6 +96,8 @@ namespace RCCM.UI
         /// <param name="e"></param>
         private void NFOVViewForm_Load(object sender, EventArgs e)
         {
+            this.Text = this.stage == RCCMStage.RCCM1 ? "NFOV 1" : "NFOV 2";
+
             this.nfovRepaintTimer.Enabled = true;
             this.nfovRepaintTimer.Tick += new EventHandler(refreshNfov);
             if (!this.camera.Connected)

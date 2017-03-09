@@ -469,7 +469,7 @@
             this.Controls.Add(this.panelLayout);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WFOVViewForm";
-            this.Text = "WFOVViewForm";
+            this.Text = "WFOV";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WFOVViewForm_FormClosing);
             this.Load += new System.EventHandler(this.WFOVViewForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).EndInit();

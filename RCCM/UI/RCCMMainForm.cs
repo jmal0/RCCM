@@ -28,6 +28,8 @@ namespace RCCM.UI
         protected WFOV wfov1;
         protected WFOV wfov2;
 
+        protected bool nfov1Open, nfov2Open, wfov1Open, wfov2Open;
+
         protected Timer panelRepaintTimer;
 
         // List of measurement objects and counter for default naming convention
@@ -384,26 +386,53 @@ namespace RCCM.UI
 
         private void btnNFOV1Open_Click(object sender, EventArgs e)
         {
-            NFOVViewForm form = new NFOVViewForm(this.rccm, this.nfov1, this.cracks);
-            form.Show();
+            if (!this.nfov1Open)
+            {
+                this.nfov1Open = true;
+                NFOVViewForm form = new NFOVViewForm(this.rccm, this.nfov1, this.cracks);
+                form.Show();
+                form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.nfov1Open = false; };
+            }
         }
 
         private void btnNFOV2Open_Click(object sender, EventArgs e)
         {
-            NFOVViewForm form = new NFOVViewForm(this.rccm, this.nfov2, this.cracks);
-            form.Show();
+            if (!this.nfov2Open)
+            {
+                this.nfov2Open = true;
+                NFOVViewForm form = new NFOVViewForm(this.rccm, this.nfov2, this.cracks);
+                form.Show();
+                form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.nfov2Open = false; };
+            }
         }
+
         private void btnWFOV1Open_Click(object sender, EventArgs e)
         {
-            WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov1, this.cracks);
-            form.Show();
+            if (!this.wfov1Open)
+            {
+                this.wfov1Open = true;
+                WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov1, this.cracks);
+                form.Show();
+                form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.wfov1Open = false; };
+            }
         }
 
         private void btnWFOV2Open_Click(object sender, EventArgs e)
         {
-            WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov2, this.cracks);
-            form.Show();
+            if (!this.wfov2Open)
+            {
+                this.wfov2Open = true;
+                WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov2, this.cracks);
+                form.Show();
+                form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.wfov2Open = false; };
+            }
         }
+        
+        private void lockCamera()
+        {
+
+        }
+
         private void RCCMMainForm_Resize(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Minimized)
