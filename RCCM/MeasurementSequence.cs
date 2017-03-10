@@ -26,17 +26,7 @@ namespace RCCM
         /// <summary>
         /// Name of sequence for display
         /// </summary>
-        public string Name
-        {
-            get { return this.name; }
-            set
-            {
-                this.name = value;
-                NotifyCollectionChangedEventArgs e = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-                this.OnCollectionChanged(e);
-            }
-        }
-        protected string name;
+        public string Name { get; set; }
         /// <summary>
         /// Width of line
         /// </summary>

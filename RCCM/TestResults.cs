@@ -63,16 +63,14 @@ namespace RCCM
             {
                 foreach (MeasurementSequence crack in e.OldItems)
                 {
-                    int ind = this.cracks.IndexOf(crack);
-                    this.crackSelection.Items.RemoveAt(ind);
+                    this.crackSelection.Items.Remove(crack);
                 }
             }
             if (e.NewItems != null)
             {
                 foreach (MeasurementSequence crack in e.NewItems)
                 {
-                    Console.WriteLine(crack.Name);
-                    int ind = this.crackSelection.Items.Add(new MeasurementSequenceListBoxDelegate(crack));
+                    int ind = this.crackSelection.Items.Add(crack);
                     this.crackSelection.SetSelected(ind, true);
                     (crack as INotifyCollectionChanged).CollectionChanged += delegate (object sender2, NotifyCollectionChangedEventArgs e2) { this.plotCracks(); };
                 }
@@ -135,10 +133,13 @@ namespace RCCM
 
         public void plotCracks()
         {
+            // Refresh crack selection list (names may have changed)
+            this.crackSelection.DisplayMember = "";
+            this.crackSelection.DisplayMember = "Name";
+            // Plot cracks
             this.crackChart.Series.Clear();
-            foreach (MeasurementSequenceListBoxDelegate crackDelegate in this.crackSelection.SelectedItems)
+            foreach (MeasurementSequence crack in this.crackSelection.SelectedItems)
             {
-                MeasurementSequence crack = crackDelegate.Crack;
                 Series crackSeries = new Series(crack.Name);
                 crackSeries.ChartType = SeriesChartType.Line;
 
@@ -152,21 +153,6 @@ namespace RCCM
                 crackSeries.Points.DataBindXY(cycles, lengths);
 
                 this.crackChart.Series.Add(crackSeries);
-            }
-        }
-
-        protected class MeasurementSequenceListBoxDelegate
-        {
-            public MeasurementSequence Crack { get; private set; }
-            
-            public MeasurementSequenceListBoxDelegate(MeasurementSequence crack)
-            {
-                this.Crack = crack;
-            }
-
-            public override string ToString()
-            {
-                return this.Crack.Name;
             }
         }
     }
