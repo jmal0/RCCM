@@ -18,4 +18,13 @@
         Tip,
         Total
     }
+
+    /// <summary>
+    /// Enum representing different global (FASTER facility) vs local (pabel) coordinate system
+    /// </summary>
+    public enum CoordinateSystem
+    {
+        Global,
+        Local
+    }
 }

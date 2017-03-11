@@ -250,21 +250,21 @@ namespace RCCM
             switch (this.Mode)
             {
                 case MeasurementMode.Projection:
-                    dx = this.points[ind].X - this.points[0].X;
-                    dy = this.points[ind].Y - this.points[0].Y;
+                    dx = this.points[ind].PanelX - this.points[0].PanelX;
+                    dy = this.points[ind].PanelY - this.points[0].PanelY;
                     return dx * Math.Cos(Math.PI / 180.0 * this.Orientation) + dy * Math.Sin(Math.PI / 180.0 * this.Orientation);
                 case MeasurementMode.Tip:
-                    dx = this.points[ind].X - this.points[0].X;
-                    dy = this.points[ind].Y - this.points[0].Y;
+                    dx = this.points[ind].PanelX - this.points[0].PanelX;
+                    dy = this.points[ind].PanelY - this.points[0].PanelY;
                     return Math.Sqrt(dx * dx + dy * dy);
                 case MeasurementMode.Total:
-                    dx = this.points[ind].X - this.points[ind - 1].X;
-                    dy = this.points[ind].Y - this.points[ind - 1].Y;
+                    dx = this.points[ind].PanelX - this.points[ind - 1].PanelX;
+                    dy = this.points[ind].PanelY - this.points[ind - 1].PanelY;
                     return this.points[ind - 1].CrackLength + Math.Sqrt(dx * dx + dy * dy);
                 default:
                     // Use tip to tip calculation by default
-                    dx = this.points[ind].X - this.points[0].X;
-                    dy = this.points[ind].Y - this.points[0].Y;
+                    dx = this.points[ind].PanelX - this.points[0].PanelX;
+                    dy = this.points[ind].PanelY - this.points[0].PanelY;
                     return Math.Sqrt(dx * dx + dy * dy);
             }
         }

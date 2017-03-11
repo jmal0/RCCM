@@ -128,7 +128,7 @@ namespace RCCM.UI
             g.ScaleTransform(scaleX, scaleY);
             // Move to NFOV location (first move origin to image center)
             g.TranslateTransform((float)this.camera.Width / 2, (float)this.camera.Height / 2);
-            PointF pos = this.rccm.getNFOVLocation(this.stage);
+            PointF pos = this.rccm.getNFOVLocation(this.stage, CoordinateSystem.Global);
             g.TranslateTransform(-pos.X, -pos.Y);
 
             // Draw each crack on the image

@@ -1,12 +1,13 @@
 {
     // Panel/local coordinate system Settings
     "panel": {
-		"x offset": 0.0,
-		"y offset": 0.0,
+		"x": 0.0,
+		"y": 0.0,
 		"width": 2540,
         "height": 1220,
 		"rotation": 0.0,
     },
+	"rotation angle": 0.0,
 	// Settings for panel graphic
 	"coarse stage": {
 		"x": 0.0,
@@ -26,8 +27,6 @@
         "x travel": 508.0,
         "y travel": 508.0 
     },
-	// Coordinate system Settings
-	"rotation angle": 0.0,
     // Motion settings
     "coarse X": {
         "type": "virtual",

@@ -15,7 +15,7 @@ namespace RCCM
         /// <summary>
         /// Fields for CSV header explaining the ordering of data in measurement file
         /// </summary>
-        public static string[] CSV_HEADER = { "Timestamp", "Cycle", "Length", "Pressure", "X", "Y", "Coarse X", "Coarse Y", "Fine X", "Fine Y", "Pixel X", "Pixel Y"};
+        public static string[] CSV_HEADER = { "Timestamp", "Cycle", "Length", "Pressure", "Panel X", "Panel Y", "Coarse X", "Coarse Y", "Fine X", "Fine Y", "Pixel X", "Pixel Y", "Global X", "Global Y"};
         /// <summary>
         /// Cycle number when measurement was taken
         /// </summary>
@@ -28,6 +28,14 @@ namespace RCCM
         /// Global Y coordinate where measurement was taken
         /// </summary>
         public double Y { get; private set; }
+        /// <summary>
+        /// X coordinate in panel coordinate system
+        /// </summary>
+        public double PanelX { get; private set; }
+        /// <summary>
+        /// Y coordinate in panel coordinate system
+        /// </summary>
+        public double PanelY { get; private set; }
         /// <summary>
         /// Length of crack at this measurement
         /// </summary>
@@ -57,9 +65,12 @@ namespace RCCM
             this.fineY = fine == RCCMStage.RCCM1 ? rccm.motors["fine 1 Y"].getPos() : rccm.motors["fine 2 Y"].getPos();
             this.pixelX = pixelX;
             this.pixelY = pixelY;
-            PointF globalPosition = rccm.getNFOVLocation(fine);
-            this.X = globalPosition.X + this.pixelX; // TODO: robustify
-            this.Y = globalPosition.Y + this.pixelY; // TODO: robustify
+            PointF globalPosition = rccm.getNFOVLocation(fine, CoordinateSystem.Global);
+            this.X = globalPosition.X + this.pixelX;
+            this.Y = globalPosition.Y + this.pixelY;
+            PointF panelPosition = rccm.globalVectorToPanelVector(this.X, this.Y);
+            this.PanelX = globalPosition.X + this.pixelX;
+            this.PanelY = globalPosition.Y + this.pixelY;
         }
 
         /// <summary>
@@ -72,14 +83,16 @@ namespace RCCM
                    this.Cycle       + "," +
                    this.CrackLength + "," +
                    this.pressure    + "," +
-                   this.X           + "," +
-                   this.Y           + "," +
+                   this.PanelX      + "," +
+                   this.PanelY      + "," +
                    this.coarseX     + "," +
                    this.coarseY     + "," +
                    this.fineX       + "," +
                    this.fineY       + "," +
                    this.pixelX      + "," +
-                   this.pixelY;
+                   this.pixelY      + "," +
+                   this.X           + "," +
+                   this.Y;
         }
     }
 }

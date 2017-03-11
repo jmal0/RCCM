@@ -471,6 +471,21 @@ namespace RCCM.UI
         {
             this.rccm.FineStageAngle = (double) this.editRotation.Value;
         }
+        
+        private void editPanelRotation_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.PanelAngle = (double)this.editPanelRotation.Value;
+        }
+
+        private void editPanelX_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.PanelOffsetX = (double)this.editPanelX.Value;
+        }
+
+        private void editPanelY_ValueChanged(object sender, EventArgs e)
+        {
+            this.rccm.PanelOffsetY = (double)this.editPanelY.Value;
+        }
 
         private void textImageDir_Enter(object sender, EventArgs e)
         {

@@ -101,11 +101,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.editPanelX = new System.Windows.Forms.NumericUpDown();
             this.label21 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.editPanelY = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.editPanelRotation = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
             this.editRotation = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
@@ -176,9 +176,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
             this.tabPageSetup.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editPanelX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editPanelY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editPanelRotation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.editRotation)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -883,11 +883,11 @@
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.numericUpDown4);
+            this.groupBox9.Controls.Add(this.editPanelX);
             this.groupBox9.Controls.Add(this.label21);
-            this.groupBox9.Controls.Add(this.numericUpDown3);
+            this.groupBox9.Controls.Add(this.editPanelY);
             this.groupBox9.Controls.Add(this.label18);
-            this.groupBox9.Controls.Add(this.numericUpDown2);
+            this.groupBox9.Controls.Add(this.editPanelRotation);
             this.groupBox9.Controls.Add(this.label19);
             this.groupBox9.Controls.Add(this.editRotation);
             this.groupBox9.Controls.Add(this.label20);
@@ -898,27 +898,28 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Coordinate System";
             // 
-            // numericUpDown4
+            // editPanelX
             // 
-            this.numericUpDown4.Increment = new decimal(new int[] {
+            this.editPanelX.Increment = new decimal(new int[] {
             1,
             0,
             0,
             327680});
-            this.numericUpDown4.Location = new System.Drawing.Point(107, 70);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
+            this.editPanelX.Location = new System.Drawing.Point(107, 70);
+            this.editPanelX.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.numericUpDown4.Minimum = new decimal(new int[] {
+            this.editPanelX.Minimum = new decimal(new int[] {
             100000,
             0,
             0,
             -2147483648});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(87, 20);
-            this.numericUpDown4.TabIndex = 12;
+            this.editPanelX.Name = "editPanelX";
+            this.editPanelX.Size = new System.Drawing.Size(87, 20);
+            this.editPanelX.TabIndex = 12;
+            this.editPanelX.ValueChanged += new System.EventHandler(this.editPanelX_ValueChanged);
             // 
             // label21
             // 
@@ -929,27 +930,28 @@
             this.label21.TabIndex = 11;
             this.label21.Text = "Panel X offset";
             // 
-            // numericUpDown3
+            // editPanelY
             // 
-            this.numericUpDown3.Increment = new decimal(new int[] {
+            this.editPanelY.Increment = new decimal(new int[] {
             1,
             0,
             0,
             327680});
-            this.numericUpDown3.Location = new System.Drawing.Point(107, 96);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
+            this.editPanelY.Location = new System.Drawing.Point(107, 96);
+            this.editPanelY.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.numericUpDown3.Minimum = new decimal(new int[] {
+            this.editPanelY.Minimum = new decimal(new int[] {
             100000,
             0,
             0,
             -2147483648});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(87, 20);
-            this.numericUpDown3.TabIndex = 10;
+            this.editPanelY.Name = "editPanelY";
+            this.editPanelY.Size = new System.Drawing.Size(87, 20);
+            this.editPanelY.TabIndex = 10;
+            this.editPanelY.ValueChanged += new System.EventHandler(this.editPanelY_ValueChanged);
             // 
             // label18
             // 
@@ -960,22 +962,23 @@
             this.label18.TabIndex = 9;
             this.label18.Text = "Panel Y offset";
             // 
-            // numericUpDown2
+            // editPanelRotation
             // 
-            this.numericUpDown2.Increment = new decimal(new int[] {
+            this.editPanelRotation.Increment = new decimal(new int[] {
             1,
             0,
             0,
             327680});
-            this.numericUpDown2.Location = new System.Drawing.Point(107, 44);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.editPanelRotation.Location = new System.Drawing.Point(107, 44);
+            this.editPanelRotation.Maximum = new decimal(new int[] {
             360,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(87, 20);
-            this.numericUpDown2.TabIndex = 8;
+            this.editPanelRotation.Name = "editPanelRotation";
+            this.editPanelRotation.Size = new System.Drawing.Size(87, 20);
+            this.editPanelRotation.TabIndex = 8;
+            this.editPanelRotation.ValueChanged += new System.EventHandler(this.editPanelRotation_ValueChanged);
             // 
             // label19
             // 
@@ -1443,9 +1446,9 @@
             this.tabPageSetup.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editPanelX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editPanelY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editPanelRotation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.editRotation)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
@@ -1578,11 +1581,11 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnMotorProperties;
         private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown editPanelX;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown editPanelY;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown editPanelRotation;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.NumericUpDown editRotation;
         private System.Windows.Forms.Label label20;

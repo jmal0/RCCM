@@ -111,7 +111,7 @@ namespace RCCM.UI
         /// </summary>
         public void createSegment()
         {
-            PointF pos = this.rccm.getNFOVLocation(this.stage);
+            PointF pos = this.rccm.getNFOVLocation(this.stage, CoordinateSystem.Global);
             // Add measurements for start and end if user is drawing both
             if (this.cracks[this.ActiveIndex].CountPoints == 0)
             {
@@ -138,7 +138,7 @@ namespace RCCM.UI
             if (this.Drawing)
             {
                 // Get position of NFOV camera
-                PointF pos = this.rccm.getNFOVLocation(this.stage);
+                PointF pos = this.rccm.getNFOVLocation(this.stage, CoordinateSystem.Global);
                 // Convert mouse coordinates to global coordinate system units
                 double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
                 double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
@@ -162,7 +162,7 @@ namespace RCCM.UI
             {
                 this.Drawing = true;
                 // Get mouse location in global coordinates
-                PointF pos = this.rccm.getNFOVLocation(this.stage);
+                PointF pos = this.rccm.getNFOVLocation(this.stage, CoordinateSystem.Global);
                 double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
                 double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
                 PointF pix = this.rccm.fineVectorToGlobalVector(pixX, pixY);
@@ -196,7 +196,7 @@ namespace RCCM.UI
             if (this.crackIndexValid())
             {
                 // Get mouse location in global coordinates
-                PointF pos = this.rccm.getNFOVLocation(this.stage);
+                PointF pos = this.rccm.getNFOVLocation(this.stage, CoordinateSystem.Global);
                 double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
                 double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
                 PointF pix = this.rccm.fineVectorToGlobalVector(pixX, pixY);
@@ -313,7 +313,7 @@ namespace RCCM.UI
             }            
             // Move to NFOV location (first move origin to image center)
             e.Graphics.TranslateTransform((float)this.camera.Width / 2, (float)this.camera.Height / 2);
-            PointF pos = this.rccm.getNFOVLocation(this.stage);
+            PointF pos = this.rccm.getNFOVLocation(this.stage, CoordinateSystem.Global);
             e.Graphics.TranslateTransform(-pos.X, -pos.Y);
 
             // Draw each crack on the image

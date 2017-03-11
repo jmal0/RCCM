@@ -28,8 +28,6 @@ namespace RCCM
         protected SizeF panelOffset;
         protected SizeF fine1Offset;
         protected SizeF fine2Offset;
-        // Rotation of panel
-        protected float panelAngle;
         // Graphics transform mapping pixels to global coordinate system
         protected Matrix transform;
         // Positions of stages
@@ -44,11 +42,10 @@ namespace RCCM
         {
             this.rccm = rccm;
             // Create rectangle for displaying panel
-            float xPanel = (float)Program.Settings.json["panel"]["x offset"];
-            float yPanel = (float)Program.Settings.json["panel"]["y offset"];
+            float xPanel = (float)Program.Settings.json["panel"]["x"];
+            float yPanel = (float)Program.Settings.json["panel"]["y"];
             float wPanel = (float)Program.Settings.json["panel"]["width"];
             float hPanel = (float)Program.Settings.json["panel"]["height"];
-            this.panelAngle = (float)Program.Settings.json["panel"]["rotation"];
             this.panel = new RectangleF(xPanel, yPanel, wPanel, hPanel);
             // Create rectangle for displaying coarse stages
             float wCoarse = (float)Program.Settings.json["coarse stage"]["x travel"];
@@ -92,9 +89,9 @@ namespace RCCM
 
             // Draw panel
             // Rotate drawing about pivot plate location (translate to location, rotate, translate back)
-            this.rotateAt(g, this.panelAngle, this.panel.X, this.panel.Y);
+            this.rotateAt(g, (float)this.rccm.PanelAngle, this.panel.X, this.panel.Y);
             g.FillRectangle(this.panelBrush, this.panel);
-            this.rotateAt(g, -this.panelAngle, this.panel.X, this.panel.Y);
+            this.rotateAt(g, -(float)this.rccm.PanelAngle, this.panel.X, this.panel.Y);
 
             // Draw travel regions and crosshairs
             float size = 50;
@@ -177,6 +174,8 @@ namespace RCCM
             PointF fine2Off = this.rccm.fineVectorToGlobalVector(xFine2, yFine2);
             this.fine1Offset = new SizeF(fine1Off.X, fine1Off.Y);
             this.fine2Offset = new SizeF(fine2Off.X, fine2Off.Y);
+            this.panel.X = (float)this.rccm.PanelOffsetX;
+            this.panel.Y = (float)this.rccm.PanelOffsetY;
         }
     }
 }
