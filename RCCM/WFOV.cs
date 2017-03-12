@@ -133,7 +133,7 @@ namespace RCCM
         /// Connect to camera. Will fail if configuration file referred to invalid or disconnected camera
         /// </summary>
         /// <returns>True if initialization is successful</returns>
-        public bool initialize(ICImagingControl ic)
+        public bool Initialize(ICImagingControl ic)
         {
             this.ic = ic;
             try
@@ -169,7 +169,7 @@ namespace RCCM
         /// <summary>
         /// Begin displaying live image
         /// </summary>
-        public void start()
+        public void Start()
         {
             if (!this.ic.LiveVideoRunning)
             {
@@ -192,13 +192,13 @@ namespace RCCM
         /// <summary>
         /// Stop displaying live image. Will also cease video recording, if active
         /// </summary>
-        public void stop()
+        public void Stop()
         {
             if (this.ic.LiveVideoRunning)
             {
                 if (this.Recording)
                 {
-                    this.stopRecord();
+                    this.StopRecord();
                 }
                 this.ic.LiveSuspend();
                 this.ic.SaveDeviceStateToFile(this.configFile);
@@ -209,7 +209,7 @@ namespace RCCM
         /// Capture live image to file
         /// </summary>
         /// <param name="filename">Filename to save image to. Should have .png extension</param>
-        public void snapImage(string filename)
+        public void SnapImage(string filename)
         {
             try
             {
@@ -230,7 +230,7 @@ namespace RCCM
         /// Start recording video to specified path
         /// </summary>
         /// <param name="filename"></param>
-        public void record(string filename)
+        public void Record(string filename)
         {
             if (this.ic.DeviceValid)
             {
@@ -245,7 +245,7 @@ namespace RCCM
         /// <summary>
         /// Stop recording video. Will resume live display after stopping recording
         /// </summary>
-        public void stopRecord()
+        public void StopRecord()
         {
             this.ic.AviStopCapture();
             this.Recording = false;
@@ -259,7 +259,7 @@ namespace RCCM
         /// Show device property dialog
         /// <warning>Will cause device to crash if "Cancel" button is pressed from property dialog</warning>
         /// </summary>
-        public void editProperties()
+        public void EditProperties()
         {
             this.ic.ShowPropertyDialog();
         }
@@ -268,7 +268,7 @@ namespace RCCM
         /// Activate built-in camera autofocus. Requires 2 second sleep to allow autofocus to complete
         /// </summary>
         /// <returns>New focus level</returns>
-        public int autoFocus()
+        public int AutoFocus()
         {
             VCDProp.OnePush(VCDIDs.VCDID_Focus);
             // Stupid work-around recommended by TIS:

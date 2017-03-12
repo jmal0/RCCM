@@ -89,7 +89,7 @@ namespace RCCM
         /// Attempt to connect to camera
         /// </summary>
         /// <returns>True if connection is successful</returns>
-        public bool initialize()
+        public bool Initialize()
         {
             ManagedBusManager busMgr = new ManagedBusManager();
             try
@@ -119,13 +119,13 @@ namespace RCCM
         /// <summary>
         /// Stop live capture and release camera
         /// </summary>
-        public void disconnect()
+        public void Disconnect()
         {
             try
             {
                 if (this.camera.IsConnected())
                 {
-                    this.stop();
+                    this.Stop();
                     this.camera.Disconnect();
                 }
             }
@@ -144,7 +144,7 @@ namespace RCCM
         /// <summary>
         /// Start live streaming images from camera
         /// </summary>
-        public void start()
+        public void Start()
         {
             try
             {
@@ -166,7 +166,7 @@ namespace RCCM
         /// <summary>
         /// Stop live streaming images
         /// </summary>
-        public void stop()
+        public void Stop()
         {
             this.grabImages = false;
 
@@ -261,7 +261,7 @@ namespace RCCM
         /// <summary>
         /// Open dialog box for setting camera properties
         /// </summary>
-        public void showPropertiesDlg()
+        public void ShowPropertiesDlg()
         {
             CameraControlDialog camCtlDlg = new CameraControlDialog();
             camCtlDlg.Show();
@@ -299,7 +299,7 @@ namespace RCCM
         /// Save live image to file
         /// </summary>
         /// <param name="filename">Full path where image will be saved</param>
-        public void snap(string filename)
+        public void Snap(string filename)
         {
             if (this.Connected)
             {
@@ -360,7 +360,7 @@ namespace RCCM
             }
         }
 
-        public void record(string aviFileName)
+        public void Record(string aviFileName)
         {
             /*
             // Check if the camera supports the FRAME_RATE property
@@ -382,7 +382,7 @@ namespace RCCM
         /// Return current live image
         /// </summary>
         /// <returns>Live image as a bitmap</returns>
-        public System.Drawing.Bitmap getLiveImage()
+        public System.Drawing.Bitmap GetLiveImage()
         {
             return this.ProcessedImage.bitmap;
         }

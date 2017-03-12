@@ -33,7 +33,7 @@ namespace RCCM
 
         public bool JogStart(bool fwd)
         {
-            if (this.getProperty("enabled") == 0)
+            if (this.GetProperty("enabled") == 0)
             {
                 return false;
             }
@@ -46,7 +46,7 @@ namespace RCCM
 
         public bool JogStop()
         {
-            if (this.getProperty("enabled") == 0)
+            if (this.GetProperty("enabled") == 0)
             {
                 return false;
             }
@@ -61,9 +61,9 @@ namespace RCCM
         /// Initialize status variables of superclass Motor
         /// </summary>
         /// <returns>Initialization status of motor</returns>
-        public override bool initialize()
+        public override bool Initialize()
         {
-            if (this.getProperty("enabled") == 0)
+            if (this.GetProperty("enabled") == 0)
             {
                 return false;
             }
@@ -75,9 +75,9 @@ namespace RCCM
         /// </summary>
         /// <param name="cmd">New command position</param>
         /// <returns>The previous commanded position</returns>
-        override public double setPos(double cmd)
+        override public double SetPos(double cmd)
         {
-            if (this.getProperty("enabled") == 0)
+            if (this.GetProperty("enabled") == 0)
             {
                 return this.commandPos;
             }
@@ -97,14 +97,14 @@ namespace RCCM
         /// </summary>
         /// <param name="dist">New command position</param>
         /// <returns>The previous commanded position</returns>
-        override public double moveRel(double dist)
+        override public double MoveRel(double dist)
         {
-            if (this.getProperty("enabled") == 0)
+            if (this.GetProperty("enabled") == 0)
             {
                 return this.commandPos;
             }
             double prev = this.commandPos;
-            double cmd = this.getPos() + dist;
+            double cmd = this.GetPos() + dist;
             // Check that position is within range
             if (cmd >= this.settings["low position limit"] && cmd <= this.settings["high position limit"])
             {
@@ -119,12 +119,12 @@ namespace RCCM
         /// Get motor position. This is accessed using the MPOS axis property
         /// </summary>
         /// <returns>Current position</returns>
-        public override double getPos()
+        public override double GetPos()
         {
             return this.controller.GetAxisProperty("MPOS", this.axisNum);
         }
 
-        public override Dictionary<string, double> getAllProperties()
+        public override Dictionary<string, double> GetAllProperties()
         {
             Console.WriteLine(this.axisNum);
             Dictionary<string, double> properties = new Dictionary<string, double>(TrioController.AX_PROPERTIES.Length);
@@ -135,7 +135,7 @@ namespace RCCM
             return properties;
         }
 
-        public override double getProperty(string property)
+        public override double GetProperty(string property)
         {
             if (property == "home")
             {
@@ -145,7 +145,7 @@ namespace RCCM
             return this.controller.GetAxisProperty(variable, this.axisNum);
         }
 
-        public override bool setProperty(string property, double value)
+        public override bool SetProperty(string property, double value)
         {
             if (property == "home")
             {
@@ -158,7 +158,7 @@ namespace RCCM
             return this.controller.SetAxisProperty(variable, value, this.axisNum);
         }
 
-        public override void waitForEndOfMove()
+        public override void WaitForEndOfMove()
         {
             this.controller.WaitForEndOfMove(this.axisNum);
         }

@@ -28,9 +28,9 @@ namespace RCCM
             }
         }
 
-        abstract public double getPos();
-        abstract public double setPos(double cmd);
-        abstract public double moveRel(double dist);
+        abstract public double GetPos();
+        abstract public double SetPos(double cmd);
+        abstract public double MoveRel(double dist);
 
         /// <summary>
         /// Set a motor property
@@ -38,7 +38,7 @@ namespace RCCM
         /// <param name="property">Property name</param>
         /// <param name="value">Property value</param>
         /// <returns>True if property set is successful</returns>
-        public virtual bool setProperty(string property, double value)
+        public virtual bool SetProperty(string property, double value)
         {
             if (this.settings.ContainsKey(property))
             {
@@ -53,20 +53,20 @@ namespace RCCM
         /// </summary>
         /// <param name="property">Name of the property</param>
         /// <returns>The value of the specified property</returns>
-        public virtual double getProperty(string property)
+        public virtual double GetProperty(string property)
         {
             return this.settings[property];
         }
         
-        public void gotoHome()
+        public void GotoHome()
         {
-            this.setPos(this.settings["home"]);
+            this.SetPos(this.settings["home"]);
         }
 
-        abstract public bool initialize();
+        abstract public bool Initialize();
 
-        abstract public Dictionary<string, double> getAllProperties();
+        abstract public Dictionary<string, double> GetAllProperties();
 
-        abstract public void waitForEndOfMove();
+        abstract public void WaitForEndOfMove();
     }
 }

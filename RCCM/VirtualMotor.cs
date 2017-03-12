@@ -12,7 +12,7 @@ namespace RCCM
         /// Get motor position. For a virtual motor, this is simply the last commanded position
         /// </summary>
         /// <returns>Current position</returns>
-        public override double getPos()
+        public override double GetPos()
         {
             return this.commandPos;
         }
@@ -22,9 +22,9 @@ namespace RCCM
         /// </summary>
         /// <param name="cmd">New command position</param>
         /// <returns>The previous commanded position</returns>
-        override public double setPos(double cmd)
+        override public double SetPos(double cmd)
         {
-            if (this.getProperty("enabled") == 0)
+            if (this.GetProperty("enabled") == 0)
             {
                 return this.commandPos;
             }
@@ -42,9 +42,9 @@ namespace RCCM
         /// </summary>
         /// <param name="dist">Distance to move</param>
         /// <returns>The previous commanded position</returns>
-        override public double moveRel(double dist)
+        override public double MoveRel(double dist)
         {
-            if (this.getProperty("enabled") == 0)
+            if (this.GetProperty("enabled") == 0)
             {
                 return this.commandPos;
             }
@@ -62,9 +62,9 @@ namespace RCCM
         /// Initialize status variables of superclass Motor
         /// </summary>
         /// <returns>Initialization status of motor</returns>
-        public override bool initialize()
+        public override bool Initialize()
         {
-            if (this.getProperty("enabled") == 0)
+            if (this.GetProperty("enabled") == 0)
             {
                 return true;
             }
@@ -72,7 +72,7 @@ namespace RCCM
             return this.homed;
         }
 
-        public override Dictionary<string, double> getAllProperties()
+        public override Dictionary<string, double> GetAllProperties()
         {
             return settings;
         }
@@ -80,7 +80,7 @@ namespace RCCM
         /// <summary>
         /// Since move is applied instantaneously, no waiting necessary
         /// </summary>
-        public override void waitForEndOfMove()
+        public override void WaitForEndOfMove()
         {
             return;
         }

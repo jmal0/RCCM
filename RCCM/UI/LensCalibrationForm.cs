@@ -62,11 +62,11 @@ namespace RCCM.UI
             }
 
             // Set text box values
-            this.heightEdit.Value = (decimal) this.controller.getHeight(this.stage);
-            this.focalPowerEdit.Value = (decimal) this.controller.getFocalPower(this.stage);
+            this.heightEdit.Value = (decimal) this.controller.GetHeight(this.stage);
+            this.focalPowerEdit.Value = (decimal) this.controller.GetFocalPower(this.stage);
             this.updateListView();
 
-            this.controller.pauseFocusing();
+            this.controller.PauseFocusing();
         }
 
         private void heightEdit_ValueChanged(object sender, EventArgs e)
@@ -81,7 +81,7 @@ namespace RCCM.UI
         /// <param name="e"></param>
         private void focalPowerEdit_ValueChanged(object sender, EventArgs e)
         {
-            bool result = this.controller.setFocalPower((double)this.focalPowerEdit.Value, this.stage);
+            bool result = this.controller.SetFocalPower((double)this.focalPowerEdit.Value, this.stage);
             if (!result)
             {
                 MessageBox.Show("Failed to send command");
@@ -96,8 +96,8 @@ namespace RCCM.UI
         private void btnApplyCalibration_Click(object sender, EventArgs e)
         {
             // Get distance sensor reading and adjust focus
-            double reading = this.controller.getReading(this.stage);
-            bool result = this.controller.setFocalPower((double) this.focalPowerEdit.Value, this.stage);
+            double reading = this.controller.GetReading(this.stage);
+            bool result = this.controller.SetFocalPower((double) this.focalPowerEdit.Value, this.stage);
             if (!result)
             {
                 MessageBox.Show("Failed to send command");
@@ -124,7 +124,7 @@ namespace RCCM.UI
             {
                 MessageBox.Show("Failed to apply old calibration.");
             }
-            this.controller.saveToJSON(this.settings);
+            this.controller.SaveToJSON(this.settings);
             // Set dialog to result so FormClosing handler does not reapply old calibration
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -156,7 +156,7 @@ namespace RCCM.UI
                 array[i, 1] = this.calibration[key].FocalPower;
                 i++;
             }
-            return this.controller.applyCalibration(array, this.stage);
+            return this.controller.ApplyCalibration(array, this.stage);
         }
 
         /// <summary>
@@ -186,11 +186,11 @@ namespace RCCM.UI
         /// <param name="e"></param>
         private void LensCalibrationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.controller.resumeFocusing();
+            this.controller.ResumeFocusing();
             if(this.DialogResult != DialogResult.OK)
             {
                 Logger.Out("Applying old calibration");
-                bool result = this.controller.applyCalibration(this.oldCalibration, this.stage);
+                bool result = this.controller.ApplyCalibration(this.oldCalibration, this.stage);
                 if (!result)
                 {
                     MessageBox.Show("Failed to send command");

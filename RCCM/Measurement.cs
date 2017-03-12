@@ -55,20 +55,20 @@ namespace RCCM
             // Get timestamp and save NFOV image
             NFOV nfov = fine == RCCMStage.RCCM1 ? rccm.NFOV1 : rccm.NFOV2;
             this.timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
-            nfov.snap(this.timestamp + ".bmp");
+            nfov.Snap(this.timestamp + ".bmp");
             this.Cycle = rccm.Counter.Cycle;
             this.pressure = 0; // TODO
 
-            this.coarseX = rccm.motors["coarse X"].getPos();
-            this.coarseY = rccm.motors["coarse Y"].getPos();
-            this.fineX = fine == RCCMStage.RCCM1 ? rccm.motors["fine 1 X"].getPos() : rccm.motors["fine 2 X"].getPos();
-            this.fineY = fine == RCCMStage.RCCM1 ? rccm.motors["fine 1 Y"].getPos() : rccm.motors["fine 2 Y"].getPos();
+            this.coarseX = rccm.motors["coarse X"].GetPos();
+            this.coarseY = rccm.motors["coarse Y"].GetPos();
+            this.fineX = fine == RCCMStage.RCCM1 ? rccm.motors["fine 1 X"].GetPos() : rccm.motors["fine 2 X"].GetPos();
+            this.fineY = fine == RCCMStage.RCCM1 ? rccm.motors["fine 1 Y"].GetPos() : rccm.motors["fine 2 Y"].GetPos();
             this.pixelX = pixelX;
             this.pixelY = pixelY;
-            PointF globalPosition = rccm.getNFOVLocation(fine, CoordinateSystem.Global);
+            PointF globalPosition = rccm.GetNFOVLocation(fine, CoordinateSystem.Global);
             this.X = globalPosition.X + this.pixelX;
             this.Y = globalPosition.Y + this.pixelY;
-            PointF panelPosition = rccm.globalVectorToPanelVector(this.X, this.Y);
+            PointF panelPosition = rccm.GlobalVectorToPanelVector(this.X, this.Y);
             this.PanelX = globalPosition.X + this.pixelX;
             this.PanelY = globalPosition.Y + this.pixelY;
         }
@@ -77,7 +77,7 @@ namespace RCCM
         /// Create csv line containing all data pertaining to this measurement
         /// </summary>
         /// <returns>CSV string representing this Measurement</returns>
-        public string toCSVString()
+        public string ToCSVString()
         {
             return this.timestamp   + "," +
                    this.Cycle       + "," +

@@ -90,16 +90,16 @@ namespace RCCM.UI
         
         private void RCCMMainForm_Load(object sender, EventArgs e)
         {
-            this.nfov1.initialize();
+            this.nfov1.Initialize();
 
-            this.view.setTransform(this.panelView.CreateGraphics());
+            this.view.SetTransform(this.panelView.CreateGraphics());
             
             this.panelRepaintTimer.Start();
         }
         
         private void RCCMMainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.nfov1.disconnect();
+            this.nfov1.Disconnect();
 
             Logger.Save();
             Program.Settings.save();
@@ -175,17 +175,17 @@ namespace RCCM.UI
         {
             if (this.radioMoveAbs.Checked)
             {
-                this.rccm.motors[axis].setPos(value);
+                this.rccm.motors[axis].SetPos(value);
             }
             else if (this.radioMoveRel.Checked)
             {
-                this.rccm.motors[axis].moveRel(value);
+                this.rccm.motors[axis].MoveRel(value);
             }
         }
         
         private void btnMotorStatus_Click(object sender, EventArgs e)
         {
-            var properties = this.rccm.motors["fine 1 X"].getAllProperties();
+            var properties = this.rccm.motors["fine 1 X"].GetAllProperties();
             MessageBox.Show(string.Join("\n", properties));
         }
 
@@ -268,23 +268,23 @@ namespace RCCM.UI
             string yAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 Y" : "fine 2 Y";
 
             // Get current stage position
-            double xPos = this.rccm.motors[xAxis].getPos();
-            double yPos = this.rccm.motors[yAxis].getPos();
+            double xPos = this.rccm.motors[xAxis].GetPos();
+            double yPos = this.rccm.motors[yAxis].GetPos();
 
             // Jog motors
             switch (keyData)
             {
                 case Keys.W:
-                    this.rccm.motors[xAxis].moveRel(0.1);
+                    this.rccm.motors[xAxis].MoveRel(0.1);
                     break;
                 case Keys.A:
-                    this.rccm.motors[xAxis].moveRel(-0.1);
+                    this.rccm.motors[xAxis].MoveRel(-0.1);
                     break;
                 case Keys.S:
-                    this.rccm.motors[yAxis].moveRel(-0.1);
+                    this.rccm.motors[yAxis].MoveRel(-0.1);
                     break;
                 case Keys.D:
-                    this.rccm.motors[yAxis].moveRel(0.1);
+                    this.rccm.motors[yAxis].MoveRel(0.1);
                     break;
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
@@ -301,12 +301,12 @@ namespace RCCM.UI
 
         private void listCracksSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.test.plotCracks();
+            this.test.PlotCracks();
         }
 
         private void btnStartTest_Click(object sender, EventArgs e)
         {
-            this.rccm.Counter.start();
+            this.rccm.Counter.Start();
             this.btnStartTest.Enabled = false;
             this.btnPauseTest.Enabled = true;
             this.btnStopTest.Enabled = true;
@@ -314,7 +314,7 @@ namespace RCCM.UI
 
         private void btnPauseTest_Click(object sender, EventArgs e)
         {
-            this.rccm.Counter.stop();
+            this.rccm.Counter.Stop();
             this.btnStartTest.Enabled = true;
             this.btnPauseTest.Enabled = false;
             this.btnStopTest.Enabled = false;
@@ -322,7 +322,7 @@ namespace RCCM.UI
 
         private void btnStopTest_Click(object sender, EventArgs e)
         {
-            this.rccm.Counter.stop();
+            this.rccm.Counter.Stop();
             this.btnStartTest.Enabled = true;
             this.btnPauseTest.Enabled = false;
             this.btnStopTest.Enabled = false;
@@ -341,20 +341,20 @@ namespace RCCM.UI
 
         private void panelView_Paint(object sender, PaintEventArgs e)
         {
-            this.view.paint(e.Graphics);
+            this.view.Paint(e.Graphics);
         }
 
         private void refreshPanelView(object sender, EventArgs e)
         {
             this.panelView.Invalidate();
-            this.coarseXIndicator.Text = this.rccm.motors["coarse X"].getPos().ToString();
-            this.coarseYIndicator.Text = this.rccm.motors["coarse Y"].getPos().ToString();
-            this.fine1XIndicator.Text = this.rccm.motors["fine 1 X"].getPos().ToString();
-            this.fine1YIndicator.Text = this.rccm.motors["fine 1 Y"].getPos().ToString();
-            this.fine1ZIndicator.Text = this.rccm.motors["fine 1 Z"].getPos().ToString();
-            this.fine2XIndicator.Text = this.rccm.motors["fine 2 X"].getPos().ToString();
-            this.fine2YIndicator.Text = this.rccm.motors["fine 2 Y"].getPos().ToString();
-            this.fine2ZIndicator.Text = this.rccm.motors["fine 2 Z"].getPos().ToString();
+            this.coarseXIndicator.Text = this.rccm.motors["coarse X"].GetPos().ToString();
+            this.coarseYIndicator.Text = this.rccm.motors["coarse Y"].GetPos().ToString();
+            this.fine1XIndicator.Text = this.rccm.motors["fine 1 X"].GetPos().ToString();
+            this.fine1YIndicator.Text = this.rccm.motors["fine 1 Y"].GetPos().ToString();
+            this.fine1ZIndicator.Text = this.rccm.motors["fine 1 Z"].GetPos().ToString();
+            this.fine2XIndicator.Text = this.rccm.motors["fine 2 X"].GetPos().ToString();
+            this.fine2YIndicator.Text = this.rccm.motors["fine 2 Y"].GetPos().ToString();
+            this.fine2ZIndicator.Text = this.rccm.motors["fine 2 Z"].GetPos().ToString();
         }
 
         #region Menu Items
@@ -438,7 +438,7 @@ namespace RCCM.UI
             if (WindowState != FormWindowState.Minimized)
             {
                 // Do some stuff
-                this.view.setTransform(this.panelView.CreateGraphics());
+                this.view.SetTransform(this.panelView.CreateGraphics());
             }
         }
 
@@ -447,7 +447,7 @@ namespace RCCM.UI
             if (WindowState != FormWindowState.Minimized)
             {
                 // Do some stuff
-                this.view.setTransform(this.panelView.CreateGraphics());
+                this.view.SetTransform(this.panelView.CreateGraphics());
             }
         }
 

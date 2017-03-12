@@ -222,7 +222,7 @@ namespace RCCM
                 // Write each measurement to row
                 foreach (Measurement m in this.points)
                 {
-                    file.WriteLine(m.toCSVString());
+                    file.WriteLine(m.ToCSVString());
                 }
             }
         }

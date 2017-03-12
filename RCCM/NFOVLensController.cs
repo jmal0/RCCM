@@ -53,7 +53,7 @@ namespace RCCM
                 }
                 else
                 {
-                    this.applyCalibration(calibration1, RCCMStage.RCCM1);
+                    this.ApplyCalibration(calibration1, RCCMStage.RCCM1);
                 }
             }
             catch (GardasoftException err)
@@ -70,7 +70,7 @@ namespace RCCM
                 }
                 else
                 {
-                    this.applyCalibration(calibration2, RCCMStage.RCCM2);
+                    this.ApplyCalibration(calibration2, RCCMStage.RCCM2);
                 }
             }
             catch (GardasoftException err)
@@ -90,21 +90,21 @@ namespace RCCM
         {
             if (this.NFOV1Controller != null && this.NFOV1Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
             {
-                double input = this.getReading(RCCMStage.RCCM1);
+                double input = this.GetReading(RCCMStage.RCCM1);
                 double pow = NFOVLensController.pwlInterp(this.NFOV1Calibration, input);
 
                 Console.WriteLine(input + " " + pow);
-                this.setFocalPower(pow, RCCMStage.RCCM1);
+                this.SetFocalPower(pow, RCCMStage.RCCM1);
             }
             if (this.NFOV2Controller != null && this.NFOV2Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
             {
-                double input = this.getReading(RCCMStage.RCCM2);
+                double input = this.GetReading(RCCMStage.RCCM2);
                 double pow = NFOVLensController.pwlInterp(this.NFOV2Calibration, input);
-                this.setFocalPower(pow, RCCMStage.RCCM2);
+                this.SetFocalPower(pow, RCCMStage.RCCM2);
             }
         }
 
-        public double getReading(RCCMStage stage)
+        public double GetReading(RCCMStage stage)
         {
             // Get controller based on specified stage
             IController controller = stage == RCCMStage.RCCM1 ? this.NFOV1Controller : this.NFOV2Controller;
@@ -123,7 +123,7 @@ namespace RCCM
             }
         }
 
-        public double getHeight(RCCMStage stage)
+        public double GetHeight(RCCMStage stage)
         {
             // Get controller based on specified stage
             IController controller = stage == RCCMStage.RCCM1 ? this.NFOV1Controller : this.NFOV2Controller;
@@ -142,7 +142,7 @@ namespace RCCM
             }
         }
 
-        public double getFocalPower(RCCMStage stage)
+        public double GetFocalPower(RCCMStage stage)
         {
             // Get controller based on specified stage
             IController controller = stage == RCCMStage.RCCM1 ? this.NFOV1Controller : this.NFOV2Controller;
@@ -169,7 +169,7 @@ namespace RCCM
         /// <param name="data">2D array of calibration data. Column 1 contains input voltage, column 2 contains output voltage</param>
         /// <param name="stage">Parent stage of the lens to indicate which lens to calibrate</param>
         /// <returns></returns>
-        public bool applyCalibration(double[,] data, RCCMStage stage)
+        public bool ApplyCalibration(double[,] data, RCCMStage stage)
         {
             int rows = data.GetLength(0);
             int cols = data.GetLength(1);
@@ -217,7 +217,7 @@ namespace RCCM
         /// <param name="power">Focal power to use, in diopters</param>
         /// <param name="stage">Stage indicating which controller to send the command to</param>
         /// <returns></returns>
-        public bool setFocalPower(double power, RCCMStage stage)
+        public bool SetFocalPower(double power, RCCMStage stage)
         {
             IController controller = stage == RCCMStage.RCCM1 ? this.NFOV1Controller : this.NFOV2Controller;
             try
@@ -236,12 +236,12 @@ namespace RCCM
             return 44.4444 * inputVoltage + 5.5555; 
         }
 
-        public void pauseFocusing()
+        public void PauseFocusing()
         {
             this.focusTimer.Stop();
         }
 
-        public void resumeFocusing()
+        public void ResumeFocusing()
         {
             this.focusTimer.Start();
         }
@@ -271,7 +271,7 @@ namespace RCCM
             return m * x + b;
         }
 
-        public void saveToJSON(Settings settings)
+        public void SaveToJSON(Settings settings)
         {
             settings.json["nfov 1"]["calibration"] = JArray.FromObject(this.NFOV1Calibration);
             settings.json["nfov 2"]["calibration"] = JArray.FromObject(this.NFOV2Calibration);

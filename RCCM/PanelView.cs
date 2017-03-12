@@ -62,8 +62,8 @@ namespace RCCM
             float hFine2 = (float)Program.Settings.json["fine 2"]["y travel"];
             this.fine1 = new RectangleF(xFine1, yFine1, wFine1, hFine1);
             this.fine2 = new RectangleF(xFine2, yFine2, wFine2, hFine2);
-            PointF fine1Off = this.rccm.fineVectorToGlobalVector(xFine1, yFine1);
-            PointF fine2Off = this.rccm.fineVectorToGlobalVector(xFine2, yFine2);
+            PointF fine1Off = this.rccm.FineVectorToGlobalVector(xFine1, yFine1);
+            PointF fine2Off = this.rccm.FineVectorToGlobalVector(xFine2, yFine2);
             this.fine1Offset = new SizeF(fine1Off.X, fine1Off.Y);
             this.fine2Offset = new SizeF(fine2Off.X, fine2Off.Y);
             // Create brushes/pens to draw with
@@ -80,7 +80,7 @@ namespace RCCM
         /// </summary>
         /// <param name="g">The graphics object representing the control on which to draw</param>
         /// <param name="rccm">Handle to RCCMSystem object. Will be used to get positions</param>
-        public void paint(Graphics g)
+        public void Paint(Graphics g)
         {
             this.updatePositions();
 
@@ -140,7 +140,7 @@ namespace RCCM
         /// Create the transform matrix to map pixel coordinates to the global coordinate system
         /// </summary>
         /// <param name="g">The graphics object representing the control on which to draw</param>
-        public void setTransform(Graphics g)
+        public void SetTransform(Graphics g)
         {
             RectangleF bounds = g.VisibleClipBounds;
             float rccmXSize = this.coarse.Width + this.fine1.Width + this.fine2.Width;
@@ -153,15 +153,15 @@ namespace RCCM
             this.transform = g.Transform;
         }
 
-        public void updatePositions()
+        private void updatePositions()
         {
             // Get positions from rccm
-            this.coarseXPos = (float)this.rccm.motors["coarse X"].getPos();
-            this.coarseYPos = (float) this.rccm.motors["coarse Y"].getPos();
-            this.fine1XPos = (float) this.rccm.motors["fine 1 X"].getPos();
-            this.fine1YPos = (float) this.rccm.motors["fine 1 Y"].getPos();
-            this.fine2XPos = (float) this.rccm.motors["fine 2 X"].getPos();
-            this.fine2YPos = (float) this.rccm.motors["fine 2 Y"].getPos();
+            this.coarseXPos = (float)this.rccm.motors["coarse X"].GetPos();
+            this.coarseYPos = (float) this.rccm.motors["coarse Y"].GetPos();
+            this.fine1XPos = (float) this.rccm.motors["fine 1 X"].GetPos();
+            this.fine1YPos = (float) this.rccm.motors["fine 1 Y"].GetPos();
+            this.fine2XPos = (float) this.rccm.motors["fine 2 X"].GetPos();
+            this.fine2YPos = (float) this.rccm.motors["fine 2 Y"].GetPos();
             // Move fine stage rectangles
             PointF coarsePos = new PointF(this.coarseXPos, this.coarseYPos);
             this.fine1.Location = PointF.Add(coarsePos, this.fine1Offset);
@@ -170,8 +170,8 @@ namespace RCCM
             float yFine1 = (float)Program.Settings.json["fine 1"]["y"];
             float xFine2 = (float)Program.Settings.json["fine 2"]["x"];
             float yFine2 = (float)Program.Settings.json["fine 2"]["y"];
-            PointF fine1Off = this.rccm.fineVectorToGlobalVector(xFine1, yFine1);
-            PointF fine2Off = this.rccm.fineVectorToGlobalVector(xFine2, yFine2);
+            PointF fine1Off = this.rccm.FineVectorToGlobalVector(xFine1, yFine1);
+            PointF fine2Off = this.rccm.FineVectorToGlobalVector(xFine2, yFine2);
             this.fine1Offset = new SizeF(fine1Off.X, fine1Off.Y);
             this.fine2Offset = new SizeF(fine2Off.X, fine2Off.Y);
             this.panel.X = (float)this.rccm.PanelOffsetX;

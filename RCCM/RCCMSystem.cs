@@ -135,21 +135,21 @@ namespace RCCM
             this.panelRotation[1, 1] = Math.Cos(this.panelAngle * Math.PI / 180.0);
         }
 
-        public PointF getNFOVLocation(RCCMStage stage, CoordinateSystem sys)
+        public PointF GetNFOVLocation(RCCMStage stage, CoordinateSystem sys)
         {
-            PointF coarselocation = new PointF((float)this.motors["coarse X"].getPos(),
-                                               (float)this.motors["coarse Y"].getPos());
+            PointF coarselocation = new PointF((float)this.motors["coarse X"].GetPos(),
+                                               (float)this.motors["coarse Y"].GetPos());
             double xOffset;
             double yOffset;
             if (stage == RCCMStage.RCCM1)
             {
-                xOffset = this.rccm1Offset.X + this.motors["fine 1 X"].getPos();
-                yOffset = this.rccm1Offset.Y + this.motors["fine 1 Y"].getPos();
+                xOffset = this.rccm1Offset.X + this.motors["fine 1 X"].GetPos();
+                yOffset = this.rccm1Offset.Y + this.motors["fine 1 Y"].GetPos();
             }
             else
             {
-                xOffset = this.rccm2Offset.X + this.motors["fine 2 X"].getPos();
-                yOffset = this.rccm2Offset.Y + this.motors["fine 2 Y"].getPos();
+                xOffset = this.rccm2Offset.X + this.motors["fine 2 X"].GetPos();
+                yOffset = this.rccm2Offset.Y + this.motors["fine 2 Y"].GetPos();
             }
             double xOffRotated = this.fineStageRotation[0, 0] * xOffset + this.fineStageRotation[0, 1] * yOffset;
             double yOffRotated = this.fineStageRotation[1, 0] * xOffset + this.fineStageRotation[1, 1] * yOffset;
@@ -157,21 +157,21 @@ namespace RCCM
             switch (sys)
             {
                 case CoordinateSystem.Local:
-                    return this.globalVectorToPanelVector(this.motors["coarse X"].getPos() + xOffRotated,
-                                                          this.motors["coarse Y"].getPos() + yOffRotated);
+                    return this.GlobalVectorToPanelVector(this.motors["coarse X"].GetPos() + xOffRotated,
+                                                          this.motors["coarse Y"].GetPos() + yOffRotated);
                 default:
                     return globalPt;
             }
         }
 
-        public PointF fineVectorToGlobalVector(double x, double y)
+        public PointF FineVectorToGlobalVector(double x, double y)
         {
             double globalX = this.fineStageRotation[0, 0] * x + this.fineStageRotation[0, 1] * y;
             double globalY = this.fineStageRotation[1, 0] * x + this.fineStageRotation[1, 1] * y;
             return new PointF((float) globalX, (float) globalY);
         }
 
-        public PointF globalVectorToPanelVector(double x, double y)
+        public PointF GlobalVectorToPanelVector(double x, double y)
         {
             double panelX = this.panelRotation[0, 0] * x + this.panelRotation[0, 1] * y;
             double panelY = this.panelRotation[1, 0] * x + this.panelRotation[1, 1] * y;
@@ -208,27 +208,27 @@ namespace RCCM
                 }
             }
             // Apply settings
-            applyMotorSettings();
+            ApplyMotorSettings();
         }
 
-        public void applyMotorSettings()
+        public void ApplyMotorSettings()
         {
             foreach (string motorName in RCCMSystem.AXES)
             {
                 foreach (string property in Motor.MOTOR_SETTINGS)
                 {
-                    this.motors[motorName].setProperty(property, (double) Program.Settings.json[motorName][property]);
+                    this.motors[motorName].SetProperty(property, (double) Program.Settings.json[motorName][property]);
                 }
             }
         }
 
-        public void saveMotorSettings()
+        public void SaveMotorSettings()
         {
             foreach (string motorName in RCCMSystem.AXES)
             {
                 foreach (string property in Motor.MOTOR_SETTINGS)
                 {
-                    Program.Settings.json[motorName][property] = this.motors[motorName].getProperty(property);
+                    Program.Settings.json[motorName][property] = this.motors[motorName].GetProperty(property);
                 }
             }
         }
@@ -237,7 +237,7 @@ namespace RCCM
 
         public void readHeight1()
         {
-            Logger.Out(this.LensController.getHeight(RCCMStage.RCCM1).ToString());
+            Logger.Out(this.LensController.GetHeight(RCCMStage.RCCM1).ToString());
         }
     }
 }

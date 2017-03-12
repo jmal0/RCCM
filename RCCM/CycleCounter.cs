@@ -60,7 +60,7 @@ namespace RCCM
         /// <summary>
         /// Activates the counter without resetting the cycle number
         /// </summary>
-        public void start()
+        public void Start()
         {
             this.countTimer.Start();
             this.Active = true;
@@ -71,7 +71,7 @@ namespace RCCM
         /// Activates the counter without and sets the current cycle to the specified value
         /// </summary>
         /// <param name="cycle">Cycle number to start at</param>
-        public void start(int cycle)
+        public void Start(int cycle)
         {
             this.Cycle = cycle;
             this.countTimer.Start();
@@ -82,7 +82,7 @@ namespace RCCM
         /// <summary>
         /// Stops the cycle counting. Cycle counting can be resumed
         /// </summary>
-        public void stop()
+        public void Stop()
         {
             this.countTimer.Stop();
             this.Active = false;

@@ -72,47 +72,12 @@ namespace RCCM
                 {
                     int ind = this.crackSelection.Items.Add(crack);
                     this.crackSelection.SetSelected(ind, true);
-                    (crack as INotifyCollectionChanged).CollectionChanged += delegate (object sender2, NotifyCollectionChangedEventArgs e2) { this.plotCracks(); };
+                    (crack as INotifyCollectionChanged).CollectionChanged += delegate (object sender2, NotifyCollectionChangedEventArgs e2) { this.PlotCracks(); };
                 }
             }
         }
 
-        public Tuple<double[], double[]> calculateParisLaw(MeasurementSequence crack)
-        {
-            double[] cycles = new double[crack.CountPoints];
-            double[] slopes = new double[crack.CountPoints];
-            if (crack.CountPoints == 0)
-            {
-                return new Tuple<double[], double[]>(cycles, slopes);
-            }
-
-            double originX = crack.GetPoint(0).X;
-            double originY = crack.GetPoint(0).Y;
-            double lastA = 0;
-            double lastN = 0;
-            for (int i = 0; i<crack.CountPoints;i++)
-            {
-                Measurement point = crack.GetPoint(i);
-                // Calculate length of crack from origin
-                double a = Math.Sqrt(Math.Pow((point.X - originX), 2) + Math.Pow((point.Y - originY), 2));
-                cycles[i] = point.Cycle;
-                // Protect against divide by 0
-                if (cycles[i] - lastN == 0)
-                {
-                    slopes[i] = (a - lastA); // Assume 1 cycle passed
-                }
-                else
-                {
-                    slopes[i] = (a - lastA) / (cycles[i] - lastN);
-                }                
-                // Save crack length and cycle for calculation of next slope
-                lastA = a;
-                lastN = cycles[i];
-            }
-            return new Tuple<double[], double[]>(cycles, slopes); 
-        }
-
-        public void updateTestControls(object sender, EventArgs e)
+        private void updateTestControls(object sender, EventArgs e)
         {
             // Update cycle indicator
             this.cycleIndicator.Text = this.counter.Cycle.ToString();
@@ -131,7 +96,7 @@ namespace RCCM
             }
         }
 
-        public void plotCracks()
+        public void PlotCracks()
         {
             // Refresh crack selection list (names may have changed)
             this.crackSelection.DisplayMember = "";

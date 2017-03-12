@@ -35,12 +35,12 @@ namespace RCCM.UI
             this.dropdownProperty.SelectedIndex = 0;
 
             string motorName = this.dropdownMotor.Items[this.dropdownMotor.SelectedIndex].ToString();
-            this.checkBoxEnable.Checked = this.rccm.motors[motorName].getProperty("enabled") == 0.0 ? false : true;
+            this.checkBoxEnable.Checked = this.rccm.motors[motorName].GetProperty("enabled") == 0.0 ? false : true;
         }
 
         private void MotorSettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.rccm.saveMotorSettings();
+            this.rccm.SaveMotorSettings();
         }
 
         private void dropdownMotor_SelectedIndexChanged(object sender, EventArgs e)
@@ -49,8 +49,8 @@ namespace RCCM.UI
             string propertyName = this.dropdownProperty.Items[this.dropdownProperty.SelectedIndex].ToString();
             if (motorName != null && propertyName != null)
             {
-                this.editValue.Value = (decimal)this.rccm.motors[motorName].getProperty(propertyName);
-                this.checkBoxEnable.Checked = this.rccm.motors[motorName].getProperty("enabled") == 0.0 ? false : true;
+                this.editValue.Value = (decimal)this.rccm.motors[motorName].GetProperty(propertyName);
+                this.checkBoxEnable.Checked = this.rccm.motors[motorName].GetProperty("enabled") == 0.0 ? false : true;
             }
         }
 
@@ -60,7 +60,7 @@ namespace RCCM.UI
             string propertyName = "enabled";
             if (motorName != null && propertyName != null)
             {
-                this.rccm.motors[motorName].setProperty(propertyName, this.checkBoxEnable.Checked ? 1 : 0);
+                this.rccm.motors[motorName].SetProperty(propertyName, this.checkBoxEnable.Checked ? 1 : 0);
             }
         }
 
@@ -70,7 +70,7 @@ namespace RCCM.UI
             string propertyName = this.dropdownProperty.Items[this.dropdownProperty.SelectedIndex].ToString();
             if (motorName != null && propertyName != null)
             {
-                this.editValue.Value = (decimal)this.rccm.motors[motorName].getProperty(propertyName);
+                this.editValue.Value = (decimal)this.rccm.motors[motorName].GetProperty(propertyName);
             }
         }
 
@@ -83,7 +83,7 @@ namespace RCCM.UI
                 double value = (double)this.editValue.Value;
                 if (motorName != null && propertyName != null)
                 {
-                    this.rccm.motors[motorName].setProperty(propertyName, value);
+                    this.rccm.motors[motorName].SetProperty(propertyName, value);
                 }
             }
         }

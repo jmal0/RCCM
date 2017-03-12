@@ -67,7 +67,7 @@ namespace RCCM.UI
         {
             this.Text = this.stage == RCCMStage.RCCM1 ? "WFOV 1" : "WFOV 2";
             // Initialize camera
-            bool success = this.camera.initialize(this.wfovContainer);
+            bool success = this.camera.Initialize(this.wfovContainer);
             if (success)
             {
                 btnWfovStart.Enabled = true;
@@ -91,9 +91,9 @@ namespace RCCM.UI
         {
             if (this.camera.Recording)
             {
-                this.camera.stopRecord();
+                this.camera.StopRecord();
             }
-            this.camera.stop();
+            this.camera.Stop();
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace RCCM.UI
             g.ScaleTransform(scaleX, scaleY);
             // Move to NFOV location (first move origin to image center)
             g.TranslateTransform((float)this.camera.Width / 2, (float)this.camera.Height / 2);
-            PointF pos = this.rccm.getNFOVLocation(this.stage, CoordinateSystem.Global);
+            PointF pos = this.rccm.GetNFOVLocation(this.stage, CoordinateSystem.Global);
             g.TranslateTransform(-pos.X, -pos.Y);
 
             // Draw each crack on the image
@@ -150,7 +150,7 @@ namespace RCCM.UI
 
         private void btnWfovStart_Click(object sender, EventArgs e)
         {
-            this.camera.start();
+            this.camera.Start();
 
             // Update button states
             if (this.wfovContainer.DeviceValid)
@@ -162,7 +162,7 @@ namespace RCCM.UI
 
         private void btnWfovStop_Click(object sender, EventArgs e)
         {
-            this.camera.stop();
+            this.camera.Stop();
 
             // Update button states
             if (!this.wfovContainer.LiveVideoRunning)
@@ -176,14 +176,14 @@ namespace RCCM.UI
         {
             string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
             string dir = (string)Program.Settings.json["image directory"];
-            this.camera.snapImage(dir + "\\" + timestamp + ".png");
+            this.camera.SnapImage(dir + "\\" + timestamp + ".png");
         }
 
         private void btnWfovProperties_Click(object sender, EventArgs e)
         {
             if (wfovContainer.DeviceValid)
             {
-                this.camera.editProperties();
+                this.camera.EditProperties();
             }
         }
 
@@ -195,14 +195,14 @@ namespace RCCM.UI
                 {
                     string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
                     string dir = (string)Program.Settings.json["video directory"];
-                    this.camera.record(dir + @"\" + timestamp + ".avi");
+                    this.camera.Record(dir + @"\" + timestamp + ".avi");
                     btnWfovRecord.BackColor = Color.Gray;
                     btnWfovStart.Enabled = false;
                     btnWfovSnap.Enabled = false;
                 }
                 else
                 {
-                    this.camera.stopRecord();
+                    this.camera.StopRecord();
                     MessageBox.Show("Recording stopped");
                     btnWfovRecord.BackColor = Color.Transparent;
                     btnWfovStart.Enabled = true;
@@ -214,7 +214,7 @@ namespace RCCM.UI
         private void btnFocus_Click(object sender, EventArgs e)
         {
             btnFocus.Enabled = false;
-            int newFocus = this.camera.autoFocus();
+            int newFocus = this.camera.AutoFocus();
             this.sliderFocus.Value = newFocus;
             this.textFocus.Text = newFocus.ToString();
             btnFocus.Enabled = true;
