@@ -420,13 +420,21 @@ namespace RCCM.UI
                 DialogResult result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    crack.Name = form.GetName();
-                    crack.Color = Color.FromArgb(128, form.GetColor());
-                    crack.LineSize = form.GetLineSize();
-                    crack.Orientation = form.GetOrientation();
-                    crack.Mode = form.GetMode();
-                    crack.Parent = form.GetStage();
-                    this.updateMeasurementControls();
+                    MeasurementSequence crack2 = findCrackName(form.GetName());
+                    if (crack2 == null || crack2 == crack)
+                    {
+                        crack.Name = form.GetName();
+                        crack.Color = Color.FromArgb(128, form.GetColor());
+                        crack.LineSize = form.GetLineSize();
+                        crack.Orientation = form.GetOrientation();
+                        crack.Mode = form.GetMode();
+                        crack.Parent = form.GetStage();
+                        this.updateMeasurementControls();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please use a unique name");
+                    }
                 }
             }
         }
@@ -438,10 +446,17 @@ namespace RCCM.UI
             if (result == DialogResult.OK)
             {
                 MeasurementSequence newCrack = new MeasurementSequence(dlg);
-                this.measurementCounter++;
-                this.cracks.Add(newCrack);
-
-                this.listMeasurements.SelectedIndex = this.cracks.Count - 1;
+                MeasurementSequence crack2 = findCrackName(newCrack.Name);
+                if (crack2 == null)
+                {
+                    this.measurementCounter++;
+                    this.cracks.Add(newCrack);
+                    this.listMeasurements.SelectedIndex = this.cracks.Count - 1;
+                }
+                else
+                {
+                    MessageBox.Show("Please use a unique name");
+                }
             }
             dlg.Dispose();
         }
@@ -563,6 +578,18 @@ namespace RCCM.UI
         private void cracksChangedHandler(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.updateMeasurementControls();
+        }
+
+        private MeasurementSequence findCrackName(string name)
+        {
+            foreach (MeasurementSequence crack in this.cracks)
+            {
+                if (crack.Name == name)
+                {
+                    return crack;
+                }
+            }
+            return null;
         }
     }
 }

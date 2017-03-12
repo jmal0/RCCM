@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RCCM.UI
 {
@@ -15,10 +16,15 @@ namespace RCCM.UI
     /// </summary>
     public partial class NewMeasurementForm : Form
     {
+        public static int ColorInd = 0;
+        public static Color[] Colors = { Color.Red, Color.Blue, Color.Green, Color.Purple, Color.Orange, Color.Yellow, Color.Black, Color.Brown, Color.DarkBlue, Color.LimeGreen, Color.PaleVioletRed };
+
         public NewMeasurementForm(string defaultName)
         {
             InitializeComponent();
             this.textName.Text = defaultName;
+            this.colorPicker.BackColor = NewMeasurementForm.Colors[NewMeasurementForm.ColorInd];
+            NewMeasurementForm.ColorInd = (NewMeasurementForm.ColorInd + 1) % NewMeasurementForm.Colors.Length;
         }
 
         public NewMeasurementForm(MeasurementSequence crack)
