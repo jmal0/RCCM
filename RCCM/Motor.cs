@@ -11,15 +11,17 @@ namespace RCCM
     /// </summary>
     abstract public class Motor
     {
-        public static string[] MOTOR_SETTINGS = { "velocity", "acceleration", "deceleration", "low position limit", "high position limit", "microstep per mm", "enabled", "home" }; 
+        public static string[] MOTOR_SETTINGS = { "enabled", "microstep per mm", "velocity", "jog speed", "acceleration", "deceleration", "low position limit", "high position limit", "home" };
         protected double commandPos = 0;
         protected bool homed = false;
         // Maintained list of motion settings and limits
         protected Dictionary<string, double> settings;
+        public bool Jogging { get; protected set; }
 
         public Motor()
         {
             this.settings = new Dictionary<string, double>();
+            this.Jogging = false;
 
             // Create required keys for settings
             foreach (string setting in Motor.MOTOR_SETTINGS)
@@ -68,5 +70,9 @@ namespace RCCM
         abstract public Dictionary<string, double> GetAllProperties();
 
         abstract public void WaitForEndOfMove();
+
+        abstract public void Jog(bool fwd);
+
+        abstract public void JogStop();
     }
 }

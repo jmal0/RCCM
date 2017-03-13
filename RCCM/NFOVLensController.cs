@@ -31,7 +31,7 @@ namespace RCCM
         public static Regex PARSE_GET = new Regex(@"Ig([0-9]+)");
         public static Regex PARSE_GETOUTPUT = new Regex(@"AF(\s)+([0-9.-]+)");
 
-        public static long UPDATE_PERIOD = 100;
+        public static long UPDATE_PERIOD = 1000;
 
         protected ControllerManager manager;
         public IController NFOV1Controller { get; private set; }

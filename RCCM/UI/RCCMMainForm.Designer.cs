@@ -1405,12 +1405,16 @@
             this.Controls.Add(this.tableLayoutMain);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RCCMMainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RCCM";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RCCMMainForm_FormClosed);
             this.Load += new System.EventHandler(this.RCCMMainForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RCCMMainForm_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RCCMMainForm_KeyUp);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.RCCMMainForm_PreviewKeyDown);
             this.Resize += new System.EventHandler(this.RCCMMainForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

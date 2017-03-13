@@ -40,8 +40,6 @@ namespace RCCM.UI
         protected bool recording = false;
         protected bool wfov1Recording = false;
 
-        protected RCCMStage activeStage;
-
         protected TestResults test;
         
         protected PanelView view;
@@ -72,8 +70,6 @@ namespace RCCM.UI
             this.nfov2 = this.rccm.NFOV2;
             this.wfov1 = this.rccm.WFOV1;
             this.wfov2 = this.rccm.WFOV2;
-
-            this.activeStage = RCCMStage.RCCM1;
             
             this.panelRepaintTimer = new Timer();
             this.panelRepaintTimer.Enabled = true;
@@ -102,6 +98,10 @@ namespace RCCM.UI
             this.nfov1.Disconnect();
             this.nfov2.Disconnect();
             this.rccm.LensController.Stop();
+            foreach (string motorName in RCCMSystem.AXES)
+            {
+                this.rccm.motors[motorName].JogStop();
+            }
 
             Logger.Save();
             Program.Settings.save();
@@ -253,47 +253,7 @@ namespace RCCM.UI
         }
 
         #endregion
-
-        /// <summary>
-        /// Handler for keyboard presses in form. Calls motion commands for WASD keys
-        /// </summary>
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            // Only works when NFOV live display has mouse focus (so text entry is not interrupted)
-            if (!this.tabControl1.Focused)
-            {
-                return base.ProcessCmdKey(ref msg, keyData);
-            }
-
-            // Get active axis
-            string xAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 X" : "fine 2 X";
-            string yAxis = this.activeStage == RCCMStage.RCCM1 ? "fine 1 Y" : "fine 2 Y";
-
-            // Get current stage position
-            double xPos = this.rccm.motors[xAxis].GetPos();
-            double yPos = this.rccm.motors[yAxis].GetPos();
-
-            // Jog motors
-            switch (keyData)
-            {
-                case Keys.W:
-                    this.rccm.motors[xAxis].MoveRel(0.1);
-                    break;
-                case Keys.A:
-                    this.rccm.motors[xAxis].MoveRel(-0.1);
-                    break;
-                case Keys.S:
-                    this.rccm.motors[yAxis].MoveRel(-0.1);
-                    break;
-                case Keys.D:
-                    this.rccm.motors[yAxis].MoveRel(0.1);
-                    break;
-                default:
-                    return base.ProcessCmdKey(ref msg, keyData);
-            }
-            return true;
-        }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             this.rccm.readHeight1();
@@ -429,11 +389,6 @@ namespace RCCM.UI
                 form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.wfov2Open = false; };
             }
         }
-        
-        private void lockCamera()
-        {
-
-        }
 
         private void RCCMMainForm_Resize(object sender, EventArgs e)
         {
@@ -489,6 +444,63 @@ namespace RCCM.UI
             this.rccm.PanelOffsetY = (double)this.editPanelY.Value;
         }
 
+        private void RCCMMainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Get active axis
+            string xAxis, yAxis;
+            switch (this.getActiveStage())
+            {
+                case RCCMStage.RCCM1:
+                    xAxis = "fine 1 X";
+                    yAxis = "fine 1 Y";
+                    break;
+                case RCCMStage.RCCM2:
+                    xAxis = "fine 2 X";
+                    yAxis = "fine 2 Y";
+                    break;
+                default:
+                    xAxis = "coarse X";
+                    yAxis = "coarse Y";
+                    break;
+            }
+
+            // Get current stage position
+            double xPos = this.rccm.motors[xAxis].GetPos();
+            double yPos = this.rccm.motors[yAxis].GetPos();
+
+            // Jog motors
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    e.SuppressKeyPress = true;
+                    this.rccm.motors[yAxis].Jog(true);
+                    break;
+                case Keys.Left:
+                    e.SuppressKeyPress = true;
+                    this.rccm.motors[xAxis].Jog(false);
+                    break;
+                case Keys.Down:
+                    e.SuppressKeyPress = true;
+                    this.rccm.motors[yAxis].Jog(false);
+                    break;
+                case Keys.Right:
+                    e.SuppressKeyPress = true;
+                    this.rccm.motors[xAxis].Jog(true);
+                    break;
+            }
+        }
+
+        private void RCCMMainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Up || e.KeyData == Keys.Left || e.KeyData == Keys.Down || e.KeyData == Keys.Right)
+            {
+                foreach (string motorName in RCCMSystem.AXES)
+                {
+                    this.rccm.motors[motorName].JogStop();
+                }
+            }
+        }
+
         private void textImageDir_Enter(object sender, EventArgs e)
         {
             DialogResult result = this.folderBrowserDialog.ShowDialog();
@@ -498,6 +510,15 @@ namespace RCCM.UI
                 this.textImageDir.Text = this.folderBrowserDialog.SelectedPath;
                 Program.Settings.json["image directory"] = this.folderBrowserDialog.SelectedPath;
             }
+        }
+
+        private void RCCMMainForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Left || e.KeyCode == Keys.Down || e.KeyCode == Keys.Right)
+            {
+                e.IsInputKey = true;
+            }
+            e.IsInputKey = false;
         }
 
         private void textVideoDir_Enter(object sender, EventArgs e)
@@ -523,6 +544,19 @@ namespace RCCM.UI
                     Program.Settings.json["test data directory"] = this.folderBrowserDialog.SelectedPath;
                 }
             }
+        }
+
+        private RCCMStage getActiveStage()
+        {
+            if (this.radioRCCM1.Checked)
+            {
+                return RCCMStage.RCCM1;
+            }
+            if (this.radioRCCM2.Checked)
+            {
+                return RCCMStage.RCCM2;
+            }
+            return RCCMStage.Coarse;
         }
     }
 }

@@ -10,51 +10,45 @@ namespace RCCM
     public class TrioStepperMotor : Motor
     {
         public static Dictionary<string, string> TRIO_PROPERTY_MAP = new Dictionary<string, string>{
+            { "enabled", "AXIS_ENABLE" },
+            { "microstep per mm", "UNITS" },
             { "velocity", "SPEED" },
+            { "jog speed", "JOGSPEED" },
             { "acceleration", "ACCEL" },
             { "deceleration", "DECEL" },
             { "low position limit", "AXIS_RS_LIMIT" },
             { "high position limit", "AXIS_FS_LIMIT" },
-            { "microstep per mm", "UNITS" },
-            { "enabled", "AXIS_ENABLE" },
             { "home", "" }
         };
 
         private TrioController controller;
         private short axisNum;
 
-        private bool Jogging = false;
-
         public TrioStepperMotor(TrioController controller, short axisNum)
         {
             this.controller = controller;
             this.axisNum = axisNum;
+            this.Jogging = false;
         }
 
-        public bool JogStart(bool fwd)
+        public override void Jog(bool fwd)
         {
-            if (this.GetProperty("enabled") == 0)
+            if (this.GetProperty("enabled") != 0 && !this.Jogging)
             {
-                return false;
+                this.controller.Jog(fwd, this.axisNum);
+                Console.WriteLine("jogging");
+                this.Jogging = true;
             }
-            if (!this.Jogging)
-            {
-                return this.controller.Jog(fwd, this.axisNum);
-            }
-            return true;
         }
 
-        public bool JogStop()
+        public override void JogStop()
         {
-            if (this.GetProperty("enabled") == 0)
+            if (this.GetProperty("enabled") != 0 && this.Jogging)
             {
-                return false;
+                this.controller.JogStop(this.axisNum);
+                Console.WriteLine("jog stop stepper");
+                this.Jogging = false;
             }
-            if (this.Jogging)
-            {
-                return this.controller.JogStop(this.axisNum);
-            }
-            return true;
         }
 
         /// <summary>

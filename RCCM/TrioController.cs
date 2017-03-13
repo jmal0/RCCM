@@ -127,6 +127,7 @@ namespace RCCM
             // If moves are buffered, cancel them and wait for them to end
             if (movesBuffered > 0.01)
             {
+                Console.WriteLine("buffered moves?");
                 this.triopc.Cancel(0, nAxis); // Cancel current move
                 this.triopc.Cancel(1, nAxis); // Cancel buffered move
                 this.WaitForEndOfMove(nAxis); // Wait for axis to stop

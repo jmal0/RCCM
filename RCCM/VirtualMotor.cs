@@ -22,7 +22,7 @@ namespace RCCM
         /// </summary>
         /// <param name="cmd">New command position</param>
         /// <returns>The previous commanded position</returns>
-        override public double SetPos(double cmd)
+        public override double SetPos(double cmd)
         {
             if (this.GetProperty("enabled") == 0)
             {
@@ -42,7 +42,7 @@ namespace RCCM
         /// </summary>
         /// <param name="dist">Distance to move</param>
         /// <returns>The previous commanded position</returns>
-        override public double MoveRel(double dist)
+        public override double MoveRel(double dist)
         {
             if (this.GetProperty("enabled") == 0)
             {
@@ -83,6 +83,24 @@ namespace RCCM
         public override void WaitForEndOfMove()
         {
             return;
+        }
+
+        public override void Jog(bool fwd)
+        {
+            if (!this.Jogging)
+            {
+                Console.WriteLine("jogging");
+                this.Jogging = true;
+            }
+        }
+
+        public override void JogStop()
+        {
+            if (this.Jogging)
+            {
+                Console.WriteLine("jog stop");
+                this.Jogging = false;
+            }            
         }
     }
 }

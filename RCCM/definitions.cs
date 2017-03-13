@@ -6,7 +6,8 @@
     public enum RCCMStage
     {
         RCCM1,
-        RCCM2
+        RCCM2,
+        Coarse
     }
 
     /// <summary>
