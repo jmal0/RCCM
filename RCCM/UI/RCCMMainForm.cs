@@ -100,6 +100,8 @@ namespace RCCM.UI
         private void RCCMMainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.nfov1.Disconnect();
+            this.nfov2.Disconnect();
+            this.rccm.LensController.Stop();
 
             Logger.Save();
             Program.Settings.save();

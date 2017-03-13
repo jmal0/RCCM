@@ -66,7 +66,7 @@ namespace RCCM.UI
             this.focalPowerEdit.Value = (decimal) this.controller.GetFocalPower(this.stage);
             this.updateListView();
 
-            this.controller.PauseFocusing();
+            this.controller.PauseFocusing(this.stage);
         }
 
         private void heightEdit_ValueChanged(object sender, EventArgs e)
@@ -169,8 +169,10 @@ namespace RCCM.UI
             foreach (double key in this.calibration.Keys)
             {
                 // Item is represented in list as 2 element string array
+                double height = this.stage == RCCMStage.RCCM1 ? this.controller.ToHeight1(this.calibration[key].InputPower) : 
+                                                                this.controller.ToHeight2(this.calibration[key].InputPower);
                 this.listCalibration.Items.Add(new ListViewItem(new string[] {
-                    string.Format("{0:0.000}", NFOVLensController.ToHeight(this.calibration[key].InputPower)),
+                    string.Format("{0:0.000}", height),
                     string.Format("{0:0.000}", this.calibration[key].FocalPower),
                 }));
             }
@@ -186,7 +188,7 @@ namespace RCCM.UI
         /// <param name="e"></param>
         private void LensCalibrationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.controller.ResumeFocusing();
+            this.controller.ResumeFocusing(this.stage);
             if(this.DialogResult != DialogResult.OK)
             {
                 Logger.Out("Applying old calibration");

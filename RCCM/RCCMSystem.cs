@@ -65,6 +65,9 @@ namespace RCCM
             this.NFOV2 = new NFOV((uint)Program.Settings.json["nfov 2"]["camera serial"],
                                   (double)Program.Settings.json["nfov 2"]["microns / pixel"]);
 
+            // Read NFOV lens voltage to distance conversion into double arrays
+            double[] conversion1 = { (double)Program.Settings.json["nfov 1"]["conversion"][0], (double)Program.Settings.json["nfov 1"]["conversion"][1] };
+            double[] conversion2 = { (double)Program.Settings.json["nfov 2"]["conversion"][0], (double)Program.Settings.json["nfov 2"]["conversion"][1] };
             // Read NFOV lens calibrations into double arrays
             int i;
             int calibration1Rows = Program.Settings.json["nfov 1"]["calibration"].Count();
@@ -89,6 +92,8 @@ namespace RCCM
             // Create lens controller
             this.LensController = new NFOVLensController((int) Program.Settings.json["nfov 1"]["controller serial"],
                                                          (int) Program.Settings.json["nfov 2"]["controller serial"],
+                                                         conversion1,
+                                                         conversion2,
                                                          calibration1,
                                                          calibration2);
 

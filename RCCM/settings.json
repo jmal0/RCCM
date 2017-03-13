@@ -161,6 +161,7 @@
         "microns / pixel": 6.62,
         "height": 2048,
         "width": 2448,
+		"conversion": [39.98,49.73],
         "calibration": [
 			[1.8031,4.38],
 			[2.0836,2.8],
@@ -172,10 +173,11 @@
     },
     "nfov 2": {
         "camera serial": 0,
-        "controller serial": 0,
+        "controller serial": 641405,
         "microns / pixel": 11.0,
         "height": 2048,
         "width": 2448,
+		"conversion": [39.98,49.73],
         "calibration": [
 			[1.8031,4.38],
 			[2.0836,2.8],
