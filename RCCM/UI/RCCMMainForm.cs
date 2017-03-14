@@ -97,11 +97,11 @@ namespace RCCM.UI
         {
             this.nfov1.Disconnect();
             this.nfov2.Disconnect();
-            this.rccm.LensController.Stop();
             foreach (string motorName in RCCMSystem.AXES)
             {
                 this.rccm.motors[motorName].JogStop();
             }
+            this.rccm.Stop();
 
             Logger.Save();
             Program.Settings.save();

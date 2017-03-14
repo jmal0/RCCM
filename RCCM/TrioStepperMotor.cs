@@ -120,7 +120,6 @@ namespace RCCM
 
         public override Dictionary<string, double> GetAllProperties()
         {
-            Console.WriteLine(this.axisNum);
             Dictionary<string, double> properties = new Dictionary<string, double>(TrioController.AX_PROPERTIES.Length);
             foreach (string property in TrioController.AX_PROPERTIES)
             {

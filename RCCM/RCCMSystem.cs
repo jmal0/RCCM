@@ -58,8 +58,7 @@ namespace RCCM
 
         public RCCMSystem(AxTrioPC axTrioPC)
         {
-            this.initializeMotion(axTrioPC);
-
+            // Initialize NFOV cameras & apply settings
             this.NFOV1 = new NFOV((uint)Program.Settings.json["nfov 1"]["camera serial"],
                                   (double)Program.Settings.json["nfov 1"]["microns / pixel"]);
             this.NFOV2 = new NFOV((uint)Program.Settings.json["nfov 2"]["camera serial"],
@@ -102,7 +101,10 @@ namespace RCCM
                                   (double)Program.Settings.json["wfov 1"]["microns / pixel"]);
             this.WFOV2 = new WFOV((string)Program.Settings.json["wfov 2"]["configuration file"],
                                   (double)Program.Settings.json["wfov 2"]["microns / pixel"]);
-            
+
+            // Initialize motors
+            this.initializeMotion(axTrioPC);
+
             // Create cycle counter with test frequency specified in settings
             // Convert frequency to period in milliseconds
             double freq = (int)Program.Settings.json["cycle frequency"];
@@ -195,7 +197,7 @@ namespace RCCM
             foreach (string motorName in RCCMSystem.AXES)
             {
                 // If controller is not open, all motors must be virtual
-                if (!this.triopc.Open)
+                if (!this.triopc.Open && ((string)Program.Settings.json[motorName]["type"]).Contains("stepper"))
                 {
                     this.motors.Add(motorName, new VirtualMotor());
                     continue;
@@ -205,8 +207,22 @@ namespace RCCM
                     case "virtual":
                         this.motors.Add(motorName, new VirtualMotor());
                         break;
+                    case "virtual z 1":
+                        this.motors.Add(motorName, new VirtualZMotor(delegate () { return this.LensController.Height1; }));
+                        break;
+                    case "virtual z 2":
+                        this.motors.Add(motorName, new VirtualZMotor(delegate () { return this.LensController.Height2; }));
+                        break;
                     case "stepper":
                         this.motors.Add(motorName, new TrioStepperMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"]));
+                        break;
+                    case "stepper z 1":
+                        this.motors.Add(motorName, new TrioStepperZMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"],
+                                                                         delegate () { return this.LensController.Height1; }));
+                        break;
+                    case "stepper z 2":
+                        this.motors.Add(motorName, new TrioStepperZMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"],
+                                                                         delegate () { return this.LensController.Height2; }));
                         break;
                     default:
                         throw new NotImplementedException("Unknown motor type setting encountered for " + motorName);
@@ -243,6 +259,15 @@ namespace RCCM
         public void readHeight1()
         {
             Logger.Out(this.LensController.GetHeight(RCCMStage.RCCM1).ToString());
+        }
+
+        public void Stop()
+        {
+            this.LensController.Stop();
+            foreach (string motorName in RCCMSystem.AXES)
+            {
+                this.motors[motorName].Terminate();
+            }
         }
     }
 }

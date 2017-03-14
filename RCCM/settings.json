@@ -61,8 +61,8 @@
 		"home": 0.0
     },
     "fine 1 X": {
-        "type": "stepper",
-		"axis number": 0,
+        "type": "virtual",
+		"axis number": 2,
 		"enabled": 1,
 		"microstep per mm": 80000.0,
 		"mm per rev": 0.1,
@@ -91,8 +91,8 @@
 		"home": 0.0
     },
     "fine 1 Z": {
-        "type": "virtual",
-		"axis number": 4,
+        "type": "stepper z 1",
+		"axis number": 0,
 		"enabled": 1,
 		"microstep per mm": 80000.0,
 		"mm per rev": 0.1,

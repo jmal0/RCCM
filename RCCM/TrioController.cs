@@ -53,24 +53,12 @@ namespace RCCM
                 MessageBox.Show("Could not connect to motion controler. Non-virtual axes are disabled");
             }
         }
-
-        private void WaitForEndOfMove()
+        
+        public bool isMoving(short nAxis)
         {
-            double[] dRemain = new double[2];
-            int nAxis;
-            bool bWaiting;
-
-            bWaiting = true;
-            while (bWaiting)
-            {
-                for (nAxis = 0; nAxis <= 1; nAxis++)
-                {
-                    if (this.triopc.Base(1, nAxis))
-                        this.triopc.GetVariable("REMAIN", out dRemain[nAxis]);
-                    bWaiting = (Math.Abs(dRemain[0]) > 1.0) || (Math.Abs(dRemain[1]) > 1.0);
-                }
-                //this.GetMoveData();
-            }
+            double distRemaining;
+            this.triopc.GetAxisVariable("REMAIN", nAxis, out distRemaining);
+            return Math.Abs(distRemaining) > 0.001;
         }
 
         public double[] GetAllAxisProperties(short nAxis)

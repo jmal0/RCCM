@@ -74,5 +74,7 @@ namespace RCCM
         abstract public void Jog(bool fwd);
 
         abstract public void JogStop();
+
+        public virtual void Terminate() { }
     }
 }

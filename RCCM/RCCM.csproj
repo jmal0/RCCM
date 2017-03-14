@@ -115,6 +115,7 @@
     <Reference Include="TIS.Imaging.ICImagingControl34, Version=3.4.4.2595, Culture=neutral, PublicKeyToken=257805929e8b7928, processorArchitecture=x86" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TrioStepperZMotor.cs" />
     <Compile Include="UI\AboutRCCMForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +175,7 @@
       <DependentUpon>WFOVViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="VirtualMotor.cs" />
+    <Compile Include="VirtualZMotor.cs" />
     <Compile Include="WFOV.cs" />
     <EmbeddedResource Include="UI\AboutRCCMForm.resx">
       <DependentUpon>AboutRCCMForm.cs</DependentUpon>

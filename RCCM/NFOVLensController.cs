@@ -65,6 +65,7 @@ namespace RCCM
                 if (this.NFOV1Controller == null)
                 {
                     MessageBox.Show("NFOV 1 Lens controller disconnected or invalid.");
+                    this.Height1 = 0;
                 }
                 else
                 {
@@ -83,6 +84,7 @@ namespace RCCM
                 if (this.NFOV2Controller == null)
                 {
                     MessageBox.Show("NFOV 2 Lens controller disconnected or invalid.");
+                    this.Height2 = 0;
                 }
                 else
                 {
