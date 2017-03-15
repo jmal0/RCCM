@@ -75,6 +75,11 @@ namespace RCCM
 
         abstract public void JogStop();
 
+        public virtual double GetActuatorPos()
+        {
+            return this.GetPos();
+        }
+
         public virtual void Terminate() { }
     }
 }

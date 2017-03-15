@@ -11,12 +11,14 @@ namespace RCCM
 {
     public class TrioStepperZMotor : Motor
     {
-        public static long UPDATE_PERIOD = 1000;
+        public static long UPDATE_PERIOD = (long)Program.Settings.json["z position update period"];
+        public static double alpha = (double)Program.Settings.json["height reading filter constant"];
 
         protected TrioController controller;
         protected short axisNum;
         protected Func<double> height;
         protected double commandHeight;
+        protected double fiteredHeight;
         protected BackgroundWorker bw;
         protected AutoResetEvent adjustThreadExited;
         protected bool adjust;
@@ -29,6 +31,7 @@ namespace RCCM
             this.Jogging = false;
             this.height = heightFunc;
             this.commandHeight = this.height();
+            this.fiteredHeight = this.commandHeight;
             this.bw = new BackgroundWorker();
             this.bw.DoWork += new DoWorkEventHandler(this.heightAdjustLoop);
             this.adjustThreadExited = new AutoResetEvent(false);
@@ -45,9 +48,12 @@ namespace RCCM
                 stopwatch.Start();
                 if (!this.adjustThreadPaused)
                 {
+                    double newHeight = this.height();
+                    this.fiteredHeight = TrioStepperZMotor.alpha * newHeight + 
+                                         (1 - TrioStepperZMotor.alpha) * this.fiteredHeight;
                     double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
-                    Console.WriteLine(actuatorPos + " " + this.commandHeight + " " + this.height());
-                    double newPos = actuatorPos + this.commandHeight - this.height();
+                    Console.WriteLine(actuatorPos + " " + this.commandHeight + " " + this.fiteredHeight);
+                    double newPos = actuatorPos + this.commandHeight - this.fiteredHeight;
                     newPos = Math.Max(this.settings["low position limit"], newPos);
                     newPos = Math.Min(this.settings["high position limit"], newPos);
                     if (!this.controller.isMoving(this.axisNum) && Math.Abs(newPos - actuatorPos) > 0.5)
@@ -170,6 +176,11 @@ namespace RCCM
                 this.Jogging = false;
                 this.adjustThreadPaused = false;
             }
+        }
+
+        public override double GetActuatorPos()
+        {
+            return this.controller.GetAxisProperty("MPOS", this.axisNum);
         }
 
         public override void Terminate()

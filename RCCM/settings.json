@@ -1,4 +1,8 @@
 {
+	// Settings file applied on start up
+	// All distance/velocity/acceleration values use mm as units (unless otherwise specified)
+	// Angles use degrees
+
     // Panel/local coordinate system Settings
     "panel": {
 		"x": 0.0,
@@ -169,8 +173,10 @@
         "microns / pixel": 6.62,
         "height": 2048,
         "width": 2448,
+		// slope, y-intercept of AN3 value (input reading to distance sensor) vs height graph
 		"conversion": [39.98,49.73],
-        "calibration": [
+        // [Input voltage (V), focal power]
+		"calibration": [
 			[1.8031,4.38],
 			[2.0836,2.8],
 			[2.461,0],
@@ -185,7 +191,9 @@
         "microns / pixel": 11.0,
         "height": 2048,
         "width": 2448,
+		// slope, y-intercept of AN3 value (input reading to distance sensor) vs height graph
 		"conversion": [39.98,49.73],
+		// [Input voltage (V), focal power]
         "calibration": [
 			[1.8031,4.38],
 			[2.0836,2.8],
@@ -196,9 +204,17 @@
         ]
     },
     // UI Settings
-    "repaint period": 100,
-	"ruler spacing": 250,
+    "repaint period": 100, // milliseconds
+	"ruler spacing": 250, // mm
     // Test settings
-    "cycle frequency": 1,
-	"pressure readings saved": 100
+    "cycle frequency": 1, // Hz
+	"pressure readings saved": 100,
+	// Update rates for z-actuator and NFOV focus command loops
+	// Units is milliseconds
+	"z position update period": 100, 
+	"focus update period": 100,
+	// Exponential filter constant (alpha) for distance sensor readings
+	// Filtered height is calculated with an exponential moving average:
+	// h_filtered = alpha*h + (1-alpha)*h_filtered
+	"height reading filter constant": 0.9
 }
