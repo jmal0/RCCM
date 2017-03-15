@@ -31,7 +31,9 @@ namespace RCCM
         public static Regex PARSE_GET = new Regex(@"Ig([0-9]+)");
         public static Regex PARSE_GETOUTPUT = new Regex(@"AF(\s)+([0-9.-]+)");
 
-        public static long UPDATE_PERIOD = (long)Program.Settings.json["focus update period"];
+        public static long UPDATE_PERIOD = (long)Program.Settings.json["distance sensor"]["focus update period"];
+        public static double MIN_HEIGHT = (double)Program.Settings.json["distance sensor"]["min height"];
+        public static double MAX_HEIGHT = (double)Program.Settings.json["distance sensor"]["max height"];
 
         protected ControllerManager manager;
         public IController NFOV1Controller { get; private set; }
@@ -44,6 +46,8 @@ namespace RCCM
 
         public double Height1 { get; private set; }
         public double Height2 { get; private set; }
+        public TrioStepperZMotor Motor1 { get; set; }
+        public TrioStepperZMotor Motor2 { get; set; }
 
         protected bool read;
         protected bool readThread1Paused;
@@ -57,6 +61,9 @@ namespace RCCM
         {
             this.manager = ControllerManager.Instance();
             this.manager.DiscoverControllers();
+
+            this.Height1 = 0;
+            this.Height2 = 0;
             try
             {
                 this.conversion1 = conversion1;
@@ -65,11 +72,11 @@ namespace RCCM
                 if (this.NFOV1Controller == null)
                 {
                     MessageBox.Show("NFOV 1 Lens controller disconnected or invalid.");
-                    this.Height1 = 0;
                 }
                 else
                 {
                     this.ApplyCalibration(calibration1, RCCMStage.RCCM1);
+                    this.NFOV1Controller.ConnectionStatusChanged += new EventHandler<ControllerConnectionStatusChangedEventArgs>(this.nfov1ConnectionChanged);
                 }
             }
             catch (GardasoftException err)
@@ -84,11 +91,11 @@ namespace RCCM
                 if (this.NFOV2Controller == null)
                 {
                     MessageBox.Show("NFOV 2 Lens controller disconnected or invalid.");
-                    this.Height2 = 0;
                 }
                 else
                 {
                     this.ApplyCalibration(calibration2, RCCMStage.RCCM2);
+                    this.NFOV2Controller.ConnectionStatusChanged += new EventHandler<ControllerConnectionStatusChangedEventArgs>(this.nfov2ConnectionChanged);
                 }
             }
             catch (GardasoftException err)
@@ -118,9 +125,12 @@ namespace RCCM
                 if (!this.readThread1Paused && this.NFOV1Controller != null && this.NFOV1Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
                 {
                     double input = this.GetReading(RCCMStage.RCCM1);
-                    double pow = NFOVLensController.pwlInterp(this.NFOV1Calibration, input);
-                    this.SetFocalPower(pow, RCCMStage.RCCM1);
-                    this.Height1 = this.ToHeight1(input);
+                    if (input != -1)
+                    {
+                        double pow = NFOVLensController.pwlInterp(this.NFOV1Calibration, input);
+                        this.SetFocalPower(pow, RCCMStage.RCCM1);
+                        this.Height1 = this.ToHeight1(input);
+                    }                    
                 }
                 stopwatch.Stop();
                 Thread.Sleep((int)Math.Max(0, NFOVLensController.UPDATE_PERIOD - stopwatch.ElapsedMilliseconds));
@@ -137,9 +147,12 @@ namespace RCCM
                 if (!this.readThread2Paused && this.NFOV2Controller != null && this.NFOV2Controller.ConnectionStatus == ControllerConnectionStatus.Healthy)
                 {
                     double input = this.GetReading(RCCMStage.RCCM2);
-                    double pow = NFOVLensController.pwlInterp(this.NFOV2Calibration, input);
-                    this.SetFocalPower(pow, RCCMStage.RCCM2);
-                    this.Height2 = this.ToHeight2(input);
+                    if (input != -1)
+                    {
+                        double pow = NFOVLensController.pwlInterp(this.NFOV2Calibration, input);
+                        this.SetFocalPower(pow, RCCMStage.RCCM2);
+                        this.Height2 = this.ToHeight2(input);
+                    }
                 }
                 stopwatch.Stop();
                 Thread.Sleep((int)Math.Max(0, NFOVLensController.UPDATE_PERIOD - stopwatch.ElapsedMilliseconds));
@@ -257,12 +270,18 @@ namespace RCCM
 
         public double ToHeight1(double inputVoltage)
         {
-            return this.conversion1[0] * inputVoltage + this.conversion1[1]; 
+            double h = this.conversion1[0] * inputVoltage + this.conversion1[1];
+            h = Math.Min(h, NFOVLensController.MAX_HEIGHT);
+            h = Math.Max(h, NFOVLensController.MIN_HEIGHT);
+            return h;
         }
 
         public double ToHeight2(double inputVoltage)
         {
-            return this.conversion2[0] * inputVoltage + this.conversion2[1];
+            double h = this.conversion2[0] * inputVoltage + this.conversion2[1];
+            h = Math.Min(h, NFOVLensController.MAX_HEIGHT);
+            h = Math.Max(h, NFOVLensController.MIN_HEIGHT);
+            return h;
         }
 
         public void PauseFocusing(RCCMStage stage)
@@ -321,6 +340,50 @@ namespace RCCM
             settings.json["nfov 1"]["calibration"] = JArray.FromObject(this.NFOV1Calibration);
             settings.json["nfov 2"]["calibration"] = JArray.FromObject(this.NFOV2Calibration);
             settings.save();
+        }
+
+        private void nfov1ConnectionChanged(object sender, ControllerConnectionStatusChangedEventArgs e)
+        {
+            Console.WriteLine("something happened");
+            if (e.ConnectionStatus == ControllerConnectionStatus.Fault)
+            {
+                Console.WriteLine("disconnected");
+                if (this.Motor1 != null)
+                {
+                    Console.WriteLine("pausing from lens");
+                    this.Motor1.Pause();
+                }
+                this.readThread1Paused = true;
+            }
+            else if (e.ConnectionStatus == ControllerConnectionStatus.Healthy)
+            {
+                if (this.Motor1 != null)
+                {
+                    this.Motor1.Resume();
+                }
+                this.readThread1Paused = false;
+            }
+        }
+
+        private void nfov2ConnectionChanged(object sender, ControllerConnectionStatusChangedEventArgs e)
+        {
+            Console.WriteLine("something happened2");
+            if (e.ConnectionStatus == ControllerConnectionStatus.Fault)
+            {
+                if (this.Motor2 != null)
+                {
+                    this.Motor2.Pause();
+                }
+                this.readThread2Paused = true;
+            }
+            else if (e.ConnectionStatus == ControllerConnectionStatus.Healthy)
+            {
+                if (this.Motor2 != null)
+                {
+                    this.Motor2.Resume();
+                }
+                this.readThread2Paused = false;
+            }
         }
 
         /// <summary>

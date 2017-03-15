@@ -217,12 +217,16 @@ namespace RCCM
                         this.motors.Add(motorName, new TrioStepperMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"]));
                         break;
                     case "stepper z 1":
-                        this.motors.Add(motorName, new TrioStepperZMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"],
-                                                                         delegate () { return this.LensController.Height1; }));
+                        TrioStepperZMotor zMotor1 = new TrioStepperZMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"],
+                                                                        delegate () { return this.LensController.Height1; });
+                        this.motors.Add(motorName, zMotor1);
+                        this.LensController.Motor1 = zMotor1;
                         break;
                     case "stepper z 2":
-                        this.motors.Add(motorName, new TrioStepperZMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"],
-                                                                         delegate () { return this.LensController.Height2; }));
+                        TrioStepperZMotor zMotor2 = new TrioStepperZMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"],
+                                                                        delegate () { return this.LensController.Height2; });
+                        this.motors.Add(motorName, zMotor2);
+                        this.LensController.Motor2 = zMotor2;
                         break;
                     default:
                         throw new NotImplementedException("Unknown motor type setting encountered for " + motorName);
