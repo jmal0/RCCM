@@ -344,6 +344,7 @@
             this.MaximumSize = new System.Drawing.Size(2048, 590);
             this.Name = "NFOVViewForm";
             this.Text = "NFOV";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NFOVViewForm_FormClosed);
             this.Load += new System.EventHandler(this.NFOVViewForm_Load);
             this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).EndInit();

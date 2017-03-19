@@ -98,12 +98,31 @@ namespace RCCM.UI
         {
             this.Text = this.stage == RCCMStage.RCCM1 ? "NFOV 1" : "NFOV 2";
 
-            this.nfovRepaintTimer.Enabled = true;
+            this.camera.Initialize();
+
             this.nfovRepaintTimer.Tick += new EventHandler(refreshNfov);
+            this.nfovRepaintTimer.Start();
+
             if (!this.camera.Connected)
             {
                 this.disableNfovControls();
             }
+            else
+            {
+                this.btnNfovStart.Enabled = false;
+                this.btnNfovStop.Enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Stop camera and overlay update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NFOVViewForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.nfovRepaintTimer.Stop();
+            this.camera.Disconnect();
         }
 
         /// <summary>

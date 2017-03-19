@@ -86,10 +86,7 @@ namespace RCCM.UI
         
         private void RCCMMainForm_Load(object sender, EventArgs e)
         {
-            this.nfov1.Initialize();
-
             this.view.SetTransform(this.panelView.CreateGraphics());
-            
             this.panelRepaintTimer.Start();
         }
         
