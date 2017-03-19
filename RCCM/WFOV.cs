@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 using TIS.Imaging;
 using TIS.Imaging.VCDHelpers;
 
@@ -160,10 +160,16 @@ namespace RCCM
             {
                 this.ic.LivePrepare();
                 this.VCDProp = VCDSimpleModule.GetSimplePropertyContainer(this.ic.VCDPropertyItems);
+                this.ic.DeviceLost += this.handleDisconnect;
                 return true;
             }
             System.Windows.Forms.MessageBox.Show("Failed to initialize WFOV camera");
             return false;
+        }
+
+        private void handleDisconnect(object sender, ICImagingControl.DeviceLostEventArgs e)
+        {
+            this.Available = false;
         }
 
         /// <summary>
@@ -171,7 +177,7 @@ namespace RCCM
         /// </summary>
         public void Start()
         {
-            if (!this.ic.LiveVideoRunning)
+            if (this.Available && this.ic.DeviceValid && !this.ic.LiveVideoRunning)
             {
                 // Device suspended, start it
                 try
@@ -187,6 +193,10 @@ namespace RCCM
                     throw err;
                 }
             }
+            else
+            {
+                MessageBox.Show("Camera disconnected");
+            }
         }
 
         /// <summary>
@@ -194,7 +204,7 @@ namespace RCCM
         /// </summary>
         public void Stop()
         {
-            if (this.ic.LiveVideoRunning)
+            if (this.Available && this.ic.LiveVideoRunning && this.ic.DeviceValid)
             {
                 if (this.Recording)
                 {
@@ -202,6 +212,10 @@ namespace RCCM
                 }
                 this.ic.LiveSuspend();
                 this.ic.SaveDeviceStateToFile(this.configFile);
+            }
+            else
+            {
+                MessageBox.Show("Camera disconnected");
             }
         }
 
@@ -213,16 +227,23 @@ namespace RCCM
         {
             try
             {
-                this.ic.MemorySnapImage();
-                this.ic.MemorySaveImage(filename);
+                if (this.Available && this.ic.DeviceValid)
+                {
+                    this.ic.MemorySnapImage();
+                    this.ic.MemorySaveImage(filename);
+                }
+                else
+                {
+                    MessageBox.Show("Camera disconnected");
+                }               
             }
             catch (TIS.Imaging.ICException err)
             {
-                throw err;
+                Logger.Out(err.ToString());
             }
             catch (Exception err)
             {
-                throw err;
+                Logger.Out(err.ToString());
             }
         }
 
@@ -232,13 +253,17 @@ namespace RCCM
         /// <param name="filename"></param>
         public void Record(string filename)
         {
-            if (this.ic.DeviceValid)
+            if (this.Available && this.ic.LiveVideoRunning && this.ic.DeviceValid)
             {
                 if (this.Recording == false)
                 {
                     this.ic.AviStartCapture(filename, this.ic.AviCompressors[0]);
                     this.Recording = true;
                 }
+            }
+            else
+            {
+                MessageBox.Show("Camera disconnected");
             }
         }
 
@@ -247,12 +272,19 @@ namespace RCCM
         /// </summary>
         public void StopRecord()
         {
-            this.ic.AviStopCapture();
-            this.Recording = false;
-            if (this.ic.DeviceValid)
+            if (this.Available && this.ic.DeviceValid)
             {
-                this.ic.LiveStart();
-            }            
+                this.ic.AviStopCapture();
+                this.Recording = false;
+                if (this.ic.LiveVideoRunning)
+                {
+                    this.ic.LiveStart();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Camera disconnected");
+            }
         }
 
         /// <summary>
@@ -261,7 +293,14 @@ namespace RCCM
         /// </summary>
         public void EditProperties()
         {
-            this.ic.ShowPropertyDialog();
+            if (this.Available && this.ic.DeviceValid)
+            {
+                this.ic.ShowPropertyDialog();
+            }
+            else
+            {
+                MessageBox.Show("Camera disconnected");
+            }
         }
 
         /// <summary>
@@ -270,11 +309,19 @@ namespace RCCM
         /// <returns>New focus level</returns>
         public int AutoFocus()
         {
-            VCDProp.OnePush(VCDIDs.VCDID_Focus);
-            // Stupid work-around recommended by TIS:
-            // Wait two seconds and assume autofocus will complete by then
-            System.Threading.Thread.Sleep(2000);
-            return VCDProp.RangeValue[VCDIDs.VCDID_Focus];
+            if (this.Available && this.ic.DeviceValid)
+            {
+                VCDProp.OnePush(VCDIDs.VCDID_Focus);
+                // Stupid work-around recommended by TIS:
+                // Wait two seconds and assume autofocus will complete by then
+                System.Threading.Thread.Sleep(2000);
+                return VCDProp.RangeValue[VCDIDs.VCDID_Focus];
+            }
+            else
+            {
+                MessageBox.Show("Camera disconnected");
+                return 0;
+            }
         }
 
         #endregion

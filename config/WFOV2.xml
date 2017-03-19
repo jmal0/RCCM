@@ -1,0 +1,75 @@
+<device_state libver="3.2" filemajor="1" fileminor="0">
+    <device name="DMK Z12G445 [WFOV 2]" base_name="DMK Z12G445 [WFOV 2]" unique_name="DMK Z12G445 [WFOV 2] 1710167">
+        <videoformat>Y16 (1280x960)</videoformat>
+        <fps>30.000030000030002</fps>
+        <vcdpropertyitems>
+            <item guid="{284C0E06-010B-45BF-8291-09D90A459B28}" name="Brightness">
+                <element guid="{B57D3000-0AC6-4819-A609-272A33140ACA}" name="Value">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E03}" value="0" />
+                </element>
+            </item>
+            <item guid="{284C0E07-010B-45BF-8291-09D90A459B28}" name="Contrast">
+                <element guid="{B57D3000-0AC6-4819-A609-272A33140ACA}" name="Value">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E03}" value="0" />
+                </element>
+            </item>
+            <item guid="{284C0E0A-010B-45BF-8291-09D90A459B28}" name="Sharpness">
+                <element guid="{B57D3000-0AC6-4819-A609-272A33140ACA}" name="Value">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E03}" value="0" />
+                </element>
+            </item>
+            <item guid="{284C0E0B-010B-45BF-8291-09D90A459B28}" name="Gamma">
+                <element guid="{B57D3000-0AC6-4819-A609-272A33140ACA}" name="Value">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E03}" value="100" />
+                </element>
+            </item>
+            <item guid="{284C0E0F-010B-45BF-8291-09D90A459B28}" name="Gain">
+                <element guid="{B57D3001-0AC6-4819-A609-272A33140ACA}" name="Auto">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E04}" value="1" />
+                </element>
+            </item>
+            <item guid="{90D5702D-E43B-4366-AAEB-7A7A10B448B4}" name="Zoom">
+                <element guid="{B57D3000-0AC6-4819-A609-272A33140ACA}" name="Value">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E03}" value="0" />
+                </element>
+            </item>
+            <item guid="{90D5702E-E43B-4366-AAEB-7A7A10B448B4}" name="Exposure">
+                <element guid="{B57D3001-0AC6-4819-A609-272A33140ACA}" name="Auto">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E04}" value="1" />
+                </element>
+                <element guid="{6519038C-1AD8-4E91-9021-66D64090CC85}" name="Auto Reference">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E03}" value="128" />
+                </element>
+                <element guid="{65190390-1AD8-4E91-9021-66D64090CC85}" name="Auto">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E04}" value="1" />
+                </element>
+            </item>
+            <item guid="{90D5702F-E43B-4366-AAEB-7A7A10B448B4}" name="Iris">
+                <element guid="{B57D3001-0AC6-4819-A609-272A33140ACA}" name="Auto">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E04}" value="1" />
+                </element>
+            </item>
+            <item guid="{90D57030-E43B-4366-AAEB-7A7A10B448B4}" name="Focus">
+                <element guid="{B57D3000-0AC6-4819-A609-272A33140ACA}" name="Value">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E03}" value="500" />
+                </element>
+            </item>
+            <item guid="{90D57031-E43B-4366-AAEB-7A7A10B448B4}" name="Trigger">
+                <element guid="{B57D3000-0AC6-4819-A609-272A33140ACA}" name="Enable">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E04}" value="0" />
+                </element>
+                <element guid="{6519038D-1AD8-4E91-9021-66D64090CC85}" name="Polarity">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E04}" value="1" />
+                </element>
+                <element guid="{C337CFB8-EA08-4E69-A655-586937B6AFEC}" name="Delay">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E08}" value="0." />
+                </element>
+            </item>
+            <item guid="{86D89D69-9880-4618-9BF6-DED5E8383449}" name="GPIO">
+                <element guid="{7D006621-761D-4B88-9C5F-8B906857A501}" name="GP Out">
+                    <itf guid="{99B44940-BFE1-4083-ADA1-BE703F4B8E03}" value="0" />
+                </element>
+            </item>
+        </vcdpropertyitems>
+    </device>
+</device_state>
