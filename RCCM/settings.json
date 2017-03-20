@@ -7,6 +7,7 @@
     "panel": {
 		"x": 0.0,
 		"y": 0.0,
+		"radius": 1879.6,
 		"width": 2540,
         "height": 1220,
 		"rotation": 0.0,
@@ -34,7 +35,7 @@
     // Motion settings
     "coarse X": {
         "type": "virtual",
-		"axis number": 0,
+		"axis number": 4,
 		"enabled": 1,
 		"microstep per mm": 80000.0,
         "mm per rev": 0.1,
@@ -219,10 +220,10 @@
 		// Update rates for z-actuator and NFOV focus command loops
 		// Units is milliseconds
 		"z position update period": 100,
-		"focus update period": 100,
+		"focus update period": 50,
 		// Exponential filter constant (alpha) for distance sensor readings
 		// Filtered height is calculated with an exponential moving average:
 		// h_filtered = alpha*h + (1-alpha)*h_filtered
-		"height reading filter constant": 0.8
+		"height reading filter constant": 0.6
 	}
 }

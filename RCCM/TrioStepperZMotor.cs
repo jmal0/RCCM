@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,26 +15,37 @@ namespace RCCM
     {
         public static long UPDATE_PERIOD = (long)Program.Settings.json["distance sensor"]["z position update period"];
         public static double ERROR = (double)Program.Settings.json["distance sensor"]["max height error"];
-        public static double alpha = (double)Program.Settings.json["distance sensor"]["height reading filter constant"];
+        public static double PGAIN = 0.5;
 
         protected TrioController controller;
         protected short axisNum;
         protected Func<double> height;
+        protected Func<double> minPosition;
         protected double commandHeight;
-        protected double fiteredHeight;
         protected BackgroundWorker bw;
         protected AutoResetEvent adjustThreadExited;
         protected bool adjust;
         protected bool adjustThreadPaused;
 
-        public TrioStepperZMotor(TrioController controller, short axisNum, Func<double> heightFunc)
+        public TrioStepperZMotor(TrioController controller, short axisNum, RCCMSystem rccm, RCCMStage stage)
         {
             this.controller = controller;
             this.axisNum = axisNum;
             this.Jogging = false;
-            this.height = heightFunc;
+            if (stage == RCCMStage.RCCM1)
+            {
+                this.height = delegate () { return rccm.LensController.Height1; };
+            }
+            else
+            {
+                this.height = delegate () { return rccm.LensController.Height2; };
+            }
+            this.minPosition = delegate ()
+            {
+                PointF pos = rccm.GetNFOVLocation(stage, CoordinateSystem.Local);
+                return rccm.GetPanelDistance(pos.X, pos.Y);
+            };
             this.commandHeight = this.height();
-            this.fiteredHeight = this.commandHeight;
             this.bw = new BackgroundWorker();
             this.bw.DoWork += new DoWorkEventHandler(this.heightAdjustLoop);
             this.adjustThreadExited = new AutoResetEvent(false);
@@ -50,15 +62,20 @@ namespace RCCM
                 stopwatch.Start();
                 if (!this.adjustThreadPaused)
                 {
-                    double newHeight = this.height();
-                    this.fiteredHeight = TrioStepperZMotor.alpha * newHeight + 
-                                         (1 - TrioStepperZMotor.alpha) * this.fiteredHeight;
-                    double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
-                    double newPos = actuatorPos + this.commandHeight - this.fiteredHeight;
-                    newPos = Math.Max(this.settings["low position limit"], newPos);
-                    newPos = Math.Min(this.settings["high position limit"], newPos);
-                    if (!this.controller.isMoving(this.axisNum) && Math.Abs(newPos - actuatorPos) > TrioStepperZMotor.ERROR)
+                    double h = this.height();
+                    if (h == NFOVLensController.MIN_HEIGHT || h == NFOVLensController.MAX_HEIGHT)
                     {
+                        continue;
+                    }
+                    double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
+                    double err = this.commandHeight - h;
+                    if (!this.controller.isMoving(this.axisNum) && Math.Abs(err) > TrioStepperZMotor.ERROR)
+                    {
+                        double newPos = actuatorPos + TrioStepperZMotor.PGAIN * err;
+                        double minPos = this.minPosition();
+                        newPos = Math.Max(this.settings["low position limit"], newPos);
+                        newPos = Math.Min(this.settings["high position limit"], newPos);
+                        newPos = Math.Max(minPos, newPos);
                         this.controller.MoveAbs(this.axisNum, newPos);
                     }
                 }

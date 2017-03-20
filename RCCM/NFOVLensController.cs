@@ -34,6 +34,7 @@ namespace RCCM
         public static long UPDATE_PERIOD = (long)Program.Settings.json["distance sensor"]["focus update period"];
         public static double MIN_HEIGHT = (double)Program.Settings.json["distance sensor"]["min height"];
         public static double MAX_HEIGHT = (double)Program.Settings.json["distance sensor"]["max height"];
+        public static double alpha = (double)Program.Settings.json["distance sensor"]["height reading filter constant"];
 
         protected ControllerManager manager;
         public IController NFOV1Controller { get; private set; }
@@ -129,7 +130,7 @@ namespace RCCM
                     {
                         double pow = NFOVLensController.pwlInterp(this.NFOV1Calibration, input);
                         this.SetFocalPower(pow, RCCMStage.RCCM1);
-                        this.Height1 = this.ToHeight1(input);
+                        this.Height1 = alpha * this.ToHeight1(input) + (1 - alpha) * this.Height1;
                     }                    
                 }
                 stopwatch.Stop();
@@ -137,7 +138,7 @@ namespace RCCM
             }
             this.readHeight1ThreadExited.Set();
         }
-
+        
         private void readHeight2(object sender, DoWorkEventArgs e)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -151,7 +152,7 @@ namespace RCCM
                     {
                         double pow = NFOVLensController.pwlInterp(this.NFOV2Calibration, input);
                         this.SetFocalPower(pow, RCCMStage.RCCM2);
-                        this.Height2 = this.ToHeight2(input);
+                        this.Height2 = alpha * this.ToHeight2(input) + (1 - alpha) * this.Height2;
                     }
                 }
                 stopwatch.Stop();
@@ -332,7 +333,7 @@ namespace RCCM
             double b = data[i - 1, 1];
             return m * x + b;
         }
-
+        
         public void SaveToJSON(Settings settings)
         {
             settings.json["nfov 1"]["conversion"] = JArray.FromObject(this.conversion1);

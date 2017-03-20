@@ -184,7 +184,7 @@ namespace RCCM.UI
         
         private void btnMotorStatus_Click(object sender, EventArgs e)
         {
-            var properties = this.rccm.motors["fine 1 X"].GetAllProperties();
+            var properties = this.rccm.motors["fine 1 Z"].GetAllProperties();
             MessageBox.Show(string.Join("\n", properties));
         }
 
