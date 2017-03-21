@@ -1,4 +1,4 @@
-# RCCM
+\# RCCM
 
 Repository for the FAA William J. Hughes Technical Center's Remote Controlled Crack Monitoring System (RCCM) user interface. This interface is being developed for a Drexel University 2016-17 MEM Senior Design project
 
@@ -7,16 +7,19 @@ Repository for the FAA William J. Hughes Technical Center's Remote Controlled Cr
 The hardware and software for this project require the following dependencies to be installed:
 
 * [Imaging Source Device Driver for GigE cameras](https://www.theimagingsource.com/support/downloads-for-windows/device-drivers/icwdmgigetis/)
-* [Point Grwy FlyCapture2 SDK](https://www.ptgrey.com/support/downloads/10700/)
+* [Point Grey FlyCapture2 SDK](https://www.ptgrey.com/support/downloads/10700/)
 * [Gardasoft Trinity SDK](http://www.gardasoft.com/Downloads/)
 * [Json.NET](https://github.com/nlohmann/json)
 * Microsoft .NET Framework 4 (or later)
+* [TrioPC Motion](http://www.triomotion.com/tmt3/sitefiles/software/addon_software.asp#one&section=six)
+ * After installing the ActiveX component, it will need to be registered. This can be done by following [this procedure](http://www.ctimls.com/Support/KB/How%20To/Register_dll.htm). Open a command prompt as administrator, enter cd C:\Windows\SysWOW64 followed by regsvr32 "C:\Program Files\TrioMotion\TrioPCMotion\TrioPC64.ocx"
 
 The following software packages are provided by the hardware manufacturers and may be useful for degubbing issues with the hardware:
 
 * [IC Capture](https://www.theimagingsource.com/support/downloads-for-windows/end-user-software/iccapture/) - GUI for showing WFOV live image and adjusting settings
 * [Point Grey FlyCap2 Viewer](https://www.ptgrey.com/support/downloads/10655/) - GUI for showing NFOV live image and adjusting settings
 * [GardasoftMaint](http://www.gardasoft.com/Downloads/) - Interface to Gardasoft TR-CL180 NFOV lens controller
+* [Motion Perfect v4](http://www.triomotion.com/tmt3/sitefiles/software/motion_perfectv4.asp#section=t10) - Tool for managing Trio 8-axis motor controller.
 
 ## Installation
 
@@ -32,6 +35,12 @@ Download source code from [here](https://github.com/jmal0/RCCM.git). Open RCCM.s
 ## Usage and Functionality
 
 * Measurement:
+
+  Measurements of cracks can be made within the live image. First, a crack must be created by clicking the "New Sequence" button. A unique name can be specified. The color and thickness of the line to be drawn over the live image can also be modified. Also, the crack length calculation method can be speficied. "Projection" measures the crack's length in the direction specified by the orientation angle. "Tip to Tip" takes the straight line distance from crack tip to base. "Total length" sums the length of each line segment.
+
+  Once one or more measurment sequences has been created, points can be added by left clicking within the live image. By holding right click, a segment can be drawn. To add points to a different sequence, select the crack name in the "Cracks" list box. 
+  
+  Measurements can also be added by using the "Measure at crosshair" button. These measurements will not be affected by an inaccurate pixel to distance calibration, so use this measurement mode when possible.
 
 * Imaging:
  
@@ -58,6 +67,8 @@ For other issues, please review the output file from the program execution, whic
 
 Below is a summary of the purpose and function of each file and Class declared in this repository
 
+### Core Code
+
 * **CycleCounter.cs**
 * **definitions.cs**
 * **LensCalibrationForm.cs**
@@ -65,20 +76,31 @@ Below is a summary of the purpose and function of each file and Class declared i
 * **Measurement.cs**
 * **MeasurementSequence.cs**
 * **Motor.cs**: Abstract interface defining the base functionality needed for a motor implementation by the rest of the program
- * **VirtualMotor.cs**: An implementation of a Motor that requires no physical hardware. Simply stores a position value and other properties
- * **StepperMotor.cs**
-* **NewMeasurementForm.cs**
+  * **VirtualMotor.cs**: An implementation of a Motor that requires no physical hardware. Simply stores a position value and other properties
+  * **VirtualZMotor.cs**
+  * **StepperMotor.cs**
+  * **StepperZMotor.cs**
 * **NFOV.cs**
 * **NFOVLensController.cs**
 * **NFOVView.cs**
 * **PanelView.cs**
 * **Program.cs**
-* **RCCMMainForm.cs**
 * **RCCMSystem.cs**
 * **Settings.cs**
 * **settings.json**
 * **TestResults.cs**
+* **TrioController.cs**
 * **WFOV.cs**
+
+### UI
+
+* **AboutRCCMForm.cs**
+* **LensCalibrationForm.cs**
+* **MotorSettingsForm.cs**
+* **NewMeasurementForm.cs**
+* **NFOVViewForm.cs**
+* **RCCMMainForm.cs**
+* **WFOVViewForm.cs**
 
 ## Known Issues
 
