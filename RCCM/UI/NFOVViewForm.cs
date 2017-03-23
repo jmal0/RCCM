@@ -44,7 +44,10 @@ namespace RCCM.UI
         /// <summary>
         /// Ratio of picture box size to actual NFOV image dimensions
         /// </summary>
-        protected float displayScale = 0.25f;
+        protected float displayScale
+        {
+            get { return (float)(this.nfovImage.Width) / (float)(this.camera.PixelWidth); }
+        }
         /// <summary>
         /// Counter for giving unique number to cracks
         /// </summary>
@@ -122,6 +125,9 @@ namespace RCCM.UI
         private void NFOVViewForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.nfovRepaintTimer.Stop();
+            string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
+            Program.Settings.json[camName]["height"] = this.camera.PixelHeight;
+            Program.Settings.json[camName]["width"] = this.camera.PixelWidth;
             this.camera.Disconnect();
         }
 

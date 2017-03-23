@@ -147,7 +147,7 @@ namespace RCCM
             float rccmYSize = this.coarse.Height + this.fine1.Height + this.fine2.Height;
             float scaleX = bounds.Width / rccmXSize;
             float scaleY = bounds.Height / rccmYSize;
-            float scale = Math.Min(scaleX, scaleY);
+            float scale = Math.Max(0.00001f, Math.Min(scaleX, scaleY));
             g.ScaleTransform(scale, scale);
             g.TranslateTransform(this.fine1.Width, this.fine1.Height);
             this.transform = g.Transform;

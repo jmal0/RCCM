@@ -81,9 +81,13 @@ namespace RCCM
 
             // Initialize NFOV cameras & apply settings
             this.NFOV1 = new NFOV((uint)Program.Settings.json["nfov 1"]["camera serial"],
-                                  (double)Program.Settings.json["nfov 1"]["microns / pixel"]);
+                                  (double)Program.Settings.json["nfov 1"]["microns / pixel"],
+                                  (uint)Program.Settings.json["nfov 1"]["height"],
+                                  (uint)Program.Settings.json["nfov 1"]["width"]);
             this.NFOV2 = new NFOV((uint)Program.Settings.json["nfov 2"]["camera serial"],
-                                  (double)Program.Settings.json["nfov 2"]["microns / pixel"]);
+                                  (double)Program.Settings.json["nfov 2"]["microns / pixel"],
+                                  (uint)Program.Settings.json["nfov 2"]["height"],
+                                  (uint)Program.Settings.json["nfov 2"]["width"]);
 
             // Read NFOV lens voltage to distance conversion into double arrays
             double[] conversion1 = { (double)Program.Settings.json["nfov 1"]["conversion"][0], (double)Program.Settings.json["nfov 1"]["conversion"][1] };

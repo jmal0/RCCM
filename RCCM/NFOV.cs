@@ -26,11 +26,21 @@ namespace RCCM
         /// <summary>
         /// Height in pixels of image
         /// </summary>
-        static int IMG_HEIGHT = 2048;
+        public uint PixelHeight
+        {
+            get { return this.pixelHeight; }
+            set { this.pixelHeight = Math.Min(2048, value); }
+        }
+        protected uint pixelHeight;
         /// <summary>
         /// Width in pixels of image
         /// </summary>
-        static int IMG_WIDTH = 2448;
+        public uint PixelWidth
+        {
+            get { return this.pixelWidth; }
+            set { this.pixelWidth = Math.Min(2448, value); }
+        }
+        protected uint pixelWidth;
 
         protected uint serial;
         protected ManagedCamera camera;
@@ -53,14 +63,16 @@ namespace RCCM
         /// </summary>
         public double Height
         {
-            get { return this.Scale / 1000.0 * NFOV.IMG_HEIGHT; }
+            //get { return this.Scale / 1000.0 * NFOV.IMG_HEIGHT; }
+            get { return this.Scale / 1000.0 * this.PixelHeight; }
         }        
         /// <summary>
         /// Height in mm of image
         /// </summary>
         public double Width
         {
-            get { return this.Scale / 1000.0 * NFOV.IMG_WIDTH; }
+            //get { return this.Scale / 1000.0 * NFOV.IMG_WIDTH; }
+            get { return this.Scale / 1000.0 * this.PixelWidth; }
         }
         /// <summary>
         /// Flag indicating if camera is recording video
@@ -71,13 +83,16 @@ namespace RCCM
         /// </summary>
         /// <param name="serial">Serial number of the camera</param>
         /// <param name="pix2um">Calibration, microns/pixels</param>
-        public NFOV(uint serial, double pix2um)
+        public NFOV(uint serial, double pix2um, uint h, uint w)
         {
             this.serial = serial;
             this.Scale = pix2um;
             this.Recording = false;
             // Initialize camera object. Connection occurs when initialize() is called
             this.camera = new ManagedCamera();
+            // Save image dimensions to be used
+            this.PixelHeight = h;
+            this.PixelWidth = w;
             // Initialize images
             this.rawImage = new ManagedImage();
             this.ProcessedImage = new ManagedImage();
@@ -96,6 +111,15 @@ namespace RCCM
             {
                 ManagedPGRGuid guid = busMgr.GetCameraFromSerialNumber(this.serial);
                 this.camera.Connect(guid);
+                Format7ImageSettings config = new Format7ImageSettings();
+                uint size = 0;
+                float speed = 0;
+                this.camera.GetFormat7Configuration(config, ref size, ref speed);
+                config.height = this.PixelHeight;
+                config.width = this.PixelWidth;
+                config.offsetX = (2448 - this.PixelWidth) / 2;
+                config.offsetY = (2048 - this.PixelHeight) / 2;
+                this.camera.SetFormat7Configuration(config, speed);
             }
             catch (Exception ex)
             {
@@ -264,7 +288,14 @@ namespace RCCM
         public void ShowPropertiesDlg()
         {
             CameraControlDialog camCtlDlg = new CameraControlDialog();
-            camCtlDlg.Show();
+            //camCtlDlg.Show();
+            camCtlDlg.ShowModal();
+            Format7ImageSettings config = new Format7ImageSettings();
+            uint size = 0;
+            float speed = 0;
+            this.camera.GetFormat7Configuration(config, ref size, ref speed);
+            this.PixelHeight = config.height;
+            this.PixelWidth = config.width;
         }
 
         /*
