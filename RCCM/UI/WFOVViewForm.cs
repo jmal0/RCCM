@@ -16,7 +16,7 @@ namespace RCCM.UI
     public partial class WFOVViewForm : Form
     {
         /// <summary>
-        /// The RCCM system object. Used for calculating NFOV position
+        /// The RCCM system object. Used for calculating WFOV position
         /// </summary>
         protected readonly RCCMSystem rccm;
         /// <summary>
@@ -103,7 +103,7 @@ namespace RCCM.UI
         {
             Graphics g = e.overlay.GetGraphics();
             //this.g.Clear(Color.Transparent);
-            g.ResetTransform(); // Reset transform to draw NFOV image
+            g.ResetTransform();
             // Draw crosshair
             if (this.checkCrosshair.Checked)
             {
@@ -126,9 +126,9 @@ namespace RCCM.UI
             float scaleX = bounds.Width / (float)this.camera.Width;
             float scaleY = bounds.Height / (float)this.camera.Height;
             g.ScaleTransform(scaleX, scaleY);
-            // Move to NFOV location (first move origin to image center)
+            // Move to WFOV location (first move origin to image center)
             g.TranslateTransform((float)this.camera.Width / 2, (float)this.camera.Height / 2);
-            PointF pos = this.rccm.GetNFOVLocation(this.stage, CoordinateSystem.Global);
+            PointF pos = this.rccm.GetWFOVLocation(this.stage, CoordinateSystem.Global);
             g.TranslateTransform(-pos.X, -pos.Y);
 
             // Draw each crack on the image

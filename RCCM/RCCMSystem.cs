@@ -25,59 +25,105 @@ namespace RCCM
 
         public CycleCounter Counter { get; private set; }
 
-        protected PointF rccm1Offset;
-        protected PointF rccm2Offset;
         public double FineStageAngle
         {
-            get { return this.fineStageAngle; }
+            get { return (double)Program.Settings.json["rotation angle"]; }
             set
             {
-                this.fineStageAngle = value;
+                Program.Settings.json["rotation angle"] = value;
                 this.setFineStageRotationMatrix();
             }
         }
-        protected double fineStageAngle;
         protected double[,] fineStageRotation;
 
         public double PanelAngle
         {
-            get { return this.panelAngle; }
+            get { return (double)Program.Settings.json["panel"]["rotation"]; }
             set
             {
-                this.panelAngle = value;
+                Program.Settings.json["panel"]["rotation"] = value;
                 this.setPanelRotationMatrix();
             }
         }
-        protected double panelAngle;
         protected double[,] panelRotation;
 
-        public double PanelOffsetX { get; set; }
-        public double PanelOffsetY { get; set; }
-        public double PanelWidth { get; set; }
-        public double PanelHeight { get; set; }
-        public double PanelRadius { get; set; }
+        public double PanelOffsetX
+        {
+            get { return (double)Program.Settings.json["panel"]["x"]; }
+            set { Program.Settings.json["panel"]["x"] = value; }
+        }
+        public double PanelOffsetY
+        {
+            get { return (double)Program.Settings.json["panel"]["y"]; }
+            set { Program.Settings.json["panel"]["y"] = value; }
+        }
+        public double PanelWidth
+        {
+            get { return (double)Program.Settings.json["panel"]["width"]; }
+            set { Program.Settings.json["panel"]["width"] = value; }
+        }
+        public double PanelHeight
+        {
+            get { return (double)Program.Settings.json["panel"]["height"]; }
+            set { Program.Settings.json["panel"]["height"] = value; }
+        }
+        public double PanelRadius
+        {
+            get { return (double)Program.Settings.json["panel"]["radius"]; }
+            set { Program.Settings.json["panel"]["radius"] = value; }
+        }
+
+        public double NFOV1X
+        {
+            get { return (double)Program.Settings.json["nfov 1"]["x offset"]; }
+            set { Program.Settings.json["nfov 1"]["x offset"] = value; }
+        }
+        public double NFOV1Y
+        {
+            get { return (double)Program.Settings.json["nfov 1"]["y offset"]; }
+            set { Program.Settings.json["nfov 1"]["y offset"] = value; }
+        }
+        public double NFOV2X
+        {
+            get { return (double)Program.Settings.json["nfov 2"]["x offset"]; }
+            set { Program.Settings.json["nfov 2"]["x offset"] = value; }
+        }
+        public double NFOV2Y
+        {
+            get { return (double)Program.Settings.json["nfov 2"]["y offset"]; }
+            set { Program.Settings.json["nfov 2"]["y offset"] = value; }
+        }
+        public double WFOV1X
+        {
+            get { return (double)Program.Settings.json["wfov 1"]["x offset"]; }
+            set { Program.Settings.json["wfov 1"]["x offset"] = value; }
+        }
+        public double WFOV1Y
+        {
+            get { return (double)Program.Settings.json["wfov 1"]["y offset"]; }
+            set { Program.Settings.json["wfov 1"]["y offset"] = value; }
+        }
+        public double WFOV2X
+        {
+            get { return (double)Program.Settings.json["wfov 2"]["x offset"]; }
+            set { Program.Settings.json["wfov 2"]["x offset"] = value; }
+        }
+        public double WFOV2Y
+        {
+            get { return (double)Program.Settings.json["wfov 2"]["y offset"]; }
+            set { Program.Settings.json["wfov 2"]["y offset"] = value; }
+        }
 
         public TrioController triopc { get; private set; }
 
         public RCCMSystem(AxTrioPC axTrioPC)
         {
-            // Save position vectors from pivot plate center to NFOV cameras
-            this.rccm1Offset = new PointF((float)Program.Settings.json["fine 1"]["x"],
-                                          (float)Program.Settings.json["fine 1"]["y"]);
-            this.rccm2Offset = new PointF((float)Program.Settings.json["fine 2"]["x"],
-                                          (float)Program.Settings.json["fine 2"]["y"]);
             // Create rotation matrix representing rotation plate angle
             this.fineStageRotation = new double[2, 2];
             this.FineStageAngle = (double)Program.Settings.json["rotation angle"];
             // Create rotation matrix representing panel rotation
             this.panelRotation = new double[2, 2];
-            this.PanelAngle = (double)Program.Settings.json["panel"]["rotation"];
-            // Offset vector for panel (from corner of coarse stage travel to corner of panel
-            this.PanelOffsetX = (double)Program.Settings.json["panel"]["x"];
-            this.PanelOffsetY = (double)Program.Settings.json["panel"]["y"];
-            this.PanelWidth = (double)Program.Settings.json["panel"]["width"];
-            this.PanelHeight = (double)Program.Settings.json["panel"]["height"];
-            this.PanelRadius = (double)Program.Settings.json["panel"]["radius"];
+            this.PanelAngle = (double)Program.Settings.json["rotation angle"];
 
             // Initialize NFOV cameras & apply settings
             this.NFOV1 = new NFOV((uint)Program.Settings.json["nfov 1"]["camera serial"],
@@ -138,18 +184,18 @@ namespace RCCM
 
         protected void setFineStageRotationMatrix()
         {
-            this.fineStageRotation[0, 0] = Math.Cos(this.fineStageAngle * Math.PI / 180.0);
-            this.fineStageRotation[0, 1] = Math.Sin(this.fineStageAngle * Math.PI / 180.0);
-            this.fineStageRotation[1, 0] = -Math.Sin(this.fineStageAngle * Math.PI / 180.0);
-            this.fineStageRotation[1, 1] = Math.Cos(this.fineStageAngle * Math.PI / 180.0);
+            this.fineStageRotation[0, 0] = Math.Cos(this.FineStageAngle * Math.PI / 180.0);
+            this.fineStageRotation[0, 1] = Math.Sin(this.FineStageAngle * Math.PI / 180.0);
+            this.fineStageRotation[1, 0] = -Math.Sin(this.FineStageAngle * Math.PI / 180.0);
+            this.fineStageRotation[1, 1] = Math.Cos(this.FineStageAngle * Math.PI / 180.0);
         }
 
         protected void setPanelRotationMatrix()
         {
-            this.panelRotation[0, 0] = Math.Cos(this.panelAngle * Math.PI / 180.0);
-            this.panelRotation[0, 1] = Math.Sin(this.panelAngle * Math.PI / 180.0);
-            this.panelRotation[1, 0] = -Math.Sin(this.panelAngle * Math.PI / 180.0);
-            this.panelRotation[1, 1] = Math.Cos(this.panelAngle * Math.PI / 180.0);
+            this.panelRotation[0, 0] = Math.Cos(this.PanelAngle * Math.PI / 180.0);
+            this.panelRotation[0, 1] = Math.Sin(this.PanelAngle * Math.PI / 180.0);
+            this.panelRotation[1, 0] = -Math.Sin(this.PanelAngle * Math.PI / 180.0);
+            this.panelRotation[1, 1] = Math.Cos(this.PanelAngle * Math.PI / 180.0);
         }
 
         /// <summary>
@@ -178,17 +224,46 @@ namespace RCCM
             double yOffset;
             if (stage == RCCMStage.RCCM1)
             {
-                xOffset = this.rccm1Offset.X + this.motors["fine 1 X"].GetPos();
-                yOffset = this.rccm1Offset.Y + this.motors["fine 1 Y"].GetPos();
+                xOffset = this.NFOV1X + this.motors["fine 1 X"].GetPos();
+                yOffset = this.NFOV1Y + this.motors["fine 1 Y"].GetPos();
             }
             else
             {
-                xOffset = this.rccm2Offset.X + this.motors["fine 2 X"].GetPos();
-                yOffset = this.rccm2Offset.Y + this.motors["fine 2 Y"].GetPos();
+                xOffset = this.NFOV2X + this.motors["fine 2 X"].GetPos();
+                yOffset = this.NFOV2Y + this.motors["fine 2 Y"].GetPos();
             }
             double xOffRotated = this.fineStageRotation[0, 0] * xOffset + this.fineStageRotation[0, 1] * yOffset;
             double yOffRotated = this.fineStageRotation[1, 0] * xOffset + this.fineStageRotation[1, 1] * yOffset;
             PointF globalPt =  PointF.Add(coarselocation, new SizeF((float)xOffRotated, (float)yOffRotated));
+            switch (sys)
+            {
+                case CoordinateSystem.Local:
+                    return this.GlobalVectorToPanelVector(this.motors["coarse X"].GetPos() + xOffRotated,
+                                                          this.motors["coarse Y"].GetPos() + yOffRotated);
+                default:
+                    return globalPt;
+            }
+        }
+
+        public PointF GetWFOVLocation(RCCMStage stage, CoordinateSystem sys)
+        {
+            PointF coarselocation = new PointF((float)this.motors["coarse X"].GetPos(),
+                                               (float)this.motors["coarse Y"].GetPos());
+            double xOffset;
+            double yOffset;
+            if (stage == RCCMStage.RCCM1)
+            {
+                xOffset = this.WFOV1X + this.motors["fine 1 X"].GetPos();
+                yOffset = this.WFOV1Y + this.motors["fine 1 Y"].GetPos();
+            }
+            else
+            {
+                xOffset = this.WFOV2X + this.motors["fine 2 X"].GetPos();
+                yOffset = this.WFOV2Y + this.motors["fine 2 Y"].GetPos();
+            }
+            double xOffRotated = this.fineStageRotation[0, 0] * xOffset + this.fineStageRotation[0, 1] * yOffset;
+            double yOffRotated = this.fineStageRotation[1, 0] * xOffset + this.fineStageRotation[1, 1] * yOffset;
+            PointF globalPt = PointF.Add(coarselocation, new SizeF((float)xOffRotated, (float)yOffRotated));
             switch (sys)
             {
                 case CoordinateSystem.Local:

@@ -12,7 +12,7 @@
         "height": 1220,
 		"rotation": 0.0,
     },
-	"rotation angle": 0.0,
+	"rotation angle": 5.0,
 	// Settings for panel graphic
 	"coarse stage": {
 		"x": 0.0,
@@ -162,11 +162,15 @@
     // Camera settings
     "wfov 1": { 
         "configuration file": "config\\WFOV1.xml",
-		"microns / pixel": 6.62
+		"microns / pixel": 6.62,
+		"x offset": -533.0,
+        "y offset": -254.0,
     },
 	"wfov 2": { 
         "configuration file": "config\\WFOV2.xml",
-		"microns / pixel": 6.62
+		"microns / pixel": 6.62,
+		"x offset": 25.0,
+        "y offset": -254.0,
     },
     "nfov 1": {
         "camera serial": 16396117,
@@ -185,7 +189,9 @@
 			[3.1342,-2.2],
 			[3.5524,-3.2],
 			[3.9706,-4.3]
-        ]
+        ],
+		"x offset": -533.0,
+        "y offset": -254.0,
     },
     "nfov 2": {
         "camera serial": 0,
@@ -204,7 +210,9 @@
 			[3.1342,-2.2],
 			[3.5524,-3.2],
 			[3.9706,-4.3]
-        ]
+        ],
+		"x offset": 25.0,
+        "y offset": -254.0,
     },
     // UI Settings
     "repaint period": 100, // milliseconds

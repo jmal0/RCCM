@@ -42,6 +42,7 @@
             this.nFOV1LensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nFOV1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nFOV2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.coordinateSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
@@ -100,15 +101,6 @@
             this.coarseXPos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.editPanelX = new System.Windows.Forms.NumericUpDown();
-            this.label21 = new System.Windows.Forms.Label();
-            this.editPanelY = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
-            this.editPanelRotation = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
-            this.editRotation = new System.Windows.Forms.NumericUpDown();
-            this.label20 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
             this.nfov2Scale = new System.Windows.Forms.TextBox();
@@ -139,8 +131,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPagePressure = new System.Windows.Forms.TabPage();
             this.chartCycles = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.panelTestControls = new System.Windows.Forms.Panel();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
@@ -150,6 +140,8 @@
             this.label25 = new System.Windows.Forms.Label();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBox10.SuspendLayout();
@@ -175,11 +167,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
             this.tabPageSetup.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.editPanelX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.editPanelY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.editPanelRotation)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.editRotation)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -188,12 +175,12 @@
             this.tabControl1.SuspendLayout();
             this.tabPagePressure.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).BeginInit();
             this.tableLayoutMain.SuspendLayout();
             this.panelTestControls.SuspendLayout();
             this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem
@@ -226,7 +213,8 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nFOV1LensToolStripMenuItem});
+            this.nFOV1LensToolStripMenuItem,
+            this.coordinateSystemToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -237,7 +225,7 @@
             this.nFOV1ToolStripMenuItem,
             this.nFOV2ToolStripMenuItem});
             this.nFOV1LensToolStripMenuItem.Name = "nFOV1LensToolStripMenuItem";
-            this.nFOV1LensToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.nFOV1LensToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.nFOV1LensToolStripMenuItem.Text = "Lens Calibration";
             // 
             // nFOV1ToolStripMenuItem
@@ -253,6 +241,13 @@
             this.nFOV2ToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.nFOV2ToolStripMenuItem.Text = "NFOV 2";
             this.nFOV2ToolStripMenuItem.Click += new System.EventHandler(this.nFOV2ToolStripMenuItem_Click);
+            // 
+            // coordinateSystemToolStripMenuItem
+            // 
+            this.coordinateSystemToolStripMenuItem.Name = "coordinateSystemToolStripMenuItem";
+            this.coordinateSystemToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.coordinateSystemToolStripMenuItem.Text = "Coordinate System";
+            this.coordinateSystemToolStripMenuItem.Click += new System.EventHandler(this.coordinateSystemToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -867,7 +862,6 @@
             // 
             // tabPageSetup
             // 
-            this.tabPageSetup.Controls.Add(this.groupBox9);
             this.tabPageSetup.Controls.Add(this.groupBox8);
             this.tabPageSetup.Controls.Add(this.groupBox7);
             this.tabPageSetup.Controls.Add(this.groupBox6);
@@ -880,141 +874,6 @@
             this.tabPageSetup.TabIndex = 0;
             this.tabPageSetup.Text = "Setup";
             this.tabPageSetup.UseVisualStyleBackColor = true;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.editPanelX);
-            this.groupBox9.Controls.Add(this.label21);
-            this.groupBox9.Controls.Add(this.editPanelY);
-            this.groupBox9.Controls.Add(this.label18);
-            this.groupBox9.Controls.Add(this.editPanelRotation);
-            this.groupBox9.Controls.Add(this.label19);
-            this.groupBox9.Controls.Add(this.editRotation);
-            this.groupBox9.Controls.Add(this.label20);
-            this.groupBox9.Location = new System.Drawing.Point(214, 114);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(200, 127);
-            this.groupBox9.TabIndex = 6;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Coordinate System";
-            // 
-            // editPanelX
-            // 
-            this.editPanelX.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            327680});
-            this.editPanelX.Location = new System.Drawing.Point(107, 70);
-            this.editPanelX.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.editPanelX.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.editPanelX.Name = "editPanelX";
-            this.editPanelX.Size = new System.Drawing.Size(87, 20);
-            this.editPanelX.TabIndex = 12;
-            this.editPanelX.ValueChanged += new System.EventHandler(this.editPanelX_ValueChanged);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(7, 72);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(73, 13);
-            this.label21.TabIndex = 11;
-            this.label21.Text = "Panel X offset";
-            // 
-            // editPanelY
-            // 
-            this.editPanelY.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            327680});
-            this.editPanelY.Location = new System.Drawing.Point(107, 96);
-            this.editPanelY.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.editPanelY.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.editPanelY.Name = "editPanelY";
-            this.editPanelY.Size = new System.Drawing.Size(87, 20);
-            this.editPanelY.TabIndex = 10;
-            this.editPanelY.ValueChanged += new System.EventHandler(this.editPanelY_ValueChanged);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(7, 98);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(73, 13);
-            this.label18.TabIndex = 9;
-            this.label18.Text = "Panel Y offset";
-            // 
-            // editPanelRotation
-            // 
-            this.editPanelRotation.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            327680});
-            this.editPanelRotation.Location = new System.Drawing.Point(107, 44);
-            this.editPanelRotation.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.editPanelRotation.Name = "editPanelRotation";
-            this.editPanelRotation.Size = new System.Drawing.Size(87, 20);
-            this.editPanelRotation.TabIndex = 8;
-            this.editPanelRotation.ValueChanged += new System.EventHandler(this.editPanelRotation_ValueChanged);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(7, 46);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(72, 13);
-            this.label19.TabIndex = 7;
-            this.label19.Text = "Panel rotation";
-            // 
-            // editRotation
-            // 
-            this.editRotation.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            327680});
-            this.editRotation.Location = new System.Drawing.Point(107, 18);
-            this.editRotation.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.editRotation.Name = "editRotation";
-            this.editRotation.Size = new System.Drawing.Size(87, 20);
-            this.editRotation.TabIndex = 6;
-            this.editRotation.ValueChanged += new System.EventHandler(this.editRotation_ValueChanged);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(7, 20);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(94, 13);
-            this.label20.TabIndex = 0;
-            this.label20.Text = "Fine stage rotation";
             // 
             // groupBox8
             // 
@@ -1448,12 +1307,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).EndInit();
             this.tabPageSetup.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.editPanelX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.editPanelY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.editPanelRotation)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.editRotation)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -1467,13 +1320,13 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPagePressure.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).EndInit();
             this.tableLayoutMain.ResumeLayout(false);
             this.panelTestControls.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1584,17 +1437,9 @@
         private System.Windows.Forms.NumericUpDown fine1XPos;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnMotorProperties;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.NumericUpDown editPanelX;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.NumericUpDown editPanelY;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.NumericUpDown editPanelRotation;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.NumericUpDown editRotation;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.ToolStripMenuItem coordinateSystemToolStripMenuItem;
     }
 }
 

@@ -196,6 +196,7 @@ namespace RCCM.UI
             if (this.nfov1 != null && Double.TryParse(this.nfov1Scale.Text, out scale))
             {
                 this.nfov1.Scale = scale;
+                Program.Settings.json["nfov 1"]["microns / pixel"] = scale;
             }
         }
 
@@ -205,6 +206,7 @@ namespace RCCM.UI
             if (this.nfov2 != null && Double.TryParse(this.nfov1Scale.Text, out scale))
             {
                 this.nfov2.Scale = scale;
+                Program.Settings.json["nfov 2"]["microns / pixel"] = scale;
             }
         }
 
@@ -330,6 +332,13 @@ namespace RCCM.UI
             form.Show();
         }
 
+        private void coordinateSystemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CoordinateSystemSettingsForm form = new CoordinateSystemSettingsForm(this.rccm);
+            form.Show();
+        }
+
+
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutRCCMForm form = new AboutRCCMForm();
@@ -420,27 +429,7 @@ namespace RCCM.UI
             MotorSettingsForm form = new MotorSettingsForm(this.rccm);
             form.Show();
         }
-
-        private void editRotation_ValueChanged(object sender, EventArgs e)
-        {
-            this.rccm.FineStageAngle = (double) this.editRotation.Value;
-        }
         
-        private void editPanelRotation_ValueChanged(object sender, EventArgs e)
-        {
-            this.rccm.PanelAngle = (double)this.editPanelRotation.Value;
-        }
-
-        private void editPanelX_ValueChanged(object sender, EventArgs e)
-        {
-            this.rccm.PanelOffsetX = (double)this.editPanelX.Value;
-        }
-
-        private void editPanelY_ValueChanged(object sender, EventArgs e)
-        {
-            this.rccm.PanelOffsetY = (double)this.editPanelY.Value;
-        }
-
         private void RCCMMainForm_KeyDown(object sender, KeyEventArgs e)
         {
             // Get active axis
@@ -498,6 +487,15 @@ namespace RCCM.UI
             }
         }
 
+        private void RCCMMainForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Left || e.KeyCode == Keys.Down || e.KeyCode == Keys.Right)
+            {
+                e.IsInputKey = true;
+            }
+            e.IsInputKey = false;
+        }
+
         private void textImageDir_Enter(object sender, EventArgs e)
         {
             DialogResult result = this.folderBrowserDialog.ShowDialog();
@@ -507,15 +505,6 @@ namespace RCCM.UI
                 this.textImageDir.Text = this.folderBrowserDialog.SelectedPath;
                 Program.Settings.json["image directory"] = this.folderBrowserDialog.SelectedPath;
             }
-        }
-
-        private void RCCMMainForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Left || e.KeyCode == Keys.Down || e.KeyCode == Keys.Right)
-            {
-                e.IsInputKey = true;
-            }
-            e.IsInputKey = false;
         }
 
         private void textVideoDir_Enter(object sender, EventArgs e)
