@@ -43,6 +43,7 @@
             this.nFOV1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nFOV2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coordinateSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.camerasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
@@ -100,30 +101,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.coarseXPos = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabPageSetup = new System.Windows.Forms.TabPage();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.nfov2Scale = new System.Windows.Forms.TextBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.nfov1Scale = new System.Windows.Forms.TextBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textDataDir = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textVideoDir = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.textImageDir = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.wfov2Scale = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.wfov2Config = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.wfov1Scale = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.wfov1Config = new System.Windows.Forms.TextBox();
             this.btnWFOV2Open = new System.Windows.Forms.Button();
             this.btnNFOV2Open = new System.Windows.Forms.Button();
             this.btnWFOV1Open = new System.Windows.Forms.Button();
@@ -166,12 +143,6 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).BeginInit();
-            this.tabPageSetup.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPagePressure.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).BeginInit();
@@ -214,7 +185,8 @@
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nFOV1LensToolStripMenuItem,
-            this.coordinateSystemToolStripMenuItem});
+            this.coordinateSystemToolStripMenuItem,
+            this.camerasToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -248,6 +220,13 @@
             this.coordinateSystemToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.coordinateSystemToolStripMenuItem.Text = "Coordinate System";
             this.coordinateSystemToolStripMenuItem.Click += new System.EventHandler(this.coordinateSystemToolStripMenuItem_Click);
+            // 
+            // camerasToolStripMenuItem
+            // 
+            this.camerasToolStripMenuItem.Name = "camerasToolStripMenuItem";
+            this.camerasToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.camerasToolStripMenuItem.Text = "Cameras";
+            this.camerasToolStripMenuItem.Click += new System.EventHandler(this.camerasToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -860,242 +839,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "X";
             // 
-            // tabPageSetup
-            // 
-            this.tabPageSetup.Controls.Add(this.groupBox8);
-            this.tabPageSetup.Controls.Add(this.groupBox7);
-            this.tabPageSetup.Controls.Add(this.groupBox6);
-            this.tabPageSetup.Controls.Add(this.groupBox5);
-            this.tabPageSetup.Controls.Add(this.groupBox4);
-            this.tabPageSetup.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSetup.Name = "tabPageSetup";
-            this.tabPageSetup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSetup.Size = new System.Drawing.Size(750, 284);
-            this.tabPageSetup.TabIndex = 0;
-            this.tabPageSetup.Text = "Setup";
-            this.tabPageSetup.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.label16);
-            this.groupBox8.Controls.Add(this.nfov2Scale);
-            this.groupBox8.Location = new System.Drawing.Point(8, 222);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(200, 48);
-            this.groupBox8.TabIndex = 5;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "NFOV 2";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(7, 20);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(64, 13);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "micron/pixel";
-            // 
-            // nfov2Scale
-            // 
-            this.nfov2Scale.Location = new System.Drawing.Point(82, 17);
-            this.nfov2Scale.Name = "nfov2Scale";
-            this.nfov2Scale.Size = new System.Drawing.Size(100, 20);
-            this.nfov2Scale.TabIndex = 0;
-            this.nfov2Scale.Text = "9.08";
-            this.nfov2Scale.TextChanged += new System.EventHandler(this.nfov2Scale_TextChanged);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.label15);
-            this.groupBox7.Controls.Add(this.nfov1Scale);
-            this.groupBox7.Location = new System.Drawing.Point(8, 168);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(200, 48);
-            this.groupBox7.TabIndex = 4;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "NFOV 1";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 20);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(64, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "micron/pixel";
-            // 
-            // nfov1Scale
-            // 
-            this.nfov1Scale.Location = new System.Drawing.Point(82, 17);
-            this.nfov1Scale.Name = "nfov1Scale";
-            this.nfov1Scale.Size = new System.Drawing.Size(100, 20);
-            this.nfov1Scale.TabIndex = 0;
-            this.nfov1Scale.Text = "9.08";
-            this.nfov1Scale.TextChanged += new System.EventHandler(this.nfov1Scale_TextChanged);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.label17);
-            this.groupBox6.Controls.Add(this.textDataDir);
-            this.groupBox6.Controls.Add(this.label14);
-            this.groupBox6.Controls.Add(this.textVideoDir);
-            this.groupBox6.Controls.Add(this.label13);
-            this.groupBox6.Controls.Add(this.textImageDir);
-            this.groupBox6.Location = new System.Drawing.Point(212, 6);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(200, 102);
-            this.groupBox6.TabIndex = 3;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Output Directories";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(7, 72);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(76, 13);
-            this.label17.TabIndex = 5;
-            this.label17.Text = "Measurements";
-            // 
-            // textDataDir
-            // 
-            this.textDataDir.Location = new System.Drawing.Point(94, 69);
-            this.textDataDir.Name = "textDataDir";
-            this.textDataDir.Size = new System.Drawing.Size(100, 20);
-            this.textDataDir.TabIndex = 5;
-            this.textDataDir.Text = "data";
-            this.textDataDir.Enter += new System.EventHandler(this.textDataDir_Enter);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(7, 46);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(39, 13);
-            this.label14.TabIndex = 4;
-            this.label14.Text = "Videos";
-            // 
-            // textVideoDir
-            // 
-            this.textVideoDir.Location = new System.Drawing.Point(94, 43);
-            this.textVideoDir.Name = "textVideoDir";
-            this.textVideoDir.Size = new System.Drawing.Size(100, 20);
-            this.textVideoDir.TabIndex = 1;
-            this.textVideoDir.Text = "C:\\Users\\John\\Videos\\RCCM";
-            this.textVideoDir.Enter += new System.EventHandler(this.textVideoDir_Enter);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 20);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(41, 13);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Images";
-            // 
-            // textImageDir
-            // 
-            this.textImageDir.Location = new System.Drawing.Point(94, 17);
-            this.textImageDir.Name = "textImageDir";
-            this.textImageDir.Size = new System.Drawing.Size(100, 20);
-            this.textImageDir.TabIndex = 0;
-            this.textImageDir.Text = "C:\\Users\\John\\Pictures\\RCCM";
-            this.textImageDir.Enter += new System.EventHandler(this.textImageDir_Enter);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.label12);
-            this.groupBox5.Controls.Add(this.wfov2Scale);
-            this.groupBox5.Controls.Add(this.label10);
-            this.groupBox5.Controls.Add(this.wfov2Config);
-            this.groupBox5.Location = new System.Drawing.Point(6, 87);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 75);
-            this.groupBox5.TabIndex = 2;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "WFOV 2";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(7, 46);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(64, 13);
-            this.label12.TabIndex = 3;
-            this.label12.Text = "micron/pixel";
-            // 
-            // wfov2Scale
-            // 
-            this.wfov2Scale.Location = new System.Drawing.Point(82, 43);
-            this.wfov2Scale.Name = "wfov2Scale";
-            this.wfov2Scale.Size = new System.Drawing.Size(100, 20);
-            this.wfov2Scale.TabIndex = 4;
-            this.wfov2Scale.Text = "9.08";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 20);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(69, 13);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Configuration";
-            // 
-            // wfov2Config
-            // 
-            this.wfov2Config.Location = new System.Drawing.Point(82, 17);
-            this.wfov2Config.Name = "wfov2Config";
-            this.wfov2Config.Size = new System.Drawing.Size(100, 20);
-            this.wfov2Config.TabIndex = 0;
-            this.wfov2Config.Text = "config\\WFOV2.xml";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Controls.Add(this.wfov1Scale);
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.wfov1Config);
-            this.groupBox4.Location = new System.Drawing.Point(6, 6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 75);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "WFOV 1";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 46);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(64, 13);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "micron/pixel";
-            // 
-            // wfov1Scale
-            // 
-            this.wfov1Scale.Location = new System.Drawing.Point(82, 43);
-            this.wfov1Scale.Name = "wfov1Scale";
-            this.wfov1Scale.Size = new System.Drawing.Size(100, 20);
-            this.wfov1Scale.TabIndex = 2;
-            this.wfov1Scale.Text = "9.08";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 20);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(69, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Configuration";
-            // 
-            // wfov1Config
-            // 
-            this.wfov1Config.Location = new System.Drawing.Point(82, 17);
-            this.wfov1Config.Name = "wfov1Config";
-            this.wfov1Config.Size = new System.Drawing.Size(100, 20);
-            this.wfov1Config.TabIndex = 0;
-            this.wfov1Config.Text = "config\\WFOV1.xml";
-            // 
             // btnWFOV2Open
             // 
             this.btnWFOV2Open.Location = new System.Drawing.Point(679, 26);
@@ -1138,7 +881,6 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPageSetup);
             this.tabControl1.Controls.Add(this.tabPageMotion);
             this.tabControl1.Controls.Add(this.tabPageResults);
             this.tabControl1.Controls.Add(this.tabPagePressure);
@@ -1306,17 +1048,6 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coarseYPos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coarseXPos)).EndInit();
-            this.tabPageSetup.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPagePressure.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartCycles)).EndInit();
@@ -1361,36 +1092,12 @@
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.RadioButton radioMoveRel;
         private System.Windows.Forms.RadioButton radioMoveAbs;
-        private System.Windows.Forms.TabPage tabPageSetup;
         private System.Windows.Forms.Button btnNFOV1Open;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox nfov2Scale;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox nfov1Scale;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textDataDir;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textVideoDir;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textImageDir;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox wfov2Config;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox wfov1Config;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.BindingSource bindingSource2;
         private System.Windows.Forms.Button btnWFOV2Open;
         private System.Windows.Forms.Button btnNFOV2Open;
         private System.Windows.Forms.Button btnWFOV1Open;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox wfov2Scale;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox wfov1Scale;
         private System.Windows.Forms.RadioButton radioCoarse;
         private System.Windows.Forms.TableLayoutPanel tableLayoutMotion;
         private System.Windows.Forms.TabPage tabPagePressure;
@@ -1440,6 +1147,7 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.ToolStripMenuItem coordinateSystemToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem camerasToolStripMenuItem;
     }
 }
 

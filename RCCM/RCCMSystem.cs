@@ -123,7 +123,7 @@ namespace RCCM
             this.FineStageAngle = (double)Program.Settings.json["rotation angle"];
             // Create rotation matrix representing panel rotation
             this.panelRotation = new double[2, 2];
-            this.PanelAngle = (double)Program.Settings.json["rotation angle"];
+            this.PanelAngle = (double)Program.Settings.json["panel"]["rotation"];
 
             // Initialize NFOV cameras & apply settings
             this.NFOV1 = new NFOV((uint)Program.Settings.json["nfov 1"]["camera serial"],
@@ -362,11 +362,6 @@ namespace RCCM
         }
 
         #endregion
-
-        public void readHeight1()
-        {
-            Logger.Out(this.LensController.GetHeight(RCCMStage.RCCM1).ToString());
-        }
 
         public void Stop()
         {

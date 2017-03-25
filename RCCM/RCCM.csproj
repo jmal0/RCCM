@@ -124,6 +124,12 @@
     </Compile>
     <Compile Include="CycleCounter.cs" />
     <Compile Include="definitions.cs" />
+    <Compile Include="UI\CameraSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CameraSettingsForm.Designer.cs">
+      <DependentUpon>CameraSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\CoordinateSystemSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +191,9 @@
     <Compile Include="WFOV.cs" />
     <EmbeddedResource Include="UI\AboutRCCMForm.resx">
       <DependentUpon>AboutRCCMForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CameraSettingsForm.resx">
+      <DependentUpon>CameraSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CoordinateSystemSettingsForm.resx">
       <DependentUpon>CoordinateSystemSettingsForm.cs</DependentUpon>

@@ -16,9 +16,9 @@ namespace RCCM
         // List of points of crack vertices and relevant metadata
         protected List<Measurement> points;
         /// <summary>
-        /// Enum value indicating which set of fine axes capturing these measurements
+        /// Indicates which camera captured these measurements
         /// </summary>
-        public RCCMStage Parent { get; set; }        
+        public string Camera { get; set; }        
         /// <summary>
         /// Color of line to display
         /// </summary>
@@ -68,21 +68,21 @@ namespace RCCM
         /// <summary>
         /// Create a new measurement sequence with all parameters specified
         /// </summary>
-        /// <param name="uiColor">Color of line representation on NFOV image</param>
-        /// <param name="uiName">Name identifying crack</param>
-        /// <param name="uiSize">Thickness of line on NFOV image</param>
-        /// <param name="uiOrientation">Angular orientation (degrees) of initial crack notch</param>
-        /// <param name="uiMode">Crack length calculation method</param>
-        /// <param name="uiParent">Parent stage</param>
-        public MeasurementSequence(Color uiColor, string uiName, float uiSize, float uiOrientation, MeasurementMode uiMode, RCCMStage uiParent)
+        /// <param name="color">Color of line representation on NFOV image</param>
+        /// <param name="name">Name identifying crack</param>
+        /// <param name="size">Thickness of line on NFOV image</param>
+        /// <param name="orientation">Angular orientation (degrees) of initial crack notch</param>
+        /// <param name="mode">Crack length calculation method</param>
+        /// <param name="camera">Camera used to image crack</param>
+        public MeasurementSequence(Color color, string name, float size, float orientation, MeasurementMode mode, string camera)
         {
             this.points = new List<Measurement>();
-            this.Name = uiName;
-            this.Color = Color.FromArgb(128, uiColor); // 50% transparent
-            this.LineSize = uiSize;
-            this.Orientation = uiOrientation;
-            this.Mode = uiMode;
-            this.Parent = uiParent;
+            this.Name = name;
+            this.Color = Color.FromArgb(128, color); // 50% transparent
+            this.LineSize = size;
+            this.Orientation = orientation;
+            this.Mode = mode;
+            this.Camera = camera;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace RCCM
             this.LineSize = parentForm.GetLineSize();
             this.Orientation = parentForm.GetOrientation();
             this.Mode = parentForm.GetMode();
-            this.Parent = parentForm.GetStage();
+            this.Camera = parentForm.GetCamera();
         }
 
         /// <summary>

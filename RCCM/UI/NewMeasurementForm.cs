@@ -16,12 +16,14 @@ namespace RCCM.UI
     /// </summary>
     public partial class NewMeasurementForm : Form
     {
+        protected string camera;
         public static int ColorInd = 0;
         public static Color[] Colors = { Color.Red, Color.Blue, Color.Green, Color.Purple, Color.Orange, Color.Yellow, Color.Black, Color.Brown, Color.DarkBlue, Color.LimeGreen, Color.PaleVioletRed };
 
-        public NewMeasurementForm(string defaultName)
+        public NewMeasurementForm(string defaultName, string camera)
         {
             InitializeComponent();
+            this.camera = camera;
             this.textName.Text = defaultName;
             this.colorPicker.BackColor = NewMeasurementForm.Colors[NewMeasurementForm.ColorInd];
             NewMeasurementForm.ColorInd = (NewMeasurementForm.ColorInd + 1) % NewMeasurementForm.Colors.Length;
@@ -30,11 +32,11 @@ namespace RCCM.UI
         public NewMeasurementForm(MeasurementSequence crack)
         {
             InitializeComponent();
+            this.camera = crack.Camera;
             this.textName.Text = crack.Name;
             this.colorPicker.BackColor = crack.Color;
             this.editLineSize.Value = (decimal)crack.LineSize;
             this.editOrientation.Value = (decimal)crack.Orientation;
-            Console.WriteLine(crack.Mode);
             switch (crack.Mode)
             {
                 case MeasurementMode.Projection:
@@ -45,15 +47,6 @@ namespace RCCM.UI
                     break;
                 case MeasurementMode.Total:
                     this.radioMeasureTotal.Checked = true;
-                    break;
-            }
-            switch (crack.Parent)
-            {
-                case RCCMStage.RCCM1:
-                    this.radioRccm1.Checked = true;
-                    break;
-                case RCCMStage.RCCM2:
-                    this.radioRccm2.Checked = true;
                     break;
             }
         }
@@ -133,16 +126,12 @@ namespace RCCM.UI
         }
 
         /// <summary>
-        /// Get select parent stage from form 
+        /// Get name of camera capturing this crack 
         /// </summary>
-        /// <returns>The enum value for the parent stage of the MeasurementSequence</returns>
-        public RCCMStage GetStage()
+        /// <returns>The name of the camera capturing this MeasurementSequence</returns>
+        public string GetCamera()
         {
-            if (this.radioRccm1.Checked)
-            {
-                return RCCMStage.RCCM1;
-            }
-            return RCCMStage.RCCM2;
+            return this.camera;
         }
     }
 }

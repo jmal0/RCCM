@@ -189,36 +189,11 @@ namespace RCCM.UI
         }
 
         #endregion
-        
-        private void nfov1Scale_TextChanged(object sender, EventArgs e)
-        {
-            double scale;
-            if (this.nfov1 != null && Double.TryParse(this.nfov1Scale.Text, out scale))
-            {
-                this.nfov1.Scale = scale;
-                Program.Settings.json["nfov 1"]["microns / pixel"] = scale;
-            }
-        }
-
-        private void nfov2Scale_TextChanged(object sender, EventArgs e)
-        {
-            double scale;
-            if (this.nfov2 != null && Double.TryParse(this.nfov1Scale.Text, out scale))
-            {
-                this.nfov2.Scale = scale;
-                Program.Settings.json["nfov 2"]["microns / pixel"] = scale;
-            }
-        }
 
         #region Settings
 
         public void applyUISettings()
         {
-            // Cameras
-            this.nfov1Scale.Text = (string)Program.Settings.json["nfov 1"]["microns / pixel"];
-            this.nfov2Scale.Text = (string)Program.Settings.json["nfov 2"]["microns / pixel"];
-            this.wfov1Scale.Text = (string)Program.Settings.json["wfov 1"]["microns / pixel"];
-            this.wfov2Scale.Text = (string)Program.Settings.json["wfov 2"]["microns / pixel"];
             // Make NumericUpDown increment property equal to motor minimum step size
             this.coarseXPos.Increment = (decimal) Program.Settings.json["coarse X"]["step"];
             this.coarseYPos.Increment = (decimal) Program.Settings.json["coarse Y"]["step"];
@@ -245,18 +220,9 @@ namespace RCCM.UI
             this.fine2XPos.Maximum = (decimal)Program.Settings.json["fine 2 X"]["high position limit"];
             this.fine2YPos.Maximum = (decimal)Program.Settings.json["fine 2 Y"]["high position limit"];
             this.fine2ZPos.Maximum = (decimal)Program.Settings.json["fine 2 Z"]["high position limit"];
-            // Directories
-            this.textImageDir.Text = (string)Program.Settings.json["image directory"];
-            this.textVideoDir.Text = (string)Program.Settings.json["video directory"];
-            this.textDataDir.Text = (string)Program.Settings.json["test data directory"];
         }
 
         #endregion
-        
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.rccm.readHeight1();
-        }
 
         #region Fatigue Testing
 
@@ -289,7 +255,7 @@ namespace RCCM.UI
             this.btnStopTest.Enabled = false;
             foreach (MeasurementSequence crack in this.cracks)
             {
-                crack.WriteToFile(this.textDataDir.Text, true);
+                crack.WriteToFile((string)Program.Settings.json[crack.Camera]["test data directory"], true);
             }
         }
 
@@ -337,7 +303,12 @@ namespace RCCM.UI
             CoordinateSystemSettingsForm form = new CoordinateSystemSettingsForm(this.rccm);
             form.Show();
         }
-
+        
+        private void camerasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CameraSettingsForm form = new CameraSettingsForm(this.rccm);
+            form.Show();
+        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -494,42 +465,6 @@ namespace RCCM.UI
                 e.IsInputKey = true;
             }
             e.IsInputKey = false;
-        }
-
-        private void textImageDir_Enter(object sender, EventArgs e)
-        {
-            DialogResult result = this.folderBrowserDialog.ShowDialog();
-            Console.WriteLine(this.folderBrowserDialog.SelectedPath);
-            if (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists)
-            {
-                this.textImageDir.Text = this.folderBrowserDialog.SelectedPath;
-                Program.Settings.json["image directory"] = this.folderBrowserDialog.SelectedPath;
-            }
-        }
-
-        private void textVideoDir_Enter(object sender, EventArgs e)
-        {
-            DialogResult result = this.folderBrowserDialog.ShowDialog();
-            Console.WriteLine(this.folderBrowserDialog.SelectedPath);
-            if (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists)
-            {
-                this.textVideoDir.Text = this.folderBrowserDialog.SelectedPath;
-                Program.Settings.json["video directory"] = this.folderBrowserDialog.SelectedPath;
-            }
-        }
-
-        private void textDataDir_Enter(object sender, EventArgs e)
-        {
-            DialogResult result = this.folderBrowserDialog.ShowDialog();
-            Console.WriteLine(this.folderBrowserDialog.SelectedPath);
-            if (result == DialogResult.OK)
-            {
-                if (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists)
-                {
-                    this.textDataDir.Text = this.folderBrowserDialog.SelectedPath;
-                    Program.Settings.json["test data directory"] = this.folderBrowserDialog.SelectedPath;
-                }
-            }
         }
 
         private RCCMStage getActiveStage()

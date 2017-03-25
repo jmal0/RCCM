@@ -53,6 +53,7 @@ namespace RCCM
             }
             catch (Exception ex)
             {
+                Console.WriteLine("wtfffff");
                 Logger.Out(ex.ToString());
                 return false;
             }

@@ -399,7 +399,8 @@ namespace RCCM.UI
         private void btnNfovSnap_Click(object sender, EventArgs e)
         {
             string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-            string dir = (string)Program.Settings.json["image directory"];
+            string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
+            string dir = (string)Program.Settings.json[camName]["image directory"];
             Logger.Out(dir + @"\" + timestamp + ".bmp");
             this.camera.Snap(dir + @"\" + timestamp + ".bmp");
         }
@@ -453,7 +454,7 @@ namespace RCCM.UI
                         crack.LineSize = form.GetLineSize();
                         crack.Orientation = form.GetOrientation();
                         crack.Mode = form.GetMode();
-                        crack.Parent = form.GetStage();
+                        crack.Camera = form.GetCamera();
                         this.updateMeasurementControls();
                     }
                     else
@@ -466,7 +467,8 @@ namespace RCCM.UI
 
         private void btnNewSequence_Click(object sender, EventArgs e)
         {
-            NewMeasurementForm dlg = new NewMeasurementForm("Crack " + this.measurementCounter);
+            string cameraName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
+            NewMeasurementForm dlg = new NewMeasurementForm("Crack " + this.measurementCounter, cameraName);
             DialogResult result = dlg.ShowDialog();
             if (result == DialogResult.OK)
             {

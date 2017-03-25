@@ -31,9 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewMeasurementForm));
             this.textName = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.radioRccm1 = new System.Windows.Forms.RadioButton();
-            this.radioRccm2 = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.colorPicker = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,7 +44,6 @@
             this.radioMeasureTip = new System.Windows.Forms.RadioButton();
             this.editOrientation = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editLineSize)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editOrientation)).BeginInit();
@@ -59,39 +55,6 @@
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(97, 20);
             this.textName.TabIndex = 0;
-            // 
-            // radioRccm1
-            // 
-            this.radioRccm1.AutoSize = true;
-            this.radioRccm1.Checked = true;
-            this.radioRccm1.Location = new System.Drawing.Point(6, 19);
-            this.radioRccm1.Name = "radioRccm1";
-            this.radioRccm1.Size = new System.Drawing.Size(65, 17);
-            this.radioRccm1.TabIndex = 1;
-            this.radioRccm1.TabStop = true;
-            this.radioRccm1.Text = "RCCM 1";
-            this.radioRccm1.UseVisualStyleBackColor = true;
-            // 
-            // radioRccm2
-            // 
-            this.radioRccm2.AutoSize = true;
-            this.radioRccm2.Location = new System.Drawing.Point(6, 42);
-            this.radioRccm2.Name = "radioRccm2";
-            this.radioRccm2.Size = new System.Drawing.Size(65, 17);
-            this.radioRccm2.TabIndex = 2;
-            this.radioRccm2.Text = "RCCM 2";
-            this.radioRccm2.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.radioRccm1);
-            this.groupBox1.Controls.Add(this.radioRccm2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 201);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(138, 71);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Parent Stage";
             // 
             // colorPicker
             // 
@@ -124,7 +87,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(12, 278);
+            this.btnOK.Location = new System.Drawing.Point(12, 202);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(65, 26);
             this.btnOK.TabIndex = 21;
@@ -134,7 +97,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(86, 278);
+            this.btnCancel.Location = new System.Drawing.Point(86, 202);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(65, 26);
             this.btnCancel.TabIndex = 22;
@@ -254,7 +217,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(166, 312);
+            this.ClientSize = new System.Drawing.Size(166, 236);
             this.Controls.Add(this.editOrientation);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox2);
@@ -265,13 +228,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.colorPicker);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NewMeasurementForm";
             this.Text = "New";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editLineSize)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -285,9 +245,6 @@
 
         private System.Windows.Forms.TextBox textName;
         private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.RadioButton radioRccm1;
-        private System.Windows.Forms.RadioButton radioRccm2;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label colorPicker;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

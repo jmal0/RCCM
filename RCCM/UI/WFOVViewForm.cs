@@ -175,7 +175,8 @@ namespace RCCM.UI
         private void btnWfovSnap_Click(object sender, EventArgs e)
         {
             string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-            string dir = (string)Program.Settings.json["image directory"];
+            string camName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
+            string dir = (string)Program.Settings.json[camName]["image directory"];
             this.camera.SnapImage(dir + "\\" + timestamp + ".png");
         }
 
@@ -194,7 +195,8 @@ namespace RCCM.UI
                 if (this.camera.Recording == false)
                 {
                     string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-                    string dir = (string)Program.Settings.json["video directory"];
+                    string camName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
+                    string dir = (string)Program.Settings.json[camName]["video directory"];
                     this.camera.Record(dir + @"\" + timestamp + ".avi");
                     btnWfovRecord.BackColor = Color.Gray;
                     btnWfovStart.Enabled = false;
@@ -262,7 +264,6 @@ namespace RCCM.UI
                         crack.LineSize = form.GetLineSize();
                         crack.Orientation = form.GetOrientation();
                         crack.Mode = form.GetMode();
-                        crack.Parent = form.GetStage();
                         this.updateMeasurementControls();
                     }
                     else
@@ -275,7 +276,8 @@ namespace RCCM.UI
 
         private void btnNewSequence_Click(object sender, EventArgs e)
         {
-            NewMeasurementForm dlg = new NewMeasurementForm("Crack " + this.measurementCounter);
+            string cameraName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
+            NewMeasurementForm dlg = new NewMeasurementForm("Crack " + this.measurementCounter, cameraName);
             DialogResult result = dlg.ShowDialog();
             if (result == DialogResult.OK)
             {

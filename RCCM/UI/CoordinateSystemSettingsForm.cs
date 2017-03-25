@@ -46,6 +46,7 @@ namespace RCCM.UI
         private void CoordinateSystemSettingsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.applySettings();
+            Program.Settings.save();
         }
 
         private void applySettings()
@@ -87,7 +88,6 @@ namespace RCCM.UI
         private void controlValueChanged(object sender, EventArgs e)
         {
             this.applySettings();
-            Console.WriteLine("updating");
         }
     }
 }
