@@ -47,7 +47,6 @@
             this.sliderZoom = new System.Windows.Forms.TrackBar();
             this.panelMeasurement = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listPoints = new System.Windows.Forms.ListBox();
             this.btnGotoPoint = new System.Windows.Forms.Button();
             this.btnDeletePoint = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -60,6 +59,9 @@
             this.btnDeleteSequence = new System.Windows.Forms.Button();
             this.btnSaveCrack = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.listPoints = new System.Windows.Forms.ListView();
+            this.columnCycle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnLength = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).BeginInit();
             this.panelLayout.SuspendLayout();
             this.panelWfovView.SuspendLayout();
@@ -319,17 +321,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Points";
             // 
-            // listPoints
-            // 
-            this.listPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.listPoints.FormattingEnabled = true;
-            this.listPoints.Location = new System.Drawing.Point(6, 16);
-            this.listPoints.Name = "listPoints";
-            this.listPoints.ScrollAlwaysVisible = true;
-            this.listPoints.Size = new System.Drawing.Size(115, 95);
-            this.listPoints.TabIndex = 24;
-            this.listPoints.SelectedIndexChanged += new System.EventHandler(this.listPoints_SelectedIndexChanged);
-            // 
             // btnGotoPoint
             // 
             this.btnGotoPoint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -461,6 +452,34 @@
             this.btnSaveCrack.UseVisualStyleBackColor = true;
             this.btnSaveCrack.Click += new System.EventHandler(this.btnSaveCrack_Click);
             // 
+            // listPoints
+            // 
+            this.listPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listPoints.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnCycle,
+            this.columnLength});
+            this.listPoints.FullRowSelect = true;
+            this.listPoints.HideSelection = false;
+            this.listPoints.Location = new System.Drawing.Point(6, 14);
+            this.listPoints.MultiSelect = false;
+            this.listPoints.Name = "listPoints";
+            this.listPoints.Size = new System.Drawing.Size(115, 97);
+            this.listPoints.TabIndex = 36;
+            this.listPoints.UseCompatibleStateImageBehavior = false;
+            this.listPoints.View = System.Windows.Forms.View.Details;
+            this.listPoints.SelectedIndexChanged += new System.EventHandler(this.listPoints_SelectedIndexChanged);
+            // 
+            // columnCycle
+            // 
+            this.columnCycle.Text = "Cycle";
+            this.columnCycle.Width = 59;
+            // 
+            // columnLength
+            // 
+            this.columnLength.Text = "Length";
+            this.columnLength.Width = 59;
+            // 
             // WFOVViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -518,12 +537,14 @@
         private System.Windows.Forms.Button btnDeleteSequence;
         private System.Windows.Forms.Button btnSaveCrack;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ListBox listPoints;
         private System.Windows.Forms.Button btnGotoPoint;
         private System.Windows.Forms.Button btnDeletePoint;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox checkCrosshair;
         private System.Windows.Forms.Button btnCrosshairMeasure;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.ListView listPoints;
+        private System.Windows.Forms.ColumnHeader columnCycle;
+        private System.Windows.Forms.ColumnHeader columnLength;
     }
 }

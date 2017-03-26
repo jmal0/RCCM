@@ -32,10 +32,6 @@ namespace RCCM.UI
         /// </summary>
         protected RCCMStage stage;
         /// <summary>
-        /// Counter for giving unique number to cracks
-        /// </summary>
-        protected int measurementCounter;
-        /// <summary>
         /// Currently selected crack index. The selected crack will be edited by other controls
         /// </summary>
         protected int ActiveIndex { get; set; }
@@ -58,7 +54,6 @@ namespace RCCM.UI
             this.Drawing = false;
             this.ActiveIndex = -1;
             this.ActivePoint = -1;
-            this.measurementCounter = 0;
             InitializeComponent();
             this.updateMeasurementControls();
         }
@@ -277,7 +272,7 @@ namespace RCCM.UI
         private void btnNewSequence_Click(object sender, EventArgs e)
         {
             string cameraName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
-            NewMeasurementForm dlg = new NewMeasurementForm("Crack " + this.measurementCounter, cameraName);
+            NewMeasurementForm dlg = new NewMeasurementForm("Crack " + MeasurementSequence.CrackCount, cameraName);
             DialogResult result = dlg.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -285,7 +280,6 @@ namespace RCCM.UI
                 MeasurementSequence crack2 = findCrackName(newCrack.Name);
                 if (crack2 == null)
                 {
-                    this.measurementCounter++;
                     this.cracks.Add(newCrack);
                     this.listMeasurements.SelectedIndex = this.cracks.Count - 1;
                 }
@@ -303,7 +297,6 @@ namespace RCCM.UI
             {
                 this.cracks.RemoveAt(this.ActiveIndex);
                 this.listMeasurements.SelectedIndex = -1;
-                this.listMeasurements.Items.RemoveAt(this.ActiveIndex);
             }
         }
 
@@ -340,7 +333,7 @@ namespace RCCM.UI
             if (this.pointIndexValid())
             {
                 this.cracks[this.ActiveIndex].removePoint(this.ActivePoint);
-                this.listPoints.SelectedIndex = -1;
+                this.listPoints.SelectedIndices.Clear();
                 // Refresh list of points
                 this.updateMeasurementControls();
             }
@@ -348,7 +341,10 @@ namespace RCCM.UI
 
         private void listPoints_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.ActivePoint = this.listPoints.SelectedIndex;
+            if (this.listPoints.SelectedIndices.Count > 0)
+            {
+                this.ActivePoint = this.listPoints.SelectedIndices[0];
+            }
         }
 
         private void enableWfovControls()
@@ -384,7 +380,10 @@ namespace RCCM.UI
             {
                 this.listMeasurements.Items.Add(this.cracks[i].Name);
             }
-            this.listMeasurements.SelectedIndex = ind;
+            if (this.crackIndexValid())
+            {
+                this.listMeasurements.SelectedIndex = this.ActiveIndex;
+            }
             // Update list of points
             if (this.crackIndexValid())
             {
@@ -392,7 +391,10 @@ namespace RCCM.UI
                 for (int i = 0; i < this.cracks[this.ActiveIndex].CountPoints; i++)
                 {
                     Measurement m = this.cracks[this.ActiveIndex].GetPoint(i);
-                    this.listPoints.Items.Add(string.Format("{0:0.000} {1:0.000}", m.X, m.Y));
+                    this.listPoints.Items.Add(new ListViewItem(new string[] {
+                        string.Format("{0}", m.Cycle),
+                        string.Format("{0:0.00}", m.CrackLength)
+                    }));
                 }
             }
         }

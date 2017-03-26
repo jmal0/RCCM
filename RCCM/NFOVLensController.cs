@@ -334,13 +334,13 @@ namespace RCCM
             return m * x + b;
         }
         
-        public void SaveToJSON(Settings settings)
+        public void Save()
         {
-            settings.json["nfov 1"]["conversion"] = JArray.FromObject(this.conversion1);
-            settings.json["nfov 2"]["conversion"] = JArray.FromObject(this.conversion2);
-            settings.json["nfov 1"]["calibration"] = JArray.FromObject(this.NFOV1Calibration);
-            settings.json["nfov 2"]["calibration"] = JArray.FromObject(this.NFOV2Calibration);
-            settings.save();
+            Program.Settings.json["nfov 1"]["conversion"] = JArray.FromObject(this.conversion1);
+            Program.Settings.json["nfov 2"]["conversion"] = JArray.FromObject(this.conversion2);
+            Program.Settings.json["nfov 1"]["calibration"] = JArray.FromObject(this.NFOV1Calibration);
+            Program.Settings.json["nfov 2"]["calibration"] = JArray.FromObject(this.NFOV2Calibration);
+            Program.Settings.save();
         }
 
         private void nfov1ConnectionChanged(object sender, ControllerConnectionStatusChangedEventArgs e)

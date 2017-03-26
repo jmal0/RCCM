@@ -35,7 +35,6 @@
             this.btnNewSequence = new System.Windows.Forms.Button();
             this.btnDeleteSequence = new System.Windows.Forms.Button();
             this.btnSaveCrack = new System.Windows.Forms.Button();
-            this.listPoints = new System.Windows.Forms.ListBox();
             this.btnCrosshairMeasure = new System.Windows.Forms.Button();
             this.nfovImage = new System.Windows.Forms.PictureBox();
             this.btnDeletePoint = new System.Windows.Forms.Button();
@@ -52,6 +51,9 @@
             this.panelNFOVControl = new System.Windows.Forms.Panel();
             this.panelMeasurementControl = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.listPoints = new System.Windows.Forms.ListView();
+            this.columnCycle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnLength = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -133,17 +135,6 @@
             this.btnSaveCrack.Text = "Save to file";
             this.btnSaveCrack.UseVisualStyleBackColor = true;
             this.btnSaveCrack.Click += new System.EventHandler(this.btnSaveCrack_Click);
-            // 
-            // listPoints
-            // 
-            this.listPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.listPoints.FormattingEnabled = true;
-            this.listPoints.Location = new System.Drawing.Point(6, 19);
-            this.listPoints.Name = "listPoints";
-            this.listPoints.ScrollAlwaysVisible = true;
-            this.listPoints.Size = new System.Drawing.Size(118, 95);
-            this.listPoints.TabIndex = 24;
-            this.listPoints.SelectedIndexChanged += new System.EventHandler(this.listPoints_SelectedIndexChanged);
             // 
             // btnCrosshairMeasure
             // 
@@ -334,6 +325,34 @@
             this.tableLayout.Size = new System.Drawing.Size(754, 545);
             this.tableLayout.TabIndex = 34;
             // 
+            // listPoints
+            // 
+            this.listPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listPoints.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnCycle,
+            this.columnLength});
+            this.listPoints.FullRowSelect = true;
+            this.listPoints.HideSelection = false;
+            this.listPoints.Location = new System.Drawing.Point(6, 19);
+            this.listPoints.MultiSelect = false;
+            this.listPoints.Name = "listPoints";
+            this.listPoints.Size = new System.Drawing.Size(118, 97);
+            this.listPoints.TabIndex = 35;
+            this.listPoints.UseCompatibleStateImageBehavior = false;
+            this.listPoints.View = System.Windows.Forms.View.Details;
+            this.listPoints.SelectedIndexChanged += new System.EventHandler(this.listPoints_SelectedIndexChanged);
+            // 
+            // columnCycle
+            // 
+            this.columnCycle.Text = "Cycle";
+            this.columnCycle.Width = 59;
+            // 
+            // columnLength
+            // 
+            this.columnLength.Text = "Length";
+            this.columnLength.Width = 59;
+            // 
             // NFOVViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -367,7 +386,6 @@
         private System.Windows.Forms.ListBox listMeasurements;
         private System.Windows.Forms.Button btnNewSequence;
         private System.Windows.Forms.Button btnDeleteSequence;
-        private System.Windows.Forms.ListBox listPoints;
         private System.Windows.Forms.Button btnCrosshairMeasure;
         private System.Windows.Forms.PictureBox nfovImage;
         private System.Windows.Forms.Button btnSaveCrack;
@@ -386,5 +404,8 @@
         private System.Windows.Forms.Panel panelNFOVControl;
         private System.Windows.Forms.TableLayoutPanel panelMeasurementControl;
         private System.Windows.Forms.TableLayoutPanel tableLayout;
+        private System.Windows.Forms.ListView listPoints;
+        private System.Windows.Forms.ColumnHeader columnCycle;
+        private System.Windows.Forms.ColumnHeader columnLength;
     }
 }

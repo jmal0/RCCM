@@ -16,6 +16,10 @@ namespace RCCM.UI
     public partial class LensCalibrationForm : Form
     {
         /// <summary>
+        /// The RCCM object
+        /// </summary>
+        protected RCCMSystem rccm;
+        /// <summary>
         /// Lens controller
         /// </summary>
         protected NFOVLensController controller;
@@ -23,10 +27,6 @@ namespace RCCM.UI
         /// Parent stage of NFOV camera to be adjusted
         /// </summary>
         protected RCCMStage stage;
-        /// <summary>
-        /// Settings object that will store saved user changes
-        /// </summary>
-        protected Settings settings;
         /// <summary>
         /// Calibration data before creation of this form. Reverts calibration if cancel is clicked
         /// </summary>
@@ -41,14 +41,13 @@ namespace RCCM.UI
         /// </summary>
         /// <param name="controller">NFOV lens controller</param>
         /// <param name="stage">Parent stage of NFOV camera to be adjusted</param>
-        /// <param name="settings">Settings object that will store user changes</param>
-        public LensCalibrationForm(NFOVLensController controller, RCCMStage stage, Settings settings)
+        public LensCalibrationForm(RCCMSystem rccm, RCCMStage stage)
         {
             InitializeComponent();
 
-            this.controller = controller;
+            this.rccm = rccm;
+            this.controller = this.rccm.LensController;
             this.stage = stage;
-            this.settings = settings;
 
             this.oldCalibration = stage == RCCMStage.RCCM1 ? this.controller.NFOV1Calibration : this.controller.NFOV2Calibration;
             this.calibration = new SortedList<double, CalibrationPoint>();
@@ -62,16 +61,23 @@ namespace RCCM.UI
             }
 
             // Set text box values
-            this.heightEdit.Value = (decimal) this.controller.GetHeight(this.stage);
+            Motor zMotor = this.stage == RCCMStage.RCCM1 ? this.rccm.motors["fine 1 Z"] : this.rccm.motors["fine 2 Z"];
+            this.heightEdit.Value = (decimal) zMotor.GetPos();
             this.focalPowerEdit.Value = (decimal) this.controller.GetFocalPower(this.stage);
             this.updateListView();
 
             this.controller.PauseFocusing(this.stage);
         }
 
+        /// <summary>
+        /// Set command height position of z stage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void heightEdit_ValueChanged(object sender, EventArgs e)
         {
-            // TODO: set z-stage position
+            Motor zMotor = this.stage == RCCMStage.RCCM1 ? this.rccm.motors["fine 1 Z"] : this.rccm.motors["fine 2 Z"];
+            zMotor.SetPos((double) heightEdit.Value);
         }
 
         /// <summary>
@@ -124,7 +130,7 @@ namespace RCCM.UI
             {
                 MessageBox.Show("Failed to apply old calibration.");
             }
-            this.controller.SaveToJSON(this.settings);
+            this.controller.Save();
             // Set dialog to result so FormClosing handler does not reapply old calibration
             this.DialogResult = DialogResult.OK;
             this.Close();

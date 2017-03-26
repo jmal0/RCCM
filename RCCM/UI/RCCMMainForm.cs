@@ -288,13 +288,13 @@ namespace RCCM.UI
 
         private void nFOV1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM1, Program.Settings);
+            LensCalibrationForm form = new LensCalibrationForm(this.rccm, RCCMStage.RCCM1);
             form.Show();
         }
 
         private void nFOV2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LensCalibrationForm form = new LensCalibrationForm(rccm.LensController, RCCMStage.RCCM2, Program.Settings);
+            LensCalibrationForm form = new LensCalibrationForm(this.rccm, RCCMStage.RCCM2);
             form.Show();
         }
 
