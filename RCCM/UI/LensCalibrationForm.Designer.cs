@@ -146,6 +146,7 @@
             this.listCalibration.TabIndex = 8;
             this.listCalibration.UseCompatibleStateImageBehavior = false;
             this.listCalibration.View = System.Windows.Forms.View.Details;
+            this.listCalibration.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listCalibration_KeyDown);
             // 
             // columnHeight
             // 

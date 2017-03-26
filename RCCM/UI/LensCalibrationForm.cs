@@ -220,5 +220,17 @@ namespace RCCM.UI
                 this.FocalPower = f;
             }
         }
+
+        private void listCalibration_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                foreach (int i in this.listCalibration.SelectedIndices)
+                {
+                    this.calibration.RemoveAt(i);
+                }
+                this.updateListView();
+            }
+        }
     }
 }
