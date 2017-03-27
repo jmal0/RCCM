@@ -64,6 +64,14 @@ namespace RCCM.UI
             Motor zMotor = this.stage == RCCMStage.RCCM1 ? this.rccm.motors["fine 1 Z"] : this.rccm.motors["fine 2 Z"];
             this.heightEdit.Value = (decimal) zMotor.GetPos();
             this.focalPowerEdit.Value = (decimal) this.controller.GetFocalPower(this.stage);
+            if (this.stage == RCCMStage.RCCM1)
+            {
+                this.editFocusOffset.Value = (decimal)this.controller.FocusOffset1;
+            }
+            else
+            {
+                this.editFocusOffset.Value = (decimal)this.controller.FocusOffset2;
+            }
             this.updateListView();
 
             this.controller.PauseFocusing(this.stage);
@@ -235,6 +243,24 @@ namespace RCCM.UI
                     this.calibration.RemoveAt(i);
                 }
                 this.updateListView();
+            }
+        }
+
+        private void editFocusOffset_ValueChanged(object sender, EventArgs e)
+        {
+            double input = this.controller.GetReading(this.stage);
+            //double pow = this.controller.GetFocalPower(this.stage);
+            if (this.stage == RCCMStage.RCCM1)
+            {
+                double pow = NFOVLensController.PwlInterp(this.controller.NFOV1Calibration, input);
+                this.controller.FocusOffset1 = (double)editFocusOffset.Value;
+                this.controller.SetFocalPower(pow + this.controller.FocusOffset1, RCCMStage.RCCM1);
+            }
+            else
+            {
+                double pow = NFOVLensController.PwlInterp(this.controller.NFOV2Calibration, input);
+                this.controller.FocusOffset2 = (double)editFocusOffset.Value;
+                this.controller.SetFocalPower(pow + this.controller.FocusOffset2, RCCMStage.RCCM2);
             }
         }
     }

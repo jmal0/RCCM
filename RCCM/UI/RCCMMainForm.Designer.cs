@@ -66,7 +66,6 @@
             this.tableLayoutMotion = new System.Windows.Forms.TableLayoutPanel();
             this.panelView = new System.Windows.Forms.PictureBox();
             this.panelMotionButtons = new System.Windows.Forms.Panel();
-            this.btnMotorProperties = new System.Windows.Forms.Button();
             this.btnSetHome = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
             this.btnMotorStatus = new System.Windows.Forms.Button();
@@ -119,6 +118,7 @@
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.motorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBox10.SuspendLayout();
@@ -186,7 +186,8 @@
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nFOV1LensToolStripMenuItem,
             this.coordinateSystemToolStripMenuItem,
-            this.camerasToolStripMenuItem});
+            this.camerasToolStripMenuItem,
+            this.motorsToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -455,7 +456,6 @@
             // 
             // panelMotionButtons
             // 
-            this.panelMotionButtons.Controls.Add(this.btnMotorProperties);
             this.panelMotionButtons.Controls.Add(this.btnSetHome);
             this.panelMotionButtons.Controls.Add(this.btnHome);
             this.panelMotionButtons.Controls.Add(this.btnMotorStatus);
@@ -466,17 +466,6 @@
             this.panelMotionButtons.Name = "panelMotionButtons";
             this.panelMotionButtons.Size = new System.Drawing.Size(106, 272);
             this.panelMotionButtons.TabIndex = 23;
-            // 
-            // btnMotorProperties
-            // 
-            this.btnMotorProperties.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnMotorProperties.Location = new System.Drawing.Point(0, 228);
-            this.btnMotorProperties.Name = "btnMotorProperties";
-            this.btnMotorProperties.Size = new System.Drawing.Size(106, 23);
-            this.btnMotorProperties.TabIndex = 23;
-            this.btnMotorProperties.Text = "Set Properties";
-            this.btnMotorProperties.UseVisualStyleBackColor = true;
-            this.btnMotorProperties.Click += new System.EventHandler(this.btnMotorProperties_Click);
             // 
             // btnSetHome
             // 
@@ -1002,6 +991,13 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
+            // motorsToolStripMenuItem
+            // 
+            this.motorsToolStripMenuItem.Name = "motorsToolStripMenuItem";
+            this.motorsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.motorsToolStripMenuItem.Text = "Motors";
+            this.motorsToolStripMenuItem.Click += new System.EventHandler(this.motorsToolStripMenuItem_Click);
+            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1147,11 +1143,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown fine1XPos;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnMotorProperties;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.ToolStripMenuItem coordinateSystemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem camerasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem motorsToolStripMenuItem;
     }
 }
 

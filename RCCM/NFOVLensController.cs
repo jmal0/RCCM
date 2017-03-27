@@ -39,7 +39,9 @@ namespace RCCM
         protected ControllerManager manager;
         public IController NFOV1Controller { get; private set; }
         public IController NFOV2Controller { get; private set; }
-
+        
+        public double FocusOffset1 { get; set; }
+        public double FocusOffset2 { get; set; }
         public double[] conversion1 { get; private set; }
         public double[] conversion2 { get; private set; }
         public double[,] NFOV1Calibration { get; private set; }
@@ -65,6 +67,9 @@ namespace RCCM
 
             this.Height1 = 0;
             this.Height2 = 0;
+            this.FocusOffset1 = 0;
+            this.FocusOffset2 = 0;
+
             try
             {
                 this.conversion1 = conversion1;
@@ -128,7 +133,8 @@ namespace RCCM
                     double input = this.GetReading(RCCMStage.RCCM1);
                     if (input != -1)
                     {
-                        double pow = NFOVLensController.pwlInterp(this.NFOV1Calibration, input);
+                        double pow = NFOVLensController.PwlInterp(this.NFOV1Calibration, input);
+                        pow += this.FocusOffset1;
                         this.SetFocalPower(pow, RCCMStage.RCCM1);
                         this.Height1 = alpha * this.ToHeight1(input) + (1 - alpha) * this.Height1;
                     }                    
@@ -150,7 +156,8 @@ namespace RCCM
                     double input = this.GetReading(RCCMStage.RCCM2);
                     if (input != -1)
                     {
-                        double pow = NFOVLensController.pwlInterp(this.NFOV2Calibration, input);
+                        double pow = NFOVLensController.PwlInterp(this.NFOV2Calibration, input);
+                        pow += this.FocusOffset2;
                         this.SetFocalPower(pow, RCCMStage.RCCM2);
                         this.Height2 = alpha * this.ToHeight2(input) + (1 - alpha) * this.Height2;
                     }
@@ -309,7 +316,7 @@ namespace RCCM
             }
         }
 
-        private static double pwlInterp(double[,] data, double val)
+        public static double PwlInterp(double[,] data, double val)
         {
             int i = 0;
             int n = data.GetLength(0);

@@ -39,8 +39,11 @@
             this.listCalibration = new System.Windows.Forms.ListView();
             this.columnHeight = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnFocalPower = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label3 = new System.Windows.Forms.Label();
+            this.editFocusOffset = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.heightEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.focalPowerEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editFocusOffset)).BeginInit();
             this.SuspendLayout();
             // 
             // heightEdit
@@ -105,7 +108,7 @@
             // 
             // btnApplyCalibration
             // 
-            this.btnApplyCalibration.Location = new System.Drawing.Point(12, 263);
+            this.btnApplyCalibration.Location = new System.Drawing.Point(12, 289);
             this.btnApplyCalibration.Name = "btnApplyCalibration";
             this.btnApplyCalibration.Size = new System.Drawing.Size(214, 23);
             this.btnApplyCalibration.TabIndex = 4;
@@ -115,7 +118,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(12, 292);
+            this.btnSave.Location = new System.Drawing.Point(12, 318);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(104, 23);
             this.btnSave.TabIndex = 5;
@@ -125,7 +128,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(122, 292);
+            this.btnCancel.Location = new System.Drawing.Point(122, 318);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(104, 23);
             this.btnCancel.TabIndex = 6;
@@ -158,11 +161,46 @@
             this.columnFocalPower.Text = "Focal Power";
             this.columnFocalPower.Width = 105;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 265);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Focus Offset";
+            // 
+            // editFocusOffset
+            // 
+            this.editFocusOffset.DecimalPlaces = 2;
+            this.editFocusOffset.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.editFocusOffset.Location = new System.Drawing.Point(84, 263);
+            this.editFocusOffset.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.editFocusOffset.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.editFocusOffset.Name = "editFocusOffset";
+            this.editFocusOffset.Size = new System.Drawing.Size(142, 20);
+            this.editFocusOffset.TabIndex = 9;
+            this.editFocusOffset.ValueChanged += new System.EventHandler(this.editFocusOffset_ValueChanged);
+            // 
             // LensCalibrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 324);
+            this.ClientSize = new System.Drawing.Size(238, 349);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.editFocusOffset);
             this.Controls.Add(this.listCalibration);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -177,6 +215,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LensCalibrationForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.heightEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.focalPowerEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editFocusOffset)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,5 +233,7 @@
         private System.Windows.Forms.ListView listCalibration;
         private System.Windows.Forms.ColumnHeader columnHeight;
         private System.Windows.Forms.ColumnHeader columnFocalPower;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown editFocusOffset;
     }
 }

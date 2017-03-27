@@ -387,18 +387,19 @@ namespace RCCM.UI
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-
+            foreach (string motorName in this.rccm.motors.Keys)
+            {
+                this.rccm.motors[motorName].GotoHome();
+                this.rccm.motors[motorName].WaitForEndOfMove();
+            }
         }
 
         private void btnSetHome_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void btnMotorProperties_Click(object sender, EventArgs e)
-        {
-            MotorSettingsForm form = new MotorSettingsForm(this.rccm);
-            form.Show();
+            foreach (string motorName in this.rccm.motors.Keys)
+            {
+                this.rccm.motors[motorName].SetProperty("home", this.rccm.motors[motorName].GetPos());
+            }
         }
 
         /// <summary>
@@ -412,6 +413,12 @@ namespace RCCM.UI
             {
                 e.SuppressKeyPress = true;
             }                
+        }
+
+        private void motorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MotorSettingsForm form = new MotorSettingsForm(this.rccm);
+            form.Show();
         }
 
         private void RCCMMainForm_KeyDown(object sender, KeyEventArgs e)
