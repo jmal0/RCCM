@@ -288,7 +288,7 @@ namespace RCCM
         public void ShowPropertiesDlg()
         {
             CameraControlDialog camCtlDlg = new CameraControlDialog();
-            //camCtlDlg.Show();
+            camCtlDlg.Connect(this.camera);
             camCtlDlg.ShowModal();
             Format7ImageSettings config = new Format7ImageSettings();
             uint size = 0;
