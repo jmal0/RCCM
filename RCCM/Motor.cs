@@ -11,7 +11,7 @@ namespace RCCM
     /// </summary>
     abstract public class Motor
     {
-        public static string[] MOTOR_SETTINGS = { "enabled", "microstep per mm", "velocity", "jog speed", "acceleration", "deceleration", "low position limit", "high position limit", "home" };
+        public static string[] MOTOR_SETTINGS = { "enabled", "microstep per mm", "velocity", "jog speed", "acceleration", "deceleration", "low position limit", "high position limit", "home", "feedback" };
         protected double commandPos = 0;
         protected bool homed = false;
         // Maintained list of motion settings and limits

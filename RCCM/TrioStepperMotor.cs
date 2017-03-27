@@ -134,6 +134,10 @@ namespace RCCM
             {
                 return this.settings["home"];
             }
+            if (property == "feedback")
+            {
+                return 0;
+            }
             string variable = TrioStepperMotor.TRIO_PROPERTY_MAP[property];
             return this.controller.GetAxisProperty(variable, this.axisNum);
         }

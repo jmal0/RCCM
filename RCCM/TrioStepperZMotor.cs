@@ -13,6 +13,18 @@ namespace RCCM
 {
     public class TrioStepperZMotor : Motor
     {
+        public static Dictionary<string, string> TRIO_PROPERTY_MAP = new Dictionary<string, string>{
+            { "enabled", "AXIS_ENABLE" },
+            { "microstep per mm", "UNITS" },
+            { "velocity", "SPEED" },
+            { "jog speed", "JOGSPEED" },
+            { "acceleration", "ACCEL" },
+            { "deceleration", "DECEL" },
+            { "low position limit", "AXIS_RS_LIMIT" },
+            { "high position limit", "AXIS_FS_LIMIT" },
+            { "home", "" },
+            { "feedback", "" }
+        };
         public static long UPDATE_PERIOD = (long)Program.Settings.json["distance sensor"]["z position update period"];
         public static double ERROR = (double)Program.Settings.json["distance sensor"]["max height error"];
         public static double PGAIN = 0.5;
@@ -69,7 +81,18 @@ namespace RCCM
                     }
                     double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
                     double err = this.commandHeight - h;
-                    if (!this.controller.isMoving(this.axisNum) && Math.Abs(err) > TrioStepperZMotor.ERROR)
+                    // When feedback is 0, operate in closed loop mode
+                    if (!this.controller.isMoving(this.axisNum) && this.GetProperty("feedback") == 0)
+                    {
+                        double newPos = this.commandHeight;
+                        double minPos = this.minPosition();
+                        newPos = Math.Max(this.settings["low position limit"], newPos);
+                        newPos = Math.Min(this.settings["high position limit"], newPos);
+                        newPos = Math.Max(minPos, newPos);
+                        this.controller.MoveAbs(this.axisNum, newPos);
+                    }
+                    // Else, adjust based on distance sensor reading
+                    else if (!this.controller.isMoving(this.axisNum) && Math.Abs(err) > TrioStepperZMotor.ERROR)
                     {
                         double newPos = actuatorPos + TrioStepperZMotor.PGAIN * err;
                         double minPos = this.minPosition();
@@ -137,7 +160,6 @@ namespace RCCM
 
         public override Dictionary<string, double> GetAllProperties()
         {
-            Console.WriteLine(this.axisNum);
             Dictionary<string, double> properties = new Dictionary<string, double>(TrioController.AX_PROPERTIES.Length);
             foreach (string property in TrioController.AX_PROPERTIES)
             {
@@ -152,7 +174,11 @@ namespace RCCM
             {
                 return this.settings["home"];
             }
-            string variable = TrioStepperMotor.TRIO_PROPERTY_MAP[property];
+            if (property == "feedback")
+            {
+                return this.settings["feedback"];
+            }
+            string variable = TrioStepperZMotor.TRIO_PROPERTY_MAP[property];
             return this.controller.GetAxisProperty(variable, this.axisNum);
         }
 
@@ -161,9 +187,15 @@ namespace RCCM
             if (property == "home")
             {
                 this.settings["home"] = value;
+                this.settings["home"] = value;
                 return true;
             }
-            string variable = TrioStepperMotor.TRIO_PROPERTY_MAP[property];
+            if (property == "feedback")
+            {
+                this.settings["feedback"] = value;
+                return true;
+            }
+            string variable = TrioStepperZMotor.TRIO_PROPERTY_MAP[property];
             Logger.Out(variable + " " + value);
             this.settings[property] = value;
             return this.controller.SetAxisProperty(variable, value, this.axisNum);
@@ -180,7 +212,7 @@ namespace RCCM
             {
                 this.adjustThreadPaused = true;
                 this.controller.Jog(fwd, this.axisNum);
-                Console.WriteLine("jogging");
+                Logger.Out("jogging axis " + this.axisNum);
                 this.Jogging = true;
             }
         }
@@ -190,7 +222,7 @@ namespace RCCM
             if (this.GetProperty("enabled") != 0 && this.Jogging)
             {
                 this.controller.JogStop(this.axisNum);
-                Console.WriteLine("jog stop stepper");
+                Logger.Out("stopping jog axis " + this.axisNum);
                 this.Jogging = false;
                 this.adjustThreadPaused = false;
             }
@@ -203,13 +235,13 @@ namespace RCCM
 
         public void Pause()
         {
-            Console.WriteLine("pausing\n\n\n\n\n\n\n\n");
+            Logger.Out("Pausing z motor adjustment axis " + this.axisNum);
             this.adjustThreadPaused = true;
         }
 
         public void Resume()
         {
-            Console.WriteLine("unpausing\n\n\n\n\n\n\n\n");
+            Logger.Out("Unpausing z motor adjustment axis " + this.axisNum);
             this.adjustThreadPaused = false;
         }
 

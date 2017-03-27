@@ -13,6 +13,7 @@ namespace RCCM.UI
     public partial class MotorSettingsForm : Form
     {
         protected readonly RCCMSystem rccm;
+
         public MotorSettingsForm(RCCMSystem rccm)
         {
             this.rccm = rccm;
