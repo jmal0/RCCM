@@ -7,6 +7,7 @@ Repository for the FAA William J. Hughes Technical Center's Remote Controlled Cr
 The hardware and software for this project require the following dependencies to be installed:
 
 * [Imaging Source Device Driver for GigE cameras](https://www.theimagingsource.com/support/downloads-for-windows/device-drivers/icwdmgigetis/)
+* [IC Imaging Control .NET](https://www.theimagingsource.com/support/downloads-for-windows/software-development-kits-sdks/icimagingcontrol/)
 * [Point Grey FlyCapture2 SDK](https://www.ptgrey.com/support/downloads/10700/)
 * [Gardasoft Trinity SDK](http://www.gardasoft.com/Downloads/)
 * [Json.NET](https://github.com/nlohmann/json)
