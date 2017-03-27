@@ -1,4 +1,4 @@
-\# RCCM
+# RCCM
 
 Repository for the FAA William J. Hughes Technical Center's Remote Controlled Crack Monitoring System (RCCM) user interface. This interface is being developed for a Drexel University 2016-17 MEM Senior Design project
 
