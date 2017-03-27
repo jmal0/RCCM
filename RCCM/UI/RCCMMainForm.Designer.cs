@@ -68,7 +68,6 @@
             this.panelMotionButtons = new System.Windows.Forms.Panel();
             this.btnSetHome = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
-            this.btnMotorStatus = new System.Windows.Forms.Button();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.radioMoveRel = new System.Windows.Forms.RadioButton();
             this.radioMoveAbs = new System.Windows.Forms.RadioButton();
@@ -458,7 +457,6 @@
             // 
             this.panelMotionButtons.Controls.Add(this.btnSetHome);
             this.panelMotionButtons.Controls.Add(this.btnHome);
-            this.panelMotionButtons.Controls.Add(this.btnMotorStatus);
             this.panelMotionButtons.Controls.Add(this.groupBox13);
             this.panelMotionButtons.Controls.Add(this.groupBox10);
             this.panelMotionButtons.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -470,7 +468,7 @@
             // btnSetHome
             // 
             this.btnSetHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSetHome.Location = new System.Drawing.Point(0, 205);
+            this.btnSetHome.Location = new System.Drawing.Point(0, 182);
             this.btnSetHome.Name = "btnSetHome";
             this.btnSetHome.Size = new System.Drawing.Size(106, 23);
             this.btnSetHome.TabIndex = 22;
@@ -481,24 +479,13 @@
             // btnHome
             // 
             this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHome.Location = new System.Drawing.Point(0, 182);
+            this.btnHome.Location = new System.Drawing.Point(0, 159);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(106, 23);
             this.btnHome.TabIndex = 21;
             this.btnHome.Text = "Go to Home";
             this.btnHome.UseVisualStyleBackColor = true;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
-            // 
-            // btnMotorStatus
-            // 
-            this.btnMotorStatus.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnMotorStatus.Location = new System.Drawing.Point(0, 159);
-            this.btnMotorStatus.Name = "btnMotorStatus";
-            this.btnMotorStatus.Size = new System.Drawing.Size(106, 23);
-            this.btnMotorStatus.TabIndex = 20;
-            this.btnMotorStatus.Text = "Motor Status";
-            this.btnMotorStatus.UseVisualStyleBackColor = true;
-            this.btnMotorStatus.Click += new System.EventHandler(this.btnMotorStatus_Click);
             // 
             // groupBox13
             // 
@@ -1107,7 +1094,6 @@
         private System.Windows.Forms.Panel panelMotionControls;
         private System.Windows.Forms.Button btnSetHome;
         private System.Windows.Forms.Button btnHome;
-        private System.Windows.Forms.Button btnMotorStatus;
         private System.Windows.Forms.TableLayoutPanel tableLayoutResults;
         private System.Windows.Forms.TableLayoutPanel tableLayoutMain;
         private System.Windows.Forms.Panel panelTestControls;

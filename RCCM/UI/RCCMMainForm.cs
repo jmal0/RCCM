@@ -181,12 +181,26 @@ namespace RCCM.UI
                 this.rccm.motors[axis].MoveRel(value);
             }
         }
-        
-        private void btnMotorStatus_Click(object sender, EventArgs e)
+
+        private void btnHome_Click(object sender, EventArgs e)
         {
-            var properties = this.rccm.motors["fine 1 Z"].GetAllProperties();
-            MessageBox.Show(string.Join("\n", properties));
+            foreach (string motorName in this.rccm.motors.Keys)
+            {
+                this.rccm.motors[motorName].GotoHome();
+                this.rccm.motors[motorName].WaitForEndOfMove();
+            }
         }
+
+        private void btnSetHome_Click(object sender, EventArgs e)
+        {
+            foreach (string motorName in this.rccm.motors.Keys)
+            {
+                this.rccm.motors[motorName].SetProperty("home", this.rccm.motors[motorName].GetPos());
+            }
+            this.rccm.SaveMotorSettings();
+            Program.Settings.save();
+        }
+
 
         #endregion
 
@@ -382,23 +396,6 @@ namespace RCCM.UI
             {
                 // Do some stuff
                 this.view.SetTransform(this.panelView.CreateGraphics());
-            }
-        }
-
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-            foreach (string motorName in this.rccm.motors.Keys)
-            {
-                this.rccm.motors[motorName].GotoHome();
-                this.rccm.motors[motorName].WaitForEndOfMove();
-            }
-        }
-
-        private void btnSetHome_Click(object sender, EventArgs e)
-        {
-            foreach (string motorName in this.rccm.motors.Keys)
-            {
-                this.rccm.motors[motorName].SetProperty("home", this.rccm.motors[motorName].GetPos());
             }
         }
 
