@@ -221,6 +221,11 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Delete calibration points on delete key press
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listCalibration_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)

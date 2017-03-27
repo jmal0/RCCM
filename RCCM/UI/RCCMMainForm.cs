@@ -400,9 +400,30 @@ namespace RCCM.UI
             MotorSettingsForm form = new MotorSettingsForm(this.rccm);
             form.Show();
         }
-        
+
+        /// <summary>
+        /// Prevents arrow keys from changing radio button selection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioButtonSuppress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                e.SuppressKeyPress = true;
+            }                
+        }
+
         private void RCCMMainForm_KeyDown(object sender, KeyEventArgs e)
         {
+            // Do not call jogging code if edit control is focused
+            foreach (Control c in new Control[] { this.coarseXPos, this.coarseYPos, this.fine1XPos, this.fine1YPos, this.fine1ZPos, this.fine2XPos, this.fine2YPos, this.fine2ZPos, this.editCycleFreq })
+            {
+                if (c.Focused)
+                {
+                    return;
+                }
+            }
             // Get active axis
             string xAxis, yAxis;
             switch (this.getActiveStage())
@@ -456,15 +477,6 @@ namespace RCCM.UI
                     this.rccm.motors[motorName].JogStop();
                 }
             }
-        }
-
-        private void RCCMMainForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Left || e.KeyCode == Keys.Down || e.KeyCode == Keys.Right)
-            {
-                e.IsInputKey = true;
-            }
-            e.IsInputKey = false;
         }
 
         private RCCMStage getActiveStage()

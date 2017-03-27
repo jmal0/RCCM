@@ -275,16 +275,18 @@
             this.radioRCCM1.TabIndex = 11;
             this.radioRCCM1.Text = "RCCM1";
             this.radioRCCM1.UseVisualStyleBackColor = true;
+            this.radioRCCM1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // radioRCCM2
             // 
             this.radioRCCM2.AutoSize = true;
-            this.radioRCCM2.Location = new System.Drawing.Point(6, 62);
+            this.radioRCCM2.Location = new System.Drawing.Point(6, 65);
             this.radioRCCM2.Name = "radioRCCM2";
             this.radioRCCM2.Size = new System.Drawing.Size(62, 17);
             this.radioRCCM2.TabIndex = 12;
             this.radioRCCM2.Text = "RCCM2";
             this.radioRCCM2.UseVisualStyleBackColor = true;
+            this.radioRCCM2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // groupBox10
             // 
@@ -294,7 +296,7 @@
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox10.Location = new System.Drawing.Point(0, 0);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(106, 88);
+            this.groupBox10.Size = new System.Drawing.Size(106, 89);
             this.groupBox10.TabIndex = 19;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Stage Selection";
@@ -310,6 +312,7 @@
             this.radioCoarse.TabStop = true;
             this.radioCoarse.Text = "Coarse";
             this.radioCoarse.UseVisualStyleBackColor = true;
+            this.radioCoarse.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // groupBox11
             // 
@@ -467,7 +470,7 @@
             // btnMotorProperties
             // 
             this.btnMotorProperties.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnMotorProperties.Location = new System.Drawing.Point(0, 227);
+            this.btnMotorProperties.Location = new System.Drawing.Point(0, 228);
             this.btnMotorProperties.Name = "btnMotorProperties";
             this.btnMotorProperties.Size = new System.Drawing.Size(106, 23);
             this.btnMotorProperties.TabIndex = 23;
@@ -478,7 +481,7 @@
             // btnSetHome
             // 
             this.btnSetHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSetHome.Location = new System.Drawing.Point(0, 204);
+            this.btnSetHome.Location = new System.Drawing.Point(0, 205);
             this.btnSetHome.Name = "btnSetHome";
             this.btnSetHome.Size = new System.Drawing.Size(106, 23);
             this.btnSetHome.TabIndex = 22;
@@ -489,7 +492,7 @@
             // btnHome
             // 
             this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHome.Location = new System.Drawing.Point(0, 181);
+            this.btnHome.Location = new System.Drawing.Point(0, 182);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(106, 23);
             this.btnHome.TabIndex = 21;
@@ -500,7 +503,7 @@
             // btnMotorStatus
             // 
             this.btnMotorStatus.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnMotorStatus.Location = new System.Drawing.Point(0, 158);
+            this.btnMotorStatus.Location = new System.Drawing.Point(0, 159);
             this.btnMotorStatus.Name = "btnMotorStatus";
             this.btnMotorStatus.Size = new System.Drawing.Size(106, 23);
             this.btnMotorStatus.TabIndex = 20;
@@ -513,7 +516,7 @@
             this.groupBox13.Controls.Add(this.radioMoveRel);
             this.groupBox13.Controls.Add(this.radioMoveAbs);
             this.groupBox13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox13.Location = new System.Drawing.Point(0, 88);
+            this.groupBox13.Location = new System.Drawing.Point(0, 89);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(106, 70);
             this.groupBox13.TabIndex = 4;
@@ -529,6 +532,7 @@
             this.radioMoveRel.TabIndex = 13;
             this.radioMoveRel.Text = "Relative";
             this.radioMoveRel.UseVisualStyleBackColor = true;
+            this.radioMoveRel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // radioMoveAbs
             // 
@@ -541,6 +545,7 @@
             this.radioMoveAbs.TabStop = true;
             this.radioMoveAbs.Text = "Absolute";
             this.radioMoveAbs.UseVisualStyleBackColor = true;
+            this.radioMoveAbs.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // panelMotionControls
             // 
@@ -1015,7 +1020,6 @@
             this.Load += new System.EventHandler(this.RCCMMainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RCCMMainForm_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.RCCMMainForm_KeyUp);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.RCCMMainForm_PreviewKeyDown);
             this.Resize += new System.EventHandler(this.RCCMMainForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
