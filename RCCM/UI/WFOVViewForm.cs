@@ -40,10 +40,25 @@ namespace RCCM.UI
         /// </summary>
         protected int ActivePoint { get; set; }
         /// <summary>
+        /// Ratio of picture box size to actual NFOV image dimensions
+        /// </summary>
+        protected float displayScale
+        {
+            get { return (float)(this.wfovContainer.Bounds.Width) / (float)(WFOV.IMG_WIDTH); }
+        }
+        /// <summary>
         /// Indicates whether or not user is drawing a line with mouse
         /// </summary>
         protected bool Drawing { get; private set; }
-        
+        /// <summary>
+        /// Point where line user is drawing begins
+        /// </summary>
+        protected PointF drawnLineStart;
+        /// <summary>
+        /// Point where line user is drawing ends
+        /// </summary>
+        protected PointF drawnLineEnd;
+
         public WFOVViewForm(RCCMSystem rccm, WFOV camera, ObservableCollection<MeasurementSequence> cracks)
         {
             this.rccm = rccm;
@@ -61,6 +76,11 @@ namespace RCCM.UI
         private void WFOVViewForm_Load(object sender, EventArgs e)
         {
             this.Text = this.stage == RCCMStage.RCCM1 ? "WFOV 1" : "WFOV 2";
+            
+            this.wfovContainer.OverlayBitmapPosition = PathPositions.Display;
+            this.SetupOverlay(this.wfovContainer.OverlayBitmapAtPath[PathPositions.Display]);
+            this.wfovContainer.OverlayUpdate += new EventHandler<ICImagingControl.OverlayUpdateEventArgs>(wfovOverlayPaint);
+
             // Initialize camera
             bool success = this.camera.Initialize(this.wfovContainer);
             if (success)
@@ -79,7 +99,6 @@ namespace RCCM.UI
                 sliderFocus.Value = this.camera.Focus;
                 textFocus.Text = this.camera.Focus.ToString();
             }
-            this.wfovContainer.OverlayUpdate += new EventHandler<ICImagingControl.OverlayUpdateEventArgs>(wfovOverlayPaint);
         }
 
         private void WFOVViewForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -97,17 +116,17 @@ namespace RCCM.UI
         private void wfovOverlayPaint(object sender, ICImagingControl.OverlayUpdateEventArgs e)
         {
             Graphics g = e.overlay.GetGraphics();
-            //this.g.Clear(Color.Transparent);
+            g.Clear(Color.Black);
             g.ResetTransform();
+            
             // Draw crosshair
             if (this.checkCrosshair.Checked)
             {
-                float size = g.ClipBounds.Height / 20.0f;
-                float x = g.ClipBounds.Width / 2.0f;
-                float y = g.ClipBounds.Height / 2.0f;
-                Pen pen = new Pen(Color.FromArgb(128, Color.Black));
-                g.DrawLine(pen, x - size, y, x + size, y);
-                g.DrawLine(pen, x, y - size, x, y + size);
+                float midX = (g.VisibleClipBounds.Right + g.VisibleClipBounds.Left) / 2.0f;
+                float midY = (g.VisibleClipBounds.Bottom + g.VisibleClipBounds.Top) / 2.0f;
+                Pen pen = new Pen(Color.FromArgb(128, 1, 1, 1), 2);
+                g.DrawLine(pen, new PointF(g.VisibleClipBounds.Left, midY), new PointF(g.VisibleClipBounds.Right, midY));
+                g.DrawLine(pen, new PointF(midX, g.VisibleClipBounds.Top), new PointF(midX, g.VisibleClipBounds.Bottom));
             }
 
             // Now transform to world coordinates
@@ -131,6 +150,12 @@ namespace RCCM.UI
             {
                 crack.Plot(g, scaleX);
             }
+            // Draw segment that user is creating with mouse
+            if (this.crackIndexValid() && this.Drawing)
+            {
+                Color c = cracks[ActiveIndex].Color;
+                g.DrawLine(new Pen(Color.FromArgb(128, c), cracks[ActiveIndex].LineSize / scaleX), this.drawnLineStart, this.drawnLineEnd);
+            }
             // Highlight selected point
             if (this.pointIndexValid())
             {
@@ -141,6 +166,149 @@ namespace RCCM.UI
                 point.Y = (float)m.Y - point.Height / 2.0f;
                 g.FillEllipse(new SolidBrush(crack.Color), point);
             }
+            e.overlay.ReleaseGraphics(g);
+        }
+
+        private void SetupOverlay(OverlayBitmap ob)
+        {
+            // Enable the overlay bitmap for drawing.
+            ob.Enable = true;
+            // Fill the overlay bitmap with the dropout color.
+            ob.DropOutColor = Color.Black;
+            ob.Fill(Color.Black);
+            ob.ColorMode = OverlayColorModes.Color;
+        }
+
+
+        /// <summary>
+        /// Create segment that was being drawn by user with mouse input. This will add a point or segment to the active MeasurementSequence
+        /// </summary>
+        public void createSegment()
+        {
+            PointF pos = this.rccm.GetNFOVLocation(this.stage, CoordinateSystem.Global);
+            // Add measurements for start and end if user is drawing both
+            if (this.cracks[this.ActiveIndex].CountPoints == 0)
+            {
+                // Convert pixel coordinates to global coordinates
+                Measurement p0 = new Measurement(this.rccm, this.stage, this.drawnLineStart.X - pos.X, this.drawnLineStart.Y - pos.Y);
+                this.cracks[ActiveIndex].AddPoint(p0);
+            }
+            // Add end point (in all situations)
+            Measurement p1 = new Measurement(this.rccm, this.stage, this.drawnLineEnd.X - pos.X,
+                                                                    this.drawnLineEnd.Y - pos.Y);
+            this.cracks[ActiveIndex].AddPoint(p1);
+            this.Drawing = false;
+        }
+
+        /// <summary>
+        /// Move the end point of the line segment that user is currently drawing
+        /// </summary>
+        /// <param name="x">Mouse x location in pixels</param>
+        /// <param name="y">Mouse y location in pixels</param>
+        /// <param name="w">Canvas width in pixels</param>
+        /// <param name="h">Canvas height in pixels</param>
+        public void moveDrawnLineEnd(int x, int y, int w, int h)
+        {
+            if (this.Drawing)
+            {
+                // Get position of NFOV camera
+                PointF pos = this.rccm.GetNFOVLocation(this.stage, CoordinateSystem.Global);
+                // Convert mouse coordinates to global coordinate system units
+                double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
+                double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
+                // Rotate pixel vector into global position vector
+                PointF pix = this.rccm.FineVectorToGlobalVector(pixX, pixY);
+                this.drawnLineEnd.X = pos.X + pix.X;
+                this.drawnLineEnd.Y = pos.Y + pix.Y;
+            }
+        }
+
+        /// <summary>
+        /// Begin drawing new segment in active MeasurementSequence from user mouse input
+        /// </summary>
+        /// <param name="x">Mouse x location in pixels</param>
+        /// <param name="y">Mouse y location in pixels</param>
+        /// <param name="w">Canvas width in pixels</param>
+        /// <param name="h">Canvas height in pixels</param>
+        public void createDrawnLine(int x, int y, int w, int h)
+        {
+            if (this.crackIndexValid())
+            {
+                this.Drawing = true;
+                // Get mouse location in global coordinates
+                PointF pos = this.rccm.GetNFOVLocation(this.stage, CoordinateSystem.Global);
+                double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
+                double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
+                PointF pix = this.rccm.FineVectorToGlobalVector(pixX, pixY);
+                // Create start point - use last crack vertex if active crack is started.
+                if (this.cracks[this.ActiveIndex].CountPoints > 0)
+                {
+                    Measurement p0 = this.cracks[this.ActiveIndex].GetLastPoint();
+                    this.drawnLineStart.X = (float)p0.X;
+                    this.drawnLineStart.Y = (float)p0.Y;
+                }
+                else
+                {
+                    this.drawnLineStart.X = pos.X + pix.X;
+                    this.drawnLineStart.Y = pos.Y + pix.Y;
+                }
+                // Create end point
+                this.drawnLineEnd.X = pos.X + pix.X;
+                this.drawnLineEnd.Y = pos.Y + pix.Y;
+            }
+        }
+
+        /// <summary>
+        /// Create new point in active measurement sequence at mouse location
+        /// </summary>
+        /// <param name="x">Mouse x location in pixels</param>
+        /// <param name="y">Mouse y location in pixels</param>
+        /// <param name="w">Canvas width in pixels</param>
+        /// <param name="h">Canvas height in pixels</param>
+        public void createPoint(int x, int y, int w, int h)
+        {
+            if (this.crackIndexValid())
+            {
+                // Get mouse location in global coordinates
+                PointF pos = this.rccm.GetNFOVLocation(this.stage, CoordinateSystem.Global);
+                double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
+                double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
+                PointF pix = this.rccm.FineVectorToGlobalVector(pixX, pixY);
+                Measurement p0 = new Measurement(this.rccm, this.stage, pix.X, pix.Y);
+                this.cracks[this.ActiveIndex].AddPoint(p0);
+            }
+        }
+        
+        private void wfovContainer_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                this.createPoint(e.X, e.Y, this.wfovContainer.Width, this.wfovContainer.Height);
+            }
+            else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                this.createDrawnLine(e.X, e.Y, this.wfovContainer.Width, this.wfovContainer.Height);
+            }
+        }
+
+        private void wfovContainer_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (this.Drawing)
+            {
+                // Move end of line to mouse location
+                this.moveDrawnLineEnd(e.X, e.Y, this.wfovContainer.Width, this.wfovContainer.Height);
+            }
+        }
+
+        private void wfovContainer_MouseUp(object sender, MouseEventArgs e)
+        {
+            int index = this.listMeasurements.SelectedIndex;
+            if (this.Drawing)
+            {
+                this.createSegment();
+            }
+            // Refresh list of points
+            this.updateMeasurementControls();
         }
 
         private void btnWfovStart_Click(object sender, EventArgs e)
@@ -320,6 +488,8 @@ namespace RCCM.UI
                 Measurement pt = new Measurement(this.rccm, RCCMStage.RCCM1, 0, 0);
                 this.cracks[this.ActiveIndex].AddPoint(pt);
                 Logger.Out(this.cracks[this.ActiveIndex].ToString());
+                // Refresh list of points
+                this.updateMeasurementControls();
             }
         }
 

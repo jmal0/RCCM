@@ -18,11 +18,11 @@ namespace RCCM
         /// <summary>
         /// Height in pixels of image
         /// </summary>
-        static int IMG_HEIGHT = 960;
+        public static int IMG_HEIGHT = 960;
         /// <summary>
         /// Width in pixels of image
         /// </summary>
-        static int IMG_WIDTH = 1280;
+        public static int IMG_WIDTH = 1280;
 
         #region Properties
 

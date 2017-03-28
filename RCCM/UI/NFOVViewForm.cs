@@ -49,10 +49,6 @@ namespace RCCM.UI
             get { return (float)(this.nfovImage.Width) / (float)(this.camera.PixelWidth); }
         }
         /// <summary>
-        /// Counter for giving unique number to cracks
-        /// </summary>
-        protected int measurementCounter;
-        /// <summary>
         /// Indicates whether or not user is drawing a line with mouse
         /// </summary>
         protected bool Drawing { get; private set; }
