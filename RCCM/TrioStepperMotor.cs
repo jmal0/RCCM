@@ -149,6 +149,10 @@ namespace RCCM
                 this.settings["home"] = value;
                 return true;
             }
+            if (property == "feedback")
+            {
+                return true;
+            }
             string variable = TrioStepperMotor.TRIO_PROPERTY_MAP[property];
             Logger.Out(variable + " " + value);
             this.settings[property] = value;

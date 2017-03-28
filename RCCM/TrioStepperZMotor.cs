@@ -187,7 +187,6 @@ namespace RCCM
             if (property == "home")
             {
                 this.settings["home"] = value;
-                this.settings["home"] = value;
                 return true;
             }
             if (property == "feedback")

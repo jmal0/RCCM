@@ -96,8 +96,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Gardasoft Vision\Triniti\SDK\ReferencedAssemblies\Gardasoft.Device.Discovery.DLL</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\..\Downloads\Json90r1\Bin\Net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -112,7 +113,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TIS.Imaging.ICImagingControl34, Version=3.4.4.2595, Culture=neutral, PublicKeyToken=257805929e8b7928, processorArchitecture=x86" />
+    <Reference Include="TIS.Imaging.ICImagingControl34, Version=3.4.4.2631, Culture=neutral, PublicKeyToken=257805929e8b7928, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\IC Imaging Control 3.4\redist\dotnet\v4.0.30319\x64\TIS.Imaging.ICImagingControl34.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TrioStepperZMotor.cs" />
@@ -273,15 +277,6 @@
     <None Include="res\pause.png" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="MODBUSRTULib">
-      <Guid>{4144938A-0A28-4089-972E-FDE74E491161}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="TrioPCLib">
       <Guid>{F1933964-74B0-11D3-8A13-00403393B236}</Guid>
       <VersionMajor>1</VersionMajor>

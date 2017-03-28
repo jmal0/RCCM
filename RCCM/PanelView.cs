@@ -156,10 +156,10 @@ namespace RCCM
             this.panel.Height = (float)this.rccm.PanelHeight;
             // Move fine stage rectangles
             PointF coarsePos = new PointF(this.coarseXPos, this.coarseYPos);
-            float xFine1 = (float)this.rccm.NFOV1X + fine1XPos;
-            float yFine1 = (float)this.rccm.NFOV1Y + fine1XPos;
-            float xFine2 = (float)this.rccm.NFOV2X + fine2YPos;
-            float yFine2 = (float)this.rccm.NFOV2Y + fine2YPos;
+            float xFine1 = (float)this.rccm.NFOV1X;
+            float yFine1 = (float)this.rccm.NFOV1Y;
+            float xFine2 = (float)this.rccm.NFOV2X;
+            float yFine2 = (float)this.rccm.NFOV2Y;
             PointF fine1Off = this.rccm.FineVectorToGlobalVector(xFine1, yFine1);
             PointF fine2Off = this.rccm.FineVectorToGlobalVector(xFine2, yFine2);
             this.fine1Offset = new SizeF(fine1Off.X, fine1Off.Y);

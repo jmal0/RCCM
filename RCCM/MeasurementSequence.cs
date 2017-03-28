@@ -213,8 +213,15 @@ namespace RCCM
         /// </summary>
         /// <param name="path">Filename and directory path where data will be saved</param>
         /// <param name="autoName">If true, filename will be automatically defined</param>
-        public void WriteToFile(string path, bool autoName)
+        /// <returns>T/F if the write was / wasn't successful</returns>
+        public bool WriteToFile(string path, bool autoName)
         {
+            if (!Directory.Exists(path))
+            {
+                Logger.Out(path);
+                Logger.Out("directory does not exist");
+                return false;
+            }
             if (autoName)
             {
                 path += "\\" + this.GetFileName();
@@ -233,6 +240,7 @@ namespace RCCM
                     file.WriteLine(m.ToCSVString());
                 }
             }
+            return true;
         }
         /// <summary>
         /// Return name identifying this sequence

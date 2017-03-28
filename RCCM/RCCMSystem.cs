@@ -354,7 +354,7 @@ namespace RCCM
         {
             foreach (string motorName in RCCMSystem.AXES)
             {
-                foreach (string property in this.motors[motorName].GetAllProperties().Keys)
+                foreach (string property in Motor.MOTOR_SETTINGS)
                 {
                     Program.Settings.json[motorName][property] = this.motors[motorName].GetProperty(property);
                 }
