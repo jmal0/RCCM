@@ -27,7 +27,14 @@ The following software packages are provided by the hardware manufacturers and m
 Before installation, install all dependencies from the list in the previous section.
 
 ### Compilation from source
-Download source code from [here](https://github.com/jmal0/RCCM.git). Open RCCM.sln in Visual Studio. Set the target to x64 and compile. Before running, you should ensure that the exe directory contains the following files:
+
+Download source code from [here](https://github.com/jmal0/RCCM.git). Open RCCM.sln in Visual Studio. Info for resolving dependency references:
+
+* TrioPCLib, AxInteropTrioPCLib: These will require you to first register the ActiveX component (see "dependencies"). Visual Studio will have to be opened as Administrator to successfully create the reference.
+* TIS.Imaging.ImagingControl34: This can be located in "Documents\IC Imaging Control 3.4\redist\dotnet". Choose the x64 version of "TIS.Imaging.ICImagingControl34.dll"
+* Newtonsoft.Json: After downloading the latest release .zip, add a reference to the dll in the unzipped archive.
+
+Set the target to x64 and compile. Before running, you should ensure that the exe directory contains the following files:
 
 * settings.json
 * config/WFOV1.xml
