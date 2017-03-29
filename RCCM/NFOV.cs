@@ -17,6 +17,10 @@ namespace RCCM
     /// </summary>
     public class NFOV
     {
+        public static uint PACKET_SIZE = 4000;
+        public static uint PACKET_DELAY = 6000;
+        public static uint CHANNEL = 0;
+
         enum AviType
         {
             Uncompressed,
@@ -43,7 +47,7 @@ namespace RCCM
         protected uint pixelWidth;
 
         protected uint serial;
-        protected ManagedCamera camera;
+        protected ManagedGigECamera camera;
         protected ManagedImage rawImage;
         public ManagedImage ProcessedImage { get; private set; }
         protected bool grabImages;
@@ -89,7 +93,7 @@ namespace RCCM
             this.Scale = pix2um;
             this.Recording = false;
             // Initialize camera object. Connection occurs when initialize() is called
-            this.camera = new ManagedCamera();
+            this.camera = new ManagedGigECamera();
             // Save image dimensions to be used
             this.PixelHeight = h;
             this.PixelWidth = w;
@@ -111,15 +115,12 @@ namespace RCCM
             {
                 ManagedPGRGuid guid = busMgr.GetCameraFromSerialNumber(this.serial);
                 this.camera.Connect(guid);
-                Format7ImageSettings config = new Format7ImageSettings();
-                uint size = 0;
-                float speed = 0;
-                this.camera.GetFormat7Configuration(config, ref size, ref speed);
+                GigEImageSettings config = this.camera.GetGigEImageSettings();
                 config.height = this.PixelHeight;
                 config.width = this.PixelWidth;
                 config.offsetX = (2448 - this.PixelWidth) / 2;
                 config.offsetY = (2048 - this.PixelHeight) / 2;
-                this.camera.SetFormat7Configuration(config, speed);
+                this.camera.SetGigEImageSettings(config);
             }
             catch (Exception ex)
             {
@@ -133,10 +134,8 @@ namespace RCCM
             embeddedInfo.timestamp.onOff = true;
             this.camera.SetEmbeddedImageInfo(embeddedInfo);
             // Start live capture
-            this.camera.StartCapture();
-            this.grabImages = true;
-            this.StartGrabLoop();
             this.Connected = true;
+            this.Start();
             return true;
         }
 
@@ -174,6 +173,12 @@ namespace RCCM
             {
                 if (this.Connected)
                 {
+                    GigEStreamChannel info = this.camera.GetGigEStreamChannelInfo(NFOV.CHANNEL);
+                    info.packetSize = NFOV.PACKET_SIZE;
+                    info.interPacketDelay = NFOV.PACKET_DELAY;
+                    info.destinationIpAddress = this.camera.GetCameraInfo().ipAddress;
+                    this.camera.SetGigEStreamChannelInfo(NFOV.CHANNEL, info);
+
                     this.camera.StartCapture();
                     this.grabImages = true;
                     StartGrabLoop();
@@ -290,42 +295,11 @@ namespace RCCM
             CameraControlDialog camCtlDlg = new CameraControlDialog();
             camCtlDlg.Connect(this.camera);
             camCtlDlg.ShowModal();
-            Format7ImageSettings config = new Format7ImageSettings();
-            uint size = 0;
-            float speed = 0;
-            this.camera.GetFormat7Configuration(config, ref size, ref speed);
-            this.PixelHeight = config.height;
+            GigEImageSettings config = this.camera.GetGigEImageSettings();
             this.PixelWidth = config.width;
+            this.PixelHeight = config.height;
         }
-
-        /*
-        public void setMode()
-        {
-            const Mode Format7Mode = Mode.Mode0;
-            const PixelFormat Format7PixelFormat = PixelFormat.PixelFormatMono8;
-            // Query for available Format 7 modes
-            bool supported = false;
-            Format7Info fmt7Info = this.camera.GetFormat7Info(Format7Mode, ref supported);
-
-            Format7ImageSettings fmt7ImageSettings = new Format7ImageSettings();
-            fmt7ImageSettings.mode = Format7Mode;
-            fmt7ImageSettings.width = fmt7Info.maxWidth;
-            fmt7ImageSettings.height = fmt7Info.maxHeight;
-            fmt7ImageSettings.offsetX = 0;
-            fmt7ImageSettings.offsetY = 0;
-            fmt7ImageSettings.pixelFormat = Format7PixelFormat;
-
-            bool settingsValid = false;
-            Format7PacketInfo fmt7PacketInfo = this.camera.ValidateFormat7Settings(
-                fmt7ImageSettings,
-                ref settingsValid);
-            
-            this.camera.SetFormat7Configuration(
-               fmt7ImageSettings,
-               fmt7PacketInfo.recommendedBytesPerPacket);
-        }
-        */
-
+        
         /// <summary>
         /// Save live image to file
         /// </summary>
