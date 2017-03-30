@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoordinateSystemSettingsForm));
             this.editPanelX = new System.Windows.Forms.NumericUpDown();
             this.label21 = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.editPanelX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.editPanelY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.editPanelRotation)).BeginInit();
@@ -109,6 +111,7 @@
             this.editPanelX.Name = "editPanelX";
             this.editPanelX.Size = new System.Drawing.Size(100, 20);
             this.editPanelX.TabIndex = 20;
+            this.toolTip.SetToolTip(this.editPanelX, "X offset of top left corner of panel from corner of coarse actuator travel");
             // 
             // label21
             // 
@@ -136,6 +139,8 @@
             this.editPanelY.Name = "editPanelY";
             this.editPanelY.Size = new System.Drawing.Size(100, 20);
             this.editPanelY.TabIndex = 18;
+            this.editPanelY.Tag = "";
+            this.toolTip.SetToolTip(this.editPanelY, "Y offset of top left corner of panel from corner of coarse actuator travel");
             // 
             // label18
             // 
@@ -163,6 +168,7 @@
             this.editPanelRotation.Name = "editPanelRotation";
             this.editPanelRotation.Size = new System.Drawing.Size(100, 20);
             this.editPanelRotation.TabIndex = 16;
+            this.toolTip.SetToolTip(this.editPanelRotation, "Rotation of panel with respect to the coarse actuators");
             // 
             // label19
             // 
@@ -190,6 +196,7 @@
             this.editRotation.Name = "editRotation";
             this.editRotation.Size = new System.Drawing.Size(64, 20);
             this.editRotation.TabIndex = 14;
+            this.toolTip.SetToolTip(this.editRotation, "Orientation of pivot plate");
             // 
             // label20
             // 
@@ -217,6 +224,8 @@
             this.editPanelWidth.Name = "editPanelWidth";
             this.editPanelWidth.Size = new System.Drawing.Size(100, 20);
             this.editPanelWidth.TabIndex = 24;
+            this.editPanelWidth.Tag = "";
+            this.toolTip.SetToolTip(this.editPanelWidth, "Axial length of panel");
             // 
             // label1
             // 
@@ -244,6 +253,7 @@
             this.editPanelHeight.Name = "editPanelHeight";
             this.editPanelHeight.Size = new System.Drawing.Size(100, 20);
             this.editPanelHeight.TabIndex = 22;
+            this.toolTip.SetToolTip(this.editPanelHeight, "Hoop length of panel");
             // 
             // label2
             // 
@@ -293,6 +303,7 @@
             this.editPanelRadius.Name = "editPanelRadius";
             this.editPanelRadius.Size = new System.Drawing.Size(100, 20);
             this.editPanelRadius.TabIndex = 26;
+            this.toolTip.SetToolTip(this.editPanelRadius, "Radius of curvature of panel");
             // 
             // label3
             // 
@@ -353,6 +364,7 @@
             this.editNFOV1Y.Name = "editNFOV1Y";
             this.editNFOV1Y.Size = new System.Drawing.Size(103, 20);
             this.editNFOV1Y.TabIndex = 18;
+            this.toolTip.SetToolTip(this.editNFOV1Y, "Y offset of NFOV 1 camera in X direction from center of rotation plate");
             // 
             // editNFOV1X
             // 
@@ -372,6 +384,7 @@
             this.editNFOV1X.Name = "editNFOV1X";
             this.editNFOV1X.Size = new System.Drawing.Size(103, 20);
             this.editNFOV1X.TabIndex = 20;
+            this.toolTip.SetToolTip(this.editNFOV1X, "X offset of NFOV 1 camera in X direction from center of rotation plate");
             // 
             // groupBox3
             // 
@@ -423,6 +436,7 @@
             this.editNFOV2Y.Name = "editNFOV2Y";
             this.editNFOV2Y.Size = new System.Drawing.Size(103, 20);
             this.editNFOV2Y.TabIndex = 18;
+            this.toolTip.SetToolTip(this.editNFOV2Y, "Y offset of NFOV 2 camera in X direction from center of rotation plate");
             // 
             // editNFOV2X
             // 
@@ -442,6 +456,7 @@
             this.editNFOV2X.Name = "editNFOV2X";
             this.editNFOV2X.Size = new System.Drawing.Size(103, 20);
             this.editNFOV2X.TabIndex = 20;
+            this.toolTip.SetToolTip(this.editNFOV2X, "X offset of NFOV 2 camera in X direction from center of rotation plate");
             // 
             // groupBox4
             // 
@@ -493,6 +508,7 @@
             this.editWFOV2Y.Name = "editWFOV2Y";
             this.editWFOV2Y.Size = new System.Drawing.Size(103, 20);
             this.editWFOV2Y.TabIndex = 18;
+            this.toolTip.SetToolTip(this.editWFOV2Y, "Y offset of WFOV 2 camera in X direction from center of rotation plate");
             // 
             // editWFOV2X
             // 
@@ -512,6 +528,7 @@
             this.editWFOV2X.Name = "editWFOV2X";
             this.editWFOV2X.Size = new System.Drawing.Size(103, 20);
             this.editWFOV2X.TabIndex = 20;
+            this.toolTip.SetToolTip(this.editWFOV2X, "X offset of WFOV 2 camera in X direction from center of rotation plate");
             // 
             // groupBox5
             // 
@@ -563,6 +580,7 @@
             this.editWFOV1Y.Name = "editWFOV1Y";
             this.editWFOV1Y.Size = new System.Drawing.Size(103, 20);
             this.editWFOV1Y.TabIndex = 18;
+            this.toolTip.SetToolTip(this.editWFOV1Y, "Y offset of WFOV 1 camera in X direction from center of rotation plate");
             // 
             // editWFOV1X
             // 
@@ -582,6 +600,7 @@
             this.editWFOV1X.Name = "editWFOV1X";
             this.editWFOV1X.Size = new System.Drawing.Size(103, 20);
             this.editWFOV1X.TabIndex = 20;
+            this.toolTip.SetToolTip(this.editWFOV1X, "X offset of WFOV 1 camera in X direction from center of rotation plate");
             // 
             // tableLayoutPanel1
             // 
@@ -712,5 +731,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

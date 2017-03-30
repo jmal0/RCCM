@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LensCalibrationForm));
             this.heightEdit = new System.Windows.Forms.NumericUpDown();
             this.focalPowerEdit = new System.Windows.Forms.NumericUpDown();
@@ -41,6 +42,7 @@
             this.columnFocalPower = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label3 = new System.Windows.Forms.Label();
             this.editFocusOffset = new System.Windows.Forms.NumericUpDown();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.heightEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.focalPowerEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.editFocusOffset)).BeginInit();
@@ -62,6 +64,7 @@
             this.heightEdit.Name = "heightEdit";
             this.heightEdit.Size = new System.Drawing.Size(142, 20);
             this.heightEdit.TabIndex = 0;
+            this.toolTip.SetToolTip(this.heightEdit, "Height at which this focal power is applied");
             this.heightEdit.ValueChanged += new System.EventHandler(this.heightEdit_ValueChanged);
             // 
             // focalPowerEdit
@@ -86,6 +89,7 @@
             this.focalPowerEdit.Name = "focalPowerEdit";
             this.focalPowerEdit.Size = new System.Drawing.Size(142, 20);
             this.focalPowerEdit.TabIndex = 1;
+            this.toolTip.SetToolTip(this.focalPowerEdit, "Focal power to lens. Click and adjust with arrow keys or buttons");
             this.focalPowerEdit.ValueChanged += new System.EventHandler(this.focalPowerEdit_ValueChanged);
             // 
             // label1
@@ -113,6 +117,7 @@
             this.btnApplyCalibration.Size = new System.Drawing.Size(214, 23);
             this.btnApplyCalibration.TabIndex = 4;
             this.btnApplyCalibration.Text = "Apply";
+            this.toolTip.SetToolTip(this.btnApplyCalibration, "Click to save this calibration point");
             this.btnApplyCalibration.UseVisualStyleBackColor = true;
             this.btnApplyCalibration.Click += new System.EventHandler(this.btnApplyCalibration_Click);
             // 
@@ -123,6 +128,7 @@
             this.btnSave.Size = new System.Drawing.Size(104, 23);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
+            this.toolTip.SetToolTip(this.btnSave, "Save entire calibration and exit");
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -133,6 +139,7 @@
             this.btnCancel.Size = new System.Drawing.Size(104, 23);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
+            this.toolTip.SetToolTip(this.btnCancel, "Revert calibration and exit");
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -147,6 +154,7 @@
             this.listCalibration.Name = "listCalibration";
             this.listCalibration.Size = new System.Drawing.Size(214, 193);
             this.listCalibration.TabIndex = 8;
+            this.toolTip.SetToolTip(this.listCalibration, "List of calibration points. Click to highlight and press delete to remove points");
             this.listCalibration.UseCompatibleStateImageBehavior = false;
             this.listCalibration.View = System.Windows.Forms.View.Details;
             this.listCalibration.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listCalibration_KeyDown);
@@ -192,6 +200,7 @@
             this.editFocusOffset.Name = "editFocusOffset";
             this.editFocusOffset.Size = new System.Drawing.Size(142, 20);
             this.editFocusOffset.TabIndex = 9;
+            this.toolTip.SetToolTip(this.editFocusOffset, "When focus is slightly off, use this to slightly adjust focus");
             this.editFocusOffset.ValueChanged += new System.EventHandler(this.editFocusOffset_ValueChanged);
             // 
             // LensCalibrationForm
@@ -235,5 +244,6 @@
         private System.Windows.Forms.ColumnHeader columnFocalPower;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown editFocusOffset;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

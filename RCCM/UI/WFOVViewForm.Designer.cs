@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WFOVViewForm));
             this.wfovContainer = new TIS.Imaging.ICImagingControl();
             this.panelLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -62,6 +63,7 @@
             this.btnDeleteSequence = new System.Windows.Forms.Button();
             this.btnSaveCrack = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).BeginInit();
             this.panelLayout.SuspendLayout();
             this.panelWfovView.SuspendLayout();
@@ -139,6 +141,7 @@
             this.btnWfovStop.Name = "btnWfovStop";
             this.btnWfovStop.Size = new System.Drawing.Size(26, 26);
             this.btnWfovStop.TabIndex = 24;
+            this.toolTip.SetToolTip(this.btnWfovStop, "Stop live image display");
             this.btnWfovStop.UseVisualStyleBackColor = true;
             this.btnWfovStop.Click += new System.EventHandler(this.btnWfovStop_Click);
             // 
@@ -151,6 +154,7 @@
             this.btnFocus.Size = new System.Drawing.Size(75, 26);
             this.btnFocus.TabIndex = 23;
             this.btnFocus.Text = "Autofocus";
+            this.toolTip.SetToolTip(this.btnFocus, "Focus image using cameras built-in focusing");
             this.btnFocus.UseVisualStyleBackColor = true;
             this.btnFocus.Click += new System.EventHandler(this.btnFocus_Click);
             // 
@@ -163,6 +167,7 @@
             this.btnWfovProperties.Size = new System.Drawing.Size(75, 26);
             this.btnWfovProperties.TabIndex = 20;
             this.btnWfovProperties.Text = "Properties";
+            this.toolTip.SetToolTip(this.btnWfovProperties, "Open camera property window");
             this.btnWfovProperties.UseVisualStyleBackColor = true;
             this.btnWfovProperties.Click += new System.EventHandler(this.btnWfovProperties_Click);
             // 
@@ -176,6 +181,7 @@
             this.btnWfovRecord.Name = "btnWfovRecord";
             this.btnWfovRecord.Size = new System.Drawing.Size(26, 26);
             this.btnWfovRecord.TabIndex = 22;
+            this.toolTip.SetToolTip(this.btnWfovRecord, "Record video");
             this.btnWfovRecord.UseVisualStyleBackColor = false;
             this.btnWfovRecord.Click += new System.EventHandler(this.btnWfovRecord_Click);
             // 
@@ -188,6 +194,7 @@
             this.btnWfovSnap.Name = "btnWfovSnap";
             this.btnWfovSnap.Size = new System.Drawing.Size(35, 26);
             this.btnWfovSnap.TabIndex = 21;
+            this.toolTip.SetToolTip(this.btnWfovSnap, "Snap image and automatically save to images folder");
             this.btnWfovSnap.UseVisualStyleBackColor = true;
             this.btnWfovSnap.Click += new System.EventHandler(this.btnWfovSnap_Click);
             // 
@@ -201,6 +208,7 @@
             this.btnWfovStart.Name = "btnWfovStart";
             this.btnWfovStart.Size = new System.Drawing.Size(26, 26);
             this.btnWfovStart.TabIndex = 19;
+            this.toolTip.SetToolTip(this.btnWfovStart, "Start live image display");
             this.btnWfovStart.UseVisualStyleBackColor = true;
             this.btnWfovStart.Click += new System.EventHandler(this.btnWfovStart_Click);
             // 
@@ -268,6 +276,7 @@
             this.sliderFocus.Size = new System.Drawing.Size(45, 464);
             this.sliderFocus.TabIndex = 18;
             this.sliderFocus.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.toolTip.SetToolTip(this.sliderFocus, "Move slider to adjust focal distance");
             this.sliderFocus.Scroll += new System.EventHandler(this.sliderFocus_Scroll);
             // 
             // label11
@@ -296,6 +305,7 @@
             this.sliderZoom.Size = new System.Drawing.Size(45, 464);
             this.sliderZoom.TabIndex = 15;
             this.sliderZoom.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.toolTip.SetToolTip(this.sliderZoom, "Move slider to increase/decrease optical zoom");
             this.sliderZoom.Scroll += new System.EventHandler(this.sliderZoom_Scroll);
             // 
             // panelMeasurement
@@ -338,6 +348,7 @@
             this.listPoints.Name = "listPoints";
             this.listPoints.Size = new System.Drawing.Size(115, 97);
             this.listPoints.TabIndex = 36;
+            this.toolTip.SetToolTip(this.listPoints, "Points in selected crack. Click to highlight a point from the list");
             this.listPoints.UseCompatibleStateImageBehavior = false;
             this.listPoints.View = System.Windows.Forms.View.Details;
             this.listPoints.SelectedIndexChanged += new System.EventHandler(this.listPoints_SelectedIndexChanged);
@@ -360,6 +371,7 @@
             this.btnGotoPoint.Size = new System.Drawing.Size(115, 26);
             this.btnGotoPoint.TabIndex = 34;
             this.btnGotoPoint.Text = "Go to point";
+            this.toolTip.SetToolTip(this.btnGotoPoint, "Move fine actuators to location when highlighted point was measured");
             this.btnGotoPoint.UseVisualStyleBackColor = true;
             this.btnGotoPoint.Click += new System.EventHandler(this.btnGotoPoint_Click);
             // 
@@ -371,6 +383,7 @@
             this.btnDeletePoint.Size = new System.Drawing.Size(115, 26);
             this.btnDeletePoint.TabIndex = 27;
             this.btnDeletePoint.Text = "Delete point";
+            this.toolTip.SetToolTip(this.btnDeletePoint, "Delete highlighted point from measurement");
             this.btnDeletePoint.UseVisualStyleBackColor = true;
             this.btnDeletePoint.Click += new System.EventHandler(this.btnDeletePoint_Click);
             // 
@@ -397,6 +410,7 @@
             this.checkCrosshair.Size = new System.Drawing.Size(98, 17);
             this.checkCrosshair.TabIndex = 35;
             this.checkCrosshair.Text = "Show crosshair";
+            this.toolTip.SetToolTip(this.checkCrosshair, "Check to draw crosshair on live image");
             this.checkCrosshair.UseVisualStyleBackColor = true;
             // 
             // btnCrosshairMeasure
@@ -407,6 +421,7 @@
             this.btnCrosshairMeasure.Size = new System.Drawing.Size(118, 26);
             this.btnCrosshairMeasure.TabIndex = 23;
             this.btnCrosshairMeasure.Text = "Measure at crosshair";
+            this.toolTip.SetToolTip(this.btnCrosshairMeasure, "Add a new crack measurement at the center of the image");
             this.btnCrosshairMeasure.UseVisualStyleBackColor = true;
             this.btnCrosshairMeasure.Click += new System.EventHandler(this.btnCrosshairMeasure_Click);
             // 
@@ -436,6 +451,7 @@
             this.btnEditSequence.Size = new System.Drawing.Size(115, 26);
             this.btnEditSequence.TabIndex = 19;
             this.btnEditSequence.Text = "Edit";
+            this.toolTip.SetToolTip(this.btnEditSequence, "Modify highlighted crack");
             this.btnEditSequence.UseVisualStyleBackColor = true;
             this.btnEditSequence.Click += new System.EventHandler(this.btnEditSequence_Click);
             // 
@@ -448,6 +464,7 @@
             this.listMeasurements.ScrollAlwaysVisible = true;
             this.listMeasurements.Size = new System.Drawing.Size(115, 82);
             this.listMeasurements.TabIndex = 8;
+            this.toolTip.SetToolTip(this.listMeasurements, "Created crack measurements. Click to select a crack");
             this.listMeasurements.SelectedIndexChanged += new System.EventHandler(this.listMeasurements_SelectedIndexChanged);
             // 
             // btnNewSequence
@@ -458,6 +475,7 @@
             this.btnNewSequence.Size = new System.Drawing.Size(115, 26);
             this.btnNewSequence.TabIndex = 10;
             this.btnNewSequence.Text = "New";
+            this.toolTip.SetToolTip(this.btnNewSequence, "Create a new crack measurement ");
             this.btnNewSequence.UseVisualStyleBackColor = true;
             this.btnNewSequence.Click += new System.EventHandler(this.btnNewSequence_Click);
             // 
@@ -469,6 +487,7 @@
             this.btnDeleteSequence.Size = new System.Drawing.Size(115, 26);
             this.btnDeleteSequence.TabIndex = 18;
             this.btnDeleteSequence.Text = "Delete";
+            this.toolTip.SetToolTip(this.btnDeleteSequence, "Delete highlighted crack");
             this.btnDeleteSequence.UseVisualStyleBackColor = true;
             this.btnDeleteSequence.Click += new System.EventHandler(this.btnDeleteSequence_Click);
             // 
@@ -480,6 +499,7 @@
             this.btnSaveCrack.Size = new System.Drawing.Size(115, 26);
             this.btnSaveCrack.TabIndex = 28;
             this.btnSaveCrack.Text = "Save to file";
+            this.toolTip.SetToolTip(this.btnSaveCrack, "Open save dialog to save measurement data");
             this.btnSaveCrack.UseVisualStyleBackColor = true;
             this.btnSaveCrack.Click += new System.EventHandler(this.btnSaveCrack_Click);
             // 
@@ -549,5 +569,6 @@
         private System.Windows.Forms.ListView listPoints;
         private System.Windows.Forms.ColumnHeader columnCycle;
         private System.Windows.Forms.ColumnHeader columnLength;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

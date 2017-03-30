@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NFOVViewForm));
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.btnEditSequence = new System.Windows.Forms.Button();
@@ -47,13 +48,14 @@
             this.checkCrosshair = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listPoints = new System.Windows.Forms.ListView();
+            this.columnCycle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnLength = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panelNFOVControl = new System.Windows.Forms.Panel();
             this.panelMeasurementControl = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.listPoints = new System.Windows.Forms.ListView();
-            this.columnCycle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnLength = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -89,6 +91,7 @@
             this.btnEditSequence.Size = new System.Drawing.Size(118, 26);
             this.btnEditSequence.TabIndex = 19;
             this.btnEditSequence.Text = "Edit";
+            this.toolTip.SetToolTip(this.btnEditSequence, "Modify highlighted crack");
             this.btnEditSequence.UseVisualStyleBackColor = true;
             this.btnEditSequence.Click += new System.EventHandler(this.btnEditSequence_Click);
             // 
@@ -101,6 +104,7 @@
             this.listMeasurements.ScrollAlwaysVisible = true;
             this.listMeasurements.Size = new System.Drawing.Size(118, 82);
             this.listMeasurements.TabIndex = 8;
+            this.toolTip.SetToolTip(this.listMeasurements, "Created crack measurements. Click to select a crack");
             this.listMeasurements.SelectedIndexChanged += new System.EventHandler(this.listMeasurements_SelectedIndexChanged);
             // 
             // btnNewSequence
@@ -111,6 +115,7 @@
             this.btnNewSequence.Size = new System.Drawing.Size(118, 26);
             this.btnNewSequence.TabIndex = 10;
             this.btnNewSequence.Text = "New";
+            this.toolTip.SetToolTip(this.btnNewSequence, "Create a new crack measurement ");
             this.btnNewSequence.UseVisualStyleBackColor = true;
             this.btnNewSequence.Click += new System.EventHandler(this.btnNewSequence_Click);
             // 
@@ -122,6 +127,7 @@
             this.btnDeleteSequence.Size = new System.Drawing.Size(118, 26);
             this.btnDeleteSequence.TabIndex = 18;
             this.btnDeleteSequence.Text = "Delete";
+            this.toolTip.SetToolTip(this.btnDeleteSequence, "Delete highlighted crack");
             this.btnDeleteSequence.UseVisualStyleBackColor = true;
             this.btnDeleteSequence.Click += new System.EventHandler(this.btnDeleteSequence_Click);
             // 
@@ -133,6 +139,7 @@
             this.btnSaveCrack.Size = new System.Drawing.Size(118, 26);
             this.btnSaveCrack.TabIndex = 28;
             this.btnSaveCrack.Text = "Save to file";
+            this.toolTip.SetToolTip(this.btnSaveCrack, "Open save dialog to save measurement data");
             this.btnSaveCrack.UseVisualStyleBackColor = true;
             this.btnSaveCrack.Click += new System.EventHandler(this.btnSaveCrack_Click);
             // 
@@ -144,6 +151,7 @@
             this.btnCrosshairMeasure.Size = new System.Drawing.Size(118, 26);
             this.btnCrosshairMeasure.TabIndex = 23;
             this.btnCrosshairMeasure.Text = "Measure at crosshair";
+            this.toolTip.SetToolTip(this.btnCrosshairMeasure, "Add a new crack measurement at the center of the image");
             this.btnCrosshairMeasure.UseVisualStyleBackColor = true;
             this.btnCrosshairMeasure.Click += new System.EventHandler(this.btnCrosshairMeasure_Click);
             // 
@@ -168,6 +176,7 @@
             this.btnDeletePoint.Size = new System.Drawing.Size(118, 26);
             this.btnDeletePoint.TabIndex = 27;
             this.btnDeletePoint.Text = "Delete point";
+            this.toolTip.SetToolTip(this.btnDeletePoint, "Delete highlighted point from measurement");
             this.btnDeletePoint.UseVisualStyleBackColor = true;
             this.btnDeletePoint.Click += new System.EventHandler(this.btnDeletePoint_Click);
             // 
@@ -178,6 +187,7 @@
             this.btnNfovSnap.Name = "btnNfovSnap";
             this.btnNfovSnap.Size = new System.Drawing.Size(35, 26);
             this.btnNfovSnap.TabIndex = 32;
+            this.toolTip.SetToolTip(this.btnNfovSnap, "Snap image and automatically save to images folder");
             this.btnNfovSnap.UseVisualStyleBackColor = true;
             this.btnNfovSnap.Click += new System.EventHandler(this.btnNfovSnap_Click);
             // 
@@ -188,6 +198,7 @@
             this.btnNfovProperties.Size = new System.Drawing.Size(75, 26);
             this.btnNfovProperties.TabIndex = 31;
             this.btnNfovProperties.Text = "Properties";
+            this.toolTip.SetToolTip(this.btnNfovProperties, "Open camera property window");
             this.btnNfovProperties.UseVisualStyleBackColor = true;
             this.btnNfovProperties.Click += new System.EventHandler(this.btnNfovProperties_Click);
             // 
@@ -199,6 +210,7 @@
             this.btnNfovStop.Name = "btnNfovStop";
             this.btnNfovStop.Size = new System.Drawing.Size(26, 26);
             this.btnNfovStop.TabIndex = 30;
+            this.toolTip.SetToolTip(this.btnNfovStop, "Stop live image display");
             this.btnNfovStop.UseVisualStyleBackColor = true;
             this.btnNfovStop.Click += new System.EventHandler(this.btnNfovStop_Click);
             // 
@@ -209,6 +221,7 @@
             this.btnNfovStart.Name = "btnNfovStart";
             this.btnNfovStart.Size = new System.Drawing.Size(26, 26);
             this.btnNfovStart.TabIndex = 29;
+            this.toolTip.SetToolTip(this.btnNfovStart, "Start live image display");
             this.btnNfovStart.UseVisualStyleBackColor = true;
             this.btnNfovStart.Click += new System.EventHandler(this.btnNfovStart_Click);
             // 
@@ -220,6 +233,7 @@
             this.btnNfovRecord.Name = "btnNfovRecord";
             this.btnNfovRecord.Size = new System.Drawing.Size(26, 26);
             this.btnNfovRecord.TabIndex = 33;
+            this.toolTip.SetToolTip(this.btnNfovRecord, "Record video");
             this.btnNfovRecord.UseVisualStyleBackColor = false;
             this.btnNfovRecord.Click += new System.EventHandler(this.btnNfovRecord_Click);
             // 
@@ -231,6 +245,7 @@
             this.btnGotoPoint.Size = new System.Drawing.Size(118, 26);
             this.btnGotoPoint.TabIndex = 34;
             this.btnGotoPoint.Text = "Go to point";
+            this.toolTip.SetToolTip(this.btnGotoPoint, "Move fine actuators to location when highlighted point was measured");
             this.btnGotoPoint.UseVisualStyleBackColor = true;
             this.btnGotoPoint.Click += new System.EventHandler(this.btnGotoPoint_Click);
             // 
@@ -243,6 +258,7 @@
             this.checkCrosshair.Size = new System.Drawing.Size(98, 17);
             this.checkCrosshair.TabIndex = 35;
             this.checkCrosshair.Text = "Show crosshair";
+            this.toolTip.SetToolTip(this.checkCrosshair, "Check to draw crosshair on live image");
             this.checkCrosshair.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -273,6 +289,35 @@
             this.groupBox2.TabIndex = 37;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Points";
+            // 
+            // listPoints
+            // 
+            this.listPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listPoints.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnCycle,
+            this.columnLength});
+            this.listPoints.FullRowSelect = true;
+            this.listPoints.HideSelection = false;
+            this.listPoints.Location = new System.Drawing.Point(6, 19);
+            this.listPoints.MultiSelect = false;
+            this.listPoints.Name = "listPoints";
+            this.listPoints.Size = new System.Drawing.Size(118, 97);
+            this.listPoints.TabIndex = 35;
+            this.toolTip.SetToolTip(this.listPoints, "Points in selected crack. Click to highlight a point from the list");
+            this.listPoints.UseCompatibleStateImageBehavior = false;
+            this.listPoints.View = System.Windows.Forms.View.Details;
+            this.listPoints.SelectedIndexChanged += new System.EventHandler(this.listPoints_SelectedIndexChanged);
+            // 
+            // columnCycle
+            // 
+            this.columnCycle.Text = "Cycle";
+            this.columnCycle.Width = 59;
+            // 
+            // columnLength
+            // 
+            this.columnLength.Text = "Length";
+            this.columnLength.Width = 59;
             // 
             // panelNFOVControl
             // 
@@ -324,34 +369,6 @@
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayout.Size = new System.Drawing.Size(754, 545);
             this.tableLayout.TabIndex = 34;
-            // 
-            // listPoints
-            // 
-            this.listPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listPoints.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnCycle,
-            this.columnLength});
-            this.listPoints.FullRowSelect = true;
-            this.listPoints.HideSelection = false;
-            this.listPoints.Location = new System.Drawing.Point(6, 19);
-            this.listPoints.MultiSelect = false;
-            this.listPoints.Name = "listPoints";
-            this.listPoints.Size = new System.Drawing.Size(118, 97);
-            this.listPoints.TabIndex = 35;
-            this.listPoints.UseCompatibleStateImageBehavior = false;
-            this.listPoints.View = System.Windows.Forms.View.Details;
-            this.listPoints.SelectedIndexChanged += new System.EventHandler(this.listPoints_SelectedIndexChanged);
-            // 
-            // columnCycle
-            // 
-            this.columnCycle.Text = "Cycle";
-            this.columnCycle.Width = 59;
-            // 
-            // columnLength
-            // 
-            this.columnLength.Text = "Length";
-            this.columnLength.Width = 59;
             // 
             // NFOVViewForm
             // 
@@ -407,5 +424,6 @@
         private System.Windows.Forms.ListView listPoints;
         private System.Windows.Forms.ColumnHeader columnCycle;
         private System.Windows.Forms.ColumnHeader columnLength;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

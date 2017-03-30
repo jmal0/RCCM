@@ -44,6 +44,7 @@
             this.nFOV2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coordinateSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.camerasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.motorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
@@ -51,7 +52,7 @@
             this.editCycleFreq = new System.Windows.Forms.NumericUpDown();
             this.radioRCCM1 = new System.Windows.Forms.RadioButton();
             this.radioRCCM2 = new System.Windows.Forms.RadioButton();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.groupBoxStageSelect = new System.Windows.Forms.GroupBox();
             this.radioCoarse = new System.Windows.Forms.RadioButton();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.btnStartTest = new System.Windows.Forms.Button();
@@ -68,7 +69,7 @@
             this.panelMotionButtons = new System.Windows.Forms.Panel();
             this.btnSetHome = new System.Windows.Forms.Button();
             this.btnHome = new System.Windows.Forms.Button();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.groupBoxMovementMode = new System.Windows.Forms.GroupBox();
             this.radioMoveRel = new System.Windows.Forms.RadioButton();
             this.radioMoveAbs = new System.Windows.Forms.RadioButton();
             this.panelMotionControls = new System.Windows.Forms.Panel();
@@ -117,10 +118,10 @@
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.motorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
-            this.groupBox10.SuspendLayout();
+            this.groupBoxStageSelect.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.tabPageResults.SuspendLayout();
             this.tableLayoutResults.SuspendLayout();
@@ -129,7 +130,7 @@
             this.tableLayoutMotion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelView)).BeginInit();
             this.panelMotionButtons.SuspendLayout();
-            this.groupBox13.SuspendLayout();
+            this.groupBoxMovementMode.SuspendLayout();
             this.panelMotionControls.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fine2ZPos)).BeginInit();
@@ -228,6 +229,13 @@
             this.camerasToolStripMenuItem.Text = "Cameras";
             this.camerasToolStripMenuItem.Click += new System.EventHandler(this.camerasToolStripMenuItem_Click);
             // 
+            // motorsToolStripMenuItem
+            // 
+            this.motorsToolStripMenuItem.Name = "motorsToolStripMenuItem";
+            this.motorsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.motorsToolStripMenuItem.Text = "Motors";
+            this.motorsToolStripMenuItem.Click += new System.EventHandler(this.motorsToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -288,18 +296,19 @@
             this.radioRCCM2.UseVisualStyleBackColor = true;
             this.radioRCCM2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
-            // groupBox10
+            // groupBoxStageSelect
             // 
-            this.groupBox10.Controls.Add(this.radioCoarse);
-            this.groupBox10.Controls.Add(this.radioRCCM2);
-            this.groupBox10.Controls.Add(this.radioRCCM1);
-            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox10.Location = new System.Drawing.Point(0, 0);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(106, 89);
-            this.groupBox10.TabIndex = 19;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Stage Selection";
+            this.groupBoxStageSelect.Controls.Add(this.radioCoarse);
+            this.groupBoxStageSelect.Controls.Add(this.radioRCCM2);
+            this.groupBoxStageSelect.Controls.Add(this.radioRCCM1);
+            this.groupBoxStageSelect.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxStageSelect.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxStageSelect.Name = "groupBoxStageSelect";
+            this.groupBoxStageSelect.Size = new System.Drawing.Size(106, 89);
+            this.groupBoxStageSelect.TabIndex = 19;
+            this.groupBoxStageSelect.TabStop = false;
+            this.groupBoxStageSelect.Text = "Stage Selection";
+            this.toolTip.SetToolTip(this.groupBoxStageSelect, "Select which set of actuators is moved by pressing arrow keys");
             // 
             // radioCoarse
             // 
@@ -336,6 +345,7 @@
             this.btnStartTest.Name = "btnStartTest";
             this.btnStartTest.Size = new System.Drawing.Size(26, 26);
             this.btnStartTest.TabIndex = 7;
+            this.toolTip.SetToolTip(this.btnStartTest, "Start cycle counting");
             this.btnStartTest.UseVisualStyleBackColor = true;
             this.btnStartTest.Click += new System.EventHandler(this.btnStartTest_Click);
             // 
@@ -346,6 +356,7 @@
             this.btnPauseTest.Name = "btnPauseTest";
             this.btnPauseTest.Size = new System.Drawing.Size(26, 26);
             this.btnPauseTest.TabIndex = 6;
+            this.toolTip.SetToolTip(this.btnPauseTest, "Pause cycle counting");
             this.btnPauseTest.UseVisualStyleBackColor = true;
             this.btnPauseTest.Click += new System.EventHandler(this.btnPauseTest_Click);
             // 
@@ -356,6 +367,7 @@
             this.btnStopTest.Name = "btnStopTest";
             this.btnStopTest.Size = new System.Drawing.Size(26, 26);
             this.btnStopTest.TabIndex = 8;
+            this.toolTip.SetToolTip(this.btnStopTest, "Stop cycle counting and save all current test data");
             this.btnStopTest.UseVisualStyleBackColor = true;
             this.btnStopTest.Click += new System.EventHandler(this.btnStopTest_Click);
             // 
@@ -411,6 +423,7 @@
             this.listCrackSelection.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.listCrackSelection.Size = new System.Drawing.Size(143, 272);
             this.listCrackSelection.TabIndex = 8;
+            this.toolTip.SetToolTip(this.listCrackSelection, "Click to higlight and select which cracks are plotted");
             this.listCrackSelection.SelectedIndexChanged += new System.EventHandler(this.listCracksSelection_SelectedIndexChanged);
             // 
             // tabPageMotion
@@ -457,8 +470,8 @@
             // 
             this.panelMotionButtons.Controls.Add(this.btnSetHome);
             this.panelMotionButtons.Controls.Add(this.btnHome);
-            this.panelMotionButtons.Controls.Add(this.groupBox13);
-            this.panelMotionButtons.Controls.Add(this.groupBox10);
+            this.panelMotionButtons.Controls.Add(this.groupBoxMovementMode);
+            this.panelMotionButtons.Controls.Add(this.groupBoxStageSelect);
             this.panelMotionButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMotionButtons.Location = new System.Drawing.Point(635, 3);
             this.panelMotionButtons.Name = "panelMotionButtons";
@@ -473,6 +486,7 @@
             this.btnSetHome.Size = new System.Drawing.Size(106, 23);
             this.btnSetHome.TabIndex = 22;
             this.btnSetHome.Text = "Set as Home";
+            this.toolTip.SetToolTip(this.btnSetHome, "Save current actuator positions as home position");
             this.btnSetHome.UseVisualStyleBackColor = true;
             this.btnSetHome.Click += new System.EventHandler(this.btnSetHome_Click);
             // 
@@ -484,20 +498,22 @@
             this.btnHome.Size = new System.Drawing.Size(106, 23);
             this.btnHome.TabIndex = 21;
             this.btnHome.Text = "Go to Home";
+            this.toolTip.SetToolTip(this.btnHome, "Move all actuators to their saved \"home\" locations");
             this.btnHome.UseVisualStyleBackColor = true;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
-            // groupBox13
+            // groupBoxMovementMode
             // 
-            this.groupBox13.Controls.Add(this.radioMoveRel);
-            this.groupBox13.Controls.Add(this.radioMoveAbs);
-            this.groupBox13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox13.Location = new System.Drawing.Point(0, 89);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(106, 70);
-            this.groupBox13.TabIndex = 4;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Mode";
+            this.groupBoxMovementMode.Controls.Add(this.radioMoveRel);
+            this.groupBoxMovementMode.Controls.Add(this.radioMoveAbs);
+            this.groupBoxMovementMode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxMovementMode.Location = new System.Drawing.Point(0, 89);
+            this.groupBoxMovementMode.Name = "groupBoxMovementMode";
+            this.groupBoxMovementMode.Size = new System.Drawing.Size(106, 70);
+            this.groupBoxMovementMode.TabIndex = 4;
+            this.groupBoxMovementMode.TabStop = false;
+            this.groupBoxMovementMode.Text = "Mode";
+            this.toolTip.SetToolTip(this.groupBoxMovementMode, "Select movement mode used by position controls");
             // 
             // radioMoveRel
             // 
@@ -507,6 +523,7 @@
             this.radioMoveRel.Size = new System.Drawing.Size(64, 17);
             this.radioMoveRel.TabIndex = 13;
             this.radioMoveRel.Text = "Relative";
+            this.toolTip.SetToolTip(this.radioMoveRel, "Move a specified distance from the current position");
             this.radioMoveRel.UseVisualStyleBackColor = true;
             this.radioMoveRel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
@@ -520,6 +537,7 @@
             this.radioMoveAbs.TabIndex = 12;
             this.radioMoveAbs.TabStop = true;
             this.radioMoveAbs.Text = "Absolute";
+            this.toolTip.SetToolTip(this.radioMoveAbs, "Move to a position a specified distance from the end of travel");
             this.radioMoveAbs.UseVisualStyleBackColor = true;
             this.radioMoveAbs.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
@@ -561,6 +579,7 @@
             this.fine2ZIndicator.ReadOnly = true;
             this.fine2ZIndicator.Size = new System.Drawing.Size(80, 20);
             this.fine2ZIndicator.TabIndex = 20;
+            this.toolTip.SetToolTip(this.fine2ZIndicator, "Current RCCM 2 distance sensor reading");
             // 
             // fine2YIndicator
             // 
@@ -570,6 +589,7 @@
             this.fine2YIndicator.ReadOnly = true;
             this.fine2YIndicator.Size = new System.Drawing.Size(80, 20);
             this.fine2YIndicator.TabIndex = 19;
+            this.toolTip.SetToolTip(this.fine2YIndicator, "Current fine 2 Y position from end of travel");
             // 
             // fine2XIndicator
             // 
@@ -579,6 +599,7 @@
             this.fine2XIndicator.ReadOnly = true;
             this.fine2XIndicator.Size = new System.Drawing.Size(80, 20);
             this.fine2XIndicator.TabIndex = 18;
+            this.toolTip.SetToolTip(this.fine2XIndicator, "Current fine 2 X position from end of travel");
             // 
             // fine2ZPos
             // 
@@ -588,6 +609,7 @@
             this.fine2ZPos.Name = "fine2ZPos";
             this.fine2ZPos.Size = new System.Drawing.Size(90, 20);
             this.fine2ZPos.TabIndex = 5;
+            this.toolTip.SetToolTip(this.fine2ZPos, "Press enter to send movement command to actuator");
             this.fine2ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2ZPos_KeyDown);
             // 
             // label6
@@ -608,6 +630,7 @@
             this.fine2YPos.Name = "fine2YPos";
             this.fine2YPos.Size = new System.Drawing.Size(90, 20);
             this.fine2YPos.TabIndex = 3;
+            this.toolTip.SetToolTip(this.fine2YPos, "Press enter to send movement command to actuator");
             this.fine2YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2YPos_KeyDown);
             // 
             // label7
@@ -628,6 +651,7 @@
             this.fine2XPos.Name = "fine2XPos";
             this.fine2XPos.Size = new System.Drawing.Size(90, 20);
             this.fine2XPos.TabIndex = 1;
+            this.toolTip.SetToolTip(this.fine2XPos, "Press enter to send movement command to actuator");
             this.fine2XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2XPos_KeyDown);
             // 
             // label8
@@ -667,6 +691,7 @@
             this.fine1ZIndicator.ReadOnly = true;
             this.fine1ZIndicator.Size = new System.Drawing.Size(80, 20);
             this.fine1ZIndicator.TabIndex = 17;
+            this.toolTip.SetToolTip(this.fine1ZIndicator, "Current RCCM 1 distance sensor reading");
             // 
             // fine1YIndicator
             // 
@@ -676,6 +701,7 @@
             this.fine1YIndicator.ReadOnly = true;
             this.fine1YIndicator.Size = new System.Drawing.Size(80, 20);
             this.fine1YIndicator.TabIndex = 16;
+            this.toolTip.SetToolTip(this.fine1YIndicator, "Current fine 1 Y position from end of travel");
             // 
             // fine1XIndicator
             // 
@@ -685,6 +711,7 @@
             this.fine1XIndicator.ReadOnly = true;
             this.fine1XIndicator.Size = new System.Drawing.Size(80, 20);
             this.fine1XIndicator.TabIndex = 15;
+            this.toolTip.SetToolTip(this.fine1XIndicator, "Current fine 1 X position from end of travel");
             // 
             // fine1ZPos
             // 
@@ -694,6 +721,7 @@
             this.fine1ZPos.Name = "fine1ZPos";
             this.fine1ZPos.Size = new System.Drawing.Size(90, 20);
             this.fine1ZPos.TabIndex = 5;
+            this.toolTip.SetToolTip(this.fine1ZPos, "Press enter to send movement command to actuator");
             this.fine1ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1ZPos_KeyDown);
             // 
             // label5
@@ -714,6 +742,7 @@
             this.fine1YPos.Name = "fine1YPos";
             this.fine1YPos.Size = new System.Drawing.Size(90, 20);
             this.fine1YPos.TabIndex = 3;
+            this.toolTip.SetToolTip(this.fine1YPos, "Press enter to send movement command to actuator");
             this.fine1YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1YPos_KeyDown);
             // 
             // label3
@@ -734,6 +763,7 @@
             this.fine1XPos.Name = "fine1XPos";
             this.fine1XPos.Size = new System.Drawing.Size(90, 20);
             this.fine1XPos.TabIndex = 1;
+            this.toolTip.SetToolTip(this.fine1XPos, "Press enter to send movement command to actuator");
             this.fine1XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1XPos_KeyDown);
             // 
             // label4
@@ -770,6 +800,7 @@
             this.coarseYIndicator.ReadOnly = true;
             this.coarseYIndicator.Size = new System.Drawing.Size(80, 20);
             this.coarseYIndicator.TabIndex = 14;
+            this.toolTip.SetToolTip(this.coarseYIndicator, "Current coarse Y position from end of travel");
             // 
             // coarseXIndicator
             // 
@@ -779,6 +810,7 @@
             this.coarseXIndicator.ReadOnly = true;
             this.coarseXIndicator.Size = new System.Drawing.Size(80, 20);
             this.coarseXIndicator.TabIndex = 13;
+            this.toolTip.SetToolTip(this.coarseXIndicator, "Current coarse X position from end of travel");
             // 
             // coarseYPos
             // 
@@ -788,6 +820,7 @@
             this.coarseYPos.Name = "coarseYPos";
             this.coarseYPos.Size = new System.Drawing.Size(90, 20);
             this.coarseYPos.TabIndex = 3;
+            this.toolTip.SetToolTip(this.coarseYPos, "Press enter to send movement command to actuator");
             this.coarseYPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseYPos_KeyDown);
             // 
             // label2
@@ -808,6 +841,7 @@
             this.coarseXPos.Name = "coarseXPos";
             this.coarseXPos.Size = new System.Drawing.Size(90, 20);
             this.coarseXPos.TabIndex = 1;
+            this.toolTip.SetToolTip(this.coarseXPos, "Press enter to send movement command to actuator");
             this.coarseXPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseXPos_KeyDown);
             // 
             // label1
@@ -895,6 +929,7 @@
             this.chartCycles.Size = new System.Drawing.Size(750, 284);
             this.chartCycles.TabIndex = 8;
             this.chartCycles.Text = "chart2";
+            this.toolTip.SetToolTip(this.chartCycles, "Past pressure readings");
             // 
             // tableLayoutMain
             // 
@@ -978,13 +1013,6 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // motorsToolStripMenuItem
-            // 
-            this.motorsToolStripMenuItem.Name = "motorsToolStripMenuItem";
-            this.motorsToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.motorsToolStripMenuItem.Text = "Motors";
-            this.motorsToolStripMenuItem.Click += new System.EventHandler(this.motorsToolStripMenuItem_Click);
-            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1007,8 +1035,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).EndInit();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
+            this.groupBoxStageSelect.ResumeLayout(false);
+            this.groupBoxStageSelect.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             this.tabPageResults.ResumeLayout(false);
@@ -1018,8 +1046,8 @@
             this.tableLayoutMotion.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelView)).EndInit();
             this.panelMotionButtons.ResumeLayout(false);
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
+            this.groupBoxMovementMode.ResumeLayout(false);
+            this.groupBoxMovementMode.PerformLayout();
             this.panelMotionControls.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -1067,7 +1095,7 @@
         private System.Windows.Forms.Button btnPauseTest;
         private System.Windows.Forms.RadioButton radioRCCM1;
         private System.Windows.Forms.RadioButton radioRCCM2;
-        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.GroupBox groupBoxStageSelect;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -1076,7 +1104,7 @@
         private System.Windows.Forms.ListBox listCrackSelection;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCracks;
         private System.Windows.Forms.TabPage tabPageMotion;
-        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.GroupBox groupBoxMovementMode;
         private System.Windows.Forms.RadioButton radioMoveRel;
         private System.Windows.Forms.RadioButton radioMoveAbs;
         private System.Windows.Forms.Button btnNFOV1Open;
@@ -1134,6 +1162,7 @@
         private System.Windows.Forms.ToolStripMenuItem coordinateSystemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem camerasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem motorsToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
 

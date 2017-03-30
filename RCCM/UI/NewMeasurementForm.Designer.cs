@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewMeasurementForm));
             this.textName = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
@@ -44,6 +45,7 @@
             this.radioMeasureTip = new System.Windows.Forms.RadioButton();
             this.editOrientation = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.editLineSize)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editOrientation)).BeginInit();
@@ -55,6 +57,7 @@
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(97, 20);
             this.textName.TabIndex = 0;
+            this.toolTip.SetToolTip(this.textName, "Enter an identifying name for the crack measurement");
             // 
             // colorPicker
             // 
@@ -65,6 +68,7 @@
             this.colorPicker.Padding = new System.Windows.Forms.Padding(8, 1, 8, 1);
             this.colorPicker.Size = new System.Drawing.Size(16, 15);
             this.colorPicker.TabIndex = 18;
+            this.toolTip.SetToolTip(this.colorPicker, "Click to change the color of the lines that will be drawn on the live imaeg");
             this.colorPicker.Click += new System.EventHandler(this.colorPicker_Click);
             // 
             // label1
@@ -92,6 +96,7 @@
             this.btnOK.Size = new System.Drawing.Size(65, 26);
             this.btnOK.TabIndex = 21;
             this.btnOK.Text = "OK";
+            this.toolTip.SetToolTip(this.btnOK, "Click to create crack");
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
@@ -102,6 +107,7 @@
             this.btnCancel.Size = new System.Drawing.Size(65, 26);
             this.btnCancel.TabIndex = 22;
             this.btnCancel.Text = "Cancel";
+            this.toolTip.SetToolTip(this.btnCancel, "Cancel crack measurement creation");
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -131,6 +137,7 @@
             this.editLineSize.Name = "editLineSize";
             this.editLineSize.Size = new System.Drawing.Size(75, 20);
             this.editLineSize.TabIndex = 24;
+            this.toolTip.SetToolTip(this.editLineSize, "Thickness of line on live image");
             this.editLineSize.Value = new decimal(new int[] {
             2,
             0,
@@ -157,6 +164,7 @@
             this.radioMeasureTotal.Size = new System.Drawing.Size(81, 17);
             this.radioMeasureTotal.TabIndex = 3;
             this.radioMeasureTotal.Text = "Total length";
+            this.toolTip.SetToolTip(this.radioMeasureTotal, "Sum lengths of each segment of the crack");
             this.radioMeasureTotal.UseVisualStyleBackColor = true;
             // 
             // radioMeasureProjection
@@ -169,6 +177,7 @@
             this.radioMeasureProjection.TabIndex = 1;
             this.radioMeasureProjection.TabStop = true;
             this.radioMeasureProjection.Text = "Projection";
+            this.toolTip.SetToolTip(this.radioMeasureProjection, "Measure length of crack in direction specified by orientation angle");
             this.radioMeasureProjection.UseVisualStyleBackColor = true;
             // 
             // radioMeasureTip
@@ -179,6 +188,7 @@
             this.radioMeasureTip.Size = new System.Drawing.Size(66, 17);
             this.radioMeasureTip.TabIndex = 2;
             this.radioMeasureTip.Text = "Tip to tip";
+            this.toolTip.SetToolTip(this.radioMeasureTip, "Measure straight line distance from crack beginning to end");
             this.radioMeasureTip.UseVisualStyleBackColor = true;
             // 
             // editOrientation
@@ -203,6 +213,7 @@
             this.editOrientation.Name = "editOrientation";
             this.editOrientation.Size = new System.Drawing.Size(75, 20);
             this.editOrientation.TabIndex = 28;
+            this.toolTip.SetToolTip(this.editOrientation, "Angular orientation to use with \"projection\" mode");
             // 
             // label4
             // 
@@ -258,5 +269,6 @@
         private System.Windows.Forms.RadioButton radioMeasureTip;
         private System.Windows.Forms.NumericUpDown editOrientation;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

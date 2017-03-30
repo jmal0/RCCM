@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CameraSettingsForm));
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -71,6 +72,7 @@
             this.nfov2Scale = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox7.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -95,6 +97,7 @@
             this.groupBox7.TabIndex = 7;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "NFOV 1";
+            this.toolTip.SetToolTip(this.groupBox7, "Select folder where measurement data taken from WFOV 1 will save");
             // 
             // label17
             // 
@@ -104,6 +107,7 @@
             this.label17.Size = new System.Drawing.Size(73, 13);
             this.label17.TabIndex = 5;
             this.label17.Text = "Data directory";
+            this.toolTip.SetToolTip(this.label17, "Select folder where measurement data taken from NFOV 1 will save");
             // 
             // label15
             // 
@@ -113,6 +117,7 @@
             this.label15.Size = new System.Drawing.Size(64, 13);
             this.label15.TabIndex = 0;
             this.label15.Text = "micron/pixel";
+            this.toolTip.SetToolTip(this.label15, "Image resolution calibration. Equal to image width in microns / 2448");
             // 
             // textNFOV1DataDir
             // 
@@ -122,6 +127,7 @@
             this.textNFOV1DataDir.Size = new System.Drawing.Size(100, 20);
             this.textNFOV1DataDir.TabIndex = 5;
             this.textNFOV1DataDir.Text = "data";
+            this.toolTip.SetToolTip(this.textNFOV1DataDir, "Select folder where measurement data taken from NFOV 1 will save");
             this.textNFOV1DataDir.Enter += new System.EventHandler(this.textNFOV1DataDir_Enter);
             // 
             // nfov1Scale
@@ -132,6 +138,7 @@
             this.nfov1Scale.Size = new System.Drawing.Size(100, 20);
             this.nfov1Scale.TabIndex = 0;
             this.nfov1Scale.Text = "9.08";
+            this.toolTip.SetToolTip(this.nfov1Scale, "Image resolution calibration. Equal to image width in microns / 2448");
             this.nfov1Scale.TextChanged += new System.EventHandler(this.nfov1Scale_TextChanged);
             // 
             // label14
@@ -142,6 +149,7 @@
             this.label14.Size = new System.Drawing.Size(77, 13);
             this.label14.TabIndex = 4;
             this.label14.Text = "Video directory";
+            this.toolTip.SetToolTip(this.label14, "Select folder where videos captured from NFOV 1 camera will save");
             // 
             // textNFOV1VideoDir
             // 
@@ -151,6 +159,7 @@
             this.textNFOV1VideoDir.Size = new System.Drawing.Size(100, 20);
             this.textNFOV1VideoDir.TabIndex = 1;
             this.textNFOV1VideoDir.Text = "C:\\Users\\John\\Videos\\RCCM";
+            this.toolTip.SetToolTip(this.textNFOV1VideoDir, "Select folder where videos captured from NFOV 1 camera will save");
             this.textNFOV1VideoDir.Enter += new System.EventHandler(this.textNFOV1VideoDir_Enter);
             // 
             // textNFOV1ImageDir
@@ -161,6 +170,7 @@
             this.textNFOV1ImageDir.Size = new System.Drawing.Size(100, 20);
             this.textNFOV1ImageDir.TabIndex = 0;
             this.textNFOV1ImageDir.Text = "C:\\Users\\John\\Pictures\\RCCM";
+            this.toolTip.SetToolTip(this.textNFOV1ImageDir, "Select folder where images captured from NFOV 1 camera will save");
             this.textNFOV1ImageDir.Enter += new System.EventHandler(this.textNFOV1ImageDir_Enter);
             // 
             // label13
@@ -171,6 +181,7 @@
             this.label13.Size = new System.Drawing.Size(79, 13);
             this.label13.TabIndex = 0;
             this.label13.Text = "Image directory";
+            this.toolTip.SetToolTip(this.label13, "Select folder where images captured from NFOV 1 camera will save");
             // 
             // groupBox5
             // 
@@ -200,6 +211,7 @@
             this.label4.Size = new System.Drawing.Size(73, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "Data directory";
+            this.toolTip.SetToolTip(this.label4, "Select folder where measurement data ideo taken from WFOV 2 will save");
             // 
             // textWFOV2DataDir
             // 
@@ -209,6 +221,7 @@
             this.textWFOV2DataDir.Size = new System.Drawing.Size(100, 20);
             this.textWFOV2DataDir.TabIndex = 11;
             this.textWFOV2DataDir.Text = "data";
+            this.toolTip.SetToolTip(this.textWFOV2DataDir, "Select folder where measurement data ideo taken from WFOV 2 will save");
             this.textWFOV2DataDir.Enter += new System.EventHandler(this.textWFOV2DataDir_Enter);
             // 
             // label5
@@ -219,6 +232,7 @@
             this.label5.Size = new System.Drawing.Size(77, 13);
             this.label5.TabIndex = 9;
             this.label5.Text = "Video directory";
+            this.toolTip.SetToolTip(this.label5, "Select folder where videos captured from WFOV 2 camera will save");
             // 
             // textWFOV2VideoDir
             // 
@@ -228,6 +242,7 @@
             this.textWFOV2VideoDir.Size = new System.Drawing.Size(100, 20);
             this.textWFOV2VideoDir.TabIndex = 8;
             this.textWFOV2VideoDir.Text = "C:\\Users\\John\\Videos\\RCCM";
+            this.toolTip.SetToolTip(this.textWFOV2VideoDir, "Select folder where videos captured from WFOV 2 camera will save");
             this.textWFOV2VideoDir.Enter += new System.EventHandler(this.textWFOV2VideoDir_Enter);
             // 
             // textWFOV2ImageDir
@@ -238,6 +253,7 @@
             this.textWFOV2ImageDir.Size = new System.Drawing.Size(100, 20);
             this.textWFOV2ImageDir.TabIndex = 6;
             this.textWFOV2ImageDir.Text = "C:\\Users\\John\\Pictures\\RCCM";
+            this.toolTip.SetToolTip(this.textWFOV2ImageDir, "Select folder where images captured from WFOV 2 camera will save");
             this.textWFOV2ImageDir.Enter += new System.EventHandler(this.textWFOV2ImageDir_Enter);
             // 
             // label6
@@ -248,6 +264,7 @@
             this.label6.Size = new System.Drawing.Size(79, 13);
             this.label6.TabIndex = 7;
             this.label6.Text = "Image directory";
+            this.toolTip.SetToolTip(this.label6, "Select folder where images captured from WFOV 2 camera will save");
             // 
             // label12
             // 
@@ -257,6 +274,7 @@
             this.label12.Size = new System.Drawing.Size(64, 13);
             this.label12.TabIndex = 3;
             this.label12.Text = "micron/pixel";
+            this.toolTip.SetToolTip(this.label12, "Image resolution calibration. Equal to image width in microns / 1280");
             // 
             // wfov2Scale
             // 
@@ -266,6 +284,7 @@
             this.wfov2Scale.Size = new System.Drawing.Size(100, 20);
             this.wfov2Scale.TabIndex = 4;
             this.wfov2Scale.Text = "9.08";
+            this.toolTip.SetToolTip(this.wfov2Scale, "Image resolution calibration. Equal to image width in microns / 1280");
             this.wfov2Scale.TextChanged += new System.EventHandler(this.wfov2Scale_TextChanged);
             // 
             // label10
@@ -314,6 +333,7 @@
             this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 10;
             this.label1.Text = "Data directory";
+            this.toolTip.SetToolTip(this.label1, "Select folder where measurement data taken from WFOV 1 will save");
             // 
             // textWFOV1DataDir
             // 
@@ -323,6 +343,7 @@
             this.textWFOV1DataDir.Size = new System.Drawing.Size(100, 20);
             this.textWFOV1DataDir.TabIndex = 11;
             this.textWFOV1DataDir.Text = "data";
+            this.toolTip.SetToolTip(this.textWFOV1DataDir, "Select folder where measurement data taken from WFOV 1 will save");
             this.textWFOV1DataDir.Enter += new System.EventHandler(this.textWFOV1DataDir_Enter);
             // 
             // label2
@@ -333,6 +354,7 @@
             this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "Video directory";
+            this.toolTip.SetToolTip(this.label2, "Select folder where videos captured from WFOV 1 camera will save");
             // 
             // textWFOV1VideoDir
             // 
@@ -342,6 +364,7 @@
             this.textWFOV1VideoDir.Size = new System.Drawing.Size(100, 20);
             this.textWFOV1VideoDir.TabIndex = 8;
             this.textWFOV1VideoDir.Text = "C:\\Users\\John\\Videos\\RCCM";
+            this.toolTip.SetToolTip(this.textWFOV1VideoDir, "Select folder where videos captured from WFOV 1 camera will save");
             this.textWFOV1VideoDir.Enter += new System.EventHandler(this.textWFOV1VideoDir_Enter);
             // 
             // textWFOV1ImageDir
@@ -352,6 +375,7 @@
             this.textWFOV1ImageDir.Size = new System.Drawing.Size(100, 20);
             this.textWFOV1ImageDir.TabIndex = 6;
             this.textWFOV1ImageDir.Text = "C:\\Users\\John\\Pictures\\RCCM";
+            this.toolTip.SetToolTip(this.textWFOV1ImageDir, "Select folder where images captured from WFOV 1 camera will save");
             this.textWFOV1ImageDir.Enter += new System.EventHandler(this.textWFOV1ImageDir_Enter);
             // 
             // label3
@@ -362,6 +386,7 @@
             this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Image directory";
+            this.toolTip.SetToolTip(this.label3, "Select folder where images captured from WFOV 1 camera will save");
             // 
             // label11
             // 
@@ -371,6 +396,7 @@
             this.label11.Size = new System.Drawing.Size(64, 13);
             this.label11.TabIndex = 1;
             this.label11.Text = "micron/pixel";
+            this.toolTip.SetToolTip(this.label11, "Image resolution calibration. Equal to image width in microns / 1280");
             // 
             // wfov1Scale
             // 
@@ -380,6 +406,7 @@
             this.wfov1Scale.Size = new System.Drawing.Size(100, 20);
             this.wfov1Scale.TabIndex = 2;
             this.wfov1Scale.Text = "9.08";
+            this.toolTip.SetToolTip(this.wfov1Scale, "Image resolution calibration. Equal to image width in microns / 1280");
             this.wfov1Scale.TextChanged += new System.EventHandler(this.wfov1Scale_TextChanged);
             // 
             // label9
@@ -426,6 +453,7 @@
             this.label7.Size = new System.Drawing.Size(73, 13);
             this.label7.TabIndex = 10;
             this.label7.Text = "Data directory";
+            this.toolTip.SetToolTip(this.label7, "Select folder where measurement data taken from NFOV 2 will save");
             // 
             // textNFOV2DataDir
             // 
@@ -435,6 +463,7 @@
             this.textNFOV2DataDir.Size = new System.Drawing.Size(100, 20);
             this.textNFOV2DataDir.TabIndex = 11;
             this.textNFOV2DataDir.Text = "data";
+            this.toolTip.SetToolTip(this.textNFOV2DataDir, "Select folder where measurement data taken from NFOV 2 will save");
             this.textNFOV2DataDir.Enter += new System.EventHandler(this.textNFOV2DataDir_Enter);
             // 
             // label8
@@ -445,6 +474,7 @@
             this.label8.Size = new System.Drawing.Size(77, 13);
             this.label8.TabIndex = 9;
             this.label8.Text = "Video directory";
+            this.toolTip.SetToolTip(this.label8, "Select folder where videos captured from NFOV 2 camera will save");
             // 
             // textNFOV2VideoDir
             // 
@@ -454,6 +484,7 @@
             this.textNFOV2VideoDir.Size = new System.Drawing.Size(100, 20);
             this.textNFOV2VideoDir.TabIndex = 8;
             this.textNFOV2VideoDir.Text = "C:\\Users\\John\\Videos\\RCCM";
+            this.toolTip.SetToolTip(this.textNFOV2VideoDir, "Select folder where videos captured from NFOV 2 camera will save");
             this.textNFOV2VideoDir.Enter += new System.EventHandler(this.textNFOV2VideoDir_Enter);
             // 
             // textNFOV2ImageDir
@@ -464,6 +495,7 @@
             this.textNFOV2ImageDir.Size = new System.Drawing.Size(100, 20);
             this.textNFOV2ImageDir.TabIndex = 6;
             this.textNFOV2ImageDir.Text = "C:\\Users\\John\\Pictures\\RCCM";
+            this.toolTip.SetToolTip(this.textNFOV2ImageDir, "Select folder where images captured from NFOV 2 camera will save");
             this.textNFOV2ImageDir.Enter += new System.EventHandler(this.textNFOV2ImageDir_Enter);
             // 
             // label18
@@ -474,6 +506,7 @@
             this.label18.Size = new System.Drawing.Size(79, 13);
             this.label18.TabIndex = 7;
             this.label18.Text = "Image directory";
+            this.toolTip.SetToolTip(this.label18, "Select folder where images captured from NFOV 2 camera will save");
             // 
             // label16
             // 
@@ -483,6 +516,7 @@
             this.label16.Size = new System.Drawing.Size(64, 13);
             this.label16.TabIndex = 0;
             this.label16.Text = "micron/pixel";
+            this.toolTip.SetToolTip(this.label16, "Image resolution calibration. Equal to image width in microns / 2448");
             // 
             // nfov2Scale
             // 
@@ -492,6 +526,7 @@
             this.nfov2Scale.Size = new System.Drawing.Size(100, 20);
             this.nfov2Scale.TabIndex = 0;
             this.nfov2Scale.Text = "9.08";
+            this.toolTip.SetToolTip(this.nfov2Scale, "Image resolution calibration. Equal to image width in microns / 2448");
             this.nfov2Scale.TextChanged += new System.EventHandler(this.nfov2Scale_TextChanged);
             // 
             // tableLayoutPanel1
@@ -580,5 +615,6 @@
         private System.Windows.Forms.TextBox textNFOV2ImageDir;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
