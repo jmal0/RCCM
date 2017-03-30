@@ -83,6 +83,11 @@ namespace RCCM
         /// </summary>
         public bool Recording { get; set; }
         /// <summary>
+        /// Filename that currently recording video will save to
+        /// </summary>
+        protected string videoFileName;
+
+        /// <summary>
         /// Create a NFOV camera from its serial number and apply the specified calibration
         /// </summary>
         /// <param name="serial">Serial number of the camera</param>
@@ -235,7 +240,7 @@ namespace RCCM
         private void GrabLoop(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            List<ManagedImage> imageList = new List<ManagedImage>(100);
+            List<ManagedImage> imageList = new List<ManagedImage>();
             int i = 0;
 
             while (this.grabImages)
@@ -243,32 +248,40 @@ namespace RCCM
                 try
                 {
                     this.camera.RetrieveBuffer(this.rawImage);
-                    /*
-                    if (this.Recording && i < 100)
+
+                    if (this.Recording)
                     {
-                        ManagedImage tempImage = new ManagedImage(rawImage);
+                        if (i == 0)
+                        {
+                            // Check if the camera supports the FRAME_RATE property
+                            CameraPropertyInfo propInfo = this.camera.GetPropertyInfo(PropertyType.FrameRate);
+
+                            float frameRateToUse = 15.0F;
+                            if (propInfo.present == true)
+                            {
+                                // Get the frame rate
+                                CameraProperty prop = this.camera.GetProperty(PropertyType.FrameRate);
+                                frameRateToUse = prop.absValue;
+                            }
+
+                            // Start AVI writer
+                            BackgroundWorker bwVideoWriter = new BackgroundWorker();
+                            bwVideoWriter.DoWork += delegate (object s, DoWorkEventArgs e2)
+                            {
+                                this.SaveAviHelper(AviType.Mjpg, ref imageList, this.videoFileName, frameRateToUse);
+                            };
+                            bwVideoWriter.RunWorkerAsync();
+                        }
+
+                        ManagedImage tempImage = new ManagedImage(this.ProcessedImage);
                         imageList.Add(tempImage);
                         i++;
                     }
                     else if (i > 0)
                     {
                         i = 0;
-
-                        // Check if the camera supports the FRAME_RATE property
-                        CameraPropertyInfo propInfo = this.camera.GetPropertyInfo(PropertyType.FrameRate);
-
-                        float frameRateToUse = 15.0F;
-                        if (propInfo.present == true)
-                        {
-                            // Get the frame rate
-                            CameraProperty prop = this.camera.GetProperty(PropertyType.FrameRate);
-                            frameRateToUse = prop.absValue;
-                        }
-
-                        this.SaveAviHelper(AviType.H264, ref imageList, "test.avi", frameRateToUse);
-                        imageList.Clear();
+                        this.Recording = false;
                     }
-                    */
                 }
                 catch (FC2Exception ex)
                 {
@@ -334,53 +347,34 @@ namespace RCCM
                         {
                             MJPGOption option = new MJPGOption();
                             option.frameRate = frameRate;
-                            option.quality = 75;
-                            aviRecorder.AVIOpen(aviFileName, option);
-                        }
-                        break;
-
-                    case AviType.H264:
-                        {
-                            H264Option option = new H264Option();
-                            option.frameRate = frameRate;
-                            option.bitrate = 1000000;
-                            option.height = Convert.ToInt32(imageList[0].rows);
-                            option.width = Convert.ToInt32(imageList[0].cols);
+                            option.quality = 90;
                             aviRecorder.AVIOpen(aviFileName, option);
                         }
                         break;
                 }
 
-                Logger.Out(string.Format("Appending {0} images to AVI file {1}...", imageList.Count, aviFileName));
+                Logger.Out(string.Format("Appending images to AVI file {0}...", aviFileName));
 
-                for (int imageCnt = 0; imageCnt < imageList.Count; imageCnt++)
+                int imageCnt = 0;
+                while (this.Recording)
                 {
-                    // Append the image to AVI file
-                    aviRecorder.AVIAppend(imageList[imageCnt]);
-
-                    Logger.Out(string.Format("Appended image {0}", imageCnt));
+                    if (imageCnt < imageList.Count - 1)
+                    {
+                        aviRecorder.AVIAppend(imageList[imageCnt]);
+                        imageList[imageCnt].Dispose();
+                        imageCnt++;
+                        Logger.Out(string.Format("Appended image {0}", imageCnt));
+                    }
                 }
-
+                aviRecorder.AVIAppend(imageList[imageList.Count - 1]);
                 aviRecorder.AVIClose();
             }
         }
 
         public void Record(string aviFileName)
         {
-            /*
-            // Check if the camera supports the FRAME_RATE property
-            CameraPropertyInfo propInfo = this.camera.GetPropertyInfo(PropertyType.FrameRate);
-
-            float frameRateToUse = 15.0F;
-            if (propInfo.present == true)
-            {
-                // Get the frame rate
-                CameraProperty prop = this.camera.GetProperty(PropertyType.FrameRate);
-                frameRateToUse = prop.absValue;
-            }
-
-            SaveAviHelper(AviType.H264, ref imageList, aviFileName, frameRateToUse);
-            */
+            this.Recording = true;
+            this.videoFileName = aviFileName;
         }
 
         /// <summary>

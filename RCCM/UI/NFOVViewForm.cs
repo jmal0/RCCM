@@ -416,8 +416,9 @@ namespace RCCM.UI
             {
                 // Start recording
                 string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
-                //this.nfov1.record(this.textVideoDir + "\\" + timestamp + ".avi");
-                this.camera.Recording = true;
+                string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
+                string dir = (string)Program.Settings.json[camName]["video directory"];
+                this.camera.Record(dir + "\\" + timestamp + ".avi");
                 btnNfovRecord.BackColor = Color.Gray;
                 btnNfovStart.Enabled = false;
                 btnNfovStop.Enabled = false;
