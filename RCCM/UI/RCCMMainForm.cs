@@ -96,9 +96,8 @@ namespace RCCM.UI
 
         private void PluginToolStripClick(IRCCMPlugin plugin)
         {
-            Dictionary<string, string> parameters;
-            IRCCMPluginActor actor = plugin.Instance(this.rccm, null);
-            actor.Run();
+            PluginInitializationForm form = new PluginInitializationForm(this.rccm, plugin);
+            form.Show();
         }
         
         private void RCCMMainForm_Load(object sender, EventArgs e)

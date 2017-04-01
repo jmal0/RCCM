@@ -38,7 +38,6 @@ namespace RCCM
                 ICollection<Assembly> assemblies = new List<Assembly>(dllFileNames.Length);
                 foreach (string dllFile in dllFileNames)
                 {
-                    Console.WriteLine(dllFile);
                     AssemblyName an = AssemblyName.GetAssemblyName(dllFile);
                     Assembly assembly = Assembly.Load(an);
                     assemblies.Add(assembly);
@@ -74,7 +73,8 @@ namespace RCCM
                 {
                     IRCCMPlugin plugin = (IRCCMPlugin)Activator.CreateInstance(type);
                     plugins.Add(plugin);
-                    Console.WriteLine(plugin.Name);
+                    Console.WriteLine("Loaded plugin " + plugin.Name);
+                    Logger.Out("Loaded plugin " + plugin.Name);
                 }
 
                 return plugins;
