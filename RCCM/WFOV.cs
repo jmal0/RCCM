@@ -13,7 +13,7 @@ namespace RCCM
     /// <summary>
     /// Class representing DMK Z12G445 camera for the RCCM WFOV
     /// </summary>
-    public class WFOV
+    public class WFOV : ICamera
     {
         /// <summary>
         /// Height in pixels of image
@@ -223,7 +223,7 @@ namespace RCCM
         /// Capture live image to file
         /// </summary>
         /// <param name="filename">Filename to save image to. Should have .png extension</param>
-        public void SnapImage(string filename)
+        public void Snap(string filename)
         {
             try
             {

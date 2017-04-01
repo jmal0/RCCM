@@ -47,7 +47,7 @@ namespace RCCM.UI
         protected ComponentResourceManager resources;
         protected AxTrioPCLib.AxTrioPC triopc;
 
-        public RCCMMainForm()
+        public RCCMMainForm(ICollection<IRCCMPlugin> plugins)
         {
             // Need to load the ActiveX state or something, I'm not actually sure
             this.resources = new ComponentResourceManager(typeof(RCCMMainForm));
@@ -81,7 +81,24 @@ namespace RCCM.UI
             this.test = new TestResults(this.rccm, this.cracks, this.chartCracks, this.chartCycles, this.textCycle, this.textPressure, this.listCrackSelection);
 
             this.view = new PanelView(this.rccm);
+
+            foreach (IRCCMPlugin plugin in plugins)
+            {
+                ToolStripMenuItem pluginItem = new ToolStripMenuItem(plugin.Name);
+                this.pluginsToolStripMenuItem.DropDownItems.Add(pluginItem);
+                pluginItem.Click += delegate (object sender, EventArgs e) 
+                {
+                    this.PluginToolStripClick(plugin);
+                };
+            }
             Show();
+        }
+
+        private void PluginToolStripClick(IRCCMPlugin plugin)
+        {
+            Dictionary<string, string> parameters;
+            IRCCMPluginActor actor = plugin.Instance(this.rccm, null);
+            actor.Run();
         }
         
         private void RCCMMainForm_Load(object sender, EventArgs e)

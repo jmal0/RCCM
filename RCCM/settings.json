@@ -245,5 +245,6 @@
     // Filtered height is calculated with an exponential moving average:
     // h_filtered = alpha*h + (1-alpha)*h_filtered
     "height reading filter constant": 0.6
-  }
+  },
+  "plugin directory": "Plugins"
 }

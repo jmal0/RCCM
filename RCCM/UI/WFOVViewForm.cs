@@ -340,7 +340,7 @@ namespace RCCM.UI
             string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
             string camName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
             string dir = (string)Program.Settings.json[camName]["image directory"];
-            this.camera.SnapImage(dir + "\\" + timestamp + ".png");
+            this.camera.Snap(dir + "\\" + timestamp + ".png");
         }
 
         private void btnWfovProperties_Click(object sender, EventArgs e)

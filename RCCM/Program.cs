@@ -32,6 +32,7 @@ namespace RCCM
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
+                // Load settings
                 string filename;
                 if (args.Length == 0)
                 {
@@ -52,8 +53,11 @@ namespace RCCM
                     return;
                 }
 
+                // Load plugins
+                ICollection<IRCCMPlugin> plugins = RCCMPluginLoader.LoadPlugins((string) Program.Settings.json["plugin directory"]);
+
                 // Start GUI
-                Application.Run(new RCCMMainForm());
+                Application.Run(new RCCMMainForm(plugins));
             }
         }
     }

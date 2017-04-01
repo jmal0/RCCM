@@ -119,6 +119,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
+    <Compile Include="IRCCMPlugin.cs" />
+    <Compile Include="IRCCMPluginActor.cs" />
+    <Compile Include="RCCMPluginLoader.cs" />
     <Compile Include="TrioStepperZMotor.cs" />
     <Compile Include="UI\AboutRCCMForm.cs">
       <SubType>Form</SubType>

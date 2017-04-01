@@ -15,7 +15,7 @@ namespace RCCM
     /// <summary>
     /// Class that handles connecting to and operating NFOV camera (BlackFly
     /// </summary>
-    public class NFOV
+    public class NFOV : ICamera
     {
         public static uint PACKET_SIZE = 4000;
         public static uint PACKET_DELAY = 6000;
