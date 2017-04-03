@@ -495,7 +495,26 @@ namespace RCCM.UI
 
         private void btnGotoPoint_Click(object sender, EventArgs e)
         {
-
+            if (this.pointIndexValid())
+            {
+                Measurement m = this.cracks[this.ActiveIndex].GetPoint(this.ActivePoint);
+                if (this.cracks[this.ActiveIndex].Camera == "wfov 1")
+                {
+                    this.rccm.motors["fine 1 X"].SetPos(m.FineX);
+                    this.rccm.motors["fine 1 X"].WaitForEndOfMove();
+                    this.rccm.motors["fine 1 Y"].SetPos(m.FineY);
+                    this.rccm.motors["fine 1 Y"].WaitForEndOfMove();
+                    this.rccm.motors["fine 1 Z"].SetPos(m.FineZ);
+                }
+                else
+                {
+                    this.rccm.motors["fine  X"].SetPos(m.FineX);
+                    this.rccm.motors["fine 2 X"].WaitForEndOfMove();
+                    this.rccm.motors["fine 2 Y"].SetPos(m.FineY);
+                    this.rccm.motors["fine 2 Y"].WaitForEndOfMove();
+                    this.rccm.motors["fine 2 Z"].SetPos(m.FineZ);
+                }
+            }
         }
 
         private void btnDeletePoint_Click(object sender, EventArgs e)
