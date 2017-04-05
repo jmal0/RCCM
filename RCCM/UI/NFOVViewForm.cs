@@ -268,7 +268,7 @@ namespace RCCM.UI
             e.Graphics.ResetTransform(); // Reset transform to draw NFOV image
             Pen pen = new Pen(Color.FromArgb(128, Color.Black), 0);
             // Display live image from NFOV camera
-            if (this.camera.Connected && this.camera.GetLiveImage() != null)
+            if (this.camera.Connected && this.camera.ProcessedImage.dataSize != 0)
             {
                 Bitmap img = new Bitmap(this.camera.GetLiveImage(), 612, 512);
                 e.Graphics.DrawImage(img, 0, 0, 612, 512);

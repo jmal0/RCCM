@@ -323,7 +323,11 @@ namespace RCCM
             {
                 // Get the Bitmap object. Bitmaps are only valid if the
                 // pixel format of the ManagedImage is RGB or RGBU.
-                System.Drawing.Bitmap bitmap = this.ProcessedImage.bitmap;
+                System.Drawing.Bitmap bitmap;
+                lock (this)
+                {
+                    bitmap = this.ProcessedImage.bitmap;
+                }                
                 // Save the image
                 bitmap.Save(filename);
             }
@@ -383,7 +387,10 @@ namespace RCCM
         /// <returns>Live image as a bitmap</returns>
         public System.Drawing.Bitmap GetLiveImage()
         {
-            return this.ProcessedImage.bitmap;
+            lock (this)
+            {
+                return this.ProcessedImage.bitmap;
+            }            
         }
     }
 }

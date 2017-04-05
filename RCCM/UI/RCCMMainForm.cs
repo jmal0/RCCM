@@ -82,14 +82,17 @@ namespace RCCM.UI
 
             this.view = new PanelView(this.rccm);
 
-            foreach (IRCCMPlugin plugin in plugins)
+            if (plugins != null)
             {
-                ToolStripMenuItem pluginItem = new ToolStripMenuItem(plugin.Name);
-                this.pluginsToolStripMenuItem.DropDownItems.Add(pluginItem);
-                pluginItem.Click += delegate (object sender, EventArgs e) 
+                foreach (IRCCMPlugin plugin in plugins)
                 {
-                    this.PluginToolStripClick(plugin);
-                };
+                    ToolStripMenuItem pluginItem = new ToolStripMenuItem(plugin.Name);
+                    this.pluginsToolStripMenuItem.DropDownItems.Add(pluginItem);
+                    pluginItem.Click += delegate (object sender, EventArgs e)
+                    {
+                        this.PluginToolStripClick(plugin);
+                    };
+                }
             }
             Show();
         }

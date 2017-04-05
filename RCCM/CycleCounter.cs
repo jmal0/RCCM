@@ -9,7 +9,7 @@ namespace RCCM
     /// <summary>
     /// Tracks the cycle number of the test. Can be paused and restarted. Currently a simplified implementation
     /// </summary>
-    public class CycleCounter
+    public class CycleCounter : ICycleCounter
     {
         protected Timer countTimer;
 

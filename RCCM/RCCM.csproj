@@ -96,6 +96,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Gardasoft Vision\Triniti\SDK\ReferencedAssemblies\Gardasoft.Device.Discovery.DLL</HintPath>
     </Reference>
+    <Reference Include="MatlabDFTRegistration, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\MatlabDFTRegistration.dll</HintPath>
+    </Reference>
+    <Reference Include="MWArray, Version=2.16.0.0, Culture=neutral, PublicKeyToken=e1d84a0da19db86f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files\MATLAB\MATLAB Runtime\v901\toolbox\dotnetbuilder\bin\win64\v2.0\MWArray.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x64\Debug\Newtonsoft.Json.dll</HintPath>
@@ -120,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="ICycleCounter.cs" />
     <Compile Include="IRCCMPlugin.cs" />
     <Compile Include="IRCCMPluginActor.cs" />
     <Compile Include="RCCMPluginLoader.cs" />
@@ -290,6 +299,24 @@
     <None Include="res\pause.png" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="MWComMgr">
+      <Guid>{09287241-3CCE-4CBC-B185-5D3C1D69EBEC}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MWComUtil">
+      <Guid>{F28D13BB-9031-4236-835E-05C16CD9747B}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="TrioPCLib">
       <Guid>{F1933964-74B0-11D3-8A13-00403393B236}</Guid>
       <VersionMajor>1</VersionMajor>
