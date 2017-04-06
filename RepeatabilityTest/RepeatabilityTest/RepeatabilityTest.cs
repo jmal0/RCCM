@@ -75,10 +75,8 @@ namespace RepeatabilityTest
                 // Repeatedly move and snap image
                 for (int i = 0; i < this.repititions; i++)
                 {
-                    lock (this.camera)
-                    {
-                        this.camera.Snap(this.path + "\\repeatability-" + i + ".bmp");
-                    }
+                    this.camera.Snap(this.path + "\\repeatability-" + i + ".bmp");
+                    // Move actuator out and back
                     this.motor.MoveRel(this.distance);
                     this.motor.WaitForEndOfMove();
                     Thread.Sleep(200);
@@ -86,26 +84,23 @@ namespace RepeatabilityTest
                     this.motor.WaitForEndOfMove();
                     Thread.Sleep(200);
                 }
-                lock (this.camera)
-                {
-                    this.camera.Snap(this.path + "\\repeatability-" + this.repititions + ".bmp");
-                }                
-
+                this.camera.Snap(this.path + "\\repeatability-" + this.repititions + ".bmp");
+                
                 var imgProccessing = new MatlabDFTRegistration.DFTRegistration();
                 MWArray[] argsOut = imgProccessing.get_offsets(2, this.path);
-                MWNumericArray dxMW = new MWNumericArray(MWArrayComplexity.Real, MWNumericType.Double, argsOut[0].NumberOfElements);
-                MWNumericArray dyMW = new MWNumericArray(MWArrayComplexity.Real, MWNumericType.Double, argsOut[1].NumberOfElements);
-                double[,] dx = (double[,])dxMW.ToArray(MWArrayComponent.Real);
-                double[,] dy = (double[,])dyMW.ToArray(MWArrayComponent.Real);
+                double[,] dx = (double[,])argsOut[0].ToArray();
+                double[,] dy = (double[,])argsOut[1].ToArray();
 
-                double stdX = RepeatabilityTest.CalculateStdev(dx);
-                double stdY = RepeatabilityTest.CalculateStdev(dy);
-                MessageBox.Show(string.Format("Standard deviation x: {0}, y: {1}", stdX, stdY));
+                double stdX = this.CalculateStdev(dx);
+                double stdY = this.CalculateStdev(dy);
+                MessageBox.Show(string.Format("Standard deviation x: {0:0.00}, y: {1:0.00}", stdX, stdY));
                 using (StreamWriter file = new StreamWriter(this.path + "\\results.csv"))
                 {
                     for (int r = 0; r < dx.GetLength(0); r++)
                     {
-                        file.WriteLine(dx[r,0].ToString() + "," + dy[r,0].ToString());
+                        double dxi = this.camera.Scale * dx[r, 0];
+                        double dyi = this.camera.Scale * dy[r, 0];
+                        file.WriteLine(dxi.ToString() + "," + dyi.ToString());
                     }
                 }
             }
@@ -125,7 +120,7 @@ namespace RepeatabilityTest
             }
         }
 
-        private static double CalculateStdev(double[,] nums)
+        private double CalculateStdev(double[,] nums)
         {
             double sum = 0;
             for (int i = 0; i < nums.GetLength(0); i++)
@@ -138,7 +133,7 @@ namespace RepeatabilityTest
             {
                 sumSq += Math.Pow(nums[i, 0] - mean, 2);
             }
-            return Math.Sqrt(sumSq / (nums.GetLength(0) - 1));
+            return this.camera.Scale * Math.Sqrt(sumSq / (nums.GetLength(0) - 1));
         }
     }
 }
