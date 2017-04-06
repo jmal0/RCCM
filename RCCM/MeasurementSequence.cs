@@ -70,6 +70,16 @@ namespace RCCM
         {
             get { return this.points.Count; }
         }
+        public string CreateTime { get; private set; }        
+        public string SaveDir
+        {
+            get
+            {
+                string dir = (string)Program.Settings.json[this.Camera]["test data directory"] + "\\" + this.Name + "-" + this.CreateTime;
+                Directory.CreateDirectory(dir);
+                return dir;
+            }
+        }
         
         /// <summary>
         /// Create a new measurement sequence with all parameters specified
@@ -89,6 +99,7 @@ namespace RCCM
             this.Orientation = orientation;
             this.Mode = mode;
             this.Camera = camera;
+            this.CreateTime = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
             MeasurementSequence.CrackCount++;
         }
 
@@ -105,6 +116,7 @@ namespace RCCM
             this.Orientation = parentForm.GetOrientation();
             this.Mode = parentForm.GetMode();
             this.Camera = parentForm.GetCamera();
+            this.CreateTime = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
             MeasurementSequence.CrackCount++;
         }
 
@@ -117,7 +129,7 @@ namespace RCCM
             this.points.Add(pt);
             double length = this.CalculateLength(this.CountPoints - 1);
             this.points[this.CountPoints - 1].CrackLength = length;
-            this.WriteToFile((string)Program.Settings.json[this.Camera]["test data directory"], true);
+            this.WriteToFile(this.SaveDir, true);
             NotifyCollectionChangedEventArgs e = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
             this.OnCollectionChanged(e);
         }
@@ -156,7 +168,7 @@ namespace RCCM
             {
                 this.points.RemoveAt(index);
                 this.RecomputeLength();
-                this.WriteToFile((string)Program.Settings.json[this.Camera]["test data directory"], true);
+                this.WriteToFile(this.SaveDir, true);
                 NotifyCollectionChangedEventArgs e = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
                 this.OnCollectionChanged(e);
                 return true;

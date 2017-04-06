@@ -136,12 +136,12 @@ namespace RCCM.UI
             if (this.cracks[this.ActiveIndex].CountPoints == 0)
             {
                 // Convert pixel coordinates to global coordinates
-                Measurement p0 = new Measurement(this.rccm, this.stage, this.drawnLineStart.X - pos.X, this.drawnLineStart.Y - pos.Y);
+                Measurement p0 = new Measurement(this.cracks[this.ActiveIndex], this.rccm, this.drawnLineStart.X - pos.X, this.drawnLineStart.Y - pos.Y);
                 this.cracks[ActiveIndex].AddPoint(p0);
             }
             // Add end point (in all situations)
-            Measurement p1 = new Measurement(this.rccm, this.stage, this.drawnLineEnd.X - pos.X,
-                                                                    this.drawnLineEnd.Y - pos.Y);
+            Measurement p1 = new Measurement(this.cracks[this.ActiveIndex], this.rccm, this.drawnLineEnd.X - pos.X,
+                                                                                       this.drawnLineEnd.Y - pos.Y);
             this.cracks[ActiveIndex].AddPoint(p1);
             this.Drawing = false;
         }
@@ -220,7 +220,7 @@ namespace RCCM.UI
                 double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
                 double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
                 PointF pix = this.rccm.FineVectorToGlobalVector(pixX, pixY);
-                Measurement p0 = new Measurement(this.rccm, this.stage, pix.X, pix.Y);
+                Measurement p0 = new Measurement(this.cracks[this.ActiveIndex], this.rccm, pix.X, pix.Y);
                 this.cracks[this.ActiveIndex].AddPoint(p0);
             }
         }
@@ -509,7 +509,7 @@ namespace RCCM.UI
         {
             if (this.crackIndexValid())
             {
-                Measurement pt = new Measurement(this.rccm, RCCMStage.RCCM1, 0, 0);
+                Measurement pt = new Measurement(this.cracks[this.ActiveIndex], this.rccm, 0, 0);
                 this.cracks[this.ActiveIndex].AddPoint(pt);
                 Logger.Out(this.cracks[this.ActiveIndex].ToString());
                 // Refresh list of points
