@@ -142,7 +142,7 @@ namespace CameraCalibration
                                                  "Y Scale R^2:{60.0000}\tCrosstalk R^2:{7:0.0000}",
                                                  scaleXX, scaleXY, rsqXX, rsqXY, 
                                                  scaleYY, scaleYX, rsqYY, rsqYX);
-                DialogResult result = MessageBox.Show(resultMsg, "Results", MessageBoxButtons.OKCancel);
+                DialogResult result = MessageBox.Show(resultMsg, "Results", MessageBoxButtons.);
                 if (result == DialogResult.OK)
                 {
                     this.camera.Scale = scale;
