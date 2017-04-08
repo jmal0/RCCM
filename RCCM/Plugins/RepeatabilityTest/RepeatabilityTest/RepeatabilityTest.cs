@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using RCCM;
 using System.IO;
-using MathWorks.MATLAB.NET.Arrays;
 using System.Windows.Forms;
+using RCCM;
+using MathWorks.MATLAB.NET.Arrays;
 
 namespace RepeatabilityTest
 {
@@ -16,7 +16,7 @@ namespace RepeatabilityTest
         protected readonly ICamera camera;
         protected readonly Motor motor;
         protected string path;
-        protected int repititions;
+        protected int repetitions;
         protected double distance;
         public bool Running { get; protected set; }
         protected readonly RCCMSystem rccm;
@@ -60,7 +60,7 @@ namespace RepeatabilityTest
                 throw new ArgumentException("Actuator must be coarse X/Y or fine 1/2 X/Y");
             }
             // Extract numeric value from user input for repititions and move distance
-            this.repititions = Int32.Parse(parameters["Repititions"]);
+            this.repetitions = Int32.Parse(parameters["Repetitions"]);
             this.distance = Double.Parse(parameters["Distance"]);
         }
 
@@ -73,7 +73,7 @@ namespace RepeatabilityTest
                 this.testThread = Thread.CurrentThread;
 
                 // Repeatedly move and snap image
-                for (int i = 0; i < this.repititions; i++)
+                for (int i = 0; i < this.repetitions; i++)
                 {
                     this.camera.Snap(this.path + "\\repeatability-" + i + ".bmp");
                     // Move actuator out and back
@@ -84,7 +84,7 @@ namespace RepeatabilityTest
                     this.motor.WaitForEndOfMove();
                     Thread.Sleep(200);
                 }
-                this.camera.Snap(this.path + "\\repeatability-" + this.repititions + ".bmp");
+                this.camera.Snap(this.path + "\\repeatability-" + this.repetitions + ".bmp");
                 
                 var imgProccessing = new MatlabDFTRegistration.DFTRegistration();
                 MWArray[] argsOut = imgProccessing.get_offsets(2, this.path);

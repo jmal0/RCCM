@@ -5,24 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using RCCM;
 
-namespace RepeatabilityTest
+namespace CameraCalibration
 {
-    public class RepeatabilityTestPlugin : IRCCMPlugin
+    public class CameraCalibrationPlugin : IRCCMPlugin
     {
         public string Name
         {
-            get { return "Repeatability Test"; }
-        }
-        public string[] Params
-        {
-            get { return new string[] { "Camera", "Actuator", "Repetitions", "Distance" }; }
+            get { return "Camera Calibration"; }
         }
 
-        public RepeatabilityTestPlugin() { }
+        public string[] Params
+        {
+            get { return new string[] { "Camera" }; }
+        }
+
+        public CameraCalibrationPlugin() { }
 
         public IRCCMPluginActor Instance(RCCMSystem rccm, Dictionary<string, string> parameters)
         {
-            return new RepeatabilityTest(rccm, parameters);
+            return new CameraCalibration(rccm, parameters);
         }
     }
 }
