@@ -30,6 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MatlabDFTRegistration">
+      <HintPath>..\..\..\..\..\..\..\Downloads\MatlabDFTRegistration.dll</HintPath>
+    </Reference>
+    <Reference Include="MWArray, Version=2.16.0.0, Culture=neutral, PublicKeyToken=e1d84a0da19db86f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\MATLAB\MATLAB Runtime\v901\toolbox\dotnetbuilder\bin\win64\v2.0\MWArray.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\bin\x64\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
