@@ -50,7 +50,8 @@
             // 
             // heightEdit
             // 
-            this.heightEdit.Location = new System.Drawing.Point(84, 211);
+            this.heightEdit.Location = new System.Drawing.Point(126, 325);
+            this.heightEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.heightEdit.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -62,7 +63,7 @@
             0,
             -2147483648});
             this.heightEdit.Name = "heightEdit";
-            this.heightEdit.Size = new System.Drawing.Size(142, 20);
+            this.heightEdit.Size = new System.Drawing.Size(213, 26);
             this.heightEdit.TabIndex = 0;
             this.toolTip.SetToolTip(this.heightEdit, "Height at which this focal power is applied");
             this.heightEdit.ValueChanged += new System.EventHandler(this.heightEdit_ValueChanged);
@@ -75,7 +76,8 @@
             0,
             0,
             65536});
-            this.focalPowerEdit.Location = new System.Drawing.Point(84, 237);
+            this.focalPowerEdit.Location = new System.Drawing.Point(126, 365);
+            this.focalPowerEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.focalPowerEdit.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -87,7 +89,7 @@
             0,
             -2147483648});
             this.focalPowerEdit.Name = "focalPowerEdit";
-            this.focalPowerEdit.Size = new System.Drawing.Size(142, 20);
+            this.focalPowerEdit.Size = new System.Drawing.Size(213, 26);
             this.focalPowerEdit.TabIndex = 1;
             this.toolTip.SetToolTip(this.focalPowerEdit, "Focal power to lens. Click and adjust with arrow keys or buttons");
             this.focalPowerEdit.ValueChanged += new System.EventHandler(this.focalPowerEdit_ValueChanged);
@@ -95,26 +97,29 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 213);
+            this.label1.Location = new System.Drawing.Point(18, 328);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.Size = new System.Drawing.Size(56, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Height";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 239);
+            this.label2.Location = new System.Drawing.Point(18, 368);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.Size = new System.Drawing.Size(96, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "Focal Power";
             // 
             // btnApplyCalibration
             // 
-            this.btnApplyCalibration.Location = new System.Drawing.Point(12, 289);
+            this.btnApplyCalibration.Location = new System.Drawing.Point(18, 445);
+            this.btnApplyCalibration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnApplyCalibration.Name = "btnApplyCalibration";
-            this.btnApplyCalibration.Size = new System.Drawing.Size(214, 23);
+            this.btnApplyCalibration.Size = new System.Drawing.Size(321, 35);
             this.btnApplyCalibration.TabIndex = 4;
             this.btnApplyCalibration.Text = "Apply";
             this.toolTip.SetToolTip(this.btnApplyCalibration, "Click to save this calibration point");
@@ -123,9 +128,10 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(12, 318);
+            this.btnSave.Location = new System.Drawing.Point(18, 489);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(104, 23);
+            this.btnSave.Size = new System.Drawing.Size(156, 35);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
             this.toolTip.SetToolTip(this.btnSave, "Save entire calibration and exit");
@@ -134,9 +140,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(122, 318);
+            this.btnCancel.Location = new System.Drawing.Point(183, 489);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(104, 23);
+            this.btnCancel.Size = new System.Drawing.Size(156, 35);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.toolTip.SetToolTip(this.btnCancel, "Revert calibration and exit");
@@ -149,10 +156,11 @@
             this.columnHeight,
             this.columnFocalPower});
             this.listCalibration.FullRowSelect = true;
-            this.listCalibration.Location = new System.Drawing.Point(12, 12);
+            this.listCalibration.Location = new System.Drawing.Point(18, 18);
+            this.listCalibration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listCalibration.MultiSelect = false;
             this.listCalibration.Name = "listCalibration";
-            this.listCalibration.Size = new System.Drawing.Size(214, 193);
+            this.listCalibration.Size = new System.Drawing.Size(319, 295);
             this.listCalibration.TabIndex = 8;
             this.toolTip.SetToolTip(this.listCalibration, "List of calibration points. Click to highlight and press delete to remove points");
             this.listCalibration.UseCompatibleStateImageBehavior = false;
@@ -162,19 +170,20 @@
             // columnHeight
             // 
             this.columnHeight.Text = "Height (mm)";
-            this.columnHeight.Width = 105;
+            this.columnHeight.Width = 159;
             // 
             // columnFocalPower
             // 
             this.columnFocalPower.Text = "Focal Power";
-            this.columnFocalPower.Width = 105;
+            this.columnFocalPower.Width = 159;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 265);
+            this.label3.Location = new System.Drawing.Point(16, 408);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.Size = new System.Drawing.Size(101, 20);
             this.label3.TabIndex = 10;
             this.label3.Text = "Focus Offset";
             // 
@@ -186,7 +195,8 @@
             0,
             0,
             65536});
-            this.editFocusOffset.Location = new System.Drawing.Point(84, 263);
+            this.editFocusOffset.Location = new System.Drawing.Point(126, 405);
+            this.editFocusOffset.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editFocusOffset.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -198,16 +208,16 @@
             0,
             -2147483648});
             this.editFocusOffset.Name = "editFocusOffset";
-            this.editFocusOffset.Size = new System.Drawing.Size(142, 20);
+            this.editFocusOffset.Size = new System.Drawing.Size(213, 26);
             this.editFocusOffset.TabIndex = 9;
             this.toolTip.SetToolTip(this.editFocusOffset, "When focus is slightly off, use this to slightly adjust focus");
             this.editFocusOffset.ValueChanged += new System.EventHandler(this.editFocusOffset_ValueChanged);
             // 
             // LensCalibrationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 349);
+            this.ClientSize = new System.Drawing.Size(357, 537);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.editFocusOffset);
             this.Controls.Add(this.listCalibration);
@@ -218,7 +228,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.focalPowerEdit);
             this.Controls.Add(this.heightEdit);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "LensCalibrationForm";
             this.Text = "Lens Calibration";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LensCalibrationForm_FormClosing);

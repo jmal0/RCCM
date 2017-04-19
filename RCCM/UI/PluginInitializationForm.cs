@@ -48,8 +48,8 @@ namespace RCCM.UI
             }
             this.Text = plugin.Name;
             this.buttonStop.Enabled = false;
-            this.Height = 88 + 30 * this.plugin.Params.Length;
-            this.tableLayoutPanelGrid.RowStyles[0].Height = 30 * this.plugin.Params.Length;
+            this.Height = 80 + 32 * this.plugin.Params.Length;
+            this.tableLayoutPanelGrid.RowStyles[0].Height = 32 * this.plugin.Params.Length;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)

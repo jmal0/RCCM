@@ -97,7 +97,8 @@
             // editPanelX
             // 
             this.editPanelX.DecimalPlaces = 1;
-            this.editPanelX.Location = new System.Drawing.Point(70, 42);
+            this.editPanelX.Location = new System.Drawing.Point(105, 65);
+            this.editPanelX.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editPanelX.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -109,23 +110,25 @@
             0,
             -2147483648});
             this.editPanelX.Name = "editPanelX";
-            this.editPanelX.Size = new System.Drawing.Size(100, 20);
+            this.editPanelX.Size = new System.Drawing.Size(150, 26);
             this.editPanelX.TabIndex = 20;
             this.toolTip.SetToolTip(this.editPanelX, "X offset of top left corner of panel from corner of coarse actuator travel");
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 44);
+            this.label21.Location = new System.Drawing.Point(9, 68);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(43, 13);
+            this.label21.Size = new System.Drawing.Size(65, 20);
             this.label21.TabIndex = 19;
             this.label21.Text = "X offset";
             // 
             // editPanelY
             // 
             this.editPanelY.DecimalPlaces = 1;
-            this.editPanelY.Location = new System.Drawing.Point(70, 68);
+            this.editPanelY.Location = new System.Drawing.Point(105, 105);
+            this.editPanelY.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editPanelY.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -137,7 +140,7 @@
             0,
             -2147483648});
             this.editPanelY.Name = "editPanelY";
-            this.editPanelY.Size = new System.Drawing.Size(100, 20);
+            this.editPanelY.Size = new System.Drawing.Size(150, 26);
             this.editPanelY.TabIndex = 18;
             this.editPanelY.Tag = "";
             this.toolTip.SetToolTip(this.editPanelY, "Y offset of top left corner of panel from corner of coarse actuator travel");
@@ -145,9 +148,10 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 70);
+            this.label18.Location = new System.Drawing.Point(9, 108);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(43, 13);
+            this.label18.Size = new System.Drawing.Size(65, 20);
             this.label18.TabIndex = 17;
             this.label18.Text = "Y offset";
             // 
@@ -159,23 +163,25 @@
             0,
             0,
             65536});
-            this.editPanelRotation.Location = new System.Drawing.Point(70, 16);
+            this.editPanelRotation.Location = new System.Drawing.Point(105, 25);
+            this.editPanelRotation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editPanelRotation.Maximum = new decimal(new int[] {
             360,
             0,
             0,
             0});
             this.editPanelRotation.Name = "editPanelRotation";
-            this.editPanelRotation.Size = new System.Drawing.Size(100, 20);
+            this.editPanelRotation.Size = new System.Drawing.Size(150, 26);
             this.editPanelRotation.TabIndex = 16;
             this.toolTip.SetToolTip(this.editPanelRotation, "Rotation of panel with respect to the coarse actuators");
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 18);
+            this.label19.Location = new System.Drawing.Point(9, 28);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(47, 13);
+            this.label19.Size = new System.Drawing.Size(70, 20);
             this.label19.TabIndex = 15;
             this.label19.Text = "Rotation";
             // 
@@ -187,30 +193,33 @@
             0,
             0,
             65536});
-            this.editRotation.Location = new System.Drawing.Point(107, 175);
+            this.editRotation.Location = new System.Drawing.Point(160, 269);
+            this.editRotation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editRotation.Maximum = new decimal(new int[] {
             360,
             0,
             0,
             0});
             this.editRotation.Name = "editRotation";
-            this.editRotation.Size = new System.Drawing.Size(64, 20);
+            this.editRotation.Size = new System.Drawing.Size(96, 26);
             this.editRotation.TabIndex = 14;
             this.toolTip.SetToolTip(this.editRotation, "Orientation of pivot plate");
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 178);
+            this.label20.Location = new System.Drawing.Point(9, 274);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(94, 13);
+            this.label20.Size = new System.Drawing.Size(142, 20);
             this.label20.TabIndex = 13;
             this.label20.Text = "Fine stage rotation";
             // 
             // editPanelWidth
             // 
             this.editPanelWidth.DecimalPlaces = 1;
-            this.editPanelWidth.Location = new System.Drawing.Point(71, 95);
+            this.editPanelWidth.Location = new System.Drawing.Point(106, 146);
+            this.editPanelWidth.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editPanelWidth.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -222,7 +231,7 @@
             0,
             -2147483648});
             this.editPanelWidth.Name = "editPanelWidth";
-            this.editPanelWidth.Size = new System.Drawing.Size(100, 20);
+            this.editPanelWidth.Size = new System.Drawing.Size(150, 26);
             this.editPanelWidth.TabIndex = 24;
             this.editPanelWidth.Tag = "";
             this.toolTip.SetToolTip(this.editPanelWidth, "Axial length of panel");
@@ -230,16 +239,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 97);
+            this.label1.Location = new System.Drawing.Point(10, 149);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(50, 20);
             this.label1.TabIndex = 23;
             this.label1.Text = "Width";
             // 
             // editPanelHeight
             // 
             this.editPanelHeight.DecimalPlaces = 1;
-            this.editPanelHeight.Location = new System.Drawing.Point(71, 121);
+            this.editPanelHeight.Location = new System.Drawing.Point(106, 186);
+            this.editPanelHeight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editPanelHeight.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -251,16 +262,17 @@
             0,
             -2147483648});
             this.editPanelHeight.Name = "editPanelHeight";
-            this.editPanelHeight.Size = new System.Drawing.Size(100, 20);
+            this.editPanelHeight.Size = new System.Drawing.Size(150, 26);
             this.editPanelHeight.TabIndex = 22;
             this.toolTip.SetToolTip(this.editPanelHeight, "Hoop length of panel");
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 123);
+            this.label2.Location = new System.Drawing.Point(10, 189);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(56, 20);
             this.label2.TabIndex = 21;
             this.label2.Text = "Height";
             // 
@@ -280,8 +292,10 @@
             this.groupBox1.Controls.Add(this.editPanelX);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(177, 171);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(266, 263);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Panel";
@@ -289,7 +303,8 @@
             // editPanelRadius
             // 
             this.editPanelRadius.DecimalPlaces = 1;
-            this.editPanelRadius.Location = new System.Drawing.Point(71, 147);
+            this.editPanelRadius.Location = new System.Drawing.Point(106, 226);
+            this.editPanelRadius.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editPanelRadius.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -301,16 +316,17 @@
             0,
             -2147483648});
             this.editPanelRadius.Name = "editPanelRadius";
-            this.editPanelRadius.Size = new System.Drawing.Size(100, 20);
+            this.editPanelRadius.Size = new System.Drawing.Size(150, 26);
             this.editPanelRadius.TabIndex = 26;
             this.toolTip.SetToolTip(this.editPanelRadius, "Radius of curvature of panel");
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 149);
+            this.label3.Location = new System.Drawing.Point(10, 229);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
+            this.label3.Size = new System.Drawing.Size(59, 20);
             this.label3.TabIndex = 25;
             this.label3.Text = "Radius";
             // 
@@ -321,9 +337,11 @@
             this.groupBox2.Controls.Add(this.editNFOV1Y);
             this.groupBox2.Controls.Add(this.editNFOV1X);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Location = new System.Drawing.Point(4, 5);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(177, 97);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(267, 149);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "NFOV 1";
@@ -331,18 +349,20 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 20);
+            this.label8.Location = new System.Drawing.Point(9, 31);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
+            this.label8.Size = new System.Drawing.Size(65, 20);
             this.label8.TabIndex = 19;
             this.label8.Text = "X offset";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 46);
+            this.label9.Location = new System.Drawing.Point(9, 71);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(43, 13);
+            this.label9.Size = new System.Drawing.Size(65, 20);
             this.label9.TabIndex = 17;
             this.label9.Text = "Y offset";
             // 
@@ -350,7 +370,8 @@
             // 
             this.editNFOV1Y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editNFOV1Y.DecimalPlaces = 1;
-            this.editNFOV1Y.Location = new System.Drawing.Point(68, 46);
+            this.editNFOV1Y.Location = new System.Drawing.Point(102, 71);
+            this.editNFOV1Y.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editNFOV1Y.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -362,7 +383,7 @@
             0,
             -2147483648});
             this.editNFOV1Y.Name = "editNFOV1Y";
-            this.editNFOV1Y.Size = new System.Drawing.Size(103, 20);
+            this.editNFOV1Y.Size = new System.Drawing.Size(155, 26);
             this.editNFOV1Y.TabIndex = 18;
             this.toolTip.SetToolTip(this.editNFOV1Y, "Y offset of NFOV 1 camera in X direction from center of rotation plate");
             // 
@@ -370,7 +391,8 @@
             // 
             this.editNFOV1X.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editNFOV1X.DecimalPlaces = 1;
-            this.editNFOV1X.Location = new System.Drawing.Point(68, 20);
+            this.editNFOV1X.Location = new System.Drawing.Point(102, 31);
+            this.editNFOV1X.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editNFOV1X.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -382,7 +404,7 @@
             0,
             -2147483648});
             this.editNFOV1X.Name = "editNFOV1X";
-            this.editNFOV1X.Size = new System.Drawing.Size(103, 20);
+            this.editNFOV1X.Size = new System.Drawing.Size(155, 26);
             this.editNFOV1X.TabIndex = 20;
             this.toolTip.SetToolTip(this.editNFOV1X, "X offset of NFOV 1 camera in X direction from center of rotation plate");
             // 
@@ -393,9 +415,11 @@
             this.groupBox3.Controls.Add(this.editNFOV2Y);
             this.groupBox3.Controls.Add(this.editNFOV2X);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(3, 106);
+            this.groupBox3.Location = new System.Drawing.Point(4, 164);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(177, 98);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox3.Size = new System.Drawing.Size(267, 149);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "NFOV 2";
@@ -403,18 +427,20 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 20);
+            this.label4.Location = new System.Drawing.Point(9, 31);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.Size = new System.Drawing.Size(65, 20);
             this.label4.TabIndex = 19;
             this.label4.Text = "X offset";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 46);
+            this.label5.Location = new System.Drawing.Point(9, 71);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.Size = new System.Drawing.Size(65, 20);
             this.label5.TabIndex = 17;
             this.label5.Text = "Y offset";
             // 
@@ -422,7 +448,8 @@
             // 
             this.editNFOV2Y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editNFOV2Y.DecimalPlaces = 1;
-            this.editNFOV2Y.Location = new System.Drawing.Point(68, 45);
+            this.editNFOV2Y.Location = new System.Drawing.Point(102, 68);
+            this.editNFOV2Y.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editNFOV2Y.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -434,7 +461,7 @@
             0,
             -2147483648});
             this.editNFOV2Y.Name = "editNFOV2Y";
-            this.editNFOV2Y.Size = new System.Drawing.Size(103, 20);
+            this.editNFOV2Y.Size = new System.Drawing.Size(155, 26);
             this.editNFOV2Y.TabIndex = 18;
             this.toolTip.SetToolTip(this.editNFOV2Y, "Y offset of NFOV 2 camera in X direction from center of rotation plate");
             // 
@@ -442,7 +469,8 @@
             // 
             this.editNFOV2X.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editNFOV2X.DecimalPlaces = 1;
-            this.editNFOV2X.Location = new System.Drawing.Point(68, 19);
+            this.editNFOV2X.Location = new System.Drawing.Point(102, 28);
+            this.editNFOV2X.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editNFOV2X.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -454,7 +482,7 @@
             0,
             -2147483648});
             this.editNFOV2X.Name = "editNFOV2X";
-            this.editNFOV2X.Size = new System.Drawing.Size(103, 20);
+            this.editNFOV2X.Size = new System.Drawing.Size(155, 26);
             this.editNFOV2X.TabIndex = 20;
             this.toolTip.SetToolTip(this.editNFOV2X, "X offset of NFOV 2 camera in X direction from center of rotation plate");
             // 
@@ -465,9 +493,11 @@
             this.groupBox4.Controls.Add(this.editWFOV2Y);
             this.groupBox4.Controls.Add(this.editWFOV2X);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(186, 106);
+            this.groupBox4.Location = new System.Drawing.Point(279, 164);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(178, 98);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox4.Size = new System.Drawing.Size(268, 149);
             this.groupBox4.TabIndex = 28;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "WFOV 2";
@@ -475,18 +505,20 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 20);
+            this.label6.Location = new System.Drawing.Point(9, 31);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 13);
+            this.label6.Size = new System.Drawing.Size(65, 20);
             this.label6.TabIndex = 19;
             this.label6.Text = "X offset";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 46);
+            this.label7.Location = new System.Drawing.Point(9, 71);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.Size = new System.Drawing.Size(65, 20);
             this.label7.TabIndex = 17;
             this.label7.Text = "Y offset";
             // 
@@ -494,7 +526,8 @@
             // 
             this.editWFOV2Y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editWFOV2Y.DecimalPlaces = 1;
-            this.editWFOV2Y.Location = new System.Drawing.Point(69, 45);
+            this.editWFOV2Y.Location = new System.Drawing.Point(104, 68);
+            this.editWFOV2Y.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editWFOV2Y.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -506,7 +539,7 @@
             0,
             -2147483648});
             this.editWFOV2Y.Name = "editWFOV2Y";
-            this.editWFOV2Y.Size = new System.Drawing.Size(103, 20);
+            this.editWFOV2Y.Size = new System.Drawing.Size(155, 26);
             this.editWFOV2Y.TabIndex = 18;
             this.toolTip.SetToolTip(this.editWFOV2Y, "Y offset of WFOV 2 camera in X direction from center of rotation plate");
             // 
@@ -514,7 +547,8 @@
             // 
             this.editWFOV2X.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editWFOV2X.DecimalPlaces = 1;
-            this.editWFOV2X.Location = new System.Drawing.Point(69, 19);
+            this.editWFOV2X.Location = new System.Drawing.Point(104, 28);
+            this.editWFOV2X.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editWFOV2X.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -526,7 +560,7 @@
             0,
             -2147483648});
             this.editWFOV2X.Name = "editWFOV2X";
-            this.editWFOV2X.Size = new System.Drawing.Size(103, 20);
+            this.editWFOV2X.Size = new System.Drawing.Size(155, 26);
             this.editWFOV2X.TabIndex = 20;
             this.toolTip.SetToolTip(this.editWFOV2X, "X offset of WFOV 2 camera in X direction from center of rotation plate");
             // 
@@ -537,9 +571,11 @@
             this.groupBox5.Controls.Add(this.editWFOV1Y);
             this.groupBox5.Controls.Add(this.editWFOV1X);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(186, 3);
+            this.groupBox5.Location = new System.Drawing.Point(279, 5);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(178, 97);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox5.Size = new System.Drawing.Size(268, 149);
             this.groupBox5.TabIndex = 28;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "WFOV 1";
@@ -547,18 +583,20 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 20);
+            this.label10.Location = new System.Drawing.Point(9, 31);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.Size = new System.Drawing.Size(65, 20);
             this.label10.TabIndex = 19;
             this.label10.Text = "X offset";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 46);
+            this.label11.Location = new System.Drawing.Point(9, 71);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(43, 13);
+            this.label11.Size = new System.Drawing.Size(65, 20);
             this.label11.TabIndex = 17;
             this.label11.Text = "Y offset";
             // 
@@ -566,7 +604,8 @@
             // 
             this.editWFOV1Y.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editWFOV1Y.DecimalPlaces = 1;
-            this.editWFOV1Y.Location = new System.Drawing.Point(69, 46);
+            this.editWFOV1Y.Location = new System.Drawing.Point(104, 71);
+            this.editWFOV1Y.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editWFOV1Y.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -578,7 +617,7 @@
             0,
             -2147483648});
             this.editWFOV1Y.Name = "editWFOV1Y";
-            this.editWFOV1Y.Size = new System.Drawing.Size(103, 20);
+            this.editWFOV1Y.Size = new System.Drawing.Size(155, 26);
             this.editWFOV1Y.TabIndex = 18;
             this.toolTip.SetToolTip(this.editWFOV1Y, "Y offset of WFOV 1 camera in X direction from center of rotation plate");
             // 
@@ -586,7 +625,8 @@
             // 
             this.editWFOV1X.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editWFOV1X.DecimalPlaces = 1;
-            this.editWFOV1X.Location = new System.Drawing.Point(69, 20);
+            this.editWFOV1X.Location = new System.Drawing.Point(104, 31);
+            this.editWFOV1X.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editWFOV1X.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -598,7 +638,7 @@
             0,
             -2147483648});
             this.editWFOV1X.Name = "editWFOV1X";
-            this.editWFOV1X.Size = new System.Drawing.Size(103, 20);
+            this.editWFOV1X.Size = new System.Drawing.Size(155, 26);
             this.editWFOV1X.TabIndex = 20;
             this.toolTip.SetToolTip(this.editWFOV1X, "X offset of WFOV 1 camera in X direction from center of rotation plate");
             // 
@@ -612,13 +652,13 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox5, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(183, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(274, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(367, 207);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(551, 318);
             this.tableLayoutPanel1.TabIndex = 29;
             // 
             // tableLayoutPanel2
@@ -630,10 +670,11 @@
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel1, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(550, 207);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(825, 318);
             this.tableLayoutPanel2.TabIndex = 30;
             // 
             // panel1
@@ -642,18 +683,21 @@
             this.panel1.Controls.Add(this.label20);
             this.panel1.Controls.Add(this.editRotation);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(4, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(177, 201);
+            this.panel1.Size = new System.Drawing.Size(266, 308);
             this.panel1.TabIndex = 21;
             // 
             // CoordinateSystemSettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 207);
+            this.ClientSize = new System.Drawing.Size(825, 318);
             this.Controls.Add(this.tableLayoutPanel2);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CoordinateSystemSettingsForm";
             this.Text = "Coordinate System";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CoordinateSystemSettingsForm_FormClosed);

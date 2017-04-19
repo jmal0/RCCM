@@ -49,16 +49,18 @@
             this.dropdownProperty.Dock = System.Windows.Forms.DockStyle.Top;
             this.dropdownProperty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dropdownProperty.FormattingEnabled = true;
-            this.dropdownProperty.Location = new System.Drawing.Point(98, 63);
+            this.dropdownProperty.Location = new System.Drawing.Point(147, 97);
+            this.dropdownProperty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dropdownProperty.Name = "dropdownProperty";
-            this.dropdownProperty.Size = new System.Drawing.Size(138, 21);
+            this.dropdownProperty.Size = new System.Drawing.Size(207, 28);
             this.dropdownProperty.TabIndex = 1;
             this.dropdownProperty.SelectedIndexChanged += new System.EventHandler(this.dropdownProperty_SelectedIndexChanged);
             // 
             // editValue
             // 
             this.editValue.Dock = System.Windows.Forms.DockStyle.Top;
-            this.editValue.Location = new System.Drawing.Point(98, 93);
+            this.editValue.Location = new System.Drawing.Point(147, 143);
+            this.editValue.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editValue.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -70,32 +72,35 @@
             0,
             -2147483648});
             this.editValue.Name = "editValue";
-            this.editValue.Size = new System.Drawing.Size(138, 20);
+            this.editValue.Size = new System.Drawing.Size(207, 26);
             this.editValue.TabIndex = 2;
             this.editValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editValue_KeyDown);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 90);
+            this.label1.Location = new System.Drawing.Point(4, 138);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.Size = new System.Drawing.Size(50, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Value";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 60);
+            this.label2.Location = new System.Drawing.Point(4, 92);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.Size = new System.Drawing.Size(68, 20);
             this.label2.TabIndex = 4;
             this.label2.Text = "Property";
             // 
             // checkBoxEnable
             // 
             this.checkBoxEnable.AutoSize = true;
-            this.checkBoxEnable.Location = new System.Drawing.Point(98, 33);
+            this.checkBoxEnable.Location = new System.Drawing.Point(147, 51);
+            this.checkBoxEnable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxEnable.Name = "checkBoxEnable";
             this.checkBoxEnable.Size = new System.Drawing.Size(15, 14);
             this.checkBoxEnable.TabIndex = 5;
@@ -107,18 +112,20 @@
             this.dropdownMotor.Dock = System.Windows.Forms.DockStyle.Top;
             this.dropdownMotor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.dropdownMotor.FormattingEnabled = true;
-            this.dropdownMotor.Location = new System.Drawing.Point(98, 3);
+            this.dropdownMotor.Location = new System.Drawing.Point(147, 5);
+            this.dropdownMotor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dropdownMotor.Name = "dropdownMotor";
-            this.dropdownMotor.Size = new System.Drawing.Size(138, 21);
+            this.dropdownMotor.Size = new System.Drawing.Size(207, 28);
             this.dropdownMotor.TabIndex = 6;
             this.dropdownMotor.SelectedIndexChanged += new System.EventHandler(this.dropdownMotor_SelectedIndexChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Location = new System.Drawing.Point(4, 0);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.Size = new System.Drawing.Size(50, 20);
             this.label3.TabIndex = 7;
             this.label3.Text = "Motor";
             // 
@@ -139,31 +146,34 @@
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(239, 150);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(358, 231);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 30);
+            this.label4.Location = new System.Drawing.Point(4, 46);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.Size = new System.Drawing.Size(68, 20);
             this.label4.TabIndex = 8;
             this.label4.Text = "Enabled";
             // 
             // btnCheckStatus
             // 
             this.btnCheckStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCheckStatus.Location = new System.Drawing.Point(98, 123);
+            this.btnCheckStatus.Location = new System.Drawing.Point(147, 189);
+            this.btnCheckStatus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCheckStatus.Name = "btnCheckStatus";
-            this.btnCheckStatus.Size = new System.Drawing.Size(138, 24);
+            this.btnCheckStatus.Size = new System.Drawing.Size(207, 37);
             this.btnCheckStatus.TabIndex = 9;
             this.btnCheckStatus.Text = "Status";
             this.btnCheckStatus.UseVisualStyleBackColor = true;
@@ -172,20 +182,23 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 120);
+            this.label5.Location = new System.Drawing.Point(4, 184);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(25, 13);
+            this.label5.Size = new System.Drawing.Size(37, 20);
             this.label5.TabIndex = 10;
             this.label5.Text = "Info";
             // 
             // MotorSettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(239, 150);
+            this.ClientSize = new System.Drawing.Size(358, 231);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MotorSettingsForm";
             this.Text = "Motor Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MotorSettingsForm_FormClosing);
