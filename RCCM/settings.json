@@ -163,18 +163,18 @@
     "microns / pixel": 6.62,
     "x offset": -533.0,
     "y offset": -254.0,
-    "image directory": "C:\\Users\\DrexelUser\\Pictures\\RCCM\\WFOV 1",
-    "video directory": "C:\\Users\\DrexelUser\\Videos\\RCCM\\WFOV 1",
-    "test data directory": "C:\\Users\\DrexelUser\\Documents\\RCCM\\Data\\WFOV 1"
+    "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\WFOV 1",
+    "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\WFOV 1",
+    "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\WFOV 1"
   },
   "wfov 2": {
     "configuration file": "config\\WFOV2.xml",
     "microns / pixel": 6.62,
     "x offset": 25.0,
     "y offset": -254.0,
-    "image directory": "C:\\Users\\DrexelUser\\Pictures\\RCCM\\WFOV 2",
-    "video directory": "C:\\Users\\DrexelUser\\Videos\\RCCM\\WFOV 2",
-    "test data directory": "C:\\Users\\DrexelUser\\Documents\\RCCM\\Data\\WFOV 2"
+    "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\WFOV 2",
+    "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\WFOV 2",
+    "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\WFOV 2"
   },
   "nfov 1": {
     "camera serial": 16396117,
@@ -196,12 +196,12 @@
     ],
     "x offset": -533.0,
     "y offset": -254.0,
-    "image directory": "C:\\Users\\DrexelUser\\Pictures\\RCCM\\NFOV 1",
-    "video directory": "C:\\Users\\DrexelUser\\Videos\\RCCM\\NFOV 1",
-    "test data directory": "C:\\Users\\DrexelUser\\Documents\\RCCM\\Data\\NFOV 1"
+    "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\NFOV 1",
+    "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\NFOV 1",
+    "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\NFOV 1"
   },
   "nfov 2": {
-    "camera serial": 0,
+    "camera serial": 17120360,
     "controller serial": 641405,
     "microns / pixel": 11.0,
     "height": 2048,
@@ -220,9 +220,9 @@
     ],
     "x offset": 25.0,
     "y offset": -254.0,
-    "image directory": "C:\\Users\\DrexelUser\\Pictures\\RCCM\\NFOV 2",
-    "video directory": "C:\\Users\\DrexelUser\\Videos\\RCCM\\NFOV 2",
-    "test data directory": "C:\\Users\\DrexelUser\\Documents\\RCCM\\Data\\NFOV 2"
+    "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\NFOV 2",
+    "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\NFOV 2",
+    "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\NFOV 2"
   },
   // UI Settings
   "repaint period": 100, // milliseconds
@@ -246,5 +246,23 @@
     // h_filtered = alpha*h + (1-alpha)*h_filtered
     "height reading filter constant": 0.6
   },
+  "cycle counter": {
+    // Type can be "virtual" or "dataq" to control whether or not to use real readings
+    "type": "dataq",
+    // Serial number of DATAQ DI-1100 device
+    "serial":  "4D5B903E",
+    // Input channel for pressure reading
+    "pressure input": 1,
+    // Input channel for cycle signal
+    "cycle input": 4,
+    // Calibration between voltage and pressure (1st, 2nd columns respectively)
+    "calibration": [
+      [ -10, -10 ],
+      [ 10, 10 ]
+    ],
+    // Threshold voltage to interpret as a cycle signal
+    "threshold": 1.0
+  },
+  // Directory from which plugin dlls are loaded
   "plugin directory": "Plugins"
 }

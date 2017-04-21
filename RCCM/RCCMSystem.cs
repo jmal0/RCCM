@@ -23,7 +23,7 @@ namespace RCCM
 
         public Dictionary<string, Motor> motors { get; private set; }
 
-        public CycleCounter Counter { get; private set; }
+        public ICycleCounter Counter { get; private set; }
 
         public double FineStageAngle
         {
@@ -178,8 +178,15 @@ namespace RCCM
 
             // Create cycle counter with test frequency specified in settings
             // Convert frequency to period in milliseconds
-            double freq = (int)Program.Settings.json["cycle frequency"];
-            this.Counter = new CycleCounter((int) Math.Round(1000.0 / freq));
+            if ((string)Program.Settings.json["cycle counter"]["type"] == "virtual")
+            {
+                double freq = (int)Program.Settings.json["cycle frequency"];
+                this.Counter = new CycleCounter((int)Math.Round(1000.0 / freq));
+            }
+            else
+            {
+                this.Counter = new DataqCycleCounter();
+            }
         }
 
         protected void setFineStageRotationMatrix()
@@ -366,6 +373,7 @@ namespace RCCM
         public void Stop()
         {
             this.LensController.Stop();
+            this.Counter.Terminate();
             foreach (string motorName in RCCMSystem.AXES)
             {
                 this.motors[motorName].Terminate();

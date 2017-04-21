@@ -18,7 +18,7 @@ namespace RCCM
         protected TextBox cycleIndicator;
         protected TextBox pressureIndicator;
         protected ListBox crackSelection;
-        protected CycleCounter counter;
+        protected ICycleCounter counter;
         protected Timer updateControlsTimer;
         protected int savedReadings;
 

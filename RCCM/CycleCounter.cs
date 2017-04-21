@@ -122,5 +122,10 @@ namespace RCCM
                 return this.Cycle * this.Period;
             }
         }
+
+        public void Terminate()
+        {
+            // Does nothing
+        }
     }
 }

@@ -294,7 +294,7 @@ namespace RCCM.UI
 
         private void editCycleFreq_Click(object sender, EventArgs e)
         {
-            this.rccm.Counter.Period = (int)(2000.0 * Math.PI * (double)this.editCycleFreq.Value);
+            //this.rccm.Counter.Period = (int)(2000.0 * Math.PI * (double)this.editCycleFreq.Value);
         }
 
         #endregion

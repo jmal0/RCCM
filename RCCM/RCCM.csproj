@@ -78,6 +78,26 @@
     <Reference Include="AxInterop.TrioPCLib">
       <HintPath>..\..\..\..\..\..\Downloads\ActiveXTestVCS\bin\Debug\AxInterop.TrioPCLib.dll</HintPath>
     </Reference>
+    <Reference Include="Dataq, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9767f47f9c295223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DATAQ Instruments\DATAQ Instruments SDK Beta\Common .Net library - v2\Dataq.dll</HintPath>
+    </Reference>
+    <Reference Include="Dataq.Devices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9767f47f9c295223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DATAQ Instruments\DATAQ Instruments SDK Beta\Devices API .Net library - v2\Dataq.Devices.dll</HintPath>
+    </Reference>
+    <Reference Include="Dataq.Devices.Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9767f47f9c295223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DATAQ Instruments\DATAQ Instruments SDK Beta\Devices Implementation .Net library - v1\Dataq.Devices.Main.dll</HintPath>
+    </Reference>
+    <Reference Include="Dataq.Platforms.Windows, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9767f47f9c295223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DATAQ Instruments\DATAQ Instruments SDK Beta\Windows Platform .Net library - v1\Dataq.Platforms.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Dataq.Protocols, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9767f47f9c295223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DATAQ Instruments\DATAQ Instruments SDK Beta\Device Protocols .Net library - v1\Dataq.Protocols.dll</HintPath>
+    </Reference>
     <Reference Include="FlyCap2CameraControld_v140">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Point Grey Research\FlyCapture2\bin64\vs2015\FlyCap2CameraControld_v140.dll</HintPath>
     </Reference>
@@ -128,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="DataqCycleCounter.cs" />
     <Compile Include="ICycleCounter.cs" />
     <Compile Include="IRCCMPlugin.cs" />
     <Compile Include="IRCCMPluginActor.cs" />
