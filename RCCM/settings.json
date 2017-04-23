@@ -208,7 +208,7 @@
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\NFOV 1"
   },
   "nfov 2": {
-    "camera serial": 17120360,
+    "camera serial": 343144,
     "controller serial": 641405,
     "microns / pixel": 11.0,
     "calibration height": 100,
