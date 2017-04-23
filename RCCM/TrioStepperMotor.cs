@@ -118,6 +118,11 @@ namespace RCCM
             return this.controller.GetAxisProperty("MPOS", this.axisNum);
         }
 
+        public override void Zero()
+        {
+            this.controller.Zero(this.axisNum);
+        }
+
         public override Dictionary<string, double> GetAllProperties()
         {
             Dictionary<string, double> properties = new Dictionary<string, double>(TrioController.AX_PROPERTIES.Length);

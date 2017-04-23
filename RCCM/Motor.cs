@@ -80,6 +80,11 @@ namespace RCCM
             return this.GetPos();
         }
 
+        public virtual void Zero()
+        {
+            this.commandPos = 0;
+        }
+
         public virtual void Terminate() { }
     }
 }

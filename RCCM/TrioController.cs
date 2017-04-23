@@ -145,6 +145,11 @@ namespace RCCM
             return status1 && status2;
         }
 
+        public void Zero(short nAxis)
+        {
+            this.triopc.Datum(0, nAxis);
+        }
+
         public bool Stop()
         {
             return this.triopc.RapidStop();

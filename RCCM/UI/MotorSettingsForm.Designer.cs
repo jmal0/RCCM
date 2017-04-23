@@ -40,6 +40,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnCheckStatus = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnZero = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.editValue)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -142,19 +144,23 @@
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxEnable, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnCheckStatus, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.btnCheckStatus, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.btnZero, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(358, 231);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(358, 277);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // label4
@@ -170,7 +176,7 @@
             // btnCheckStatus
             // 
             this.btnCheckStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCheckStatus.Location = new System.Drawing.Point(147, 189);
+            this.btnCheckStatus.Location = new System.Drawing.Point(147, 235);
             this.btnCheckStatus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCheckStatus.Name = "btnCheckStatus";
             this.btnCheckStatus.Size = new System.Drawing.Size(207, 37);
@@ -182,19 +188,39 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 184);
+            this.label5.Location = new System.Drawing.Point(4, 230);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 20);
             this.label5.TabIndex = 10;
             this.label5.Text = "Info";
             // 
+            // btnZero
+            // 
+            this.btnZero.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnZero.Location = new System.Drawing.Point(146, 187);
+            this.btnZero.Name = "btnZero";
+            this.btnZero.Size = new System.Drawing.Size(209, 40);
+            this.btnZero.TabIndex = 11;
+            this.btnZero.Text = "Zero Actuator";
+            this.btnZero.UseVisualStyleBackColor = true;
+            this.btnZero.Click += new System.EventHandler(this.btnZero_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 184);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(42, 20);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Zero";
+            // 
             // MotorSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(358, 231);
+            this.ClientSize = new System.Drawing.Size(358, 277);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -223,5 +249,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnCheckStatus;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnZero;
+        private System.Windows.Forms.Label label6;
     }
 }

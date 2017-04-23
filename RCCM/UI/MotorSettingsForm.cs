@@ -92,8 +92,20 @@ namespace RCCM.UI
         private void btnCheckStatus_Click(object sender, EventArgs e)
         {
             string motorName = this.dropdownMotor.Items[this.dropdownMotor.SelectedIndex].ToString();
-            Dictionary<string, double> properties = this.rccm.motors[motorName].GetAllProperties();
-            MessageBox.Show(string.Join("\n", properties));
+            if (motorName != null)
+            {
+                Dictionary<string, double> properties = this.rccm.motors[motorName].GetAllProperties();
+                MessageBox.Show(string.Join("\n", properties));
+            }
+        }
+
+        private void btnZero_Click(object sender, EventArgs e)
+        {
+            string motorName = this.dropdownMotor.Items[this.dropdownMotor.SelectedIndex].ToString();
+            if (motorName != null)
+            {
+                this.rccm.motors[motorName].Zero();
+            }
         }
     }
 }
