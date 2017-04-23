@@ -14,6 +14,7 @@ The hardware and software for this project require the following dependencies to
 * Microsoft .NET Framework 4 (or later)
 * [TrioPC Motion](http://www.triomotion.com/tmt3/sitefiles/software/addon_software.asp#one&section=six)
  * After installing the ActiveX component, it will need to be registered. This can be done by following [this procedure](http://www.ctimls.com/Support/KB/How%20To/Register_dll.htm). Open a command prompt as administrator, enter cd C:\Windows\SysWOW64 followed by regsvr32 "C:\Program Files\TrioMotion\TrioPCMotion\TrioPC64.ocx"
+ * [DATAQ SDK .NET](https://www.dataq.com/products/sdk-dot-net/dotnet-class.html) - SDK for DI-1100 device
 
 The following software packages are provided by the hardware manufacturers and may be useful for degubbing issues with the hardware:
 
@@ -21,6 +22,8 @@ The following software packages are provided by the hardware manufacturers and m
 * [Point Grey FlyCap2 Viewer](https://www.ptgrey.com/support/downloads/10655/) - GUI for showing NFOV live image and adjusting settings
 * [GardasoftMaint](http://www.gardasoft.com/Downloads/) - Interface to Gardasoft TR-CL180 NFOV lens controller
 * [Motion Perfect v4](http://www.triomotion.com/tmt3/sitefiles/software/motion_perfectv4.asp#section=t10) - Tool for managing Trio 8-axis motor controller.
+* [P7000 Tools](http://www.kollmorgen.com/en-us/products/drives/stepper/p7000-series/_software-firmware/p7000_tools_-2.11/) - Kollmorgen software for configuring P70530 DC stepper drives
+* [WinDaq](https://www.dataq.com/products/windaq/) - Software for viewing data acquired on DATAQ DI-1100 USB DAQ. Download from DI-1100 product page.
 
 ## Installation
 
@@ -39,6 +42,7 @@ Set the target to x64 and compile. Before running, you should ensure that the ex
 * settings.json
 * config/WFOV1.xml
 * config/WFOV2.xml
+* log/
 
 ## Usage and Functionality
 
@@ -113,8 +117,6 @@ Below is a summary of the purpose and function of each file and Class declared i
 ## Known Issues
 
 * The "Cancel" button in the WFOV properties window crashes the WFOV camera (as of 2-12-2017 on Windows 10)
-* NFOV video recording does not work
-* Cycle counting has not been implemented - currently a constant cycle frequency can be set which will be used to increment the cycle number periodically.
 
 ## License
 
