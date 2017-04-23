@@ -227,6 +227,11 @@ namespace RCCM.UI
                 PointF pix = this.rccm.FineVectorToGlobalVector(pixX, pixY);
                 Measurement p0 = new Measurement(this.cracks[this.ActiveIndex], this.rccm, pix.X, pix.Y);
                 this.cracks[this.ActiveIndex].AddPoint(p0);
+                
+                if (!this.camera.CheckFOV(this.rccm))
+                {
+                    MessageBox.Show("Warning: Calibration FOV does not match current conditions");
+                }
             }
         }
 

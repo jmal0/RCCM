@@ -117,18 +117,18 @@ namespace RCCM
         /// <summary>
         /// Create a NFOV camera from its serial number and apply the specified calibration
         /// </summary>
-        /// <param name="serial">Serial number of the camera</param>
-        /// <param name="pix2um">Calibration, microns/pixels</param>
-        public NFOV(uint serial, double pix2um, uint h, uint w)
+        /// <param name="name">Name of camera in settings</param>
+        public NFOV(string name)
         {
-            this.serial = serial;
-            this.Scale = pix2um;
+            this.serial = (uint)Program.Settings.json[name]["camera serial"];
+            this.Scale = (double)Program.Settings.json[name]["microns / pixel"];
+            this.CalibrationHeight = (double)Program.Settings.json[name]["calibration height"];
             this.Recording = false;
             // Initialize camera object. Connection occurs when initialize() is called
             this.camera = new ManagedGigECamera();
             // Save image dimensions to be used
-            this.PixelHeight = h;
-            this.PixelWidth = w;
+            this.PixelHeight = (uint)Program.Settings.json[name]["height"];
+            this.PixelWidth = (uint)Program.Settings.json[name]["width"];
             // Initialize images
             this.rawImage = new ManagedImage();
             this.ProcessedImage = new ManagedImage();
@@ -421,7 +421,7 @@ namespace RCCM
         public void SetScale(RCCMSystem rccm, double scale)
         {
             // Get z motor for this stage
-            Motor z = this == rccm.NFOV1 ? rccm.motors["fine 1 z"] : rccm.motors["fine 2 z"];
+            Motor z = this == rccm.NFOV1 ? rccm.motors["fine 1 Z"] : rccm.motors["fine 2 Z"];
             this.CalibrationHeight = z.GetPos();
             
             string camera = this == rccm.NFOV1 ? "nfov 1" : "nfov 2";
@@ -438,7 +438,7 @@ namespace RCCM
         public bool CheckFOV(RCCMSystem rccm)
         {
             // Get z motor for this stage
-            Motor z = this == rccm.NFOV1 ? rccm.motors["fine 1 z"] : rccm.motors["fine 2 z"];
+            Motor z = this == rccm.NFOV1 ? rccm.motors["fine 1 Z"] : rccm.motors["fine 2 Z"];
             // Get curernt height
             double h = z.GetPos();
             // Check that calibration height and current height are within a tolerance

@@ -126,14 +126,8 @@ namespace RCCM
             this.PanelAngle = (double)Program.Settings.json["panel"]["rotation"];
 
             // Initialize NFOV cameras & apply settings
-            this.NFOV1 = new NFOV((uint)Program.Settings.json["nfov 1"]["camera serial"],
-                                  (double)Program.Settings.json["nfov 1"]["microns / pixel"],
-                                  (uint)Program.Settings.json["nfov 1"]["height"],
-                                  (uint)Program.Settings.json["nfov 1"]["width"]);
-            this.NFOV2 = new NFOV((uint)Program.Settings.json["nfov 2"]["camera serial"],
-                                  (double)Program.Settings.json["nfov 2"]["microns / pixel"],
-                                  (uint)Program.Settings.json["nfov 2"]["height"],
-                                  (uint)Program.Settings.json["nfov 2"]["width"]);
+            this.NFOV1 = new NFOV("nfov 1");
+            this.NFOV2 = new NFOV("nfov 2");
 
             // Read NFOV lens voltage to distance conversion into double arrays
             double[] conversion1 = { (double)Program.Settings.json["nfov 1"]["conversion"][0], (double)Program.Settings.json["nfov 1"]["conversion"][1] };
@@ -168,10 +162,8 @@ namespace RCCM
                                                          calibration2);
 
             // Initialize WFOV cameras
-            this.WFOV1 = new WFOV((string)Program.Settings.json["wfov 1"]["configuration file"],
-                                  (double)Program.Settings.json["wfov 1"]["microns / pixel"]);
-            this.WFOV2 = new WFOV((string)Program.Settings.json["wfov 2"]["configuration file"],
-                                  (double)Program.Settings.json["wfov 2"]["microns / pixel"]);
+            this.WFOV1 = new WFOV("wfov 1");
+            this.WFOV2 = new WFOV("wfov 2");
 
             // Initialize motors
             this.initializeMotion(axTrioPC);

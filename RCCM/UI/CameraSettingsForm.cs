@@ -24,7 +24,8 @@ namespace RCCM.UI
         private void nfov1Scale_TextChanged(object sender, EventArgs e)
         {
             double newScale;
-            if (Double.TryParse(this.nfov1Scale.Text, out newScale))
+            if (Double.TryParse(this.nfov1Scale.Text, out newScale) &&
+                newScale != (double)Program.Settings.json["nfov 1"]["microns / pixel"])
             {
                 this.rccm.NFOV1.SetScale(this.rccm, newScale);
                 Program.Settings.json["nfov 1"]["microns / pixel"] = newScale;
@@ -34,7 +35,8 @@ namespace RCCM.UI
         private void nfov2Scale_TextChanged(object sender, EventArgs e)
         {
             double newScale;
-            if (Double.TryParse(this.nfov2Scale.Text, out newScale))
+            if (Double.TryParse(this.nfov2Scale.Text, out newScale) &&
+                newScale != (double)Program.Settings.json["nfov 2"]["microns / pixel"])
             {
                 this.rccm.NFOV2.SetScale(this.rccm, newScale);
                 Program.Settings.json["nfov 2"]["microns / pixel"] = newScale;
@@ -44,7 +46,8 @@ namespace RCCM.UI
         private void wfov1Scale_TextChanged(object sender, EventArgs e)
         {
             double newScale;
-            if (Double.TryParse(this.wfov1Scale.Text, out newScale))
+            if (Double.TryParse(this.wfov1Scale.Text, out newScale) &&
+                newScale != (double)Program.Settings.json["wfov 1"]["microns / pixel"])
             {
                 this.rccm.WFOV1.SetScale(this.rccm, newScale);
                 Program.Settings.json["wfov 1"]["microns / pixel"] = newScale;
@@ -54,7 +57,8 @@ namespace RCCM.UI
         private void wfov2Scale_TextChanged(object sender, EventArgs e)
         {
             double newScale;
-            if (Double.TryParse(this.wfov2Scale.Text, out newScale))
+            if (Double.TryParse(this.wfov2Scale.Text, out newScale) &&
+                newScale != (double)Program.Settings.json["wfov 2"]["microns / pixel"])
             {
                 this.rccm.WFOV2.SetScale(this.rccm, newScale);
                 Program.Settings.json["wfov 2"]["microns / pixel"] = newScale;

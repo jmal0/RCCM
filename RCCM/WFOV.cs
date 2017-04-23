@@ -121,11 +121,14 @@ namespace RCCM
         /// <summary>
         /// Create WFOV camera from configuration file
         /// </summary>
-        /// <param name="configFile">Configuration xml file from which settings will be loaded</param>
-        public WFOV(string configFile, double pix2um)
+        /// <param name="name">Name of camera in settings</param>
+        public WFOV(string name)
         {
-            this.configFile = configFile;
-            this.Scale = pix2um;
+            this.configFile = (string)Program.Settings.json[name]["configuration file"];
+            this.Scale = (double)Program.Settings.json[name]["microns / pixel"];
+            this.CalibrationHeight = (double)Program.Settings.json[name]["calibration height"];
+            this.CalibrationZoom = (int)Program.Settings.json[name]["calibration zoom"];
+            this.CalibrationFocus = (int)Program.Settings.json[name]["calibration focus"];
             this.Recording = false;
         }
 
@@ -300,7 +303,7 @@ namespace RCCM
         public void SetScale(RCCMSystem rccm, double scale)
         {
             // Get z motor for this stage
-            Motor z = this == rccm.WFOV1 ? rccm.motors["fine 1 z"] : rccm.motors["fine 2 z"];
+            Motor z = this == rccm.WFOV1 ? rccm.motors["fine 1 Z"] : rccm.motors["fine 2 Z"];
             this.CalibrationHeight = z.GetPos();
             this.CalibrationZoom = this.Zoom;
             this.CalibrationFocus = this.Focus;
@@ -320,7 +323,7 @@ namespace RCCM
         public bool CheckFOV(RCCMSystem rccm)
         {
             // Get z motor for this stage
-            Motor z = this == rccm.WFOV1 ? rccm.motors["fine 1 z"] : rccm.motors["fine 2 z"];
+            Motor z = this == rccm.WFOV1 ? rccm.motors["fine 1 Z"] : rccm.motors["fine 2 Z"];
             // Get curernt height
             double h = z.GetPos();
             // Check that calibration height and current height are within a tolerance

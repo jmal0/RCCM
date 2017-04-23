@@ -56,10 +56,6 @@ namespace RCCM
         /// Token for signalling cancellation to background task
         /// </summary>
         protected CancellationTokenSource cancelRead;
-
-        protected int count = 0;
-        protected double time = 1;
-
         /// <summary>
         /// Threshold voltage that must be crossed to interpret as a cycle signal
         /// </summary>
@@ -163,11 +159,8 @@ namespace RCCM
         /// </summary>
         protected async void readDataLoop()
         {
-            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-            stopwatch.Start();
             while (this.di_1100.IsAcquiring)
             {
-                this.count++;
                 try
                 {
                     // Get all data
@@ -201,8 +194,6 @@ namespace RCCM
                     return;
                 }
             }
-            stopwatch.Stop();
-            this.time = stopwatch.ElapsedMilliseconds / 1000.0;
         }
 
         /// <summary>
@@ -214,7 +205,6 @@ namespace RCCM
             this.di_1100.AcquisitionStopAsync();
             // Forgive me Father for I have sinned
             Thread.Sleep(1000);
-            MessageBox.Show(((double)this.count / this.time).ToString());
         }
 
         public static double PwlInterp(double[,] data, double val)
