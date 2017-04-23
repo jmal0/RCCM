@@ -144,6 +144,11 @@ namespace RCCM.UI
                                                                                        this.drawnLineEnd.Y - pos.Y);
             this.cracks[ActiveIndex].AddPoint(p1);
             this.Drawing = false;
+            
+            if (!this.camera.CheckFOV(this.rccm))
+            {
+                MessageBox.Show("Warning: Calibration FOV does not match current conditions");
+            }
         }
 
         /// <summary>

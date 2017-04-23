@@ -326,6 +326,7 @@
             this.wfov2Config.Size = new System.Drawing.Size(148, 26);
             this.wfov2Config.TabIndex = 0;
             this.wfov2Config.Text = "config\\WFOV2.xml";
+            this.wfov2Config.TextChanged += new System.EventHandler(this.wfov2Config_TextChanged);
             // 
             // groupBox4
             // 
@@ -460,6 +461,7 @@
             this.wfov1Config.Size = new System.Drawing.Size(148, 26);
             this.wfov1Config.TabIndex = 0;
             this.wfov1Config.Text = "config\\WFOV1.xml";
+            this.wfov1Config.TextChanged += new System.EventHandler(this.wfov1Config_TextChanged);
             // 
             // groupBox8
             // 

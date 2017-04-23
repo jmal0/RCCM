@@ -23,9 +23,6 @@ namespace RCCM
         /// Width in pixels of image
         /// </summary>
         public static int IMG_WIDTH = 1280;
-
-        #region Properties
-
         /// <summary>
         /// Flag to indicate connection status of WFOV camera
         /// </summary>
@@ -33,7 +30,7 @@ namespace RCCM
         /// <summary>
         /// Camera microns / pixel calibration
         /// </summary>
-        public double Scale { get; set; }
+        public double Scale { get; protected set; }
         /// <summary>
         /// Height in mm of image
         /// </summary>
@@ -92,11 +89,6 @@ namespace RCCM
         {
             get { return this.VCDProp.RangeMax(VCDIDs.VCDID_Zoom); }
         }
-
-        #endregion
-
-        #region Instance Variables
-
         /// <summary>
         /// Imaging user control for displaying the live image
         /// </summary>
@@ -113,8 +105,18 @@ namespace RCCM
         /// File path to configuration file from which camera is initialized
         /// </summary>
         public string configFile { get; set; }
-        
-        #endregion
+        /// <summary>
+        /// File path to configuration file from which camera is initialized
+        /// </summary>
+        public double CalibrationHeight { get; protected set; }
+        /// <summary>
+        /// File path to configuration file from which camera is initialized
+        /// </summary>
+        public double CalibrationZoom { get; protected set; }
+        /// <summary>
+        /// File path to configuration file from which camera is initialized
+        /// </summary>
+        public double CalibrationFocus { get; protected set; }
 
         /// <summary>
         /// Create WFOV camera from configuration file
@@ -126,8 +128,6 @@ namespace RCCM
             this.Scale = pix2um;
             this.Recording = false;
         }
-
-        #region Methods
 
         /// <summary>
         /// Connect to camera. Will fail if configuration file referred to invalid or disconnected camera
@@ -167,6 +167,11 @@ namespace RCCM
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void handleDisconnect(object sender, ICImagingControl.DeviceLostEventArgs e)
         {
             this.Available = false;
@@ -288,6 +293,43 @@ namespace RCCM
         }
 
         /// <summary>
+        /// Set image scale and save current height, zoom, and focus
+        /// </summary>
+        /// <param name="rccm"></param>
+        /// <param name="scale">New calibration</param>
+        public void SetScale(RCCMSystem rccm, double scale)
+        {
+            // Get z motor for this stage
+            Motor z = this == rccm.WFOV1 ? rccm.motors["fine 1 z"] : rccm.motors["fine 2 z"];
+            this.CalibrationHeight = z.GetPos();
+            this.CalibrationZoom = this.Zoom;
+            this.CalibrationFocus = this.Focus;
+
+            string camera = this == rccm.WFOV1 ? "wfov 1" : "wfov 2";
+            Program.Settings.json[camera]["calibration height"] = this.CalibrationHeight;
+            Program.Settings.json[camera]["calibration zoom"] = this.CalibrationZoom;
+            Program.Settings.json[camera]["calibration focus"] = this.CalibrationFocus;
+            this.Scale = scale;
+        }
+
+        /// <summary>
+        /// Check if measurement conditions match calibration conditions
+        /// </summary>
+        /// <param name="rccm"></param>
+        /// <returns>True if measurement conditions match calibration</returns>
+        public bool CheckFOV(RCCMSystem rccm)
+        {
+            // Get z motor for this stage
+            Motor z = this == rccm.WFOV1 ? rccm.motors["fine 1 z"] : rccm.motors["fine 2 z"];
+            // Get curernt height
+            double h = z.GetPos();
+            // Check that calibration height and current height are within a tolerance
+            return Math.Abs(this.CalibrationHeight - h) < 3 * TrioStepperZMotor.ERROR &&
+                   this.CalibrationZoom == this.Zoom &&
+                   Math.Abs(this.CalibrationFocus - this.Focus) < 10;
+        }
+
+        /// <summary>
         /// Show device property dialog
         /// <warning>Will cause device to crash if "Cancel" button is pressed from property dialog</warning>
         /// </summary>
@@ -323,7 +365,5 @@ namespace RCCM
                 return 0;
             }
         }
-
-        #endregion
     }
 }

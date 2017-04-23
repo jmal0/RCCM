@@ -26,7 +26,7 @@ namespace RCCM.UI
             double newScale;
             if (Double.TryParse(this.nfov1Scale.Text, out newScale))
             {
-                this.rccm.NFOV1.Scale = newScale;
+                this.rccm.NFOV1.SetScale(this.rccm, newScale);
                 Program.Settings.json["nfov 1"]["microns / pixel"] = newScale;
             }
         }
@@ -36,7 +36,7 @@ namespace RCCM.UI
             double newScale;
             if (Double.TryParse(this.nfov2Scale.Text, out newScale))
             {
-                this.rccm.NFOV2.Scale = newScale;
+                this.rccm.NFOV2.SetScale(this.rccm, newScale);
                 Program.Settings.json["nfov 2"]["microns / pixel"] = newScale;
             }
         }
@@ -46,7 +46,7 @@ namespace RCCM.UI
             double newScale;
             if (Double.TryParse(this.wfov1Scale.Text, out newScale))
             {
-                this.rccm.WFOV1.Scale = newScale;
+                this.rccm.WFOV1.SetScale(this.rccm, newScale);
                 Program.Settings.json["wfov 1"]["microns / pixel"] = newScale;
             }
         }
@@ -56,7 +56,7 @@ namespace RCCM.UI
             double newScale;
             if (Double.TryParse(this.wfov2Scale.Text, out newScale))
             {
-                this.rccm.WFOV2.Scale = newScale;
+                this.rccm.WFOV2.SetScale(this.rccm, newScale);
                 Program.Settings.json["wfov 2"]["microns / pixel"] = newScale;
             }
         }
@@ -158,6 +158,16 @@ namespace RCCM.UI
         private void CameraSettingsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.Settings.save();
+        }
+
+        private void wfov1Config_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.json["wfov 1"]["configuration file"] = this.wfov1Config.Text;
+        }
+
+        private void wfov2Config_TextChanged(object sender, EventArgs e)
+        {
+            Program.Settings.json["wfov 2"]["configuration file"] = this.wfov2Config.Text;
         }
     }
 }

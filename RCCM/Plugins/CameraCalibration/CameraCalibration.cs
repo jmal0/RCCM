@@ -157,7 +157,7 @@ namespace CameraCalibration
                 DialogResult result = MessageBox.Show(resultMsg, "Results", MessageBoxButtons.YesNo);
                 if (result == DialogResult.OK)
                 {
-                    this.camera.Scale = scale;
+                    this.camera.SetScale(this.rccm, scale);
                 }
             }
             catch (ThreadInterruptedException e)

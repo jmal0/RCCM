@@ -17,16 +17,19 @@ namespace RCCM
     /// </summary>
     public class NFOV : ICamera
     {
+        /// <summary>
+        /// Bytes to send in a single packet. Configured for jumbo packets
+        /// </summary>
         public static uint PACKET_SIZE = 4000;
+        /// <summary>
+        /// Added delay between packets to prevent dropped frames
+        /// </summary>
         public static uint PACKET_DELAY = 6000;
+        /// <summary>
+        /// Added delay between packets to prevent dropped frames
+        /// </summary>
         public static uint CHANNEL = 0;
 
-        enum AviType
-        {
-            Uncompressed,
-            Mjpg,
-            H264
-        }
         /// <summary>
         /// Height in pixels of image
         /// </summary>
@@ -45,23 +48,43 @@ namespace RCCM
             set { this.pixelWidth = Math.Min(2448, value); }
         }
         protected uint pixelWidth;
-
+        /// <summary>
+        /// Serial number of camera
+        /// </summary>
         protected uint serial;
+        /// <summary>
+        /// Camera object
+        /// </summary>
         protected ManagedGigECamera camera;
+        /// <summary>
+        /// Binary image from camera buffer
+        /// </summary>
         protected ManagedImage rawImage;
+        /// <summary>
+        /// Converted image
+        /// </summary>
         public ManagedImage ProcessedImage { get; private set; }
+        /// <summary>
+        /// Flag to direct grab thread to get the live image
+        /// </summary>
         protected bool grabImages;
+        /// <summary>
+        /// 
+        /// </summary>
         protected AutoResetEvent grabThreadExited;
+        /// <summary>
+        /// Background worker for grabbing images from camera
+        /// </summary>
         protected BackgroundWorker grabThread;
 
         /// <summary>
         /// Indicates if camera is connected
         /// </summary>
-        public bool Connected { get; private set; }
+        public bool Connected { get; protected set; }
         /// <summary>
         /// Camera microns / pixel calibration
         /// </summary>
-        public double Scale { get; set; }
+        public double Scale { get; protected set; }
         /// <summary>
         /// Height in mm of image
         /// </summary>
@@ -86,6 +109,10 @@ namespace RCCM
         /// Filename that currently recording video will save to
         /// </summary>
         protected string videoFileName;
+        /// <summary>
+        /// Height at which calibration was made
+        /// </summary>
+        public double CalibrationHeight { get; protected set; }
 
         /// <summary>
         /// Create a NFOV camera from its serial number and apply the specified calibration
@@ -247,10 +274,12 @@ namespace RCCM
             {
                 try
                 {
+                    // Get live image
                     this.camera.RetrieveBuffer(this.rawImage);
-
+                    // Capture frame if recording
                     if (this.Recording)
                     {
+                        // Initialize video recording
                         if (i == 0)
                         {
                             // Check if the camera supports the FRAME_RATE property
@@ -268,7 +297,7 @@ namespace RCCM
                             BackgroundWorker bwVideoWriter = new BackgroundWorker();
                             bwVideoWriter.DoWork += delegate (object s, DoWorkEventArgs e2)
                             {
-                                this.SaveAviHelper(AviType.Mjpg, ref imageList, this.videoFileName, frameRateToUse);
+                                this.SaveAviHelper(ref imageList, this.videoFileName, frameRateToUse);
                             };
                             bwVideoWriter.RunWorkerAsync();
                         }
@@ -288,7 +317,7 @@ namespace RCCM
                     Logger.Out("Error: " + ex.Message);
                     continue;
                 }
-
+                // Lock camera while saving processed image for access on other threads
                 lock (this)
                 {
                     this.rawImage.Convert(PixelFormat.PixelFormatMono8, this.ProcessedImage);
@@ -329,52 +358,91 @@ namespace RCCM
             }
         }
 
-        private void SaveAviHelper(AviType aviType, ref List<ManagedImage> imageList, string aviFileName, float frameRate)
+        /// <summary>
+        /// Helper function for creating video file
+        /// </summary>
+        /// <param name="imageList">Reference to list where frames are being added</param>
+        /// <param name="aviFileName">Path to .avi file where video will save</param>
+        /// <param name="frameRate">Video framerate to use</param>
+        private void SaveAviHelper(ref List<ManagedImage> imageList, string aviFileName, float frameRate)
         {
             using (ManagedAVIRecorder aviRecorder = new ManagedAVIRecorder())
             {
-                switch (aviType)
-                {
-                    case AviType.Uncompressed:
-                        {
-                            AviOption option = new AviOption();
-                            option.frameRate = frameRate;
-                            aviRecorder.AVIOpen(aviFileName, option);
-                        }
-                        break;
+                // Set MJPG codec options
+                MJPGOption option = new MJPGOption();
+                option.frameRate = frameRate;
+                option.quality = 90;
 
-                    case AviType.Mjpg:
-                        {
-                            MJPGOption option = new MJPGOption();
-                            option.frameRate = frameRate;
-                            option.quality = 90;
-                            aviRecorder.AVIOpen(aviFileName, option);
-                        }
-                        break;
-                }
-
-                Logger.Out(string.Format("Appending images to AVI file {0}...", aviFileName));
-
+                // Write frames to video as they are being added
                 int imageCnt = 0;
                 while (this.Recording)
                 {
+                    // Don't write latest frame as it is incomplete
                     if (imageCnt < imageList.Count - 1)
                     {
                         aviRecorder.AVIAppend(imageList[imageCnt]);
-                        imageList[imageCnt].Dispose();
+                        imageList[imageCnt].Dispose(); // Dispose to save RAM
                         imageCnt++;
-                        Logger.Out(string.Format("Appended image {0}", imageCnt));
                     }
                 }
-                aviRecorder.AVIAppend(imageList[imageList.Count - 1]);
+                // Write remaining frames to file
+                for (; imageCnt < imageList.Count; imageCnt++)
+                {
+                    aviRecorder.AVIAppend(imageList[imageCnt]);
+                }
+                // Close file
                 aviRecorder.AVIClose();
             }
         }
 
+        /// <summary>
+        /// Begins recording by signalling to grab loop start of recording
+        /// </summary>
+        /// <param name="aviFileName">Path to .avi file where video will save</param>
         public void Record(string aviFileName)
         {
             this.Recording = true;
             this.videoFileName = aviFileName;
+        }
+
+        /// <summary>
+        /// Stops recording by indicating to grab loop that recording is done
+        /// </summary>
+        public void StopRecord()
+        {
+            this.Recording = false;
+        }
+        
+        /// <summary>
+        /// Set image scale and save current height
+        /// </summary>
+        /// <param name="rccm"></param>
+        /// <param name="scale">New calibration</param>
+        public void SetScale(RCCMSystem rccm, double scale)
+        {
+            // Get z motor for this stage
+            Motor z = this == rccm.NFOV1 ? rccm.motors["fine 1 z"] : rccm.motors["fine 2 z"];
+            this.CalibrationHeight = z.GetPos();
+            
+            string camera = this == rccm.NFOV1 ? "nfov 1" : "nfov 2";
+            Program.Settings.json[camera]["calibration height"] = this.CalibrationHeight;
+
+            this.Scale = scale;
+        }
+
+        /// <summary>
+        /// Check if measurement conditions match calibration conditions
+        /// </summary>
+        /// <param name="rccm"></param>
+        /// <returns>True if measurement conditions match calibration</returns>
+        public bool CheckFOV(RCCMSystem rccm)
+        {
+            // Get z motor for this stage
+            Motor z = this == rccm.NFOV1 ? rccm.motors["fine 1 z"] : rccm.motors["fine 2 z"];
+            // Get curernt height
+            double h = z.GetPos();
+            // Check that calibration height and current height are within a tolerance
+            return Math.Abs(this.CalibrationHeight - h) < 3*TrioStepperZMotor.ERROR;
         }
 
         /// <summary>
