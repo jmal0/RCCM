@@ -227,6 +227,11 @@ namespace RCCM
             }
         }
 
+        public override void Zero()
+        {
+            this.controller.Zero(this.axisNum);
+        }
+
         public override double GetActuatorPos()
         {
             return this.controller.GetAxisProperty("MPOS", this.axisNum);

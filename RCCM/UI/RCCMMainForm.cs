@@ -435,6 +435,9 @@ namespace RCCM.UI
         {
             MotorSettingsForm form = new MotorSettingsForm(this.rccm);
             form.Show();
+            form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) {
+                this.applyUISettings();
+            };
         }
 
         private void RCCMMainForm_KeyDown(object sender, KeyEventArgs e)
