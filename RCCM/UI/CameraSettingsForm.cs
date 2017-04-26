@@ -11,16 +11,26 @@ using System.Windows.Forms;
 
 namespace RCCM.UI
 {
+    /// <summary>
+    /// Form for adjusting some camera settings
+    /// </summary>
     public partial class CameraSettingsForm : Form
     {
         protected readonly RCCMSystem rccm;
 
+        /// <summary>
+        /// Create camera settings form
+        /// </summary>
+        /// <param name="rccm">Reference to RCCM object</param>
         public CameraSettingsForm(RCCMSystem rccm)
         {
             this.rccm = rccm;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets scale for NFOV 1 camera if input is valid
+        /// </summary>
         private void nfov1Scale_TextChanged(object sender, EventArgs e)
         {
             double newScale;
@@ -32,6 +42,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Sets scale for NFOV 2 camera if input is valid
+        /// </summary>
         private void nfov2Scale_TextChanged(object sender, EventArgs e)
         {
             double newScale;
@@ -43,6 +56,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Sets scale for WFOV 1 camera if input is valid
+        /// </summary>
         private void wfov1Scale_TextChanged(object sender, EventArgs e)
         {
             double newScale;
@@ -54,6 +70,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Sets scale for WFOV 2 camera if input is valid
+        /// </summary>
         private void wfov2Scale_TextChanged(object sender, EventArgs e)
         {
             double newScale;
@@ -65,7 +84,135 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Loads camera settings to form
+        /// </summary>
         private void CameraSettingsForm_Load(object sender, EventArgs e)
+        {
+            this.applySettings();
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for NFOV 1 images
+        /// </summary>
+        private void textNFOV1ImageDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("nfov 1", "image directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for NFOV 2 images
+        /// </summary>
+        private void textNFOV2ImageDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("nfov 2", "image directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for WFOV 1 images
+        /// </summary>
+        private void textWFOV1ImageDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("wfov 1", "image directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for WFOV 2 images
+        /// </summary>
+        private void textWFOV2ImageDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("wfov 2", "image directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for NFOV 1 videos
+        /// </summary>
+        private void textNFOV1VideoDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("nfov 1", "video directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for NFOV 2 videos
+        /// </summary>
+        private void textNFOV2VideoDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("nfov 2", "video directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for WFOV 1 videos
+        /// </summary>
+        private void textWFOV1VideoDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("wfov 1", "video directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for WFOV 2 videos
+        /// </summary>
+        private void textWFOV2VideoDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("wfov 2", "video directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for NFOV 1 data
+        /// </summary>
+        private void textNFOV1DataDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("nfov 1", "test data directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for NFOV 2 data
+        /// </summary>
+        private void textNFOV2DataDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("nfov 2", "test data directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for WFOV 1 data
+        /// </summary>
+        private void textWFOV1DataDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("wfov 1", "test data directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting save directory for WFOV 2 data
+        /// </summary>
+        private void textWFOV2DataDir_Enter(object sender, EventArgs e)
+        {
+            this.showDirectoryDialog("wfov 2", "test data directory");
+        }
+
+        /// <summary>
+        /// Opens a dialog box for selecting a directory
+        /// </summary>
+        /// <remarks>
+        /// User selected directory is added to settings if it is valid. This function
+        /// will create a directory if it does not exist
+        /// </remarks>
+        /// <returns>True if directory is valid</returns>
+        private bool showDirectoryDialog(string camera, string directory)
+        {
+            DialogResult result = this.folderBrowserDialog.ShowDialog();
+            Console.WriteLine(this.folderBrowserDialog.SelectedPath);
+            if (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists)
+            {
+                Program.Settings.json[camera][directory] = this.folderBrowserDialog.SelectedPath;
+                this.applySettings();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Loads camera settings to form
+        /// </summary>
+        private void applySettings()
         {
             this.nfov1Scale.Text = (string)Program.Settings.json["nfov 1"]["microns / pixel"];
             this.textNFOV1ImageDir.Text = (string)Program.Settings.json["nfov 1"]["image directory"];
@@ -87,88 +234,26 @@ namespace RCCM.UI
             this.textWFOV2VideoDir.Text = (string)Program.Settings.json["wfov 2"]["video directory"];
             this.textWFOV2DataDir.Text = (string)Program.Settings.json["wfov 2"]["test data directory"];
         }
-        
-        private void textNFOV1ImageDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("nfov 1", "image directory");
-        }
 
-        private void textNFOV2ImageDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("nfov 2", "image directory");
-        }
-
-        private void textWFOV1ImageDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("wfov 1", "image directory");
-        }
-
-        private void textWFOV2ImageDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("wfov 2", "image directory");
-        }
-
-        private void textNFOV1VideoDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("nfov 1", "video directory");
-        }
-
-        private void textNFOV2VideoDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("nfov 2", "video directory");
-        }
-
-        private void textWFOV1VideoDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("wfov 1", "video directory");
-        }
-
-        private void textWFOV2VideoDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("wfov 2", "video directory");
-        }
-
-        private void textNFOV1DataDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("nfov 1", "test data directory");
-        }
-
-        private void textNFOV2DataDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("nfov 2", "test data directory");
-        }
-
-        private void textWFOV1DataDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("wfov 1", "test data directory");
-        }
-
-        private void textWFOV2DataDir_Enter(object sender, EventArgs e)
-        {
-            this.showDirectoryDialog("wfov 2", "test data directory");
-        }
-
-        private void showDirectoryDialog(string camera, string directory)
-        {
-            DialogResult result = this.folderBrowserDialog.ShowDialog();
-            Console.WriteLine(this.folderBrowserDialog.SelectedPath);
-            if (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists)
-            {
-                this.textNFOV1ImageDir.Text = this.folderBrowserDialog.SelectedPath;
-                Program.Settings.json[camera][directory] = this.folderBrowserDialog.SelectedPath;
-            }
-        }
-
+        /// <summary>
+        /// Saves settings to file on exit
+        /// </summary>
         private void CameraSettingsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.Settings.save();
         }
 
+        /// <summary>
+        /// Change configuration file for WFOV 1 camera
+        /// </summary>
         private void wfov1Config_TextChanged(object sender, EventArgs e)
         {
             Program.Settings.json["wfov 1"]["configuration file"] = this.wfov1Config.Text;
         }
 
+        /// <summary>
+        /// Change configuration file for WFOV 2 camera
+        /// </summary>
         private void wfov2Config_TextChanged(object sender, EventArgs e)
         {
             Program.Settings.json["wfov 2"]["configuration file"] = this.wfov2Config.Text;

@@ -120,6 +120,7 @@
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.radioNoStage = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBoxStageSelect.SuspendLayout();
@@ -312,6 +313,7 @@
             // 
             // groupBoxStageSelect
             // 
+            this.groupBoxStageSelect.Controls.Add(this.radioNoStage);
             this.groupBoxStageSelect.Controls.Add(this.radioCoarse);
             this.groupBoxStageSelect.Controls.Add(this.radioRCCM2);
             this.groupBoxStageSelect.Controls.Add(this.radioRCCM1);
@@ -320,7 +322,7 @@
             this.groupBoxStageSelect.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBoxStageSelect.Name = "groupBoxStageSelect";
             this.groupBoxStageSelect.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBoxStageSelect.Size = new System.Drawing.Size(161, 137);
+            this.groupBoxStageSelect.Size = new System.Drawing.Size(161, 173);
             this.groupBoxStageSelect.TabIndex = 19;
             this.groupBoxStageSelect.TabStop = false;
             this.groupBoxStageSelect.Text = "Stage Selection";
@@ -335,7 +337,6 @@
             this.radioCoarse.Name = "radioCoarse";
             this.radioCoarse.Size = new System.Drawing.Size(78, 24);
             this.radioCoarse.TabIndex = 13;
-            this.radioCoarse.TabStop = true;
             this.radioCoarse.Text = "Coarse";
             this.radioCoarse.UseVisualStyleBackColor = true;
             this.radioCoarse.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
@@ -400,7 +401,7 @@
             this.tabPageResults.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageResults.Name = "tabPageResults";
             this.tabPageResults.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPageResults.Size = new System.Drawing.Size(1130, 455);
+            this.tabPageResults.Size = new System.Drawing.Size(1130, 449);
             this.tabPageResults.TabIndex = 4;
             this.tabPageResults.Text = "Test Results";
             this.tabPageResults.UseVisualStyleBackColor = true;
@@ -418,7 +419,7 @@
             this.tableLayoutResults.Name = "tableLayoutResults";
             this.tableLayoutResults.RowCount = 1;
             this.tableLayoutResults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutResults.Size = new System.Drawing.Size(1122, 445);
+            this.tableLayoutResults.Size = new System.Drawing.Size(1122, 439);
             this.tableLayoutResults.TabIndex = 9;
             // 
             // chartCracks
@@ -436,7 +437,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartCracks.Series.Add(series1);
-            this.chartCracks.Size = new System.Drawing.Size(889, 435);
+            this.chartCracks.Size = new System.Drawing.Size(889, 429);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
             // 
@@ -449,7 +450,7 @@
             this.listCrackSelection.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listCrackSelection.Name = "listCrackSelection";
             this.listCrackSelection.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listCrackSelection.Size = new System.Drawing.Size(217, 435);
+            this.listCrackSelection.Size = new System.Drawing.Size(217, 429);
             this.listCrackSelection.TabIndex = 8;
             this.toolTip.SetToolTip(this.listCrackSelection, "Click to higlight and select which cracks are plotted");
             this.listCrackSelection.SelectedIndexChanged += new System.EventHandler(this.listCracksSelection_SelectedIndexChanged);
@@ -461,7 +462,7 @@
             this.tabPageMotion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageMotion.Name = "tabPageMotion";
             this.tabPageMotion.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPageMotion.Size = new System.Drawing.Size(1130, 455);
+            this.tabPageMotion.Size = new System.Drawing.Size(1130, 449);
             this.tabPageMotion.TabIndex = 1;
             this.tabPageMotion.Text = "Motion";
             this.tabPageMotion.UseVisualStyleBackColor = true;
@@ -482,7 +483,7 @@
             this.tableLayoutMotion.Name = "tableLayoutMotion";
             this.tableLayoutMotion.RowCount = 1;
             this.tableLayoutMotion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutMotion.Size = new System.Drawing.Size(1122, 445);
+            this.tableLayoutMotion.Size = new System.Drawing.Size(1122, 439);
             this.tableLayoutMotion.TabIndex = 22;
             // 
             // panelView
@@ -492,7 +493,7 @@
             this.panelView.Location = new System.Drawing.Point(340, 5);
             this.panelView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(609, 435);
+            this.panelView.Size = new System.Drawing.Size(609, 429);
             this.panelView.TabIndex = 23;
             this.panelView.TabStop = false;
             this.panelView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelView_Paint);
@@ -507,13 +508,13 @@
             this.panelMotionButtons.Location = new System.Drawing.Point(957, 5);
             this.panelMotionButtons.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelMotionButtons.Name = "panelMotionButtons";
-            this.panelMotionButtons.Size = new System.Drawing.Size(161, 435);
+            this.panelMotionButtons.Size = new System.Drawing.Size(161, 429);
             this.panelMotionButtons.TabIndex = 23;
             // 
             // btnSetHome
             // 
             this.btnSetHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSetHome.Location = new System.Drawing.Point(0, 280);
+            this.btnSetHome.Location = new System.Drawing.Point(0, 316);
             this.btnSetHome.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSetHome.Name = "btnSetHome";
             this.btnSetHome.Size = new System.Drawing.Size(161, 35);
@@ -526,7 +527,7 @@
             // btnHome
             // 
             this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHome.Location = new System.Drawing.Point(0, 245);
+            this.btnHome.Location = new System.Drawing.Point(0, 281);
             this.btnHome.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(161, 35);
@@ -541,7 +542,7 @@
             this.groupBoxMovementMode.Controls.Add(this.radioMoveRel);
             this.groupBoxMovementMode.Controls.Add(this.radioMoveAbs);
             this.groupBoxMovementMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxMovementMode.Location = new System.Drawing.Point(0, 137);
+            this.groupBoxMovementMode.Location = new System.Drawing.Point(0, 173);
             this.groupBoxMovementMode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBoxMovementMode.Name = "groupBoxMovementMode";
             this.groupBoxMovementMode.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -588,7 +589,7 @@
             this.panelMotionControls.Location = new System.Drawing.Point(4, 5);
             this.panelMotionControls.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelMotionControls.Name = "panelMotionControls";
-            this.panelMotionControls.Size = new System.Drawing.Size(328, 435);
+            this.panelMotionControls.Size = new System.Drawing.Size(328, 429);
             this.panelMotionControls.TabIndex = 24;
             // 
             // groupBox3
@@ -651,6 +652,16 @@
             this.fine2ZPos.DecimalPlaces = 3;
             this.fine2ZPos.Location = new System.Drawing.Point(40, 108);
             this.fine2ZPos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fine2ZPos.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.fine2ZPos.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
             this.fine2ZPos.Name = "fine2ZPos";
             this.fine2ZPos.Size = new System.Drawing.Size(137, 26);
             this.fine2ZPos.TabIndex = 5;
@@ -674,6 +685,16 @@
             this.fine2YPos.DecimalPlaces = 3;
             this.fine2YPos.Location = new System.Drawing.Point(40, 68);
             this.fine2YPos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fine2YPos.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.fine2YPos.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
             this.fine2YPos.Name = "fine2YPos";
             this.fine2YPos.Size = new System.Drawing.Size(137, 26);
             this.fine2YPos.TabIndex = 3;
@@ -697,6 +718,16 @@
             this.fine2XPos.DecimalPlaces = 3;
             this.fine2XPos.Location = new System.Drawing.Point(40, 28);
             this.fine2XPos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fine2XPos.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.fine2XPos.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
             this.fine2XPos.Name = "fine2XPos";
             this.fine2XPos.Size = new System.Drawing.Size(137, 26);
             this.fine2XPos.TabIndex = 1;
@@ -774,6 +805,16 @@
             this.fine1ZPos.DecimalPlaces = 3;
             this.fine1ZPos.Location = new System.Drawing.Point(40, 108);
             this.fine1ZPos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fine1ZPos.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.fine1ZPos.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
             this.fine1ZPos.Name = "fine1ZPos";
             this.fine1ZPos.Size = new System.Drawing.Size(137, 26);
             this.fine1ZPos.TabIndex = 5;
@@ -797,6 +838,16 @@
             this.fine1YPos.DecimalPlaces = 3;
             this.fine1YPos.Location = new System.Drawing.Point(40, 68);
             this.fine1YPos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fine1YPos.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.fine1YPos.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
             this.fine1YPos.Name = "fine1YPos";
             this.fine1YPos.Size = new System.Drawing.Size(137, 26);
             this.fine1YPos.TabIndex = 3;
@@ -820,6 +871,16 @@
             this.fine1XPos.DecimalPlaces = 3;
             this.fine1XPos.Location = new System.Drawing.Point(40, 28);
             this.fine1XPos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fine1XPos.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.fine1XPos.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
             this.fine1XPos.Name = "fine1XPos";
             this.fine1XPos.Size = new System.Drawing.Size(137, 26);
             this.fine1XPos.TabIndex = 1;
@@ -883,6 +944,16 @@
             this.coarseYPos.DecimalPlaces = 3;
             this.coarseYPos.Location = new System.Drawing.Point(40, 68);
             this.coarseYPos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.coarseYPos.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.coarseYPos.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
             this.coarseYPos.Name = "coarseYPos";
             this.coarseYPos.Size = new System.Drawing.Size(137, 26);
             this.coarseYPos.TabIndex = 3;
@@ -906,6 +977,16 @@
             this.coarseXPos.DecimalPlaces = 3;
             this.coarseXPos.Location = new System.Drawing.Point(40, 28);
             this.coarseXPos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.coarseXPos.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.coarseXPos.Minimum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            -2147483648});
             this.coarseXPos.Name = "coarseXPos";
             this.coarseXPos.Size = new System.Drawing.Size(137, 26);
             this.coarseXPos.TabIndex = 1;
@@ -1097,6 +1178,17 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
+            // radioNoStage
+            // 
+            this.radioNoStage.AutoSize = true;
+            this.radioNoStage.Location = new System.Drawing.Point(9, 134);
+            this.radioNoStage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.radioNoStage.Name = "radioNoStage";
+            this.radioNoStage.Size = new System.Drawing.Size(65, 24);
+            this.radioNoStage.TabIndex = 14;
+            this.radioNoStage.Text = "None";
+            this.radioNoStage.UseVisualStyleBackColor = true;
+            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1250,6 +1342,7 @@
         private System.Windows.Forms.ToolStripMenuItem motorsToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStripMenuItem pluginsToolStripMenuItem;
+        private System.Windows.Forms.RadioButton radioNoStage;
     }
 }
 

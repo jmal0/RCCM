@@ -7,7 +7,8 @@
     {
         RCCM1,
         RCCM2,
-        Coarse
+        Coarse,
+        None
     }
 
     /// <summary>

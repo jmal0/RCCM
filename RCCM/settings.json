@@ -30,8 +30,8 @@
   },
   // Motion settings
   "coarse X": {
-    "type": "virtual",
-    "axis number": 4,
+    "type": "stepper",
+    "axis number": 0,
     "enabled": 1,
     "microstep per mm": 80000.0,
     "mm per rev": 0.1,
@@ -46,8 +46,8 @@
     "feedback": 0.0
   },
   "coarse Y": {
-    "type": "virtual",
-    "axis number": 1,
+    "type": "stepper",
+    "axis number": 7,
     "enabled": 1,
     "microstep per mm": 80000.0,
     "mm per rev": 0.1,
@@ -94,7 +94,7 @@
     "feedback": 0.0
   },
   "fine 1 Z": {
-    "type": "stepper z 1",
+    "type": "virtual",
     "axis number": 0,
     "enabled": 1,
     "microstep per mm": 80000.0,

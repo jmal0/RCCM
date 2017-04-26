@@ -10,16 +10,26 @@ using System.Windows.Forms;
 
 namespace RCCM.UI
 {
+    /// <summary>
+    /// Form for modifying coordinate system settings such as offsets and angles
+    /// </summary>
     public partial class CoordinateSystemSettingsForm : Form
     {
         protected readonly RCCMSystem rccm;
 
+        /// <summary>
+        /// Open coordinate system form
+        /// </summary>
+        /// <param name="rccm">Reference to RCCM object</param>
         public CoordinateSystemSettingsForm(RCCMSystem rccm)
         {
             this.rccm = rccm;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Applies settings to form
+        /// </summary>
         private void CoordinateSystemSettingsForm_Load(object sender, EventArgs e)
         {
             this.editRotation.Value = (decimal)this.rccm.FineStageAngle;
@@ -43,12 +53,18 @@ namespace RCCM.UI
             this.addValueChangedHandlers(this);
         }
 
+        /// <summary>
+        /// Save settings on exit
+        /// </summary>
         private void CoordinateSystemSettingsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.applySettings();
             Program.Settings.save();
         }
 
+        /// <summary>
+        /// Saves all settings from UI inputs to file
+        /// </summary>
         private void applySettings()
         {
             this.rccm.FineStageAngle = (double)this.editRotation.Value;
@@ -70,6 +86,10 @@ namespace RCCM.UI
             this.rccm.WFOV2Y = (double)this.editWFOV2Y.Value;
         }
         
+        /// <summary>
+        /// Adds event handlers for a user control edit
+        /// </summary>
+        /// <param name="parent">Control for which event handler will be added</param>
         private void addValueChangedHandlers(Control parent)
         {
             foreach (Control c in parent.Controls)
@@ -80,11 +100,15 @@ namespace RCCM.UI
                 }
                 else
                 {
+                    // Add handlers for all children of this control
                     addValueChangedHandlers(c);
                 }
             }
         }
 
+        /// <summary>
+        /// When value changes, save all settings
+        /// </summary>
         private void controlValueChanged(object sender, EventArgs e)
         {
             this.applySettings();

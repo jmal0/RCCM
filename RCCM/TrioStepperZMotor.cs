@@ -122,13 +122,11 @@ namespace RCCM
             double prevHeight = this.GetPos();
             double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
             double cmd = actuatorPos + cmdHeight - prevHeight;
-            // Check that position is within range
-            if (cmd >= this.settings["low position limit"] && cmd <= this.settings["high position limit"])
-            {
-                this.commandHeight = cmdHeight;
-                this.commandPos = cmd;
-            }
-            return prevHeight;
+            // Coerce position to be within travel range
+            cmd = Math.Max(this.settings["low position limit"], cmd);
+            cmd = Math.Min(this.settings["high position limit"], cmd);
+            this.commandPos = cmd;
+            return cmd;
         }
 
         public override double MoveRel(double dist)

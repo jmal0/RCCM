@@ -9,6 +9,9 @@ using System.Threading;
 
 namespace PressureCameraTrigger
 {
+    /// <summary>
+    /// Captures images when triggger pressure is reached
+    /// </summary>
     public class PressureCameraTrigger : IRCCMPluginActor
     {
         protected readonly ICamera camera;
@@ -18,6 +21,11 @@ namespace PressureCameraTrigger
         public bool Running { get; protected set; }
         protected readonly RCCMSystem rccm;
 
+        /// <summary>
+        /// Create plugin actor from parameter strings
+        /// </summary>
+        /// <param name="rccm">Reference to RCCM object</param>
+        /// <param name="parameters">Map of test parameters to values</param>
         public PressureCameraTrigger(RCCMSystem rccm, Dictionary<string, string> parameters)
         {
             this.rccm = rccm;
@@ -49,6 +57,9 @@ namespace PressureCameraTrigger
             this.ascending = Boolean.Parse(parameters["Ascending"]);
         }
 
+        /// <summary>
+        /// Continuously read pressure and capture image when threshold is passed
+        /// </summary>
         public void Run()
         {
             // Set running to true so main GUI knows that plugin has not finished

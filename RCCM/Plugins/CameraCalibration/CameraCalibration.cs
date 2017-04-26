@@ -11,6 +11,9 @@ using RCCM;
 
 namespace CameraCalibration
 {
+    /// <summary>
+    /// Plugin for calibrating camera by image processing technique
+    /// </summary>
     public class CameraCalibration : IRCCMPluginActor
     {
         public bool Running { get; private set; }
@@ -22,6 +25,11 @@ namespace CameraCalibration
         protected readonly Motor yMotor;
         protected Thread testThread;
 
+        /// <summary>
+        /// Create plugin actor from parameter strings
+        /// </summary>
+        /// <param name="rccm">Reference to RCCM object</param>
+        /// <param name="parameters">Map of test parameters to values</param>
         public CameraCalibration(RCCMSystem rccm, Dictionary<string, string> parameters)
         {
             this.rccm = rccm;
@@ -53,11 +61,15 @@ namespace CameraCalibration
                 default:
                     throw new ArgumentException("Camera must be nfov/wfov 1/2");
             }
+            // Automatically create folder for saving test data from settings
             this.path = (string)Program.Settings.json[parameters["Camera"]]["test data directory"] + 
                         string.Format("\\scaling-{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
             Directory.CreateDirectory(this.path);
         }
 
+        /// <summary>
+        /// Moves actuators and captures images for calibration
+        /// </summary>
         public void Run()
         {
             try
@@ -166,7 +178,9 @@ namespace CameraCalibration
             }
         }
 
-        // Stops the test by interrupting the test thread
+        ///<summary>
+        /// Stops the test by interrupting the test thread
+        ///</summary>
         public void Stop()
         {
             this.Running = false;
@@ -176,7 +190,9 @@ namespace CameraCalibration
             }
         }
 
-        // Return the error squared.
+        ///<summary>
+        /// Return the error squared.
+        ///</summary>
         public static double SumSquaresResidual(double[] x, double[,] y, double m, double b)
         {
             double total = 0;
@@ -187,8 +203,11 @@ namespace CameraCalibration
             }
             return total;
         }
-
-        // Calculate total error from mean
+        /// <summary>
+        /// Calculate total error from mean
+        /// </summary>
+        /// <param name="y">y values of linear fit</param>
+        /// <returns>Total error from mean</returns>
         public static double SumSquaresTotal(double[,] y)
         {
             double total = 0;
@@ -205,8 +224,14 @@ namespace CameraCalibration
             return total;
         }
 
-        // Find the least squares linear fit.
-        // Return the total error.
+        /// <summary>
+        /// Find the least squares linear fit.
+        /// </summary>
+        /// <param name="x">x values of fit data points</param>
+        /// <param name="y">y values of fit data points</param>
+        /// <param name="m">slope of best fit line</param>
+        /// <param name="b">y-intercept</param>
+        /// <returns>Total error from best fit line</returns>
         public static double FindLinearLeastSquaresFit(double[] x, double[,] y, out double m, out double b)
         {
             // Perform the calculation.

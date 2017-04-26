@@ -231,7 +231,6 @@
       <DependentUpon>WFOVViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="VirtualMotor.cs" />
-    <Compile Include="VirtualZMotor.cs" />
     <Compile Include="WFOV.cs" />
     <EmbeddedResource Include="UI\AboutRCCMForm.resx">
       <DependentUpon>AboutRCCMForm.cs</DependentUpon>

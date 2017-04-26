@@ -23,6 +23,6 @@ namespace RCCM
         void Stop();
         double GetPressure();
         int GetElapsed();
-        void Terminate();
+        Task Terminate();
     }
 }

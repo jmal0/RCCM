@@ -80,8 +80,6 @@ namespace RCCM.UI
         /// <summary>
         /// Set command height position of z stage
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void heightEdit_ValueChanged(object sender, EventArgs e)
         {
             Motor zMotor = this.stage == RCCMStage.RCCM1 ? this.rccm.motors["fine 1 Z"] : this.rccm.motors["fine 2 Z"];
@@ -91,8 +89,6 @@ namespace RCCM.UI
         /// <summary>
         /// Adjust lens focal power to user entered value
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void focalPowerEdit_ValueChanged(object sender, EventArgs e)
         {
             bool result = this.controller.SetFocalPower((double)this.focalPowerEdit.Value, this.stage);
@@ -105,8 +101,6 @@ namespace RCCM.UI
         /// <summary>
         /// Creates point in user applied calibration without saving it to the controller
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnApplyCalibration_Click(object sender, EventArgs e)
         {
             // Get distance sensor reading and adjust focus
@@ -129,8 +123,6 @@ namespace RCCM.UI
         /// <summary>
         /// Applies new calibration and saves it to settings file
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             bool result = this.applyCalibration();
@@ -147,8 +139,6 @@ namespace RCCM.UI
         /// <summary>
         /// Reverts calibration when cancel button is clicked
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -198,8 +188,6 @@ namespace RCCM.UI
         /// <summary>
         /// When form is closed, resume the manual focus adjustment timer
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void LensCalibrationForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.controller.ResumeFocusing(this.stage);
@@ -232,8 +220,6 @@ namespace RCCM.UI
         /// <summary>
         /// Delete calibration points on delete key press
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void listCalibration_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
@@ -246,6 +232,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Change focus calibration offset
+        /// </summary>
         private void editFocusOffset_ValueChanged(object sender, EventArgs e)
         {
             double input = this.controller.GetReading(this.stage);

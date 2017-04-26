@@ -309,12 +309,6 @@ namespace RCCM
                     case "virtual":
                         this.motors.Add(motorName, new VirtualMotor());
                         break;
-                    case "virtual z 1":
-                        this.motors.Add(motorName, new VirtualZMotor(delegate () { return this.LensController.Height1; }));
-                        break;
-                    case "virtual z 2":
-                        this.motors.Add(motorName, new VirtualZMotor(delegate () { return this.LensController.Height2; }));
-                        break;
                     case "stepper":
                         this.motors.Add(motorName, new TrioStepperMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"]));
                         break;
@@ -362,14 +356,14 @@ namespace RCCM
 
         #endregion
 
-        public void Stop()
+        public async Task Stop()
         {
             this.LensController.Stop();
-            this.Counter.Terminate();
             foreach (string motorName in RCCMSystem.AXES)
             {
                 this.motors[motorName].Terminate();
             }
+            await this.Counter.Terminate();
         }
     }
 }

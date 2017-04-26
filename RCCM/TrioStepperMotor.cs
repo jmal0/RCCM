@@ -68,22 +68,19 @@ namespace RCCM
         /// Set the command position of the motor. After calling this method, getPos() will return cmd
         /// </summary>
         /// <param name="cmd">New command position</param>
-        /// <returns>The previous commanded position</returns>
+        /// <returns>The new commanded position</returns>
         override public double SetPos(double cmd)
         {
             if (this.GetProperty("enabled") == 0)
             {
                 return this.commandPos;
             }
-            double prev = this.commandPos;
-            // Check that position is within range
-            if (cmd >= this.settings["low position limit"] && cmd <= this.settings["high position limit"])
-            {
-                double pos = cmd;
-                this.commandPos = cmd;
-                this.controller.MoveAbs(this.axisNum, pos);
-            }
-            return prev;
+            // Coerce position to be within travel range
+            cmd = Math.Max(this.settings["low position limit"], cmd);
+            cmd = Math.Min(this.settings["high position limit"], cmd);
+            this.commandPos = cmd;
+            this.controller.MoveAbs(this.axisNum, cmd);
+            return cmd;
         }
 
         /// <summary>

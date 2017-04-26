@@ -109,7 +109,7 @@ namespace RCCM.UI
             this.panelRepaintTimer.Start();
         }
         
-        private void RCCMMainForm_FormClosed(object sender, FormClosedEventArgs e)
+        private async void RCCMMainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.nfov1.Disconnect();
             this.nfov2.Disconnect();
@@ -117,7 +117,7 @@ namespace RCCM.UI
             {
                 this.rccm.motors[motorName].JogStop();
             }
-            this.rccm.Stop();
+            await this.rccm.Stop();
 
             Logger.Save();
             Program.Settings.save();
@@ -129,7 +129,7 @@ namespace RCCM.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.moveStage("coarse X", (double)coarseXPos.Value);
+                this.moveStage("coarse X", (double)coarseXPos.Value, this.coarseXPos);
             }
         }
 
@@ -137,7 +137,7 @@ namespace RCCM.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.moveStage("coarse Y", (double)coarseYPos.Value);
+                this.moveStage("coarse Y", (double)coarseYPos.Value, this.coarseYPos);
             }
         }
 
@@ -145,7 +145,7 @@ namespace RCCM.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.moveStage("fine 1 X", (double)fine1XPos.Value);
+                this.moveStage("fine 1 X", (double)fine1XPos.Value, this.fine1XPos);
             }
         }
 
@@ -153,7 +153,7 @@ namespace RCCM.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.moveStage("fine 1 Y", (double)fine1YPos.Value);
+                this.moveStage("fine 1 Y", (double)fine1YPos.Value, this.fine1YPos);
             }
         }
 
@@ -161,7 +161,7 @@ namespace RCCM.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.moveStage("fine 1 Z", (double)fine1ZPos.Value);
+                this.moveStage("fine 1 Z", (double)fine1ZPos.Value, this.fine1ZPos);
             }
         }
 
@@ -169,7 +169,7 @@ namespace RCCM.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.moveStage("fine 2 X", (double)fine2XPos.Value);
+                this.moveStage("fine 2 X", (double)fine2XPos.Value, this.fine2XPos);
             }
         }
 
@@ -177,7 +177,7 @@ namespace RCCM.UI
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.moveStage("fine 2 Y", (double)fine2YPos.Value);
+                this.moveStage("fine 2 Y", (double)fine2YPos.Value, this.fine2YPos);
             }
         }
 
@@ -185,15 +185,16 @@ namespace RCCM.UI
         {
             if(e.KeyCode == Keys.Enter)
             {
-                this.moveStage("fine 2 Z", (double)fine2ZPos.Value);
+                this.moveStage("fine 2 Z", (double)fine2ZPos.Value, this.fine2ZPos);
             }
         }
 
-        private void moveStage(string axis, double value)
+        private void moveStage(string axis, double value, NumericUpDown c)
         {
             if (this.radioMoveAbs.Checked)
             {
-                this.rccm.motors[axis].SetPos(value);
+                double returnPos = this.rccm.motors[axis].SetPos(value);
+                c.Value = (decimal)returnPos;
             }
             else if (this.radioMoveRel.Checked)
             {
@@ -236,23 +237,6 @@ namespace RCCM.UI
             this.fine2XPos.Increment = (decimal) Program.Settings.json["fine 2 X"]["step"];
             this.fine2YPos.Increment = (decimal) Program.Settings.json["fine 2 Y"]["step"];
             this.fine2ZPos.Increment = (decimal) Program.Settings.json["fine 2 Z"]["step"];
-            // Apply motor position limits to NumericUpDowns
-            this.coarseXPos.Minimum = (decimal)Program.Settings.json["coarse X"]["low position limit"];
-            this.coarseYPos.Minimum = (decimal)Program.Settings.json["coarse Y"]["low position limit"];
-            this.fine1XPos.Minimum = (decimal)Program.Settings.json["fine 1 X"]["low position limit"];
-            this.fine1YPos.Minimum = (decimal)Program.Settings.json["fine 1 Y"]["low position limit"];
-            this.fine1ZPos.Minimum = (decimal)Program.Settings.json["fine 1 Z"]["low position limit"];
-            this.fine2XPos.Minimum = (decimal)Program.Settings.json["fine 2 X"]["low position limit"];
-            this.fine2YPos.Minimum = (decimal)Program.Settings.json["fine 2 Y"]["low position limit"];
-            this.fine2ZPos.Minimum = (decimal)Program.Settings.json["fine 2 Z"]["low position limit"];
-            this.coarseXPos.Maximum = (decimal)Program.Settings.json["coarse X"]["high position limit"];
-            this.coarseYPos.Maximum = (decimal)Program.Settings.json["coarse Y"]["high position limit"];
-            this.fine1XPos.Maximum = (decimal)Program.Settings.json["fine 1 X"]["high position limit"];
-            this.fine1YPos.Maximum = (decimal)Program.Settings.json["fine 1 Y"]["high position limit"];
-            this.fine1ZPos.Maximum = (decimal)Program.Settings.json["fine 1 Z"]["high position limit"];
-            this.fine2XPos.Maximum = (decimal)Program.Settings.json["fine 2 X"]["high position limit"];
-            this.fine2YPos.Maximum = (decimal)Program.Settings.json["fine 2 Y"]["high position limit"];
-            this.fine2ZPos.Maximum = (decimal)Program.Settings.json["fine 2 Z"]["high position limit"];
         }
 
         #endregion
@@ -462,10 +446,12 @@ namespace RCCM.UI
                     xAxis = "fine 2 X";
                     yAxis = "fine 2 Y";
                     break;
-                default:
+                case RCCMStage.Coarse:
                     xAxis = "coarse X";
                     yAxis = "coarse Y";
                     break;
+                default:
+                    return;
             }
 
             // Get current stage position
@@ -515,7 +501,11 @@ namespace RCCM.UI
             {
                 return RCCMStage.RCCM2;
             }
-            return RCCMStage.Coarse;
+            if (this.radioCoarse.Checked)
+            {
+                return RCCMStage.Coarse;
+            }
+            return RCCMStage.None;
         }
     }
 }

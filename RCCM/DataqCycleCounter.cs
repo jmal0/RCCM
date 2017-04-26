@@ -92,8 +92,25 @@ namespace RCCM
         /// </summary>
         protected async void initialize()
         {
-            // Get device
-            IDevice device = await Discovery.BySerial((string)Program.Settings.json["cycle counter"]["serial"]);
+            // Get device, preferably by serial number
+            IDevice device;
+            try
+            {
+                device = await Discovery.BySerial((string)Program.Settings.json["cycle counter"]["serial"]);
+            }
+            catch (Exception ex)
+            {
+                IReadOnlyList<IDevice> devices = await Discovery.AllDevices();
+                if (devices.Count > 0)
+                {
+                    device = devices[0];
+                }
+                else
+                {
+                    device = null;
+                }
+            }
+            
             if (device == null)
             {
                 MessageBox.Show("DATAQ device not found.");
@@ -199,12 +216,13 @@ namespace RCCM
         /// <summary>
         /// Stop data acquisition and release DATAQ device
         /// </summary>
-        public void Terminate()
+        public async Task Terminate()
         {
-            this.cancelRead.Cancel();
-            this.di_1100.AcquisitionStopAsync();
-            // Forgive me Father for I have sinned
-            Thread.Sleep(1000);
+            if (this.di_1100 != null)
+            {
+                this.cancelRead.Cancel();
+                await this.readDataTask;
+            }
         }
 
         public static double PwlInterp(double[,] data, double val)
