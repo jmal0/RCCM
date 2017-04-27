@@ -109,6 +109,7 @@
             this.chartCycles = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.panelTestControls = new System.Windows.Forms.Panel();
+            this.btnEStop = new System.Windows.Forms.Button();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.textPressure = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
@@ -116,9 +117,10 @@
             this.label25 = new System.Windows.Forms.Label();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1.SuspendLayout();
             this.groupBoxStageSelect.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -1088,6 +1090,7 @@
             // 
             // panelTestControls
             // 
+            this.panelTestControls.Controls.Add(this.btnEStop);
             this.panelTestControls.Controls.Add(this.groupBox12);
             this.panelTestControls.Controls.Add(this.btnWFOV2Open);
             this.panelTestControls.Controls.Add(this.groupBox11);
@@ -1100,6 +1103,22 @@
             this.panelTestControls.Name = "panelTestControls";
             this.panelTestControls.Size = new System.Drawing.Size(1138, 75);
             this.panelTestControls.TabIndex = 1;
+            // 
+            // btnEStop
+            // 
+            this.btnEStop.FlatAppearance.BorderSize = 0;
+            this.btnEStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEStop.ForeColor = System.Drawing.Color.Transparent;
+            this.btnEStop.Image = global::RCCM.Properties.Resources.estop;
+            this.btnEStop.Location = new System.Drawing.Point(572, 0);
+            this.btnEStop.Margin = new System.Windows.Forms.Padding(0);
+            this.btnEStop.Name = "btnEStop";
+            this.btnEStop.Size = new System.Drawing.Size(75, 75);
+            this.btnEStop.TabIndex = 22;
+            this.btnEStop.Text = "STOP";
+            this.btnEStop.UseVisualStyleBackColor = true;
+            this.btnEStop.Click += new System.EventHandler(this.btnEStop_Click);
             // 
             // groupBox12
             // 
@@ -1159,6 +1178,12 @@
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // RCCMMainForm
             // 
@@ -1310,6 +1335,8 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStripMenuItem pluginsToolStripMenuItem;
         private System.Windows.Forms.RadioButton radioNoStage;
+        private System.Windows.Forms.Button btnEStop;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 

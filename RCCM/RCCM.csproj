@@ -358,6 +358,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="rccm_ico.ico" />
+    <None Include="res\estop.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\" />

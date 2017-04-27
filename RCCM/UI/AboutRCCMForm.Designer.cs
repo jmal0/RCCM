@@ -72,10 +72,10 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(66, 69);
+            this.label2.Location = new System.Drawing.Point(48, 69);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(225, 20);
+            this.label2.Size = new System.Drawing.Size(261, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Designed and Constructed by:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

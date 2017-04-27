@@ -16,6 +16,7 @@ using FlyCapture2Managed;
 using FlyCapture2Managed.Gui;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace RCCM.UI
 {
@@ -68,6 +69,10 @@ namespace RCCM.UI
         /// ActiveX control for trio controller
         /// </summary>
         protected AxTrioPCLib.AxTrioPC triopc;
+        /// <summary>
+        /// Holds sleep setting of computer before starting program so it can be reverted on exit
+        /// </summary>
+        protected uint fPreviousExecutionState;
 
         /// <summary>
         /// Create the main form and initialize all hardware
@@ -115,6 +120,14 @@ namespace RCCM.UI
                     };
                 }
             }
+
+            // Set new state to prevent system sleep
+            this.fPreviousExecutionState = NativeMethods.SetThreadExecutionState(
+                NativeMethods.ES_CONTINUOUS | NativeMethods.ES_SYSTEM_REQUIRED);
+            if (this.fPreviousExecutionState == 0)
+            {
+                Console.WriteLine("SetThreadExecutionState failed. Do something here...");
+            }
             Show();
         }
         
@@ -144,6 +157,9 @@ namespace RCCM.UI
 
             Logger.Save();
             Program.Settings.save();
+
+            // Allow computer to sleep again
+            NativeMethods.SetThreadExecutionState(this.fPreviousExecutionState);
         }
 
         #region Motion
@@ -504,6 +520,16 @@ namespace RCCM.UI
         }
 
         /// <summary>
+        /// Immediately stops all moving axes
+        /// </summary>
+        private void btnEStop_Click(object sender, EventArgs e)
+        {
+            this.rccm.motors["fine 1 Z"].SetProperty("feedback", 0);
+            this.rccm.motors["fine 2 Z"].SetProperty("feedback", 0);
+            this.rccm.triopc.Stop();
+        }
+
+        /// <summary>
         /// When UI resizes, reset panel graphic
         /// </summary>
         private void RCCMMainForm_Resize(object sender, EventArgs e)
@@ -639,6 +665,18 @@ namespace RCCM.UI
                 return RCCMStage.Coarse;
             }
             return RCCMStage.None;
+        }
+
+        /// <summary>
+        /// Helper class fo preventing OS from putting computer in sleep mode
+        /// </summary>
+        internal static class NativeMethods
+        {
+            // Import SetThreadExecutionState Win32 API and necessary flags
+            [DllImport("kernel32.dll")]
+            public static extern uint SetThreadExecutionState(uint esFlags);
+            public const uint ES_CONTINUOUS = 0x80000000;
+            public const uint ES_SYSTEM_REQUIRED = 0x00000001;
         }
     }
 }
