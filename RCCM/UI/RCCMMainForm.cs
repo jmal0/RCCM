@@ -19,34 +19,60 @@ using System.IO;
 
 namespace RCCM.UI
 {
+    /// <summary>
+    /// The main window of the program from which all hardware initialization and termination is directed
+    /// </summary>
     public partial class RCCMMainForm : Form
     {
+        /// <summary>
+        /// The main object representing the RCCM containing references to all hardware
+        /// </summary>
         protected RCCMSystem rccm;
-
-        protected NFOV nfov1;
-        protected NFOV nfov2;
-        protected WFOV wfov1;
-        protected WFOV wfov2;
-
-        protected bool nfov1Open, nfov2Open, wfov1Open, wfov2Open;
-
+        /// <summary>
+        /// Flag for indicating if NFOV1 form is open
+        /// </summary>
+        protected bool nfov1Open;
+        /// <summary>
+        /// Flag for indicating if NFOV2 form is open
+        /// </summary>
+        protected bool nfov2Open;
+        /// <summary>
+        /// Flag for indicating if WFOV1 form is open
+        /// </summary>
+        protected bool wfov1Open;
+        /// <summary>
+        /// Flag for indicating if WFOV2 form is open
+        /// </summary>
+        protected bool wfov2Open;
+        /// <summary>
+        /// Timer for replotting certain panel graphic
+        /// </summary>
         protected Timer panelRepaintTimer;
-
-        // List of measurement objects and counter for default naming convention
+        /// <summary>
+        /// List of measurement objects. Observable so controls can update when other forms update them
+        /// </summary>
         protected ObservableCollection<MeasurementSequence> cracks;
-        protected int measurementCounter = 0;
-
-        // Flag to indicate if NFOV camera is recording video
-        protected bool recording = false;
-        protected bool wfov1Recording = false;
-
+        /// <summary>
+        /// Object for managing test result plotting
+        /// </summary>
         protected TestResults test;
-        
+        /// <summary>
+        /// Object for managing panel graphic drawing
+        /// </summary>
         protected PanelView view;
-
+        /// <summary>
+        /// Resource manager for loading ActiveX object for Trio controller
+        /// </summary>
         protected ComponentResourceManager resources;
+        /// <summary>
+        /// ActiveX control for trio controller
+        /// </summary>
         protected AxTrioPCLib.AxTrioPC triopc;
 
+        /// <summary>
+        /// Create the main form and initialize all hardware
+        /// </summary>
+        /// <param name="plugins">List of plugins that were found on startup</param>
         public RCCMMainForm(ICollection<IRCCMPlugin> plugins)
         {
             // Need to load the ActiveX state or something, I'm not actually sure
@@ -61,27 +87,21 @@ namespace RCCM.UI
             ((ISupportInitialize)(this.triopc)).EndInit();
 
             this.rccm = new RCCMSystem(this.triopc);
+            this.cracks = new ObservableCollection<MeasurementSequence>();
+            this.test = new TestResults(this.rccm, this.cracks, this.chartCracks, this.chartCycles, this.textCycle, this.textPressure, this.listCrackSelection);
+            this.view = new PanelView(this.rccm);
 
             InitializeComponent();
-            
+            // Apply certain settings to controls
             this.applyUISettings();
             
-            this.nfov1 = this.rccm.NFOV1;
-            this.nfov2 = this.rccm.NFOV2;
-            this.wfov1 = this.rccm.WFOV1;
-            this.wfov2 = this.rccm.WFOV2;
-            
+            // Create timer for redrawing panel graphics
             this.panelRepaintTimer = new Timer();
             this.panelRepaintTimer.Enabled = true;
             this.panelRepaintTimer.Interval = (int)Program.Settings.json["repaint period"];
             this.panelRepaintTimer.Tick += new EventHandler(refreshPanelView);
 
-            this.cracks = new ObservableCollection<MeasurementSequence>();
-
-            this.test = new TestResults(this.rccm, this.cracks, this.chartCracks, this.chartCycles, this.textCycle, this.textPressure, this.listCrackSelection);
-
-            this.view = new PanelView(this.rccm);
-
+            // Add toolstrip item for each plugin
             if (plugins != null)
             {
                 foreach (IRCCMPlugin plugin in plugins)
@@ -96,23 +116,25 @@ namespace RCCM.UI
             }
             Show();
         }
-
-        private void PluginToolStripClick(IRCCMPlugin plugin)
-        {
-            PluginInitializationForm form = new PluginInitializationForm(this.rccm, plugin);
-            form.Show();
-        }
         
+        /// <summary>
+        /// Load form and initialize things dependent on UI visibility
+        /// </summary>
         private void RCCMMainForm_Load(object sender, EventArgs e)
         {
             this.view.SetTransform(this.panelView.CreateGraphics());
             this.panelRepaintTimer.Start();
         }
-        
+
+        /// <summary>
+        /// Close form and disconnect from all hardware
+        /// </summary>
         private async void RCCMMainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.nfov1.Disconnect();
-            this.nfov2.Disconnect();
+            this.rccm.NFOV1.Disconnect();
+            this.rccm.NFOV2.Disconnect();
+            this.rccm.WFOV1.Stop();
+            this.rccm.WFOV2.Stop();
             foreach (string motorName in RCCMSystem.AXES)
             {
                 this.rccm.motors[motorName].JogStop();
@@ -125,6 +147,9 @@ namespace RCCM.UI
 
         #region Motion
 
+        /// <summary>
+        /// Handler for sending motion commands for coarse X
+        /// </summary>
         private void coarseXPos_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -133,6 +158,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Handler for sending motion commands for coarse Y
+        /// </summary>
         private void coarseYPos_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -141,6 +169,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Handler for sending motion commands for fine 1 x
+        /// </summary>
         private void fine1XPos_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -149,6 +180,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Handler for sending motion commands for fine 1 y
+        /// </summary>
         private void fine1YPos_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -157,6 +191,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Handler for sending motion commands for fine 1 z
+        /// </summary>
         private void fine1ZPos_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -165,6 +202,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Handler for sending motion commands for fine 2 x
+        /// </summary>
         private void fine2XPos_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -173,6 +213,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Handler for sending motion commands for fine 2 y
+        /// </summary>
         private void fine2YPos_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -181,6 +224,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Handler for sending motion commands for fine 2 z
+        /// </summary>
         private void fine2ZPos_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
@@ -189,19 +235,32 @@ namespace RCCM.UI
             }
         }
 
+
+        /// <summary>
+        /// Send motion command for specified actions according to UI settings
+        /// </summary>
+        /// <param name="axis">Name of axis as defined in RCCMSystem</param>
+        /// <param name="value">Position command value</param>
+        /// <param name="c">UI Control sending this command</param>
         private void moveStage(string axis, double value, NumericUpDown c)
         {
+            // Move to specified coordinate
             if (this.radioMoveAbs.Checked)
             {
                 double returnPos = this.rccm.motors[axis].SetPos(value);
+                // Set control text to output of set pos in case it was out of range
                 c.Value = (decimal)returnPos;
             }
+            // Move specified distance from current coordinate
             else if (this.radioMoveRel.Checked)
             {
                 this.rccm.motors[axis].MoveRel(value);
             }
         }
 
+        /// <summary>
+        /// Send actuators to home position
+        /// </summary>
         private void btnHome_Click(object sender, EventArgs e)
         {
             foreach (string motorName in this.rccm.motors.Keys)
@@ -211,6 +270,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Set current positions as home position of actuators
+        /// </summary>
         private void btnSetHome_Click(object sender, EventArgs e)
         {
             foreach (string motorName in this.rccm.motors.Keys)
@@ -221,11 +283,13 @@ namespace RCCM.UI
             Program.Settings.save();
         }
 
-
         #endregion
 
         #region Settings
 
+        /// <summary>
+        /// Set increment of position controls to actuator step value
+        /// </summary>
         public void applyUISettings()
         {
             // Make NumericUpDown increment property equal to motor minimum step size
@@ -243,11 +307,17 @@ namespace RCCM.UI
 
         #region Fatigue Testing
 
+        /// <summary>
+        /// Replot cracks when user selects/deselects a crack
+        /// </summary>
         private void listCracksSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.test.PlotCracks();
         }
 
+        /// <summary>
+        /// Start cycle counter and change button states
+        /// </summary>
         private void btnStartTest_Click(object sender, EventArgs e)
         {
             this.rccm.Counter.Start();
@@ -256,6 +326,9 @@ namespace RCCM.UI
             this.btnStopTest.Enabled = true;
         }
 
+        /// <summary>
+        /// Pause cycle counting and change button states
+        /// </summary>
         private void btnPauseTest_Click(object sender, EventArgs e)
         {
             this.rccm.Counter.Stop();
@@ -264,6 +337,9 @@ namespace RCCM.UI
             this.btnStopTest.Enabled = false;
         }
 
+        /// <summary>
+        /// Reset cycle counting and change button states
+        /// </summary>
         private void btnStopTest_Click(object sender, EventArgs e)
         {
             this.rccm.Counter.Stop();
@@ -274,20 +350,22 @@ namespace RCCM.UI
             {
                 crack.WriteToFile((string)Program.Settings.json[crack.Camera]["test data directory"], true);
             }
-        }
-
-        private void editCycleFreq_Click(object sender, EventArgs e)
-        {
-            //this.rccm.Counter.Period = (int)(2000.0 * Math.PI * (double)this.editCycleFreq.Value);
+            this.rccm.Counter.Cycle = 0;
         }
 
         #endregion
 
+        /// <summary>
+        /// Paint panel graphic
+        /// </summary>
         private void panelView_Paint(object sender, PaintEventArgs e)
         {
             this.view.Paint(e.Graphics);
         }
 
+        /// <summary>
+        /// Refresh panel graphic and update position indicators
+        /// </summary>
         private void refreshPanelView(object sender, EventArgs e)
         {
             this.panelView.Invalidate();
@@ -303,87 +381,130 @@ namespace RCCM.UI
 
         #region Menu Items
 
+        /// <summary>
+        /// Open lens calibration form for NFOV1
+        /// </summary>
         private void nFOV1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LensCalibrationForm form = new LensCalibrationForm(this.rccm, RCCMStage.RCCM1);
             form.Show();
         }
 
+        /// <summary>
+        /// Open lens calibratio form for NFOV2
+        /// </summary>
         private void nFOV2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LensCalibrationForm form = new LensCalibrationForm(this.rccm, RCCMStage.RCCM2);
             form.Show();
         }
 
+        /// <summary>
+        /// Open form for coordinate system settings
+        /// </summary>
         private void coordinateSystemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CoordinateSystemSettingsForm form = new CoordinateSystemSettingsForm(this.rccm);
             form.Show();
         }
-        
+
+        /// <summary>
+        /// Open form for camera settings
+        /// </summary>
         private void camerasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CameraSettingsForm form = new CameraSettingsForm(this.rccm);
             form.Show();
         }
 
+        /// <summary>
+        /// Open RCCM info form
+        /// </summary>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutRCCMForm form = new AboutRCCMForm();
             form.Show();
         }
 
+        /// <summary>
+        /// Exit program
+        /// </summary>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        
+        /// <summary>
+        /// Open a form for initializing the specified plugin
+        /// </summary>
+        /// <param name="plugin">Plugin to initialize</param>
+        private void PluginToolStripClick(IRCCMPlugin plugin)
+        {
+            PluginInitializationForm form = new PluginInitializationForm(this.rccm, plugin);
+            form.Show();
+        }
 
         #endregion
 
+        /// <summary>
+        /// Open NFOV1 GUI if it isn't already open
+        /// </summary>
         private void btnNFOV1Open_Click(object sender, EventArgs e)
         {
             if (!this.nfov1Open)
             {
                 this.nfov1Open = true;
-                NFOVViewForm form = new NFOVViewForm(this.rccm, this.nfov1, this.cracks);
+                NFOVViewForm form = new NFOVViewForm(this.rccm, this.rccm.NFOV1, this.cracks);
                 form.Show();
                 form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.nfov1Open = false; };
             }
         }
 
+        /// <summary>
+        /// Open NFOV2 GUI if it isn't already open
+        /// </summary>
         private void btnNFOV2Open_Click(object sender, EventArgs e)
         {
             if (!this.nfov2Open)
             {
                 this.nfov2Open = true;
-                NFOVViewForm form = new NFOVViewForm(this.rccm, this.nfov2, this.cracks);
+                NFOVViewForm form = new NFOVViewForm(this.rccm, this.rccm.NFOV2, this.cracks);
                 form.Show();
                 form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.nfov2Open = false; };
             }
         }
 
+        /// <summary>
+        /// Open WFOV1 GUI if it isn't already open
+        /// </summary>
         private void btnWFOV1Open_Click(object sender, EventArgs e)
         {
             if (!this.wfov1Open)
             {
                 this.wfov1Open = true;
-                WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov1, this.cracks);
+                WFOVViewForm form = new WFOVViewForm(this.rccm, this.rccm.WFOV1, this.cracks);
                 form.Show();
                 form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.wfov1Open = false; };
             }
         }
 
+        /// <summary>
+        /// Open WFOV2 GUI if it isn't already open
+        /// </summary>
         private void btnWFOV2Open_Click(object sender, EventArgs e)
         {
             if (!this.wfov2Open)
             {
                 this.wfov2Open = true;
-                WFOVViewForm form = new WFOVViewForm(this.rccm, this.wfov2, this.cracks);
+                WFOVViewForm form = new WFOVViewForm(this.rccm, this.rccm.W, this.cracks);
                 form.Show();
                 form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.wfov2Open = false; };
             }
         }
 
+        /// <summary>
+        /// When UI resizes, reset panel graphic
+        /// </summary>
         private void RCCMMainForm_Resize(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Minimized)
@@ -393,6 +514,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Reset panel graphic only if it isnt minimized
+        /// </summary>
         private void tabPageMotion_Paint(object sender, PaintEventArgs e)
         {
             if (WindowState != FormWindowState.Minimized)
@@ -405,8 +529,6 @@ namespace RCCM.UI
         /// <summary>
         /// Prevents arrow keys from changing radio button selection
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void radioButtonSuppress(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
@@ -415,15 +537,18 @@ namespace RCCM.UI
             }                
         }
 
+        /// <summary>
+        /// Open form for changing motor settings
+        /// </summary>
         private void motorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MotorSettingsForm form = new MotorSettingsForm(this.rccm);
             form.Show();
-            form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) {
-                this.applyUISettings();
-            };
         }
 
+        /// <summary>
+        /// Catch arrow key presses for jogging actuators
+        /// </summary>
         private void RCCMMainForm_KeyDown(object sender, KeyEventArgs e)
         {
             // Do not call jogging code if edit control is focused
@@ -480,6 +605,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Stop jogging when arrow keys are released
+        /// </summary>
         private void RCCMMainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Up || e.KeyData == Keys.Left || e.KeyData == Keys.Down || e.KeyData == Keys.Right)
@@ -491,6 +619,10 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Get the UI selected stage to jog
+        /// </summary>
+        /// <returns>Enum value of selected option</returns>
         private RCCMStage getActiveStage()
         {
             if (this.radioRCCM1.Checked)

@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace RCCM.UI
 {
+    /// <summary>
+    /// Form for starting plugin and entering inputs
+    /// </summary>
     public partial class PluginInitializationForm : Form
     {
         protected readonly RCCMSystem rccm;
@@ -18,6 +21,11 @@ namespace RCCM.UI
         protected TableLayoutPanel tableLayoutPanelParams;
         protected Dictionary<string, TextBox> parameterControls;
 
+        /// <summary>
+        /// Open form for given plugin
+        /// </summary>
+        /// <param name="rccm">Reference to RCCM object</param>
+        /// <param name="plugin">Plugin to be started from this form</param>
         public PluginInitializationForm(RCCMSystem rccm, IRCCMPlugin plugin)
         {
             this.rccm = rccm;
@@ -25,7 +33,7 @@ namespace RCCM.UI
             
             InitializeComponent();
 
-            // Add rows to table and give them a fixed size
+            // Add rows for each input and give them a fixed size
             this.tableLayoutPanelParams = new TableLayoutPanel();
             this.tableLayoutPanelParams.Dock = DockStyle.Fill;
             this.tableLayoutPanelParams.ColumnCount = 2;
@@ -52,6 +60,9 @@ namespace RCCM.UI
             this.tableLayoutPanelGrid.RowStyles[0].Height = 32 * this.plugin.Params.Length;
         }
 
+        /// <summary>
+        /// Start plugin with user entered inputs
+        /// </summary>
         private void buttonStart_Click(object sender, EventArgs e)
         {
             // Get parameter values
@@ -61,7 +72,7 @@ namespace RCCM.UI
                 parameters[param] = this.parameterControls[param].Text;
             }
 
-            // Initialize and run plugin actor in background thread
+            // Initialize plugin
             try
             {
                 this.actor = plugin.Instance(rccm, parameters);
@@ -72,7 +83,8 @@ namespace RCCM.UI
                 MessageBox.Show("Error occured while initializing plugin " + this.plugin.Name + "\nDetails:\n" + ex.Message);
                 return;
             }
-            
+
+            // Run plugin actor in background thread
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += delegate (object doWorkSender, DoWorkEventArgs doWorkArgs)
             {
@@ -98,6 +110,9 @@ namespace RCCM.UI
             this.buttonStop.Enabled = true;
         }
 
+        /// <summary>
+        /// Stop plugin
+        /// </summary>
         private void buttonStop_Click(object sender, EventArgs e)
         {
             this.actor.Stop();

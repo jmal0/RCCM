@@ -20,15 +20,26 @@ namespace RCCM.UI
         public static int ColorInd = 0;
         public static Color[] Colors = { Color.Red, Color.Blue, Color.Green, Color.Purple, Color.Orange, Color.Yellow, Color.Black, Color.Brown, Color.DarkBlue, Color.LimeGreen, Color.PaleVioletRed };
 
+        
+        /// <summary>
+        /// Open a measurement creation form for the specified camera
+        /// </summary>
+        /// <param name="defaultName">Name to show in name field</param>
+        /// <param name="camera">Name of camera capturing this measurement</param>
         public NewMeasurementForm(string defaultName, string camera)
         {
             InitializeComponent();
             this.camera = camera;
             this.textName.Text = defaultName;
             this.colorPicker.BackColor = NewMeasurementForm.Colors[NewMeasurementForm.ColorInd];
+            // Increment color index so new default color will be selected by default
             NewMeasurementForm.ColorInd = (NewMeasurementForm.ColorInd + 1) % NewMeasurementForm.Colors.Length;
         }
 
+        /// <summary>
+        /// Open a form to edit the given crack
+        /// </summary>
+        /// <param name="crack">Crack to be editted</param>
         public NewMeasurementForm(MeasurementSequence crack)
         {
             InitializeComponent();
@@ -51,18 +62,26 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Exit and create/edit crack according to GUI
+        /// </summary>
         private void btnOK_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
+        /// <summary>
+        /// Exit and do not create crack
+        /// </summary>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
+        /// <summary>
+        /// Open select color GUI and display selection in colorPicker
+        /// </summary>
         private void colorPicker_Click(object sender, EventArgs e)
         {
             DialogResult result = this.colorDialog1.ShowDialog();

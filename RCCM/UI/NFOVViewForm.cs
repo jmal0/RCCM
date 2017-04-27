@@ -237,6 +237,9 @@ namespace RCCM.UI
 
         #region UI Callbacks
 
+        /// <summary>
+        /// Start mouse measurement. Left click places a point, right a line
+        /// </summary>
         private void nfovImage_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -249,6 +252,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// If right mouse pressed, move point user is drawing
+        /// </summary>
         private void nfovImage_MouseMove(object sender, MouseEventArgs e)
         {
             if (this.Drawing)
@@ -258,6 +264,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Create segment user was drawing with right mouse button
+        /// </summary>
         private void nfovImage_MouseUp(object sender, MouseEventArgs e)
         {
             int index = this.listMeasurements.SelectedIndex;
@@ -305,7 +314,7 @@ namespace RCCM.UI
             float scaleX = bounds.Width / (float)this.camera.Width;
             float scaleY = bounds.Height / (float)this.camera.Height;
             e.Graphics.ScaleTransform(scaleX, scaleY);
-            // Draw ruler (ticks on crosshair at defined spacing
+            // Draw ruler (ticks on crosshair at defined spacing)
             if (this.checkCrosshair.Checked)
             {
                 float size = (float)Program.Settings.json["ruler spacing"] / 1000.0f;
@@ -368,7 +377,10 @@ namespace RCCM.UI
                 e.Graphics.FillEllipse(new SolidBrush(crack.Color), point);
             }
         }
-        
+
+        /// <summary>
+        /// Start NFOV image capture
+        /// </summary>
         private void btnNfovStart_Click(object sender, EventArgs e)
         {
             this.camera.Start();
@@ -380,6 +392,10 @@ namespace RCCM.UI
             btnNfovRecord.Enabled = true;
         }
 
+
+        /// <summary>
+        /// Stop NFOV image capture
+        /// </summary>
         private void btnNfovStop_Click(object sender, EventArgs e)
         {
             this.camera.Stop();
@@ -391,16 +407,25 @@ namespace RCCM.UI
             btnNfovRecord.Enabled = false;
         }
 
+        /// <summary>
+        /// Repaint live image
+        /// </summary>
         private void refreshNfov(object sender, EventArgs e)
         {
             this.nfovImage.Invalidate();
         }
 
+        /// <summary>
+        /// Open property dialog for NFOV camera
+        /// </summary>
         private void btnNfovProperties_Click(object sender, EventArgs e)
         {
             this.camera.ShowPropertiesDlg();
         }
 
+        /// <summary>
+        /// Capture image with current timestamp as name
+        /// </summary>
         private void btnNfovSnap_Click(object sender, EventArgs e)
         {
             string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
@@ -410,6 +435,9 @@ namespace RCCM.UI
             this.camera.Snap(dir + @"\" + timestamp + ".bmp");
         }
 
+        /// <summary>
+        /// Begin/stop recording video to file named with timestamp
+        /// </summary>
         private void btnNfovRecord_Click(object sender, EventArgs e)
         {
             if (this.camera.Recording)
@@ -429,29 +457,36 @@ namespace RCCM.UI
                 string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
                 string dir = (string)Program.Settings.json[camName]["video directory"];
                 this.camera.Record(dir + "\\" + timestamp + ".avi");
+                // Color button gray to indicate that it is pressed
                 btnNfovRecord.BackColor = Color.Gray;
                 btnNfovStart.Enabled = false;
                 btnNfovStop.Enabled = false;
                 btnNfovSnap.Enabled = false;
             }
         }
-        
+
+        /// <summary>
+        /// Change selected crack and clear point selection
+        /// </summary>
         private void listMeasurements_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.ActiveIndex = this.listMeasurements.SelectedIndex;
             this.ActivePoint = -1;
         }
 
+        /// <summary>
+        /// Open GUI for editting selected crack
+        /// </summary>
         private void btnEditSequence_Click(object sender, EventArgs e)
         {
             if (this.crackIndexValid())
             {
                 MeasurementSequence crack = this.cracks[this.ActiveIndex];
-                Console.WriteLine(crack.Mode);
                 NewMeasurementForm form = new NewMeasurementForm(crack);
                 DialogResult result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
+                    // Check if name is unique
                     MeasurementSequence crack2 = findCrackName(form.GetName());
                     if (crack2 == null || crack2 == crack)
                     {
@@ -471,6 +506,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Create new measurement
+        /// </summary>
         private void btnNewSequence_Click(object sender, EventArgs e)
         {
             string cameraName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
@@ -479,6 +517,7 @@ namespace RCCM.UI
             if (result == DialogResult.OK)
             {
                 MeasurementSequence newCrack = new MeasurementSequence(dlg);
+                // Check that name is unique
                 MeasurementSequence crack2 = findCrackName(newCrack.Name);
                 if (crack2 == null)
                 {
@@ -493,6 +532,9 @@ namespace RCCM.UI
             dlg.Dispose();
         }
 
+        /// <summary>
+        /// Deleted selected crack
+        /// </summary>
         private void btnDeleteSequence_Click(object sender, EventArgs e)
         {
             if (this.crackIndexValid())
@@ -501,7 +543,10 @@ namespace RCCM.UI
                 this.listMeasurements.SelectedIndex = -1;
             }
         }
-
+        
+        /// <summary>
+        /// Save selected crack to user selected file
+        /// </summary>
         private void btnSaveCrack_Click(object sender, EventArgs e)
         {
             if (this.crackIndexValid())
@@ -515,6 +560,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Add a measurement at center of image
+        /// </summary>
         private void btnCrosshairMeasure_Click(object sender, EventArgs e)
         {
             if (this.crackIndexValid())
@@ -527,6 +575,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Move actuators to their position when selected measurement was captured
+        /// </summary>
         private void btnGotoPoint_Click(object sender, EventArgs e)
         {
             if (this.pointIndexValid())
@@ -542,7 +593,7 @@ namespace RCCM.UI
                 }
                 else
                 {
-                    this.rccm.motors["fine  X"].SetPos(m.FineX);
+                    this.rccm.motors["fine 2 X"].SetPos(m.FineX);
                     this.rccm.motors["fine 2 X"].WaitForEndOfMove();
                     this.rccm.motors["fine 2 Y"].SetPos(m.FineY);
                     this.rccm.motors["fine 2 Y"].WaitForEndOfMove();
@@ -551,6 +602,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Delete selected point from measurement sequence
+        /// </summary>
         private void btnDeletePoint_Click(object sender, EventArgs e)
         {
             if (this.pointIndexValid())
@@ -561,7 +615,10 @@ namespace RCCM.UI
                 this.updateMeasurementControls();
             }
         }
-        
+
+        /// <summary>
+        /// Change selected point
+        /// </summary>
         private void listPoints_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.listPoints.SelectedIndices.Count > 0)
@@ -572,6 +629,9 @@ namespace RCCM.UI
 
         #endregion
 
+        /// <summary>
+        /// Enable buttons for controlling NFOV
+        /// </summary>
         private void enableNfovControls()
         {
             btnNfovStart.Enabled = true;
@@ -581,6 +641,9 @@ namespace RCCM.UI
             btnNfovProperties.Enabled = true;
         }
 
+        /// <summary>
+        /// Disable buttons for controlling NFOV
+        /// </summary>
         private void disableNfovControls()
         {
             btnNfovStart.Enabled = false;
@@ -590,6 +653,9 @@ namespace RCCM.UI
             btnNfovProperties.Enabled = false;
         }
 
+        /// <summary>
+        /// Refresh lists of cracks and points
+        /// </summary>
         private void updateMeasurementControls()
         {
             // Update list of cracks
@@ -634,11 +700,17 @@ namespace RCCM.UI
             return this.crackIndexValid() && this.ActivePoint >= 0 && this.ActivePoint < this.cracks[this.ActiveIndex].CountPoints;
         }
 
+        /// <summary>
+        /// When cracks is modified, this event handler is called to refresh user displayed info
+        /// </summary>
         private void cracksChangedHandler(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.updateMeasurementControls();
         }
 
+        /// <summary>
+        /// Check if there is already a crack by this name
+        /// </summary>
         private MeasurementSequence findCrackName(string name)
         {
             foreach (MeasurementSequence crack in this.cracks)

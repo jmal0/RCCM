@@ -49,11 +49,10 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDlg = new System.Windows.Forms.ColorDialog();
-            this.label24 = new System.Windows.Forms.Label();
-            this.editCycleFreq = new System.Windows.Forms.NumericUpDown();
             this.radioRCCM1 = new System.Windows.Forms.RadioButton();
             this.radioRCCM2 = new System.Windows.Forms.RadioButton();
             this.groupBoxStageSelect = new System.Windows.Forms.GroupBox();
+            this.radioNoStage = new System.Windows.Forms.RadioButton();
             this.radioCoarse = new System.Windows.Forms.RadioButton();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.btnStartTest = new System.Windows.Forms.Button();
@@ -120,9 +119,7 @@
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.radioNoStage = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).BeginInit();
             this.groupBoxStageSelect.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.tabPageResults.SuspendLayout();
@@ -262,31 +259,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(148, 37);
-            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(126, 20);
-            this.label24.TabIndex = 10;
-            this.label24.Text = "Cycle Frequency";
-            // 
-            // editCycleFreq
-            // 
-            this.editCycleFreq.DecimalPlaces = 2;
-            this.editCycleFreq.Location = new System.Drawing.Point(286, 34);
-            this.editCycleFreq.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.editCycleFreq.Name = "editCycleFreq";
-            this.editCycleFreq.Size = new System.Drawing.Size(182, 26);
-            this.editCycleFreq.TabIndex = 9;
-            this.editCycleFreq.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.editCycleFreq.Click += new System.EventHandler(this.editCycleFreq_Click);
-            // 
             // radioRCCM1
             // 
             this.radioRCCM1.AutoSize = true;
@@ -328,6 +300,17 @@
             this.groupBoxStageSelect.Text = "Stage Selection";
             this.toolTip.SetToolTip(this.groupBoxStageSelect, "Select which set of actuators is moved by pressing arrow keys");
             // 
+            // radioNoStage
+            // 
+            this.radioNoStage.AutoSize = true;
+            this.radioNoStage.Location = new System.Drawing.Point(9, 134);
+            this.radioNoStage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.radioNoStage.Name = "radioNoStage";
+            this.radioNoStage.Size = new System.Drawing.Size(65, 24);
+            this.radioNoStage.TabIndex = 14;
+            this.radioNoStage.Text = "None";
+            this.radioNoStage.UseVisualStyleBackColor = true;
+            // 
             // radioCoarse
             // 
             this.radioCoarse.AutoSize = true;
@@ -337,6 +320,7 @@
             this.radioCoarse.Name = "radioCoarse";
             this.radioCoarse.Size = new System.Drawing.Size(78, 24);
             this.radioCoarse.TabIndex = 13;
+            this.radioCoarse.TabStop = true;
             this.radioCoarse.Text = "Coarse";
             this.radioCoarse.UseVisualStyleBackColor = true;
             this.radioCoarse.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
@@ -344,8 +328,6 @@
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.btnStartTest);
-            this.groupBox11.Controls.Add(this.editCycleFreq);
-            this.groupBox11.Controls.Add(this.label24);
             this.groupBox11.Controls.Add(this.btnPauseTest);
             this.groupBox11.Controls.Add(this.btnStopTest);
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Left;
@@ -353,7 +335,7 @@
             this.groupBox11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox11.Size = new System.Drawing.Size(477, 75);
+            this.groupBox11.Size = new System.Drawing.Size(151, 75);
             this.groupBox11.TabIndex = 19;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Test Controls";
@@ -1126,7 +1108,7 @@
             this.groupBox12.Controls.Add(this.textCycle);
             this.groupBox12.Controls.Add(this.label25);
             this.groupBox12.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox12.Location = new System.Drawing.Point(477, 0);
+            this.groupBox12.Location = new System.Drawing.Point(151, 0);
             this.groupBox12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1178,17 +1160,6 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // radioNoStage
-            // 
-            this.radioNoStage.AutoSize = true;
-            this.radioNoStage.Location = new System.Drawing.Point(9, 134);
-            this.radioNoStage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.radioNoStage.Name = "radioNoStage";
-            this.radioNoStage.Size = new System.Drawing.Size(65, 24);
-            this.radioNoStage.TabIndex = 14;
-            this.radioNoStage.Text = "None";
-            this.radioNoStage.UseVisualStyleBackColor = true;
-            // 
             // RCCMMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1212,11 +1183,9 @@
             this.Resize += new System.EventHandler(this.RCCMMainForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.editCycleFreq)).EndInit();
             this.groupBoxStageSelect.ResumeLayout(false);
             this.groupBoxStageSelect.PerformLayout();
             this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
             this.tabPageResults.ResumeLayout(false);
             this.tableLayoutResults.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartCracks)).EndInit();
@@ -1266,8 +1235,6 @@
         private System.Windows.Forms.ToolStripMenuItem nFOV1LensToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nFOV1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nFOV2ToolStripMenuItem;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.NumericUpDown editCycleFreq;
         private System.Windows.Forms.Button btnStopTest;
         private System.Windows.Forms.Button btnStartTest;
         private System.Windows.Forms.Button btnPauseTest;
