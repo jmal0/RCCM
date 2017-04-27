@@ -221,10 +221,6 @@ namespace RCCM
                 this.ic.LiveSuspend();
                 this.ic.SaveDeviceStateToFile(this.configFile);
             }
-            else
-            {
-                MessageBox.Show("Camera disconnected");
-            }
         }
 
         /// <summary>

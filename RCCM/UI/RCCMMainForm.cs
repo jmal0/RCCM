@@ -86,12 +86,13 @@ namespace RCCM.UI
             this.triopc.OcxState = ((AxHost.State)(resources.GetObject("AxTrioPC1.OcxState")));
             ((ISupportInitialize)(this.triopc)).EndInit();
 
+            InitializeComponent();
+
             this.rccm = new RCCMSystem(this.triopc);
             this.cracks = new ObservableCollection<MeasurementSequence>();
             this.test = new TestResults(this.rccm, this.cracks, this.chartCracks, this.chartCycles, this.textCycle, this.textPressure, this.listCrackSelection);
             this.view = new PanelView(this.rccm);
 
-            InitializeComponent();
             // Apply certain settings to controls
             this.applyUISettings();
             
@@ -496,7 +497,7 @@ namespace RCCM.UI
             if (!this.wfov2Open)
             {
                 this.wfov2Open = true;
-                WFOVViewForm form = new WFOVViewForm(this.rccm, this.rccm.W, this.cracks);
+                WFOVViewForm form = new WFOVViewForm(this.rccm, this.rccm.WFOV2, this.cracks);
                 form.Show();
                 form.FormClosed += delegate (object sender2, FormClosedEventArgs e2) { this.wfov2Open = false; };
             }
@@ -552,7 +553,7 @@ namespace RCCM.UI
         private void RCCMMainForm_KeyDown(object sender, KeyEventArgs e)
         {
             // Do not call jogging code if edit control is focused
-            foreach (Control c in new Control[] { this.coarseXPos, this.coarseYPos, this.fine1XPos, this.fine1YPos, this.fine1ZPos, this.fine2XPos, this.fine2YPos, this.fine2ZPos, this.editCycleFreq })
+            foreach (Control c in new Control[] { this.coarseXPos, this.coarseYPos, this.fine1XPos, this.fine1YPos, this.fine1ZPos, this.fine2XPos, this.fine2YPos, this.fine2ZPos })
             {
                 if (c.Focused)
                 {
