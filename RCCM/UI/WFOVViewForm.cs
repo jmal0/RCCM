@@ -13,6 +13,9 @@ using TIS.Imaging;
 
 namespace RCCM.UI
 {
+    /// <summary>
+    /// Form for displaying WFOV live image and measurement overlay
+    /// </summary>
     public partial class WFOVViewForm : Form
     {
         /// <summary>
@@ -59,6 +62,12 @@ namespace RCCM.UI
         /// </summary>
         protected PointF drawnLineEnd;
 
+        /// <summary>
+        /// Create form and initialize given camera
+        /// </summary>
+        /// <param name="rccm">Reference to the RCCM object</param>
+        /// <param name="camera">Camera to be displayed</param>
+        /// <param name="cracks">Reference to the list of all measurement sequences</param>
         public WFOVViewForm(RCCMSystem rccm, WFOV camera, ObservableCollection<MeasurementSequence> cracks)
         {
             this.rccm = rccm;
@@ -73,12 +82,21 @@ namespace RCCM.UI
             this.updateMeasurementControls();
         }
 
+        /// <summary>
+        /// Open form and start camera and perform UI initialization
+        /// </summary>
         private void WFOVViewForm_Load(object sender, EventArgs e)
         {
             this.Text = this.stage == RCCMStage.RCCM1 ? "WFOV 1" : "WFOV 2";
             
             this.wfovContainer.OverlayBitmapPosition = PathPositions.Display;
-            this.SetupOverlay(this.wfovContainer.OverlayBitmapAtPath[PathPositions.Display]);
+            // Enable the overlay bitmap for drawing.
+            OverlayBitmap ob = this.wfovContainer.OverlayBitmapAtPath[PathPositions.Display];
+            ob.Enable = true;
+            // Fill the overlay bitmap with the dropout color.
+            ob.DropOutColor = Color.Black;
+            ob.Fill(Color.Black);
+            ob.ColorMode = OverlayColorModes.Color;
             this.wfovContainer.OverlayUpdate += new EventHandler<ICImagingControl.OverlayUpdateEventArgs>(wfovOverlayPaint);
 
             // Initialize camera
@@ -101,6 +119,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Stop camera on close
+        /// </summary>
         private void WFOVViewForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (this.camera.Recording)
@@ -168,18 +189,7 @@ namespace RCCM.UI
             }
             e.overlay.ReleaseGraphics(g);
         }
-
-        private void SetupOverlay(OverlayBitmap ob)
-        {
-            // Enable the overlay bitmap for drawing.
-            ob.Enable = true;
-            // Fill the overlay bitmap with the dropout color.
-            ob.DropOutColor = Color.Black;
-            ob.Fill(Color.Black);
-            ob.ColorMode = OverlayColorModes.Color;
-        }
-
-
+        
         /// <summary>
         /// Create segment that was being drawn by user with mouse input. This will add a point or segment to the active MeasurementSequence
         /// </summary>
@@ -288,7 +298,10 @@ namespace RCCM.UI
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Start mouse measurement. Left click places a point, right a line
+        /// </summary>
         private void wfovContainer_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -301,6 +314,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// If right mouse pressed, move point user is drawing
+        /// </summary>
         private void wfovContainer_MouseMove(object sender, MouseEventArgs e)
         {
             if (this.Drawing)
@@ -310,6 +326,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Create segment user was drawing with right mouse button
+        /// </summary>
         private void wfovContainer_MouseUp(object sender, MouseEventArgs e)
         {
             int index = this.listMeasurements.SelectedIndex;
@@ -321,6 +340,9 @@ namespace RCCM.UI
             this.updateMeasurementControls();
         }
 
+        /// <summary>
+        /// Start camera and change button states
+        /// </summary>
         private void btnWfovStart_Click(object sender, EventArgs e)
         {
             this.camera.Start();
@@ -333,6 +355,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Stop camera and change button states
+        /// </summary>
         private void btnWfovStop_Click(object sender, EventArgs e)
         {
             this.camera.Stop();
@@ -345,6 +370,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Capture image to file named with timestamp
+        /// </summary>
         private void btnWfovSnap_Click(object sender, EventArgs e)
         {
             string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
@@ -353,6 +381,9 @@ namespace RCCM.UI
             this.camera.Snap(dir + "\\" + timestamp + ".png");
         }
 
+        /// <summary>
+        /// Open camera property dialog
+        /// </summary>
         private void btnWfovProperties_Click(object sender, EventArgs e)
         {
             if (wfovContainer.DeviceValid)
@@ -361,6 +392,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Start/stop recording video to file named with timestamp
+        /// </summary>
         private void btnWfovRecord_Click(object sender, EventArgs e)
         {
             if (wfovContainer.DeviceValid)
@@ -386,6 +420,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Autofocus the camera
+        /// </summary>
         private void btnFocus_Click(object sender, EventArgs e)
         {
             btnFocus.Enabled = false;
@@ -395,6 +432,9 @@ namespace RCCM.UI
             btnFocus.Enabled = true;
         }
 
+        /// <summary>
+        /// Change zoom level of the camera based on slider value
+        /// </summary>
         private void sliderZoom_Scroll(object sender, EventArgs e)
         {
             if (wfovContainer.DeviceValid)
@@ -404,6 +444,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Change focus level of the camera based on slider value
+        /// </summary>
         private void sliderFocus_Scroll(object sender, EventArgs e)
         {
             if (wfovContainer.DeviceValid)
@@ -413,12 +456,18 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Change selected crack and clear point selection
+        /// </summary>
         private void listMeasurements_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.ActiveIndex = this.listMeasurements.SelectedIndex;
             this.ActivePoint = -1;
         }
 
+        /// <summary>
+        /// Open GUI for editting selected crack
+        /// </summary>
         private void btnEditSequence_Click(object sender, EventArgs e)
         {
             if (this.crackIndexValid())
@@ -430,6 +479,7 @@ namespace RCCM.UI
                 if (result == DialogResult.OK)
                 {
                     MeasurementSequence crack2 = findCrackName(form.GetName());
+                    // Check if name is unique
                     if (crack2 == null || crack2 == crack)
                     {
                         crack.Name = form.GetName();
@@ -447,6 +497,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Create new measurement
+        /// </summary>
         private void btnNewSequence_Click(object sender, EventArgs e)
         {
             string cameraName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
@@ -455,6 +508,7 @@ namespace RCCM.UI
             if (result == DialogResult.OK)
             {
                 MeasurementSequence newCrack = new MeasurementSequence(dlg);
+                // Check that name is unique
                 MeasurementSequence crack2 = findCrackName(newCrack.Name);
                 if (crack2 == null)
                 {
@@ -469,6 +523,9 @@ namespace RCCM.UI
             dlg.Dispose();
         }
 
+        /// <summary>
+        /// Deleted selected crack
+        /// </summary>
         private void btnDeleteSequence_Click(object sender, EventArgs e)
         {
             if (this.crackIndexValid())
@@ -478,6 +535,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Save selected crack to user selected file
+        /// </summary>
         private void btnSaveCrack_Click(object sender, EventArgs e)
         {
             if (this.crackIndexValid())
@@ -491,6 +551,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Add a measurement at center of image
+        /// </summary>
         private void btnCrosshairMeasure_Click(object sender, EventArgs e)
         {
             if (this.crackIndexValid())
@@ -503,6 +566,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Move actuators to their position when selected measurement was captured
+        /// </summary>
         private void btnGotoPoint_Click(object sender, EventArgs e)
         {
             if (this.pointIndexValid())
@@ -527,6 +593,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Delete selected point from measurement sequence
+        /// </summary>
         private void btnDeletePoint_Click(object sender, EventArgs e)
         {
             if (this.pointIndexValid())
@@ -538,6 +607,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Change selected point
+        /// </summary>
         private void listPoints_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.listPoints.SelectedIndices.Count > 0)
@@ -546,6 +618,9 @@ namespace RCCM.UI
             }
         }
 
+        /// <summary>
+        /// Enable buttons for controlling NFOV
+        /// </summary>
         private void enableWfovControls()
         {
             btnWfovStart.Enabled = true;
@@ -558,6 +633,9 @@ namespace RCCM.UI
             sliderZoom.Enabled = true;
         }
 
+        /// <summary>
+        /// Disable buttons for controlling NFOV
+        /// </summary>
         private void disableWfovControls()
         {
             btnWfovStart.Enabled = false;
@@ -570,6 +648,9 @@ namespace RCCM.UI
             sliderZoom.Enabled = false;
         }
 
+        /// <summary>
+        /// Refresh lists of cracks and points
+        /// </summary>
         private void updateMeasurementControls()
         {
             // Update list of cracks
@@ -614,11 +695,17 @@ namespace RCCM.UI
             return this.crackIndexValid() && this.ActivePoint >= 0 && this.ActivePoint < this.cracks[this.ActiveIndex].CountPoints;
         }
 
+        /// <summary>
+        /// When cracks is modified, this event handler is called to refresh user displayed info
+        /// </summary>
         private void cracksChangedHandler(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.updateMeasurementControls();
         }
 
+        /// <summary>
+        /// Check if there is already a crack by this name
+        /// </summary>
         private MeasurementSequence findCrackName(string name)
         {
             foreach (MeasurementSequence crack in this.cracks)

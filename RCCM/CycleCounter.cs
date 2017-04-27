@@ -8,22 +8,25 @@ using System.Windows.Forms;
 namespace RCCM
 {
     /// <summary>
-    /// Tracks the cycle number of the test. Can be paused and restarted. Currently a simplified implementation
+    /// Tracks the cycle number of the test. Can be paused and restarted. This is a virtual implementation of ICycleCounter
     /// </summary>
     public class CycleCounter : ICycleCounter
     {
+        /// <summary>
+        /// Timer for automatically incrementing cycle number
+        /// </summary>
         protected Timer countTimer;
-
         /// <summary>
         /// A boolean indicating whether or not the counter is active
         /// </summary>
-        public bool Active { get; private set; }
-        
+        public bool Active { get; private set; }        
         /// <summary>
         /// Current cycle number
         /// </summary>
         public int Cycle { get; set; }
-
+        /// <summary>
+        /// Fixed cycle period in milliseconds
+        /// </summary>
         protected int period;
         /// <summary>
         /// Cycle period in milliseconds
@@ -33,15 +36,19 @@ namespace RCCM
             get { return this.period; }
             set { this.period = value; this.countTimer.Interval = value; }
         }
-        
-        // Environment tick count of last cycle increment
+        /// <summary>
+        /// Environment tick count of last cycle increment
+        /// </summary>
         protected int lastTick;
-
         /// <summary>
         /// Amplitude of pressure signal 
         /// </summary>
         public double Amplitude { get; set; }
 
+        /// <summary>
+        /// Create a cycle counter with a fixed period
+        /// </summary>
+        /// <param name="period">Cycle period in milliseconds</param>
         public CycleCounter(int period)
         {
             // Create timer to call countLoop periodically
@@ -124,6 +131,10 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Implementing a required function that serves no purpose for virtual implementation
+        /// </summary>
+        /// <returns>Nothing</returns>
         public async Task Terminate()
         {
             // Does nothing
