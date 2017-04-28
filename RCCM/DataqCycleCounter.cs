@@ -13,6 +13,9 @@ using Newtonsoft.Json.Linq;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Cycle counter using analog pressure input to get pressure and cycle
+    /// </summary>
     public class DataqCycleCounter : ICycleCounter
     {
         /// <summary>
@@ -77,6 +80,9 @@ namespace RCCM
         /// </summary>
         public static int IN_CYCLE = (int)Program.Settings.json["cycle counter"]["cycle input"];
         
+        /// <summary>
+        /// Create dataq device and counter. Note: initialization is asynchronous
+        /// </summary>
         public DataqCycleCounter()
         {
             // Load calibration from setttings
@@ -176,11 +182,19 @@ namespace RCCM
             this.elapsed += Environment.TickCount - this.startTick;
         }
 
+        /// <summary>
+        /// Get most recent analog pressure reading
+        /// </summary>
+        /// <returns>Last pressure reading recorded</returns>
         public double GetPressure()
         {
             return pressure;
         }
 
+        /// <summary>
+        /// Get time elasped in test in milliseconds
+        /// </summary>
+        /// <returns>Cumulative milliseconds elapsed, accounting for pauses</returns>
         public int GetElapsed()
         {
             if (this.Active)
@@ -247,6 +261,12 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Helper function for piecewise linear interpolation
+        /// </summary>
+        /// <param name="data">2D array of (x, y) value pairs</param>
+        /// <param name="val">X value to be interpolated</param>
+        /// <returns>Interpolated Y value corresponding to input X</returns>
         public static double PwlInterp(double[,] data, double val)
         {
             int i = 0;

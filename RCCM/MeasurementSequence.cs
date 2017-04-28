@@ -254,6 +254,7 @@ namespace RCCM
             }
             return true;
         }
+
         /// <summary>
         /// Return name identifying this sequence
         /// </summary>

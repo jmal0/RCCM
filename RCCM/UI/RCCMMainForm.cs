@@ -138,6 +138,15 @@ namespace RCCM.UI
         {
             this.view.SetTransform(this.panelView.CreateGraphics());
             this.panelRepaintTimer.Start();
+            // Prevent radio buttons from accepting arrow key input
+            foreach (Control c in this.groupBoxStageSelect.Controls)
+            {
+                c.PreviewKeyDown += this.radioButtonSuppress;
+            }
+            foreach (Control c in this.groupBoxStageSelect.Controls)
+            {
+                c.PreviewKeyDown += this.radioButtonSuppress;
+            }
         }
 
         /// <summary>
@@ -556,12 +565,12 @@ namespace RCCM.UI
         /// <summary>
         /// Prevents arrow keys from changing radio button selection
         /// </summary>
-        private void radioButtonSuppress(object sender, KeyEventArgs e)
+        private void radioButtonSuppress(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
-                e.SuppressKeyPress = true;
-            }                
+                e.IsInputKey = true;
+            }
         }
 
         /// <summary>

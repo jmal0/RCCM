@@ -262,8 +262,6 @@ namespace RCCM
         /// <summary>
         /// Background worker function for getting live images
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void GrabLoop(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;

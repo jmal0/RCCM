@@ -64,12 +64,15 @@ namespace RCCM
         {
             if (this.GetProperty("enabled") == 0)
             {
-                return true;
+                return false;
             }
-            this.homed = true;
-            return this.homed;
+            return true;
         }
 
+        /// <summary>
+        /// Get all property value pairs for this motor in a dictionary
+        /// </summary>
+        /// <returns>Dictionary of property value pairs</returns>
         public override Dictionary<string, double> GetAllProperties()
         {
             return settings;
@@ -83,20 +86,27 @@ namespace RCCM
             return;
         }
 
+        /// <summary>
+        /// Pretend to jog this motor lol
+        /// </summary>
+        /// <param name="fwd">Direction of jog - forward if true</param>
         public override void Jog(bool fwd)
         {
             if (!this.Jogging)
             {
-                Console.WriteLine("jogging");
+                Logger.Out("jogging");
                 this.Jogging = true;
             }
         }
 
+        /// <summary>
+        /// Pretend to stop jogging this motor lol
+        /// </summary>
         public override void JogStop()
         {
             if (this.Jogging)
             {
-                Console.WriteLine("jog stop");
+                Logger.Out("jog stop");
                 this.Jogging = false;
             }            
         }

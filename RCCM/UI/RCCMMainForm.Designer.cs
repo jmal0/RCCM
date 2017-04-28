@@ -271,7 +271,6 @@
             this.radioRCCM1.TabIndex = 11;
             this.radioRCCM1.Text = "RCCM1";
             this.radioRCCM1.UseVisualStyleBackColor = true;
-            this.radioRCCM1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // radioRCCM2
             // 
@@ -283,7 +282,6 @@
             this.radioRCCM2.TabIndex = 12;
             this.radioRCCM2.Text = "RCCM2";
             this.radioRCCM2.UseVisualStyleBackColor = true;
-            this.radioRCCM2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // groupBoxStageSelect
             // 
@@ -305,27 +303,26 @@
             // radioNoStage
             // 
             this.radioNoStage.AutoSize = true;
-            this.radioNoStage.Location = new System.Drawing.Point(9, 134);
+            this.radioNoStage.Checked = true;
+            this.radioNoStage.Location = new System.Drawing.Point(9, 31);
             this.radioNoStage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioNoStage.Name = "radioNoStage";
             this.radioNoStage.Size = new System.Drawing.Size(65, 24);
             this.radioNoStage.TabIndex = 14;
+            this.radioNoStage.TabStop = true;
             this.radioNoStage.Text = "None";
             this.radioNoStage.UseVisualStyleBackColor = true;
             // 
             // radioCoarse
             // 
             this.radioCoarse.AutoSize = true;
-            this.radioCoarse.Checked = true;
-            this.radioCoarse.Location = new System.Drawing.Point(9, 29);
+            this.radioCoarse.Location = new System.Drawing.Point(9, 134);
             this.radioCoarse.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioCoarse.Name = "radioCoarse";
             this.radioCoarse.Size = new System.Drawing.Size(78, 24);
             this.radioCoarse.TabIndex = 13;
-            this.radioCoarse.TabStop = true;
             this.radioCoarse.Text = "Coarse";
             this.radioCoarse.UseVisualStyleBackColor = true;
-            this.radioCoarse.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // groupBox11
             // 
@@ -547,7 +544,6 @@
             this.radioMoveRel.Text = "Relative";
             this.toolTip.SetToolTip(this.radioMoveRel, "Move a specified distance from the current position");
             this.radioMoveRel.UseVisualStyleBackColor = true;
-            this.radioMoveRel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // radioMoveAbs
             // 
@@ -562,7 +558,6 @@
             this.radioMoveAbs.Text = "Absolute";
             this.toolTip.SetToolTip(this.radioMoveAbs, "Move to a position a specified distance from the end of travel");
             this.radioMoveAbs.UseVisualStyleBackColor = true;
-            this.radioMoveAbs.KeyDown += new System.Windows.Forms.KeyEventHandler(this.radioButtonSuppress);
             // 
             // panelMotionControls
             // 

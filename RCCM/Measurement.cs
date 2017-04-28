@@ -53,6 +53,13 @@ namespace RCCM
         public double PixelY { get; protected set; }
         public string Filename { get; protected set; }
 
+        /// <summary>
+        /// Create a measurement
+        /// </summary>
+        /// <param name="crack">Crack containing this measurement</param>
+        /// <param name="rccm">Reference to RCCM object</param>
+        /// <param name="pixelX">Pixel horizontal position within image to measurement</param>
+        /// <param name="pixelY">Pixel vertical position within image to measurement</param>
         public Measurement(MeasurementSequence crack, RCCMSystem rccm, double pixelX, double pixelY)
         {
             // Get timestamp and save camera image
@@ -85,15 +92,20 @@ namespace RCCM
             this.Timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt.fff}", DateTime.Now);
             this.Filename = this.Timestamp + ".bmp";
             camera.Snap(crack.SaveDir + "\\" + this.Filename);
-            this.Cycle = rccm.Counter.Cycle;
-            this.Pressure = 0; // TODO
 
+            // Info from cycle counter
+            this.Cycle = rccm.Counter.Cycle;
+            this.Pressure = rccm.Counter.GetPressure();
+
+            // Actuator positions
             this.CoarseX = rccm.motors["coarse X"].GetPos();
             this.CoarseY = rccm.motors["coarse Y"].GetPos();
             this.FineX = rccm.motors[stage + "X"].GetPos();
             this.FineY = rccm.motors[stage + "Y"].GetPos();
             this.FineZ = rccm.motors[stage + "Z"].GetActuatorPos();
             this.Height = stage == "fine 1 " ? rccm.LensController.Height1 : rccm.LensController.Height2;
+
+            // Convert pixel position to coordinates in global and panel coordinate systems
             this.PixelX = pixelX;
             this.PixelY = pixelY;
             PointF globalPosition = rccm.GetNFOVLocation(stageEnum, CoordinateSystem.Global);

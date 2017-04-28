@@ -19,6 +19,9 @@ using System.Diagnostics;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Class for operating Gardasoft controller and focusing both optotune liquid lenses
+    /// </summary>
     public class NFOVLensController
     {
         public static string GET_VOLTAGE_CMD = "AN3";
