@@ -24,45 +24,132 @@ namespace RCCM
     /// </summary>
     public class NFOVLensController
     {
+        /// <summary>
+        /// Gardasoft command string for getting current input voltage
+        /// </summary>
         public static string GET_VOLTAGE_CMD = "AN3";
+        /// <summary>
+        /// Gardasoft command string for getting current status (including output focal power)
+        /// </summary>
         public static string GET_STATUS_CMD = "ST";
-        public static string SETPOINT_CMD = "RA1";
-        public static string SET_NPOINTS_CMD = "RA1";
+        /// <summary>
+        /// Gardasoft command string for setting output focal power
+        /// </summary>
         public static string SET_FOCALPOWER_CMD = "RS1";
-        public static string SAVE_CALIBRATION_CMD = "AW";
-
+        /// <summary>
+        /// Regex for parsing get status command response for input voltage
+        /// </summary>
         public static Regex PARSE_GET = new Regex(@"Ig([0-9]+)");
+        /// <summary>
+        /// Regex for parsing status command for output focal power
+        /// </summary>
         public static Regex PARSE_GETOUTPUT = new Regex(@"AF(\s)+([0-9.-]+)");
-
+        /// <summary>
+        /// Setting for period between focal power updates
+        /// </summary>
         public static long UPDATE_PERIOD = (long)Program.Settings.json["distance sensor"]["focus update period"];
+        /// <summary>
+        /// Minimum height value to send when reading is out of range
+        /// </summary>
         public static double MIN_HEIGHT = (double)Program.Settings.json["distance sensor"]["min height"];
+        /// <summary>
+        /// Maximum height value to send when reading is out of range
+        /// </summary>
         public static double MAX_HEIGHT = (double)Program.Settings.json["distance sensor"]["max height"];
+        /// <summary>
+        /// Exponential moving average filter constant applied to distance reading
+        /// </summary>
         public static double alpha = (double)Program.Settings.json["distance sensor"]["height reading filter constant"];
-
+        /// <summary>
+        /// Gardasoft controller manager for detecting lens controllers
+        /// </summary>
         protected ControllerManager manager;
+        /// <summary>
+        /// Controller interface for NFOV 1
+        /// </summary>
         public IController NFOV1Controller { get; private set; }
+        /// <summary>
+        /// Controller interface for NFOV 2
+        /// </summary>
         public IController NFOV2Controller { get; private set; }
-        
+        /// <summary>
+        /// Adjustment offset to add to output focal power for NFOV 1
+        /// </summary>
         public double FocusOffset1 { get; set; }
+        /// <summary>
+        /// Adjustment offset to add to output focal power for NFOV 2
+        /// </summary>
         public double FocusOffset2 { get; set; }
+        /// <summary>
+        /// Slope, y-intercept of conversion from input voltage to distance (NFOV 1)
+        /// </summary>
         public double[] conversion1 { get; private set; }
+        /// <summary>
+        /// Slope, y-intercept of conversion from input voltage to distance (NFOV 2)
+        /// </summary>
         public double[] conversion2 { get; private set; }
+        /// <summary>
+        /// Array of input voltage, output focal power pairs to interpolate for NFOV 1
+        /// </summary>
         public double[,] NFOV1Calibration { get; private set; }
+        /// <summary>
+        /// Array of input voltage, output focal power pairs to interpolate for NFOV 2
+        /// </summary>
         public double[,] NFOV2Calibration { get; private set; }
-
+        /// <summary>
+        /// Current height reading for NFOV 1
+        /// </summary>
         public double Height1 { get; private set; }
+        /// <summary>
+        /// Current height reading for NFOV 2
+        /// </summary>
         public double Height2 { get; private set; }
+        /// <summary>
+        /// Z motor for NFOV 1
+        /// </summary>
         public TrioStepperZMotor Motor1 { get; set; }
+        /// <summary>
+        /// Z motor for NFOV 2
+        /// </summary>
         public TrioStepperZMotor Motor2 { get; set; }
-
+        /// <summary>
+        /// Flag to indicate if input power should be read
+        /// </summary>
         protected bool read;
+        /// <summary>
+        /// Flag to indicate to background thread if it should autofocus NFOV 1
+        /// </summary>
         protected bool readThread1Paused;
+        /// <summary>
+        /// Flag to indicate to background thread if it should autofocus NFOV 2
+        /// </summary>
         protected bool readThread2Paused;
+        /// <summary>
+        /// Background worker for focusing NFOV 1
+        /// </summary>
         protected BackgroundWorker bw1;
+        /// <summary>
+        /// Background worker for focusing NFOV 2
+        /// </summary>
         protected BackgroundWorker bw2;
+        /// <summary>
+        /// Event handler for when NFOV 1 background thread exits
+        /// </summary>
         protected AutoResetEvent readHeight1ThreadExited;
+        /// <summary>
+        /// Event handler for when NFOV 2 background thread exits
+        /// </summary>
         protected AutoResetEvent readHeight2ThreadExited;
 
+        /// <summary>
+        /// Initialize autofocusing of NFOV lens controllers
+        /// </summary>
+        /// <param name="nfov1Serial">Serial number of NFOV 1 gardasoft controller</param>
+        /// <param name="nfov2Serial">Serial number of NFOV 2 gardasoft controller</param>
+        /// <param name="conversion1">Conversion loaded from settings for NFOV 1</param>
+        /// <param name="conversion2">Conversion loaded from settings for NFOV 2</param>
+        /// <param name="calibration1">Lens calibration loaded from settings for NFOV 1</param>
+        /// <param name="calibration2">Lens calibration loaded from settings for NFOV 2</param>
         public NFOVLensController(int nfov1Serial, int nfov2Serial, double[] conversion1, double[] conversion2, double[,] calibration1, double[,] calibration2)
         {
             this.manager = ControllerManager.Instance();
@@ -73,6 +160,7 @@ namespace RCCM
             this.FocusOffset1 = 0;
             this.FocusOffset2 = 0;
 
+            // Create NFOV 1 controller
             try
             {
                 this.conversion1 = conversion1;
@@ -92,6 +180,7 @@ namespace RCCM
             {
                 MessageBox.Show("Error connencting to NFOV 1 Lens controller. Error meassage:\n\n" + err.ToString());
             }
+            // Create NFOV 2 controller
             try
             {
                 this.conversion2 = conversion2;
