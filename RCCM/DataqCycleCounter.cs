@@ -22,7 +22,15 @@ namespace RCCM
         /// <summary>
         /// Current cycle number
         /// </summary>
-        public int Cycle { get; set; }        
+        public int Cycle { get; set; }
+        /// <summary>
+        /// Accumulator for ticks elapsed in test
+        /// </summary>
+        protected int elapsed;
+        /// <summary>
+        /// Environment tick count when cycle counting started
+        /// </summary>
+        protected int startTick;
         /// <summary>
         /// Handle to DATAQ DI-1100 data acquisition device
         /// </summary>
@@ -81,6 +89,10 @@ namespace RCCM
                 this.calibration[i, 1] = (double)row[1];
                 i++;
             }
+
+            // Initialize timing variables
+            this.elapsed = 0;
+            this.startTick = Environment.TickCount;
 
             this.lastCycleVoltage = 0;
             this.cancelRead = new CancellationTokenSource();
@@ -141,6 +153,7 @@ namespace RCCM
         public void Start()
         {
             this.Active = true;
+            this.startTick = Environment.TickCount;
         }
 
         /// <summary>
@@ -151,6 +164,7 @@ namespace RCCM
         {
             this.Cycle = cycle;
             this.Active = true;
+            this.startTick = Environment.TickCount;
         }
 
         /// <summary>
@@ -159,6 +173,7 @@ namespace RCCM
         public void Stop()
         {
             this.Active = false;
+            this.elapsed += Environment.TickCount - this.startTick;
         }
 
         public double GetPressure()
@@ -168,7 +183,14 @@ namespace RCCM
 
         public int GetElapsed()
         {
-            return 0;
+            if (this.Active)
+            {
+                return this.elapsed + Environment.TickCount - this.startTick;
+            }
+            else
+            {
+                return this.elapsed;
+            }
         }
 
         /// <summary>
