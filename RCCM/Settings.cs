@@ -9,11 +9,24 @@ using System.Threading.Tasks;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Object representing settings json file
+    /// </summary>
     public class Settings
     {
+        /// <summary>
+        /// Filename
+        /// </summary>
         public string file;
+        /// <summary>
+        /// Json dictionary of settings
+        /// </summary>
         public JObject json;
 
+        /// <summary>
+        /// Create settings object from file
+        /// </summary>
+        /// <param name="filename">Path to settings json file</param>
         public Settings(string filename)
         {
             this.file = filename;

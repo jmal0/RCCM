@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Virtual representation of motor for use when motor is not connected
+    /// </summary>
     class VirtualMotor : Motor
     {
         /// <summary>

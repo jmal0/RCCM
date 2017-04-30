@@ -11,8 +11,14 @@ using System.Threading.Tasks;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Actuator controlled through trio controller that adjusts its position based on distance sensor input
+    /// </summary>
     public class TrioStepperZMotor : Motor
     {
+        /// <summary>
+        /// Dictionary mapping settings property names to their corresponding Trio axis property
+        /// </summary>
         public static Dictionary<string, string> TRIO_PROPERTY_MAP = new Dictionary<string, string>{
             { "enabled", "AXIS_ENABLE" },
             { "microstep per mm", "UNITS" },
@@ -25,25 +31,68 @@ namespace RCCM
             { "home", "" },
             { "feedback", "" }
         };
+        /// <summary>
+        /// Time in milliseconds between commands sent to controller
+        /// </summary>
         public static long UPDATE_PERIOD = (long)Program.Settings.json["distance sensor"]["z position update period"];
+        /// <summary>
+        /// Maximum allowable error between command height and measured height before axis is adjusted
+        /// </summary>
         public static double ERROR = (double)Program.Settings.json["distance sensor"]["max height error"];
+        /// <summary>
+        /// Gain multiplying position error to determine much correction actuator should do
+        /// </summary>
         public static double PGAIN = 0.5;
-
+        /// <summary>
+        /// RCCM Trio controller object
+        /// </summary>
         protected TrioController controller;
+        /// <summary>
+        /// Number of port where this axis is connected to Trio controller
+        /// </summary>
         protected short axisNum;
+        /// <summary>
+        /// Function reference for getting height of actuator above panel
+        /// </summary>
         protected Func<double> height;
+        /// <summary>
+        /// Function reference for computing lowest position that axis should move to from current position on panel
+        /// </summary>
         protected Func<double> minPosition;
+        /// <summary>
+        /// Current desired height above panel
+        /// </summary>
         protected double commandHeight;
+        /// <summary>
+        /// Background worker for sending movement commands
+        /// </summary>
         protected BackgroundWorker bw;
+        /// <summary>
+        /// Event for when background thread exits
+        /// </summary>
         protected AutoResetEvent adjustThreadExited;
+        /// <summary>
+        /// Flag indicating if background thread should continue running
+        /// </summary>
         protected bool adjust;
+        /// <summary>
+        /// Flag indicating if actuator should be actively trying to match height to command height 
+        /// </summary>
         protected bool adjustThreadPaused;
 
+        /// <summary>
+        /// Create a controlled z actuator
+        /// </summary>
+        /// <param name="controller">RCCM Trio controller object</param>
+        /// <param name="axisNum">Number of port where axis is connected to Trio controller</param>
+        /// <param name="rccm">The RCCM object</param>
+        /// <param name="stage">Enum value of the set of fine actuators containing this actuator</param>
         public TrioStepperZMotor(TrioController controller, short axisNum, RCCMSystem rccm, RCCMStage stage)
         {
             this.controller = controller;
             this.axisNum = axisNum;
             this.Jogging = false;
+            // Create height function reference from lens controller height property
             if (stage == RCCMStage.RCCM1)
             {
                 this.height = delegate () { return rccm.LensController.Height1; };
@@ -52,12 +101,14 @@ namespace RCCM
             {
                 this.height = delegate () { return rccm.LensController.Height2; };
             }
+            // Create function reference that computes height of panel at current location
             this.minPosition = delegate ()
             {
                 PointF pos = rccm.GetNFOVLocation(stage, CoordinateSystem.Local);
                 return rccm.GetPanelDistance(pos.X, pos.Y);
             };
             this.commandHeight = this.height();
+            // Start background thread
             this.bw = new BackgroundWorker();
             this.bw.DoWork += new DoWorkEventHandler(this.heightAdjustLoop);
             this.adjustThreadExited = new AutoResetEvent(false);
@@ -66,6 +117,9 @@ namespace RCCM
             this.bw.RunWorkerAsync();
         }
 
+        /// <summary>
+        /// Background thread function that reads height and sends position commands
+        /// </summary>
         private void heightAdjustLoop(object sender, DoWorkEventArgs e)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -108,11 +162,20 @@ namespace RCCM
             this.adjustThreadExited.Set();
         }
 
+        /// <summary>
+        /// Get actuator height above panel
+        /// </summary>
+        /// <returns>Current height of actuator above panel</returns>
         public override double GetPos()
         {
             return this.height();
         }
 
+        /// <summary>
+        /// Set current position of actuator (independent of feedback property value)
+        /// </summary>
+        /// <param name="cmdHeight">New command position of actuator</param>
+        /// <returns>Coerced command position</returns>
         public override double SetPos(double cmdHeight)
         {
             if (this.GetProperty("enabled") == 0)
@@ -129,6 +192,11 @@ namespace RCCM
             return cmd;
         }
 
+        /// <summary>
+        /// Move command position a specified distance from current
+        /// </summary>
+        /// <param name="dist">Distance to move</param>
+        /// <returns>Last command position</returns>
         public override double MoveRel(double dist)
         {
             if (this.GetProperty("enabled") == 0)
@@ -147,6 +215,10 @@ namespace RCCM
             return prevHeight;
         }
 
+        /// <summary>
+        /// Does nothing
+        /// </summary>
+        /// <returns>True if actuator is enabled</returns>
         public override bool Initialize()
         {
             if (this.GetProperty("enabled") == 0)
@@ -156,6 +228,10 @@ namespace RCCM
             return true;
         }
 
+        /// <summary>
+        /// Get all property values in a dictionary
+        /// </summary>
+        /// <returns>Dictionary of property name, value pairs</returns>
         public override Dictionary<string, double> GetAllProperties()
         {
             Dictionary<string, double> properties = new Dictionary<string, double>(TrioController.AX_PROPERTIES.Length);
@@ -166,6 +242,11 @@ namespace RCCM
             return properties;
         }
 
+        /// <summary>
+        /// Get a specified property value
+        /// </summary>
+        /// <param name="property">Name of property</param>
+        /// <returns>Current property value</returns>
         public override double GetProperty(string property)
         {
             if (property == "home")
@@ -180,6 +261,12 @@ namespace RCCM
             return this.controller.GetAxisProperty(variable, this.axisNum);
         }
 
+        /// <summary>
+        /// Set a property value
+        /// </summary>
+        /// <param name="property">Property name</param>
+        /// <param name="value">New property value</param>
+        /// <returns>True if property was set succesfully</returns>
         public override bool SetProperty(string property, double value)
         {
             if (property == "home")
@@ -198,11 +285,18 @@ namespace RCCM
             return this.controller.SetAxisProperty(variable, value, this.axisNum);
         }
 
+        /// <summary>
+        /// Blocking function that completes when actuator motion ends
+        /// </summary>
         public override void WaitForEndOfMove()
         {
             this.controller.WaitForEndOfMove(this.axisNum);
         }
-
+        
+        /// <summary>
+        /// Pauses active adjustment of actuator and begins moving axis continuously
+        /// </summary>
+        /// <param name="fwd">Flag indicating direction of move</param>
         public override void Jog(bool fwd)
         {
             if (this.GetProperty("enabled") != 0 && !this.Jogging)
@@ -214,6 +308,9 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Stop jogging actuator and resume adjustment thread
+        /// </summary>
         public override void JogStop()
         {
             if (this.GetProperty("enabled") != 0 && this.Jogging)
@@ -225,28 +322,44 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Set current position of actuator as 0 and clear any errors
+        /// </summary>
         public override void Zero()
         {
             this.controller.Zero(this.axisNum);
         }
 
+        /// <summary>
+        /// Get position of actuator from end of travel
+        /// </summary>
+        /// <returns>Current actuator position</returns>
         public override double GetActuatorPos()
         {
             return this.controller.GetAxisProperty("MPOS", this.axisNum);
         }
 
+        /// <summary>
+        /// Pause active height adjustment
+        /// </summary>
         public void Pause()
         {
             Logger.Out("Pausing z motor adjustment axis " + this.axisNum);
             this.adjustThreadPaused = true;
         }
 
+        /// <summary>
+        /// Unpause active height adjustment
+        /// </summary>
         public void Resume()
         {
             Logger.Out("Unpausing z motor adjustment axis " + this.axisNum);
             this.adjustThreadPaused = false;
         }
 
+        /// <summary>
+        /// Stop background adjustment thread
+        /// </summary>
         public override void Terminate()
         {
             this.adjust = false;

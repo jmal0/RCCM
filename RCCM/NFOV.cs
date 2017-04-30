@@ -76,7 +76,6 @@ namespace RCCM
         /// Background worker for grabbing images from camera
         /// </summary>
         protected BackgroundWorker grabThread;
-
         /// <summary>
         /// Indicates if camera is connected
         /// </summary>

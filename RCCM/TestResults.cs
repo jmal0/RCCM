@@ -10,16 +10,46 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Helper object for plotting test status such as crack lengths and pressure
+    /// </summary>
     public class TestResults
     {
+        /// <summary>
+        /// List of all cracks being measured by RCCM cameras
+        /// </summary>
         protected ObservableCollection<MeasurementSequence> cracks;
+        /// <summary>
+        /// Chart UI object for plotting crack length
+        /// </summary>
         protected Chart crackChart;
+        /// <summary>
+        /// Chart UI object for plotting past pressure readings
+        /// </summary>
         protected Chart cycleChart;
+        /// <summary>
+        /// Text indicator for cycle number
+        /// </summary>
         protected TextBox cycleIndicator;
+        /// <summary>
+        /// Text indicator for current pressure reading
+        /// </summary>
         protected TextBox pressureIndicator;
+        /// <summary>
+        /// Listbox with selectable crack names determining what to plot
+        /// </summary>
         protected ListBox crackSelection;
+        /// <summary>
+        /// RCCM cycle counter object
+        /// </summary>
         protected ICycleCounter counter;
+        /// <summary>
+        /// Timer for calling update function for UI
+        /// </summary>
         protected Timer updateControlsTimer;
+        /// <summary>
+        /// Number of pressure readings to save and plot
+        /// </summary>
         protected int savedReadings;
 
         public TestResults(RCCMSystem rccm, ObservableCollection<MeasurementSequence> cracks, Chart crackChart, Chart cycleChart, TextBox cycleIndicator, TextBox pressureIndicator, ListBox crackSelection)
@@ -61,6 +91,7 @@ namespace RCCM
         {
             if (e.OldItems != null)
             {
+                // Remove each deleted crack
                 foreach (MeasurementSequence crack in e.OldItems)
                 {
                     this.crackSelection.Items.Remove(crack);
@@ -68,15 +99,20 @@ namespace RCCM
             }
             if (e.NewItems != null)
             {
+                // Add each new crack
                 foreach (MeasurementSequence crack in e.NewItems)
                 {
                     int ind = this.crackSelection.Items.Add(crack);
                     this.crackSelection.SetSelected(ind, true);
+                    // Add event handler for change in measurements list
                     (crack as INotifyCollectionChanged).CollectionChanged += delegate (object sender2, NotifyCollectionChangedEventArgs e2) { this.PlotCracks(); };
                 }
             }
         }
 
+        /// <summary>
+        /// Refresh charts and indicators
+        /// </summary>
         private void updateTestControls(object sender, EventArgs e)
         {
             // Update cycle indicator
@@ -96,6 +132,9 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Redraw charts
+        /// </summary>
         public void PlotCracks()
         {
             // Refresh crack selection list (names may have changed)
