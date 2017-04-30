@@ -11,6 +11,9 @@ using System.Collections.Specialized;
 
 namespace RCCM
 {
+    /// <summary>
+    /// List of measurements defining a crack. Contains all defining information
+    /// </summary>
     public class MeasurementSequence : ObservableCollection<Measurement>
     {
         /// <summary>
