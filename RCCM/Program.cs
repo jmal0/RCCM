@@ -9,8 +9,14 @@ using RCCM.UI;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Main program
+    /// </summary>
     public static class Program
     {
+        /// <summary>
+        /// Global settings variable containing all user defined settings
+        /// </summary>
         public static Settings Settings { get; set; }
 
         /// <summary>
@@ -19,6 +25,7 @@ namespace RCCM
         [STAThread]
         static void Main(string[] args)
         {
+            // Use mutex to prevent multiple instances of program
             object[] assemblyObjects = System.Reflection.Assembly.GetEntryAssembly().GetCustomAttributes(typeof(GuidAttribute), true);
             Guid appGuid = new Guid(((GuidAttribute) assemblyObjects[0]).Value);            
             using (Mutex mutex = new Mutex(false, "Global\\" + appGuid.ToString()))

@@ -28,6 +28,11 @@ namespace RCCM
     /// </summary>
     public class RCCMPluginLoader
     {
+        /// <summary>
+        /// Load plugin dlls from specified path
+        /// </summary>
+        /// <param name="path">Path where program should search for plugin dlls</param>
+        /// <returns>List of plugin interfaces</returns>
         public static ICollection<IRCCMPlugin> LoadPlugins(string path)
         {
             string[] dllFileNames = null;

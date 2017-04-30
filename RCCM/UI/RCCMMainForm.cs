@@ -143,7 +143,7 @@ namespace RCCM.UI
             {
                 c.PreviewKeyDown += this.radioButtonSuppress;
             }
-            foreach (Control c in this.groupBoxStageSelect.Controls)
+            foreach (Control c in this.groupBoxMovementMode.Controls)
             {
                 c.PreviewKeyDown += this.radioButtonSuppress;
             }

@@ -13,30 +13,83 @@ namespace RCCM
     /// </summary>
     public class PanelView
     {
+        /// <summary>
+        /// Reference to RCCMSystem object
+        /// </summary>
         protected readonly RCCMSystem rccm;
-
+        /// <summary>
+        /// Pen for drawing lines
+        /// </summary>
         protected Pen pen;
+        /// <summary>
+        /// Brush defining style for drawing panel rectangle
+        /// </summary>
         protected Brush panelBrush;
+        /// <summary>
+        /// Brush defining style for drawing coarse stage rectangle
+        /// </summary>
         protected Brush coarseBrush;
+        /// <summary>
+        /// Brush defining style for drawing fine stage rectangles
+        /// </summary>
         protected Brush fineBrush;
-        // Rectangles holding travel distances and positions of stages
+        /// <summary>
+        /// Rectangle defining dimensions of panel
+        /// </summary>
         protected RectangleF panel;
+        /// <summary>
+        /// Rectangle defining dimensions of coarse stage travel region
+        /// </summary>
         protected RectangleF coarse;
+        /// <summary>
+        /// Rectangle defining dimensions of fine 1 stage travel region
+        /// </summary>
         protected RectangleF fine1;
+        /// <summary>
+        /// Rectangle defining dimensions of fine 1 stage travel region
+        /// </summary>
         protected RectangleF fine2;
-        // Constant position offsets of rectangles
+        /// <summary>
+        /// Position offset to fine 1 rectangle top left corner
+        /// </summary>
         protected SizeF fine1Offset;
+        /// <summary>
+        /// Position offset to fine 2 rectangle top left corner
+        /// </summary>
         protected SizeF fine2Offset;
-        // Graphics transform mapping pixels to global coordinate system
+        /// <summary>
+        /// Graphics transform mapping pixels to global coordinate system
+        /// </summary>
         protected Matrix transform;
-        // Positions of stages
+        /// <summary>
+        /// Coarse X actuator position
+        /// </summary>
         protected float coarseXPos;
+        /// <summary>
+        /// Coarse Y actuator position
+        /// </summary>
         protected float coarseYPos;
+        /// <summary>
+        /// Fine 1 X actuator position
+        /// </summary>
         protected float fine1XPos;
+        /// <summary>
+        /// Fine 1 Y actuator position
+        /// </summary>
         protected float fine1YPos;
+        /// <summary>
+        /// Fine 2 X actuator position
+        /// </summary>
         protected float fine2XPos;
+        /// <summary>
+        /// Fine 2 Y actuator position
+        /// </summary>
         protected float fine2YPos;
 
+        /// <summary>
+        /// Initialize panel view
+        /// </summary>
+        /// <param name="rccm">Reference to RCCM object</param>
         public PanelView(RCCMSystem rccm)
         {
             this.rccm = rccm;
@@ -139,7 +192,10 @@ namespace RCCM
             g.TranslateTransform(this.fine1.Width, this.fine1.Height);
             this.transform = g.Transform;
         }
-
+        
+        /// <summary>
+        /// Helper function for updating RCCM actuator positions and settings variables
+        /// </summary>
         private void updatePositions()
         {
             // Get positions from rccm

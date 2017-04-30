@@ -10,21 +10,46 @@ using AxTrioPCLib;
 
 namespace RCCM
 {
+    /// <summary>
+    /// Object representing all the hardware and definitions for the RCCM
+    /// </summary>
     public class RCCMSystem
     {
+        /// <summary>
+        /// String keys used to represent actuators in settings and Motor dictionary
+        /// </summary>
         public static string[] AXES = new string[8] { "coarse X", "coarse Y", "fine 1 X", "fine 1 Y", "fine 1 Z", "fine 2 X", "fine 2 Y", "fine 2 Z" };
-        
+        /// <summary>
+        /// Narrow field of view camera on the first set of fine axes
+        /// </summary>       
         public NFOV NFOV1 { get; }
+        /// <summary>
+        /// Narrow field of view camera on the second set of fine axes
+        /// </summary>
         public NFOV NFOV2 { get; }
+        /// <summary>
+        /// Wide field of view camera on the first set of fine axes
+        /// </summary>
         public WFOV WFOV1 { get; }
+        /// <summary>
+        /// Wide field of view camera on the second set of fine axes
+        /// </summary>
         public WFOV WFOV2 { get; }
-
+        /// <summary>
+        /// Object for autofocusing NFOV lenses based on distance sensor input
+        /// </summary>
         public NFOVLensController LensController { get; private set; }
-
+        /// <summary>
+        /// Dictionary mapping string keys to motor objects
+        /// </summary>
         public Dictionary<string, Motor> motors { get; private set; }
-
+        /// <summary>
+        /// Interface to a real or virtual cycle counter / pressure input
+        /// </summary>
         public ICycleCounter Counter { get; private set; }
-
+        /// <summary>
+        /// Angle of fine stage beam on rotation plate. Changing this value also updates settings
+        /// </summary>
         public double FineStageAngle
         {
             get { return (double)Program.Settings.json["rotation angle"]; }
@@ -35,7 +60,9 @@ namespace RCCM
             }
         }
         protected double[,] fineStageRotation;
-
+        /// <summary>
+        /// Angle of panel with respect to coarse axes. Changing this value also updates settings
+        /// </summary>
         public double PanelAngle
         {
             get { return (double)Program.Settings.json["panel"]["rotation"]; }
@@ -46,76 +73,119 @@ namespace RCCM
             }
         }
         protected double[,] panelRotation;
-
+        /// <summary>
+        /// Axial offset of panel from corner of coarse axis travel region. Changing this value also updates settings
+        /// </summary>
         public double PanelOffsetX
         {
             get { return (double)Program.Settings.json["panel"]["x"]; }
             set { Program.Settings.json["panel"]["x"] = value; }
         }
+        /// <summary>
+        /// Hoop offset of panel from corner of coarse axis travel region. Changing this value also updates settings
+        /// </summary>
         public double PanelOffsetY
         {
             get { return (double)Program.Settings.json["panel"]["y"]; }
             set { Program.Settings.json["panel"]["y"] = value; }
         }
+        /// <summary>
+        /// Axial dimension of panel. Changing this value also updates settings
+        /// </summary>
         public double PanelWidth
         {
             get { return (double)Program.Settings.json["panel"]["width"]; }
             set { Program.Settings.json["panel"]["width"] = value; }
         }
+        /// <summary>
+        /// Hoop dimension of panel. Changing this value also updates settings
+        /// </summary>
         public double PanelHeight
         {
             get { return (double)Program.Settings.json["panel"]["height"]; }
             set { Program.Settings.json["panel"]["height"] = value; }
         }
+        /// <summary>
+        /// Radius of curvature of panel. Changing this value also updates settings
+        /// </summary>
         public double PanelRadius
         {
             get { return (double)Program.Settings.json["panel"]["radius"]; }
             set { Program.Settings.json["panel"]["radius"] = value; }
         }
-
+        /// <summary>
+        /// Offset of NFOV1 from center of rotation plate along beam. Changing this value also updates settings
+        /// </summary>
         public double NFOV1X
         {
             get { return (double)Program.Settings.json["nfov 1"]["x offset"]; }
             set { Program.Settings.json["nfov 1"]["x offset"] = value; }
         }
+        /// <summary>
+        /// Offset of NFOV1 from center of rotation plate perpindicular to beam. Changing this value also updates settings
+        /// </summary>
         public double NFOV1Y
         {
             get { return (double)Program.Settings.json["nfov 1"]["y offset"]; }
             set { Program.Settings.json["nfov 1"]["y offset"] = value; }
         }
+        /// <summary>
+        /// Offset of NFOV2 from center of rotation plate along beam. Changing this value also updates settings
+        /// </summary>
         public double NFOV2X
         {
             get { return (double)Program.Settings.json["nfov 2"]["x offset"]; }
             set { Program.Settings.json["nfov 2"]["x offset"] = value; }
         }
+        /// <summary>
+        /// Offset of NFOV2 from center of rotation plate perpindicular to beam. Changing this value also updates settings
+        /// </summary>
         public double NFOV2Y
         {
             get { return (double)Program.Settings.json["nfov 2"]["y offset"]; }
             set { Program.Settings.json["nfov 2"]["y offset"] = value; }
         }
+        /// <summary>
+        /// Offset of WFOV1 from center of rotation plate along beam. Changing this value also updates settings
+        /// </summary>
         public double WFOV1X
         {
             get { return (double)Program.Settings.json["wfov 1"]["x offset"]; }
             set { Program.Settings.json["wfov 1"]["x offset"] = value; }
         }
+        /// <summary>
+        /// Offset of WFOV1 from center of rotation plate perpindicular to beam. Changing this value also updates settings
+        /// </summary>
         public double WFOV1Y
         {
             get { return (double)Program.Settings.json["wfov 1"]["y offset"]; }
             set { Program.Settings.json["wfov 1"]["y offset"] = value; }
         }
+        /// <summary>
+        /// Offset of WFOV2 from center of rotation plate along beam. Changing this value also updates settings
+        /// </summary>
         public double WFOV2X
         {
             get { return (double)Program.Settings.json["wfov 2"]["x offset"]; }
             set { Program.Settings.json["wfov 2"]["x offset"] = value; }
         }
+        /// <summary>
+        /// Offset of WFOV2 from center of rotation plate perpindicular to beam. Changing this value also updates settings
+        /// </summary>
         public double WFOV2Y
         {
             get { return (double)Program.Settings.json["wfov 2"]["y offset"]; }
             set { Program.Settings.json["wfov 2"]["y offset"] = value; }
         }
-
+        /// <summary>
+        /// Helper object for sending commands to trio controller
+        /// </summary>
         public TrioController triopc { get; private set; }
 
+        /// <summary>
+        /// Create RCCM object and initialize all hardware
+        /// </summary>
+        /// <param name="axTrioPC">ActiveX control for communicating with Trio controller</param>
         public RCCMSystem(AxTrioPC axTrioPC)
         {
             // Create rotation matrix representing rotation plate angle
@@ -181,6 +251,9 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// When FineStageAngle is updated, this function is called to update rotation matrix
+        /// </summary>
         protected void setFineStageRotationMatrix()
         {
             this.fineStageRotation[0, 0] = Math.Cos(this.FineStageAngle * Math.PI / 180.0);
@@ -189,6 +262,9 @@ namespace RCCM
             this.fineStageRotation[1, 1] = Math.Cos(this.FineStageAngle * Math.PI / 180.0);
         }
 
+        /// <summary>
+        /// When PanelAngle is updated, this function is called to update rotation matrix
+        /// </summary>
         protected void setPanelRotationMatrix()
         {
             this.panelRotation[0, 0] = Math.Cos(this.PanelAngle * Math.PI / 180.0);
@@ -215,6 +291,12 @@ namespace RCCM
             return zPoint - zCorner;
         }
 
+        /// <summary>
+        /// Get position of NFOV camera in specified coordinate system
+        /// </summary>
+        /// <param name="stage">Enum value corresponding to desired camera</param>
+        /// <param name="sys">Enum value corresponding to desired coordinate system</param>
+        /// <returns>PointF with X and Y coordinates of camera</returns>
         public PointF GetNFOVLocation(RCCMStage stage, CoordinateSystem sys)
         {
             PointF coarselocation = new PointF((float)this.motors["coarse X"].GetPos(),
@@ -244,6 +326,12 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Get position of WFOV camera in specified coordinate system
+        /// </summary>
+        /// <param name="stage">Enum value corresponding to desired camera</param>
+        /// <param name="sys">Enum value corresponding to desired coordinate system</param>
+        /// <returns>PointF with X and Y coordinates of camera</returns>
         public PointF GetWFOVLocation(RCCMStage stage, CoordinateSystem sys)
         {
             PointF coarselocation = new PointF((float)this.motors["coarse X"].GetPos(),
@@ -273,6 +361,12 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Convert position relative to rotation plate to global coordinate system vector
+        /// </summary>
+        /// <param name="x">Position along fine stage beam</param>
+        /// <param name="y">Position perpindicular to fine stage beam</param>
+        /// <returns>PointF with X and Y coordinates in global frame</returns>
         public PointF FineVectorToGlobalVector(double x, double y)
         {
             double globalX = this.fineStageRotation[0, 0] * x + this.fineStageRotation[0, 1] * y;
@@ -280,6 +374,12 @@ namespace RCCM
             return new PointF((float) globalX, (float) globalY);
         }
 
+        /// <summary>
+        /// Convert position in global coordinate system to panel coordinates
+        /// </summary>
+        /// <param name="x">Position along coarse axial direction</param>
+        /// <param name="y">Position along coarse hoop direction</param>
+        /// <returns>PointF with X and Y coordinates in panel frame</returns>
         public PointF GlobalVectorToPanelVector(double x, double y)
         {
             double panelX = this.panelRotation[0, 0] * x + this.panelRotation[0, 1] * y;
@@ -289,6 +389,10 @@ namespace RCCM
 
         #region Motors
 
+        /// <summary>
+        /// Initialize motors according to settings
+        /// </summary>
+        /// <param name="axTrioPC">ActiveX control for communicating with trio controller</param>
         private void initializeMotion(AxTrioPC axTrioPC)
         {
             // Create handler for Trio controller communication
@@ -332,6 +436,9 @@ namespace RCCM
             ApplyMotorSettings();
         }
 
+        /// <summary>
+        /// Apply all defined settings for all axes
+        /// </summary>
         public void ApplyMotorSettings()
         {
             foreach (string motorName in RCCMSystem.AXES)
@@ -343,6 +450,9 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Save motor settings to Settings object
+        /// </summary>
         public void SaveMotorSettings()
         {
             foreach (string motorName in RCCMSystem.AXES)
@@ -356,6 +466,10 @@ namespace RCCM
 
         #endregion
 
+        /// <summary>
+        /// Perform any action necessary to disconnect from hardware
+        /// </summary>
+        /// <returns>Task completion</returns>
         public async Task Stop()
         {
             this.LensController.Stop();

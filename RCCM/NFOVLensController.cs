@@ -200,7 +200,7 @@ namespace RCCM
             {
                 MessageBox.Show("Error connencting to NFOV 2 Lens controller. Error meassage:\n\n" + err.ToString());
             }
-
+            // Start background threads
             this.bw1 = new BackgroundWorker();
             this.bw2 = new BackgroundWorker();
             this.bw1.DoWork += new DoWorkEventHandler(this.readHeight1);
@@ -214,6 +214,9 @@ namespace RCCM
             this.bw2.RunWorkerAsync();
         }
 
+        /// <summary>
+        /// Background thread function for autofocusing NFOV 1
+        /// </summary>
         private void readHeight1(object sender, DoWorkEventArgs e)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -237,6 +240,9 @@ namespace RCCM
             this.readHeight1ThreadExited.Set();
         }
         
+        /// <summary>
+        /// Background thread function for autofocusing NFOV 2
+        /// </summary>
         private void readHeight2(object sender, DoWorkEventArgs e)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -260,6 +266,11 @@ namespace RCCM
             this.readHeight2ThreadExited.Set();
         }
 
+        /// <summary>
+        /// Get current input voltage to distanc sensor of specified NFOV
+        /// </summary>
+        /// <param name="stage">Enum value of desired lens</param>
+        /// <returns>Current input voltaget</returns>
         public double GetReading(RCCMStage stage)
         {
             // Get controller based on specified stage
@@ -279,6 +290,11 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Get current height of specified NFOV
+        /// </summary>
+        /// <param name="stage">Enum value of desired stage</param>
+        /// <returns>Current focal height in user units</returns>
         public double GetHeight(RCCMStage stage)
         {
             // Get controller based on specified stage
@@ -296,6 +312,11 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Get current focal power of specified NFOV lens
+        /// </summary>
+        /// <param name="stage">Enum value of desired lens</param>
+        /// <returns>Current focal power output</returns>
         public double GetFocalPower(RCCMStage stage)
         {
             // Get controller based on specified stage
@@ -321,7 +342,7 @@ namespace RCCM
         /// </summary>        
         /// <param name="data">2D array of calibration data. Column 1 contains input voltage, column 2 contains output voltage</param>
         /// <param name="stage">Parent stage of the lens to indicate which lens to calibrate</param>
-        /// <returns></returns>
+        /// <returns>True if calibration was valid</returns>
         public bool ApplyCalibration(double[,] data, RCCMStage stage)
         {
             int rows = data.GetLength(0);
@@ -353,7 +374,7 @@ namespace RCCM
         /// </summary>
         /// <param name="power">Focal power to use, in diopters</param>
         /// <param name="stage">Stage indicating which controller to send the command to</param>
-        /// <returns></returns>
+        /// <returns>True if command succeded</returns>
         public bool SetFocalPower(double power, RCCMStage stage)
         {
             IController controller = stage == RCCMStage.RCCM1 ? this.NFOV1Controller : this.NFOV2Controller;
@@ -368,6 +389,11 @@ namespace RCCM
             return true;
         }
 
+        /// <summary>
+        /// Convert input voltage to distance for NFOV 1
+        /// </summary>
+        /// <param name="inputVoltage">Input voltage from distance sensor on NFOV 1</param>
+        /// <returns>Height corresponding to input</returns>
         public double ToHeight1(double inputVoltage)
         {
             double h = this.conversion1[0] * inputVoltage + this.conversion1[1];
@@ -376,6 +402,11 @@ namespace RCCM
             return h;
         }
 
+        /// <summary>
+        /// Convert input voltage to distance for NFOV 2
+        /// </summary>
+        /// <param name="inputVoltage">Input voltage from distance sensor on NFOV 2</param>
+        /// <returns>Height corresponding to input</returns>
         public double ToHeight2(double inputVoltage)
         {
             double h = this.conversion2[0] * inputVoltage + this.conversion2[1];
@@ -384,6 +415,10 @@ namespace RCCM
             return h;
         }
 
+        /// <summary>
+        /// Pause autofocus loop for specified stage
+        /// </summary>
+        /// <param name="stage">Enum value corresponding to desired stage</param>
         public void PauseFocusing(RCCMStage stage)
         {
             if (stage == RCCMStage.RCCM1)
@@ -396,6 +431,10 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Unpause autofocus loop for specified stage
+        /// </summary>
+        /// <param name="stage">Enum value corresponding to desired stage</param>
         public void ResumeFocusing(RCCMStage stage)
         {
             if (stage == RCCMStage.RCCM1)
@@ -408,6 +447,12 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Helper function for interpolating calibration
+        /// </summary>
+        /// <param name="data">Array of x, y pairs</param>
+        /// <param name="val">X value to be interpolated</param>
+        /// <returns>Interpolated Y value</returns>
         public static double PwlInterp(double[,] data, double val)
         {
             int i = 0;
@@ -433,6 +478,9 @@ namespace RCCM
             return m * x + b;
         }
         
+        /// <summary>
+        /// Save calibrations to settings
+        /// </summary>
         public void Save()
         {
             Program.Settings.json["nfov 1"]["conversion"] = JArray.FromObject(this.conversion1);
@@ -442,6 +490,9 @@ namespace RCCM
             Program.Settings.save();
         }
 
+        /// <summary>
+        /// Event handler for loss of connection to NFOV 1 lens. I don't think this works
+        /// </summary>
         private void nfov1ConnectionChanged(object sender, ControllerConnectionStatusChangedEventArgs e)
         {
             Console.WriteLine("something happened");
@@ -465,6 +516,9 @@ namespace RCCM
             }
         }
 
+        /// <summary>
+        /// Event handler for loss of connection to NFOV 2 lens. I don't think this works
+        /// </summary>
         private void nfov2ConnectionChanged(object sender, ControllerConnectionStatusChangedEventArgs e)
         {
             Console.WriteLine("something happened2");
