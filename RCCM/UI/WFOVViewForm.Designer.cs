@@ -33,6 +33,7 @@
             this.wfovContainer = new TIS.Imaging.ICImagingControl();
             this.panelLayout = new System.Windows.Forms.TableLayoutPanel();
             this.panelWfovView = new System.Windows.Forms.Panel();
+            this.btnWFOVSave = new System.Windows.Forms.Button();
             this.btnWfovStop = new System.Windows.Forms.Button();
             this.btnFocus = new System.Windows.Forms.Button();
             this.btnWfovProperties = new System.Windows.Forms.Button();
@@ -118,6 +119,7 @@
             // panelWfovView
             // 
             this.panelWfovView.AutoSize = true;
+            this.panelWfovView.Controls.Add(this.btnWFOVSave);
             this.panelWfovView.Controls.Add(this.btnWfovStop);
             this.panelWfovView.Controls.Add(this.btnFocus);
             this.panelWfovView.Controls.Add(this.btnWfovProperties);
@@ -131,6 +133,18 @@
             this.panelWfovView.Name = "panelWfovView";
             this.panelWfovView.Size = new System.Drawing.Size(644, 508);
             this.panelWfovView.TabIndex = 4;
+            // 
+            // btnWFOVSave
+            // 
+            this.btnWFOVSave.BackColor = System.Drawing.Color.Transparent;
+            this.btnWFOVSave.Image = global::RCCM.Properties.Resources.save;
+            this.btnWFOVSave.Location = new System.Drawing.Point(105, 483);
+            this.btnWFOVSave.Name = "btnWFOVSave";
+            this.btnWFOVSave.Size = new System.Drawing.Size(26, 26);
+            this.btnWFOVSave.TabIndex = 35;
+            this.toolTip.SetToolTip(this.btnWFOVSave, "Record video");
+            this.btnWFOVSave.UseVisualStyleBackColor = false;
+            this.btnWFOVSave.Click += new System.EventHandler(this.btnWFOVSave_Click);
             // 
             // btnWfovStop
             // 
@@ -149,7 +163,7 @@
             // 
             this.btnFocus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnFocus.Enabled = false;
-            this.btnFocus.Location = new System.Drawing.Point(218, 483);
+            this.btnFocus.Location = new System.Drawing.Point(250, 483);
             this.btnFocus.Name = "btnFocus";
             this.btnFocus.Size = new System.Drawing.Size(75, 26);
             this.btnFocus.TabIndex = 23;
@@ -162,7 +176,7 @@
             // 
             this.btnWfovProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnWfovProperties.Enabled = false;
-            this.btnWfovProperties.Location = new System.Drawing.Point(137, 483);
+            this.btnWfovProperties.Location = new System.Drawing.Point(169, 483);
             this.btnWfovProperties.Name = "btnWfovProperties";
             this.btnWfovProperties.Size = new System.Drawing.Size(75, 26);
             this.btnWfovProperties.TabIndex = 20;
@@ -177,7 +191,7 @@
             this.btnWfovRecord.BackColor = System.Drawing.Color.Transparent;
             this.btnWfovRecord.Enabled = false;
             this.btnWfovRecord.Image = global::RCCM.Properties.Resources.record;
-            this.btnWfovRecord.Location = new System.Drawing.Point(105, 483);
+            this.btnWfovRecord.Location = new System.Drawing.Point(137, 483);
             this.btnWfovRecord.Name = "btnWfovRecord";
             this.btnWfovRecord.Size = new System.Drawing.Size(26, 26);
             this.btnWfovRecord.TabIndex = 22;
@@ -570,5 +584,6 @@
         private System.Windows.Forms.ColumnHeader columnCycle;
         private System.Windows.Forms.ColumnHeader columnLength;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button btnWFOVSave;
     }
 }

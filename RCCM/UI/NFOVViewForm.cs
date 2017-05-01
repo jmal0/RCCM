@@ -389,6 +389,7 @@ namespace RCCM.UI
             btnNfovStart.Enabled = false;
             btnNfovStop.Enabled = true;
             btnNfovSnap.Enabled = true;
+            btnNFOVSave.Enabled = true;
             btnNfovRecord.Enabled = true;
         }
 
@@ -404,7 +405,36 @@ namespace RCCM.UI
             btnNfovStart.Enabled = true;
             btnNfovStop.Enabled = false;
             btnNfovSnap.Enabled = false;
+            btnNFOVSave.Enabled = false;
             btnNfovRecord.Enabled = false;
+        }
+        
+        /// <summary>
+        /// Save NFOV live image to a specific file
+        /// </summary>
+        private void btnNFOVSave_Click(object sender, EventArgs e)
+        {
+            Bitmap img;
+            try
+            {
+                img = this.camera.GetLiveImage();
+            }
+            catch (Exception ex)
+            {
+                Logger.Out(ex.Message);
+                return;
+            }
+
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+            string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
+            string dir = (string)Program.Settings.json[camName]["image directory"];
+            this.saveFileDialog.Title = "Select image save location";
+            this.saveFileDialog.FileName = camName + timestamp + ".bmp";
+            DialogResult result = this.saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                img.Save(this.saveFileDialog.FileName);
+            }
         }
 
         /// <summary>

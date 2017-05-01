@@ -382,6 +382,23 @@ namespace RCCM.UI
         }
 
         /// <summary>
+        /// Save WFOV live image to a specific file
+        /// </summary>
+        private void btnWFOVSave_Click(object sender, EventArgs e)
+        {
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+            string camName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
+            string dir = (string)Program.Settings.json[camName]["image directory"];
+            this.saveFileDialog.Title = "Select image save location";
+            this.saveFileDialog.FileName = camName + timestamp + ".bmp";
+            DialogResult result = this.saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                this.camera.Snap(this.saveFileDialog.FileName);
+            }
+        }
+
+        /// <summary>
         /// Open camera property dialog
         /// </summary>
         private void btnWfovProperties_Click(object sender, EventArgs e)
@@ -626,6 +643,7 @@ namespace RCCM.UI
             btnWfovStart.Enabled = true;
             btnWfovStop.Enabled = true;
             btnWfovSnap.Enabled = true;
+            btnWFOVSave.Enabled = true;
             btnWfovRecord.Enabled = true;
             btnWfovProperties.Enabled = true;
             btnFocus.Enabled = true;
@@ -641,6 +659,7 @@ namespace RCCM.UI
             btnWfovStart.Enabled = false;
             btnWfovStop.Enabled = false;
             btnWfovSnap.Enabled = false;
+            btnWFOVSave.Enabled = false;
             btnWfovRecord.Enabled = false;
             btnWfovProperties.Enabled = false;
             btnFocus.Enabled = false;

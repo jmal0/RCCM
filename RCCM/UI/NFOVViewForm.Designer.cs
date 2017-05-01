@@ -37,13 +37,8 @@
             this.btnDeleteSequence = new System.Windows.Forms.Button();
             this.btnSaveCrack = new System.Windows.Forms.Button();
             this.btnCrosshairMeasure = new System.Windows.Forms.Button();
-            this.nfovImage = new System.Windows.Forms.PictureBox();
             this.btnDeletePoint = new System.Windows.Forms.Button();
-            this.btnNfovSnap = new System.Windows.Forms.Button();
             this.btnNfovProperties = new System.Windows.Forms.Button();
-            this.btnNfovStop = new System.Windows.Forms.Button();
-            this.btnNfovStart = new System.Windows.Forms.Button();
-            this.btnNfovRecord = new System.Windows.Forms.Button();
             this.btnGotoPoint = new System.Windows.Forms.Button();
             this.checkCrosshair = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -56,13 +51,19 @@
             this.panelMeasurementControl = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnNFOVSave = new System.Windows.Forms.Button();
+            this.nfovImage = new System.Windows.Forms.PictureBox();
+            this.btnNfovStart = new System.Windows.Forms.Button();
+            this.btnNfovRecord = new System.Windows.Forms.Button();
+            this.btnNfovStop = new System.Windows.Forms.Button();
+            this.btnNfovSnap = new System.Windows.Forms.Button();
             this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelNFOVControl.SuspendLayout();
             this.panelMeasurementControl.SuspendLayout();
             this.tableLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox9
@@ -155,19 +156,6 @@
             this.btnCrosshairMeasure.UseVisualStyleBackColor = true;
             this.btnCrosshairMeasure.Click += new System.EventHandler(this.btnCrosshairMeasure_Click);
             // 
-            // nfovImage
-            // 
-            this.nfovImage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.nfovImage.Location = new System.Drawing.Point(0, 0);
-            this.nfovImage.Name = "nfovImage";
-            this.nfovImage.Size = new System.Drawing.Size(606, 512);
-            this.nfovImage.TabIndex = 26;
-            this.nfovImage.TabStop = false;
-            this.nfovImage.Paint += new System.Windows.Forms.PaintEventHandler(this.nfovImage_Paint);
-            this.nfovImage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseDown);
-            this.nfovImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseMove);
-            this.nfovImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseUp);
-            // 
             // btnDeletePoint
             // 
             this.btnDeletePoint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -180,20 +168,9 @@
             this.btnDeletePoint.UseVisualStyleBackColor = true;
             this.btnDeletePoint.Click += new System.EventHandler(this.btnDeletePoint_Click);
             // 
-            // btnNfovSnap
-            // 
-            this.btnNfovSnap.Image = global::RCCM.Properties.Resources.snap;
-            this.btnNfovSnap.Location = new System.Drawing.Point(67, 512);
-            this.btnNfovSnap.Name = "btnNfovSnap";
-            this.btnNfovSnap.Size = new System.Drawing.Size(35, 26);
-            this.btnNfovSnap.TabIndex = 32;
-            this.toolTip.SetToolTip(this.btnNfovSnap, "Snap image and automatically save to images folder");
-            this.btnNfovSnap.UseVisualStyleBackColor = true;
-            this.btnNfovSnap.Click += new System.EventHandler(this.btnNfovSnap_Click);
-            // 
             // btnNfovProperties
             // 
-            this.btnNfovProperties.Location = new System.Drawing.Point(140, 512);
+            this.btnNfovProperties.Location = new System.Drawing.Point(172, 512);
             this.btnNfovProperties.Name = "btnNfovProperties";
             this.btnNfovProperties.Size = new System.Drawing.Size(75, 26);
             this.btnNfovProperties.TabIndex = 31;
@@ -201,41 +178,6 @@
             this.toolTip.SetToolTip(this.btnNfovProperties, "Open camera property window");
             this.btnNfovProperties.UseVisualStyleBackColor = true;
             this.btnNfovProperties.Click += new System.EventHandler(this.btnNfovProperties_Click);
-            // 
-            // btnNfovStop
-            // 
-            this.btnNfovStop.Enabled = false;
-            this.btnNfovStop.Image = global::RCCM.Properties.Resources.stop;
-            this.btnNfovStop.Location = new System.Drawing.Point(35, 512);
-            this.btnNfovStop.Name = "btnNfovStop";
-            this.btnNfovStop.Size = new System.Drawing.Size(26, 26);
-            this.btnNfovStop.TabIndex = 30;
-            this.toolTip.SetToolTip(this.btnNfovStop, "Stop live image display");
-            this.btnNfovStop.UseVisualStyleBackColor = true;
-            this.btnNfovStop.Click += new System.EventHandler(this.btnNfovStop_Click);
-            // 
-            // btnNfovStart
-            // 
-            this.btnNfovStart.Image = global::RCCM.Properties.Resources.play;
-            this.btnNfovStart.Location = new System.Drawing.Point(3, 512);
-            this.btnNfovStart.Name = "btnNfovStart";
-            this.btnNfovStart.Size = new System.Drawing.Size(26, 26);
-            this.btnNfovStart.TabIndex = 29;
-            this.toolTip.SetToolTip(this.btnNfovStart, "Start live image display");
-            this.btnNfovStart.UseVisualStyleBackColor = true;
-            this.btnNfovStart.Click += new System.EventHandler(this.btnNfovStart_Click);
-            // 
-            // btnNfovRecord
-            // 
-            this.btnNfovRecord.BackColor = System.Drawing.Color.Transparent;
-            this.btnNfovRecord.Image = global::RCCM.Properties.Resources.record;
-            this.btnNfovRecord.Location = new System.Drawing.Point(108, 512);
-            this.btnNfovRecord.Name = "btnNfovRecord";
-            this.btnNfovRecord.Size = new System.Drawing.Size(26, 26);
-            this.btnNfovRecord.TabIndex = 33;
-            this.toolTip.SetToolTip(this.btnNfovRecord, "Record video");
-            this.btnNfovRecord.UseVisualStyleBackColor = false;
-            this.btnNfovRecord.Click += new System.EventHandler(this.btnNfovRecord_Click);
             // 
             // btnGotoPoint
             // 
@@ -322,6 +264,7 @@
             // panelNFOVControl
             // 
             this.panelNFOVControl.AutoSize = true;
+            this.panelNFOVControl.Controls.Add(this.btnNFOVSave);
             this.panelNFOVControl.Controls.Add(this.nfovImage);
             this.panelNFOVControl.Controls.Add(this.btnNfovStart);
             this.panelNFOVControl.Controls.Add(this.btnNfovRecord);
@@ -370,6 +313,77 @@
             this.tableLayout.Size = new System.Drawing.Size(754, 545);
             this.tableLayout.TabIndex = 34;
             // 
+            // btnNFOVSave
+            // 
+            this.btnNFOVSave.BackColor = System.Drawing.Color.Transparent;
+            this.btnNFOVSave.Image = global::RCCM.Properties.Resources.save;
+            this.btnNFOVSave.Location = new System.Drawing.Point(108, 512);
+            this.btnNFOVSave.Name = "btnNFOVSave";
+            this.btnNFOVSave.Size = new System.Drawing.Size(26, 26);
+            this.btnNFOVSave.TabIndex = 34;
+            this.toolTip.SetToolTip(this.btnNFOVSave, "Record video");
+            this.btnNFOVSave.UseVisualStyleBackColor = false;
+            this.btnNFOVSave.Click += new System.EventHandler(this.btnNFOVSave_Click);
+            // 
+            // nfovImage
+            // 
+            this.nfovImage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.nfovImage.Location = new System.Drawing.Point(0, 0);
+            this.nfovImage.Name = "nfovImage";
+            this.nfovImage.Size = new System.Drawing.Size(606, 512);
+            this.nfovImage.TabIndex = 26;
+            this.nfovImage.TabStop = false;
+            this.nfovImage.Paint += new System.Windows.Forms.PaintEventHandler(this.nfovImage_Paint);
+            this.nfovImage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseDown);
+            this.nfovImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseMove);
+            this.nfovImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.nfovImage_MouseUp);
+            // 
+            // btnNfovStart
+            // 
+            this.btnNfovStart.Image = global::RCCM.Properties.Resources.play;
+            this.btnNfovStart.Location = new System.Drawing.Point(3, 512);
+            this.btnNfovStart.Name = "btnNfovStart";
+            this.btnNfovStart.Size = new System.Drawing.Size(26, 26);
+            this.btnNfovStart.TabIndex = 29;
+            this.toolTip.SetToolTip(this.btnNfovStart, "Start live image display");
+            this.btnNfovStart.UseVisualStyleBackColor = true;
+            this.btnNfovStart.Click += new System.EventHandler(this.btnNfovStart_Click);
+            // 
+            // btnNfovRecord
+            // 
+            this.btnNfovRecord.BackColor = System.Drawing.Color.Transparent;
+            this.btnNfovRecord.Image = global::RCCM.Properties.Resources.record;
+            this.btnNfovRecord.Location = new System.Drawing.Point(140, 512);
+            this.btnNfovRecord.Name = "btnNfovRecord";
+            this.btnNfovRecord.Size = new System.Drawing.Size(26, 26);
+            this.btnNfovRecord.TabIndex = 33;
+            this.toolTip.SetToolTip(this.btnNfovRecord, "Record video");
+            this.btnNfovRecord.UseVisualStyleBackColor = false;
+            this.btnNfovRecord.Click += new System.EventHandler(this.btnNfovRecord_Click);
+            // 
+            // btnNfovStop
+            // 
+            this.btnNfovStop.Enabled = false;
+            this.btnNfovStop.Image = global::RCCM.Properties.Resources.stop;
+            this.btnNfovStop.Location = new System.Drawing.Point(35, 512);
+            this.btnNfovStop.Name = "btnNfovStop";
+            this.btnNfovStop.Size = new System.Drawing.Size(26, 26);
+            this.btnNfovStop.TabIndex = 30;
+            this.toolTip.SetToolTip(this.btnNfovStop, "Stop live image display");
+            this.btnNfovStop.UseVisualStyleBackColor = true;
+            this.btnNfovStop.Click += new System.EventHandler(this.btnNfovStop_Click);
+            // 
+            // btnNfovSnap
+            // 
+            this.btnNfovSnap.Image = global::RCCM.Properties.Resources.snap;
+            this.btnNfovSnap.Location = new System.Drawing.Point(67, 512);
+            this.btnNfovSnap.Name = "btnNfovSnap";
+            this.btnNfovSnap.Size = new System.Drawing.Size(35, 26);
+            this.btnNfovSnap.TabIndex = 32;
+            this.toolTip.SetToolTip(this.btnNfovSnap, "Snap image and automatically save to images folder");
+            this.btnNfovSnap.UseVisualStyleBackColor = true;
+            this.btnNfovSnap.Click += new System.EventHandler(this.btnNfovSnap_Click);
+            // 
             // NFOVViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,7 +397,6 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NFOVViewForm_FormClosed);
             this.Load += new System.EventHandler(this.NFOVViewForm_Load);
             this.groupBox9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -392,6 +405,7 @@
             this.panelMeasurementControl.PerformLayout();
             this.tableLayout.ResumeLayout(false);
             this.tableLayout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nfovImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -425,5 +439,6 @@
         private System.Windows.Forms.ColumnHeader columnCycle;
         private System.Windows.Forms.ColumnHeader columnLength;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button btnNFOVSave;
     }
 }
