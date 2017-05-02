@@ -81,7 +81,7 @@ namespace RCCM
         /// </summary>
         public bool Connected { get; protected set; }
         /// <summary>
-        /// Camera microns / pixel calibration
+        /// Camera units / pixel calibration
         /// </summary>
         public double Scale { get; protected set; }
         /// <summary>
@@ -89,16 +89,14 @@ namespace RCCM
         /// </summary>
         public double Height
         {
-            //get { return this.Scale / 1000.0 * NFOV.IMG_HEIGHT; }
-            get { return this.Scale / 1000.0 * this.PixelHeight; }
+            get { return this.Scale * this.PixelHeight; }
         }        
         /// <summary>
         /// Height in mm of image
         /// </summary>
         public double Width
         {
-            //get { return this.Scale / 1000.0 * NFOV.IMG_WIDTH; }
-            get { return this.Scale / 1000.0 * this.PixelWidth; }
+            get { return this.Scale * this.PixelWidth; }
         }
         /// <summary>
         /// Flag indicating if camera is recording video
@@ -120,7 +118,7 @@ namespace RCCM
         public NFOV(string name)
         {
             this.serial = (uint)Program.Settings.json[name]["camera serial"];
-            this.Scale = (double)Program.Settings.json[name]["microns / pixel"];
+            this.Scale = (double)Program.Settings.json[name]["units / pixel"];
             this.CalibrationHeight = (double)Program.Settings.json[name]["calibration height"];
             this.Recording = false;
             // Initialize camera object. Connection occurs when initialize() is called

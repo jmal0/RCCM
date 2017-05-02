@@ -35,10 +35,10 @@ namespace RCCM.UI
         {
             double newScale;
             if (Double.TryParse(this.nfov1Scale.Text, out newScale) &&
-                newScale != (double)Program.Settings.json["nfov 1"]["microns / pixel"])
+                newScale != (double)Program.Settings.json["nfov 1"]["units / pixel"])
             {
                 this.rccm.NFOV1.SetScale(this.rccm, newScale);
-                Program.Settings.json["nfov 1"]["microns / pixel"] = newScale;
+                Program.Settings.json["nfov 1"]["units / pixel"] = newScale;
             }
         }
 
@@ -49,10 +49,10 @@ namespace RCCM.UI
         {
             double newScale;
             if (Double.TryParse(this.nfov2Scale.Text, out newScale) &&
-                newScale != (double)Program.Settings.json["nfov 2"]["microns / pixel"])
+                newScale != (double)Program.Settings.json["nfov 2"]["units / pixel"])
             {
                 this.rccm.NFOV2.SetScale(this.rccm, newScale);
-                Program.Settings.json["nfov 2"]["microns / pixel"] = newScale;
+                Program.Settings.json["nfov 2"]["units / pixel"] = newScale;
             }
         }
 
@@ -63,10 +63,10 @@ namespace RCCM.UI
         {
             double newScale;
             if (Double.TryParse(this.wfov1Scale.Text, out newScale) &&
-                newScale != (double)Program.Settings.json["wfov 1"]["microns / pixel"])
+                newScale != (double)Program.Settings.json["wfov 1"]["units / pixel"])
             {
                 this.rccm.WFOV1.SetScale(this.rccm, newScale);
-                Program.Settings.json["wfov 1"]["microns / pixel"] = newScale;
+                Program.Settings.json["wfov 1"]["units / pixel"] = newScale;
             }
         }
 
@@ -77,10 +77,10 @@ namespace RCCM.UI
         {
             double newScale;
             if (Double.TryParse(this.wfov2Scale.Text, out newScale) &&
-                newScale != (double)Program.Settings.json["wfov 2"]["microns / pixel"])
+                newScale != (double)Program.Settings.json["wfov 2"]["units / pixel"])
             {
                 this.rccm.WFOV2.SetScale(this.rccm, newScale);
-                Program.Settings.json["wfov 2"]["microns / pixel"] = newScale;
+                Program.Settings.json["wfov 2"]["units / pixel"] = newScale;
             }
         }
 
@@ -214,22 +214,22 @@ namespace RCCM.UI
         /// </summary>
         private void applySettings()
         {
-            this.nfov1Scale.Text = (string)Program.Settings.json["nfov 1"]["microns / pixel"];
+            this.nfov1Scale.Text = (string)Program.Settings.json["nfov 1"]["units / pixel"];
             this.textNFOV1ImageDir.Text = (string)Program.Settings.json["nfov 1"]["image directory"];
             this.textNFOV1VideoDir.Text = (string)Program.Settings.json["nfov 1"]["video directory"];
             this.textNFOV1DataDir.Text = (string)Program.Settings.json["nfov 1"]["test data directory"];
 
-            this.nfov2Scale.Text = (string)Program.Settings.json["nfov 2"]["microns / pixel"];
+            this.nfov2Scale.Text = (string)Program.Settings.json["nfov 2"]["units / pixel"];
             this.textNFOV2ImageDir.Text = (string)Program.Settings.json["nfov 2"]["image directory"];
             this.textNFOV2VideoDir.Text = (string)Program.Settings.json["nfov 2"]["video directory"];
             this.textNFOV2DataDir.Text = (string)Program.Settings.json["nfov 2"]["test data directory"];
 
-            this.wfov1Scale.Text = (string)Program.Settings.json["wfov 1"]["microns / pixel"];
+            this.wfov1Scale.Text = (string)Program.Settings.json["wfov 1"]["units / pixel"];
             this.textWFOV1ImageDir.Text = (string)Program.Settings.json["wfov 1"]["image directory"];
             this.textWFOV1VideoDir.Text = (string)Program.Settings.json["wfov 1"]["video directory"];
             this.textWFOV1DataDir.Text = (string)Program.Settings.json["wfov 1"]["test data directory"];
 
-            this.wfov2Scale.Text = (string)Program.Settings.json["wfov 2"]["microns / pixel"];
+            this.wfov2Scale.Text = (string)Program.Settings.json["wfov 2"]["units / pixel"];
             this.textWFOV2ImageDir.Text = (string)Program.Settings.json["wfov 2"]["image directory"];
             this.textWFOV2VideoDir.Text = (string)Program.Settings.json["wfov 2"]["video directory"];
             this.textWFOV2DataDir.Text = (string)Program.Settings.json["wfov 2"]["test data directory"];

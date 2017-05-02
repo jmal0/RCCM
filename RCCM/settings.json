@@ -160,7 +160,7 @@
   // Camera settings
   "wfov 1": {
     "configuration file": "config\\WFOV1.xml",
-    "microns / pixel": 6.62,
+    "units / pixel": 0.00662,
     "calibration height": 100,
     "calibration zoom": 100,
     "calibration focus": 100,
@@ -172,7 +172,7 @@
   },
   "wfov 2": {
     "configuration file": "config\\WFOV2.xml",
-    "microns / pixel": 6.62,
+    "units / pixel": 0.00662,
     "calibration height": 100,
     "calibration zoom": 100,
     "calibration focus": 100,
@@ -185,7 +185,7 @@
   "nfov 1": {
     "camera serial": 16396117,
     "controller serial": 641395,
-    "microns / pixel": 6.62,
+    "units / pixel": 0.00662,
     "calibration height": 100,
     "height": 2048,
     "width": 2448,
@@ -210,7 +210,7 @@
   "nfov 2": {
     "camera serial": 343144,
     "controller serial": 641405,
-    "microns / pixel": 11.0,
+    "units / pixel": 0.00662,
     "calibration height": 100,
     "height": 2048,
     "width": 2448,
@@ -272,5 +272,7 @@
     "threshold": 1.0
   },
   // Directory from which plugin dlls are loaded
-  "plugin directory": "Plugins"
+  "plugin directory": "Plugins",
+  // String indicating units used in distance settings in this file
+  "units": "mm"
 }

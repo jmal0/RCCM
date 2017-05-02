@@ -28,7 +28,7 @@ namespace RCCM
         /// </summary>
         public bool Available { get; private set; }
         /// <summary>
-        /// Camera microns / pixel calibration
+        /// Camera units / pixel calibration
         /// </summary>
         public double Scale { get; protected set; }
         /// <summary>
@@ -36,14 +36,14 @@ namespace RCCM
         /// </summary>
         public double Height
         {
-            get { return this.Scale / 1000.0 * WFOV.IMG_HEIGHT; }
+            get { return this.Scale * WFOV.IMG_HEIGHT; }
         }
         /// <summary>
         /// Height in mm of image
         /// </summary>
         public double Width
         {
-            get { return this.Scale / 1000.0 * WFOV.IMG_WIDTH; }
+            get { return this.Scale * WFOV.IMG_WIDTH; }
         }
         /// <summary>
         /// Zoom level of the camera, an integer between 0 and 100
@@ -125,7 +125,7 @@ namespace RCCM
         public WFOV(string name)
         {
             this.configFile = (string)Program.Settings.json[name]["configuration file"];
-            this.Scale = (double)Program.Settings.json[name]["microns / pixel"];
+            this.Scale = (double)Program.Settings.json[name]["units / pixel"];
             this.CalibrationHeight = (double)Program.Settings.json[name]["calibration height"];
             this.CalibrationZoom = (int)Program.Settings.json[name]["calibration zoom"];
             this.CalibrationFocus = (int)Program.Settings.json[name]["calibration focus"];

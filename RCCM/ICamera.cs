@@ -13,15 +13,15 @@ namespace RCCM
     public interface ICamera
     {
         /// <summary>
-        /// Conversion from pixels to microns
+        /// Conversion from pixels to units
         /// </summary>
         double Scale { get; }
         /// <summary>
-        /// Height in microns of image
+        /// Height in units of image
         /// </summary>
         double Height { get; }
         /// <summary>
-        /// Width in microns of image
+        /// Width in units of image
         /// </summary>
         double Width { get; }
         /// <summary>
@@ -56,11 +56,11 @@ namespace RCCM
         /// <param name="rccm">Handle to RCCM object for getting z position</param>
         bool CheckFOV(RCCMSystem rccm);
         /// <summary>
-        /// Set value for pixel to micron conversion and save relevant info for 
+        /// Set value for pixel to units conversion and save relevant info for 
         /// checking that fov is correct
         /// </summary>
         /// <param name="rccm">Handle to RCCM object for getting z position</param>
-        /// <param name="scale">New value of pixels to microns conversion</param>
+        /// <param name="scale">New value of pixels to units conversion</param>
         void SetScale(RCCMSystem rccm, double scale);
     }
 }

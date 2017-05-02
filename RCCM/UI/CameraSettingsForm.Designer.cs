@@ -120,8 +120,8 @@
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(91, 20);
             this.label15.TabIndex = 0;
-            this.label15.Text = "micron/pixel";
-            this.toolTip.SetToolTip(this.label15, "Image resolution calibration. Equal to image width in microns / 2448");
+            this.label15.Text = "units/pixel";
+            this.toolTip.SetToolTip(this.label15, "Image resolution calibration. Equal to image width in units / 2448");
             // 
             // textNFOV1DataDir
             // 
@@ -144,7 +144,7 @@
             this.nfov1Scale.Size = new System.Drawing.Size(148, 26);
             this.nfov1Scale.TabIndex = 0;
             this.nfov1Scale.Text = "9.08";
-            this.toolTip.SetToolTip(this.nfov1Scale, "Image resolution calibration. Equal to image width in microns / 2448");
+            this.toolTip.SetToolTip(this.nfov1Scale, "Image resolution calibration. Equal to image width in units / 2448");
             this.nfov1Scale.TextChanged += new System.EventHandler(this.nfov1Scale_TextChanged);
             // 
             // label14
@@ -292,8 +292,8 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(91, 20);
             this.label12.TabIndex = 3;
-            this.label12.Text = "micron/pixel";
-            this.toolTip.SetToolTip(this.label12, "Image resolution calibration. Equal to image width in microns / 1280");
+            this.label12.Text = "units/pixel";
+            this.toolTip.SetToolTip(this.label12, "Image resolution calibration. Equal to image width in units / 1280");
             // 
             // wfov2Scale
             // 
@@ -304,7 +304,7 @@
             this.wfov2Scale.Size = new System.Drawing.Size(148, 26);
             this.wfov2Scale.TabIndex = 4;
             this.wfov2Scale.Text = "9.08";
-            this.toolTip.SetToolTip(this.wfov2Scale, "Image resolution calibration. Equal to image width in microns / 1280");
+            this.toolTip.SetToolTip(this.wfov2Scale, "Image resolution calibration. Equal to image width in units / 1280");
             this.wfov2Scale.TextChanged += new System.EventHandler(this.wfov2Scale_TextChanged);
             // 
             // label10
@@ -427,8 +427,8 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(91, 20);
             this.label11.TabIndex = 1;
-            this.label11.Text = "micron/pixel";
-            this.toolTip.SetToolTip(this.label11, "Image resolution calibration. Equal to image width in microns / 1280");
+            this.label11.Text = "units/pixel";
+            this.toolTip.SetToolTip(this.label11, "Image resolution calibration. Equal to image width in units / 1280");
             // 
             // wfov1Scale
             // 
@@ -439,7 +439,7 @@
             this.wfov1Scale.Size = new System.Drawing.Size(148, 26);
             this.wfov1Scale.TabIndex = 2;
             this.wfov1Scale.Text = "9.08";
-            this.toolTip.SetToolTip(this.wfov1Scale, "Image resolution calibration. Equal to image width in microns / 1280");
+            this.toolTip.SetToolTip(this.wfov1Scale, "Image resolution calibration. Equal to image width in units / 1280");
             this.wfov1Scale.TextChanged += new System.EventHandler(this.wfov1Scale_TextChanged);
             // 
             // label9
@@ -560,8 +560,8 @@
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(91, 20);
             this.label16.TabIndex = 0;
-            this.label16.Text = "micron/pixel";
-            this.toolTip.SetToolTip(this.label16, "Image resolution calibration. Equal to image width in microns / 2448");
+            this.label16.Text = "units/pixel";
+            this.toolTip.SetToolTip(this.label16, "Image resolution calibration. Equal to image width in units / 2448");
             // 
             // nfov2Scale
             // 
@@ -572,7 +572,7 @@
             this.nfov2Scale.Size = new System.Drawing.Size(148, 26);
             this.nfov2Scale.TabIndex = 0;
             this.nfov2Scale.Text = "9.08";
-            this.toolTip.SetToolTip(this.nfov2Scale, "Image resolution calibration. Equal to image width in microns / 2448");
+            this.toolTip.SetToolTip(this.nfov2Scale, "Image resolution calibration. Equal to image width in units / 2448");
             this.nfov2Scale.TextChanged += new System.EventHandler(this.nfov2Scale_TextChanged);
             // 
             // tableLayoutPanel1

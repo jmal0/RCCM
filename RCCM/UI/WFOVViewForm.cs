@@ -229,8 +229,8 @@ namespace RCCM.UI
                 // Get position of NFOV camera
                 PointF pos = this.rccm.GetNFOVLocation(this.stage, CoordinateSystem.Global);
                 // Convert mouse coordinates to global coordinate system units
-                double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
-                double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
+                double pixX = this.camera.Scale * (x - w / 2.0) / this.displayScale;
+                double pixY = this.camera.Scale * (y - h / 2.0) / this.displayScale;
                 // Rotate pixel vector into global position vector
                 PointF pix = this.rccm.FineVectorToGlobalVector(pixX, pixY);
                 this.drawnLineEnd.X = pos.X + pix.X;
@@ -252,8 +252,8 @@ namespace RCCM.UI
                 this.Drawing = true;
                 // Get mouse location in global coordinates
                 PointF pos = this.rccm.GetNFOVLocation(this.stage, CoordinateSystem.Global);
-                double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
-                double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
+                double pixX = this.camera.Scale * (x - w / 2.0) / this.displayScale;
+                double pixY = this.camera.Scale * (y - h / 2.0) / this.displayScale;
                 PointF pix = this.rccm.FineVectorToGlobalVector(pixX, pixY);
                 // Create start point - use last crack vertex if active crack is started.
                 if (this.cracks[this.ActiveIndex].CountPoints > 0)
@@ -286,8 +286,8 @@ namespace RCCM.UI
             {
                 // Get mouse location in global coordinates
                 PointF pos = this.rccm.GetNFOVLocation(this.stage, CoordinateSystem.Global);
-                double pixX = this.camera.Scale / 1000.0 * (x - w / 2.0) / this.displayScale;
-                double pixY = this.camera.Scale / 1000.0 * (y - h / 2.0) / this.displayScale;
+                double pixX = this.camera.Scale * (x - w / 2.0) / this.displayScale;
+                double pixY = this.camera.Scale * (y - h / 2.0) / this.displayScale;
                 PointF pix = this.rccm.FineVectorToGlobalVector(pixX, pixY);
                 Measurement p0 = new Measurement(this.cracks[this.ActiveIndex], this.rccm, pix.X, pix.Y);
                 this.cracks[this.ActiveIndex].AddPoint(p0);
