@@ -331,6 +331,15 @@ namespace RCCM
         }
 
         /// <summary>
+        /// Define current actuator position as a new numeric position
+        /// </summary>
+        /// <param name="value">Corrected current actuator position</param>
+        public override void FixPosition(double value)
+        {
+            this.controller.FixPosition(value, this.axisNum);
+        }
+
+        /// <summary>
         /// Get position of actuator from end of travel
         /// </summary>
         /// <returns>Current actuator position</returns>

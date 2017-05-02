@@ -128,7 +128,7 @@ namespace RCCM.UI
         }
 
         /// <summary>
-        /// 
+        /// Define selected actuators position as zero and clear errors
         /// </summary>
         private void btnZero_Click(object sender, EventArgs e)
         {
@@ -136,6 +136,18 @@ namespace RCCM.UI
             if (motorName != null)
             {
                 this.rccm.motors[motorName].Zero();
+            }
+        }
+
+        /// <summary>
+        /// Define selected actuator's position as entered value
+        /// </summary>
+        private void editPosition_KeyDown(object sender, KeyEventArgs e)
+        {
+            string motorName = this.dropdownMotor.Items[this.dropdownMotor.SelectedIndex].ToString();
+            if (motorName != null)
+            {
+                this.rccm.motors[motorName].FixPosition((double)this.editPosition.Value);
             }
         }
     }

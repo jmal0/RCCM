@@ -88,6 +88,15 @@ namespace RCCM
         {
             return this.settings[property];
         }
+
+        /// <summary>
+        /// Define current actuator position as a new numeric position
+        /// </summary>
+        /// <param name="value">Corrected current actuator position</param>
+        public virtual void FixPosition(double value)
+        {
+            this.commandPos = value;
+        }
        
         /// <summary>
         /// Move to user defined home position

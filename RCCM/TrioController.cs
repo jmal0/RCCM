@@ -225,6 +225,17 @@ namespace RCCM
         }
 
         /// <summary>
+        /// Define current actuator position as a new numeric position
+        /// </summary>
+        /// <param name="value">Corrected current actuator position</param>
+        public void FixPosition(double value, short nAxis)
+        {
+
+            this.triopc.Base(1, nAxis);
+            this.triopc.Execute("OFFPOS" + value.ToString());
+        }
+
+        /// <summary>
         /// Stop all moving actuators
         /// </summary>
         /// <returns>True if command was sent successfully</returns>

@@ -38,12 +38,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnCheckStatus = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnCheckStatus = new System.Windows.Forms.Button();
             this.btnZero = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.editPosition = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.editValue)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editPosition)).BeginInit();
             this.SuspendLayout();
             // 
             // dropdownProperty
@@ -144,15 +147,18 @@
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxEnable, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.btnCheckStatus, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.btnCheckStatus, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.btnZero, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.editPosition, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
@@ -160,7 +166,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(358, 277);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(358, 357);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
             // label4
@@ -173,27 +179,27 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Enabled";
             // 
-            // btnCheckStatus
-            // 
-            this.btnCheckStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCheckStatus.Location = new System.Drawing.Point(147, 235);
-            this.btnCheckStatus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnCheckStatus.Name = "btnCheckStatus";
-            this.btnCheckStatus.Size = new System.Drawing.Size(207, 37);
-            this.btnCheckStatus.TabIndex = 9;
-            this.btnCheckStatus.Text = "Status";
-            this.btnCheckStatus.UseVisualStyleBackColor = true;
-            this.btnCheckStatus.Click += new System.EventHandler(this.btnCheckStatus_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 230);
+            this.label5.Location = new System.Drawing.Point(4, 276);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 20);
             this.label5.TabIndex = 10;
             this.label5.Text = "Info";
+            // 
+            // btnCheckStatus
+            // 
+            this.btnCheckStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCheckStatus.Location = new System.Drawing.Point(147, 281);
+            this.btnCheckStatus.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCheckStatus.Name = "btnCheckStatus";
+            this.btnCheckStatus.Size = new System.Drawing.Size(207, 71);
+            this.btnCheckStatus.TabIndex = 9;
+            this.btnCheckStatus.Text = "Status";
+            this.btnCheckStatus.UseVisualStyleBackColor = true;
+            this.btnCheckStatus.Click += new System.EventHandler(this.btnCheckStatus_Click);
             // 
             // btnZero
             // 
@@ -215,12 +221,40 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Zero";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 230);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(121, 20);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Correct Position";
+            // 
+            // editPosition
+            // 
+            this.editPosition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editPosition.Location = new System.Drawing.Point(146, 233);
+            this.editPosition.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.editPosition.Minimum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            -2147483648});
+            this.editPosition.Name = "editPosition";
+            this.editPosition.Size = new System.Drawing.Size(209, 26);
+            this.editPosition.TabIndex = 14;
+            this.editPosition.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editPosition_KeyDown);
+            // 
             // MotorSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(358, 277);
+            this.ClientSize = new System.Drawing.Size(358, 357);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -232,6 +266,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.editValue)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editPosition)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -251,5 +286,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnZero;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown editPosition;
     }
 }

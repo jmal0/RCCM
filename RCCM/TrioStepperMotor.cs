@@ -147,6 +147,16 @@ namespace RCCM
         }
 
         /// <summary>
+        /// Define current actuator position as a new numeric position
+        /// </summary>
+        /// <param name="value">Corrected current actuator position</param>
+        public override void FixPosition(double value)
+        {
+            this.commandPos = value;
+            this.controller.FixPosition(value, this.axisNum);
+        }
+
+        /// <summary>
         /// Get all axis property values in a dictionary
         /// </summary>
         /// <returns>A dictionary of property name, value pairs</returns>
