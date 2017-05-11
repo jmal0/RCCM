@@ -145,7 +145,7 @@
     "type": "stepper",
     "axis number": 5,
     "enabled": 1,
-    "microstep per mm": 80000.0,
+    "microstep per mm": 160000.0,
     "mm per rev": 0.1,
     "velocity": 10.0,
     "jog speed": 10.0,

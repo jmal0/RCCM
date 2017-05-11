@@ -204,7 +204,7 @@ namespace RCCM.UI
         {
             DialogResult result = this.folderBrowserDialog.ShowDialog();
             Console.WriteLine(this.folderBrowserDialog.SelectedPath);
-            if (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists)
+            if (this.folderBrowserDialog.SelectedPath != "" && (Directory.Exists(this.folderBrowserDialog.SelectedPath) || Directory.CreateDirectory(this.folderBrowserDialog.SelectedPath).Exists))
             {
                 Program.Settings.json[camera][directory] = this.folderBrowserDialog.SelectedPath;
                 this.applySettings();
