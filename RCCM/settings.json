@@ -7,9 +7,9 @@
   "panel": {
     "x": 0.0,
     "y": 0.0,
-    "radius": 1879.6,
-    "width": 2540,
-    "height": 1220,
+    "radius": 74.6,
+    "width": 100,
+    "height": 48,
     "rotation": 0.0
   },
   "rotation angle": 0.0,
@@ -17,31 +17,30 @@
   "coarse stage": {
     "x": 0.0,
     "y": 0.0,
-    "x travel": 2540.0,
-    "y travel": 1320.8
+    "x travel": 100.0,
+    "y travel": 56.0
   },
   "fine 1": {
-    "x travel": 508.0,
-    "y travel": 508.0 
+    "x travel": 20.75,
+    "y travel": 20.75
   },
   "fine 2": {
-    "x travel": 508.0,
-    "y travel": 508.0 
+    "x travel": 20.75,
+    "y travel": 20.75
   },
   // Motion settings
   "coarse X": {
-    "type": "stepper",
+    "type": "virtual",
     "axis number": 7,
     "enabled": 1,
-    "microstep per mm": 80000.0,
-    "mm per rev": 0.1,
-    "velocity": 10.0,
-    "jog speed": 10.0,
-    "acceleration": 10,
-    "deceleration": 10,
+    "microstep per unit": 2032000.0,
+    "velocity": 1.0,
+    "jog speed": 1.0,
+    "acceleration": 1,
+    "deceleration": 1,
     "low position limit": 0.0,
-    "high position limit": 2540.0,
-    "step": 0.005,
+    "high position limit": 100.0,
+    "step": 0.0002,
     "home": 0.0,
     "feedback": 0.0
   },
@@ -49,15 +48,14 @@
     "type": "virtual",
     "axis number": 6,
     "enabled": 1,
-    "microstep per mm": 80000.0,
-    "mm per rev": 0.1,
-    "velocity": 10.0,
-    "jog speed": 10.0,
-    "acceleration": 10,
-    "deceleration": 10,
+    "microstep per unit": 2032000.0,
+    "velocity": 1.0,
+    "jog speed": 1.0,
+    "acceleration": 1,
+    "deceleration": 1,
     "low position limit": 0.0,
-    "high position limit": 1524.0,
-    "step": 0.005,
+    "high position limit": 56.0,
+    "step": 0.0002,
     "home": 0.0,
     "feedback": 0.0
   },
@@ -65,15 +63,14 @@
     "type": "stepper",
     "axis number": 0,
     "enabled": 1,
-    "microstep per mm": 160000.0,
-    "mm per rev": 0.1,
-    "velocity": 10.0,
-    "jog speed": 10.0,
-    "acceleration": 100,
-    "deceleration": 100,
-    "low position limit": -1200.0,
-    "high position limit": 1200,
-    "step": 0.0005,
+    "microstep per unit": 4064000.0,
+    "velocity": 1.0,
+    "jog speed": 1.0,
+    "acceleration": 1,
+    "deceleration": 1,
+    "low position limit": 0.0,
+    "high position limit": 20.75,
+    "step": 0.0002,
     "home": 0.0,
     "feedback": 0.0
   },
@@ -81,31 +78,29 @@
     "type": "stepper",
     "axis number": 1,
     "enabled": 1,
-    "microstep per mm": 160000.0,
-    "mm per rev": 0.1,
-    "velocity": 10.0,
-    "jog speed": 10.0,
-    "acceleration": 10,
-    "deceleration": 10,
+    "microstep per unit": 4064000.0,
+    "velocity": 1.0,
+    "jog speed": 1.0,
+    "acceleration": 1,
+    "deceleration": 1,
     "low position limit": 0.0,
-    "high position limit": 508.0,
-    "step": 0.0005,
+    "high position limit": 20.75,
+    "step": 0.0002,
     "home": 0.0,
     "feedback": 0.0
   },
   "fine 1 Z": {
-    "type": "stepper",
+    "type": "virtual",
     "axis number": 2,
     "enabled": 1,
-    "microstep per mm": 160000.0,
-    "mm per rev": 0.1,
-    "velocity": 10.0,
-    "jog speed": 10.0,
-    "acceleration": 10,
-    "deceleration": 10,
-    "low position limit": -500.0,
-    "high position limit": 308.0,
-    "step": 0.0005,
+    "microstep per unit": 4064000.0,
+    "velocity": 1.0,
+    "jog speed": 1.0,
+    "acceleration": 1,
+    "deceleration": 1,
+    "low position limit": 0.0,
+    "high position limit": 12.0,
+    "step": 0.0002,
     "home": 0.0,
     "feedback": 1.0
   },
@@ -113,15 +108,14 @@
     "type": "stepper",
     "axis number": 3,
     "enabled": 1,
-    "microstep per mm": 160000.0,
-    "mm per rev": 0.1,
-    "velocity": 10.0,
-    "jog speed": 10.0,
-    "acceleration": 10,
-    "deceleration": 10,
+    "microstep per unit": 4064000.0,
+    "velocity": 1.0,
+    "jog speed": 1.0,
+    "acceleration": 1,
+    "deceleration": 1,
     "low position limit": 0.0,
-    "high position limit": 508.0,
-    "step": 0.0005,
+    "high position limit": 20.75,
+    "step": 0.0002,
     "home": 0.0,
     "feedback": 0.0
   },
@@ -129,31 +123,29 @@
     "type": "stepper",
     "axis number": 4,
     "enabled": 1,
-    "microstep per mm": 160000.0,
-    "mm per rev": 0.1,
-    "velocity": 10.0,
-    "jog speed": 10.0,
-    "acceleration": 10,
-    "deceleration": 10,
+    "microstep per unit": 4064000.0,
+    "velocity": 1.0,
+    "jog speed": 1.0,
+    "acceleration": 1,
+    "deceleration": 1,
     "low position limit": 0.0,
-    "high position limit": 508.0,
-    "step": 0.0005,
+    "high position limit": 20.75,
+    "step": 0.0002,
     "home": 0.0,
     "feedback": 0.0
   },
   "fine 2 Z": {
-    "type": "stepper",
+    "type": "stepper z 2",
     "axis number": 5,
     "enabled": 1,
-    "microstep per mm": 160000.0,
-    "mm per rev": 0.1,
-    "velocity": 10.0,
-    "jog speed": 10.0,
-    "acceleration": 10,
-    "deceleration": 10,
+    "microstep per unit": 4064000.0,
+    "velocity": 1.0,
+    "jog speed": 1.0,
+    "acceleration": 1,
+    "deceleration": 1,
     "low position limit": 0.0,
-    "high position limit": 308.0,
-    "step": 0.0005,
+    "high position limit": 12.0,
+    "step": 0.0002,
     "home": 0.0,
     "feedback": 0.0
   },
@@ -161,11 +153,11 @@
   "wfov 1": {
     "configuration file": "config\\WFOV1.xml",
     "units / pixel": 0.00662,
-    "calibration height": 100,
-    "calibration zoom": 100,
+    "calibration height": 4,
+    "calibration zoom": 0,
     "calibration focus": 100,
-    "x offset": -533.0,
-    "y offset": -254.0,
+    "x offset": -21.75,
+    "y offset": -10.375,
     "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\WFOV 1",
     "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\WFOV 1",
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\WFOV 1"
@@ -173,11 +165,11 @@
   "wfov 2": {
     "configuration file": "config\\WFOV2.xml",
     "units / pixel": 0.00662,
-    "calibration height": 100,
-    "calibration zoom": 100,
+    "calibration height": 4,
+    "calibration zoom": 0,
     "calibration focus": 100,
-    "x offset": 25.0,
-    "y offset": -254.0,
+    "x offset": 1.0,
+    "y offset": -10.375,
     "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\WFOV 2",
     "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\WFOV 2",
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\WFOV 2"
@@ -186,23 +178,29 @@
     "camera serial": 343144,
     "controller serial": 641405,
     "units / pixel": 0.00662,
-    "calibration height": 100,
+    "calibration height": 4,
     "height": 2048,
     "width": 2448,
     "frame rate": 15.0,
     // slope, y-intercept of AN3 value (input reading to distance sensor) vs height graph
-    "conversion": [ 39.98, 49.73 ],
+    "conversion": [ 1.574, 1.958 ],
     // [Input voltage (V), focal power]
     "calibration": [
-      [ 0.2527, 2.68 ],
-      [ 0.7576, -0.37 ],
-      [ 1.2574, -2.3 ],
-      [ 1.5073, -3.0 ],
-      [ 1.7572, -3.5 ],
-      [ 2.0071, -4.1 ]
+      [
+        1.5634000000000001,
+        -2.22
+      ],
+      [
+        2.206,
+        -3.62
+      ],
+      [
+        2.5171,
+        -4.12
+      ]
     ],
-    "x offset": -533.0,
-    "y offset": -254.0,
+    "x offset": -21.75,
+    "y offset": -10.375,
     "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\NFOV 1",
     "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\NFOV 1",
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\NFOV 1"
@@ -211,40 +209,46 @@
     "camera serial": 16396117,
     "controller serial": 641395,
     "units / pixel": 0.00662,
-    "calibration height": 100,
+    "calibration height": 4,
     "height": 2048,
     "width": 2448,
     "frame rate": 15.0,
     // slope, y-intercept of AN3 value (input reading to distance sensor) vs height graph
-    "conversion": [ 39.98, 49.73 ],
+    "conversion": [ 1.574, 1.958 ],
     // [Input voltage (V), focal power]
     "calibration": [
-      [ 1.8031, 4.38 ],
-      [ 2.0836, 2.8 ],
-      [ 2.461, 0 ],
-      [ 3.1342, -2.2 ],
-      [ 3.5524, -3.2 ],
-      [ 3.9706, -4.3 ]
+      [
+        1.5634000000000001,
+        -2.22
+      ],
+      [
+        2.206,
+        -3.62
+      ],
+      [
+        2.5171,
+        -4.12
+      ]
     ],
-    "x offset": 25.0,
-    "y offset": -254.0,
+    "x offset": 1.0,
+    "y offset": -10.375,
     "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\NFOV 2",
     "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\NFOV 2",
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\NFOV 2"
   },
   // UI Settings
   "repaint period": 100, // milliseconds
-  "ruler spacing": 250, // mm
+  "ruler spacing": 10, // mm
   // Test settings
   "cycle frequency": 1, // Hz
   "pressure readings saved": 100,
   "distance sensor": {
     // Error between commanded height and distance sensor reading before sending move command
-    "max height error": 0.3,
+    "max height error": 0.012,
     // Minimum height to consider reading valid
-    "min height": 60,
+    "min height": 2.36,
     // Maximum height to consider reading valid
-    "max height": 220,
+    "max height": 8.66,
     // Update rates for z-actuator and NFOV focus command loops
     // Units is milliseconds
     "z position update period": 100,
@@ -274,5 +278,5 @@
   // Directory from which plugin dlls are loaded
   "plugin directory": "Plugins",
   // String indicating units used in distance settings in this file
-  "units": "mm"
+  "units": "in"
 }

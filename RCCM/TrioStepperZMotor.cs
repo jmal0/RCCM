@@ -21,7 +21,7 @@ namespace RCCM
         /// </summary>
         public static Dictionary<string, string> TRIO_PROPERTY_MAP = new Dictionary<string, string>{
             { "enabled", "AXIS_ENABLE" },
-            { "microstep per mm", "UNITS" },
+            { "microstep per unit", "UNITS" },
             { "velocity", "SPEED" },
             { "jog speed", "JOGSPEED" },
             { "acceleration", "ACCEL" },

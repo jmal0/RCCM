@@ -424,7 +424,7 @@ namespace RCCM
                         break;
                     case "stepper z 2":
                         TrioStepperZMotor zMotor2 = new TrioStepperZMotor(this.triopc, (short)Program.Settings.json[motorName]["axis number"],
-                                                                          this, RCCMStage.RCCM1);
+                                                                          this, RCCMStage.RCCM2);
                         this.motors.Add(motorName, zMotor2);
                         this.LensController.Motor2 = zMotor2;
                         break;
