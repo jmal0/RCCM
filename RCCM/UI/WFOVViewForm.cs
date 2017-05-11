@@ -62,6 +62,8 @@ namespace RCCM.UI
         /// </summary>
         protected PointF drawnLineEnd;
 
+        protected EventHandler<ICImagingControl.OverlayUpdateEventArgs> overlayUpdate;
+
         /// <summary>
         /// Create form and initialize given camera
         /// </summary>
@@ -97,7 +99,8 @@ namespace RCCM.UI
             ob.DropOutColor = Color.Black;
             ob.Fill(Color.Black);
             ob.ColorMode = OverlayColorModes.Color;
-            this.wfovContainer.OverlayUpdate += new EventHandler<ICImagingControl.OverlayUpdateEventArgs>(wfovOverlayPaint);
+            this.overlayUpdate = new EventHandler<ICImagingControl.OverlayUpdateEventArgs>(wfovOverlayPaint);
+            this.wfovContainer.OverlayUpdate += this.overlayUpdate;
 
             // Initialize camera
             bool success = this.camera.Initialize(this.wfovContainer);
@@ -128,6 +131,7 @@ namespace RCCM.UI
             {
                 this.camera.StopRecord();
             }
+            this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
             this.camera.Stop();
         }
 
@@ -360,6 +364,7 @@ namespace RCCM.UI
         /// </summary>
         private void btnWfovStop_Click(object sender, EventArgs e)
         {
+            this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
             this.camera.Stop();
 
             // Update button states

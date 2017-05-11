@@ -232,7 +232,7 @@ namespace RCCM
         {
 
             this.triopc.Base(1, nAxis);
-            this.triopc.Execute("OFFPOS" + value.ToString());
+            this.triopc.Execute("DEFPOS(" + value.ToString() + ")");
         }
 
         /// <summary>

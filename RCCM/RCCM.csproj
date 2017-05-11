@@ -106,15 +106,15 @@
     </Reference>
     <Reference Include="Gardasoft.Controller.API, Version=3.0.0.1032, Culture=neutral, PublicKeyToken=3c364760d6170a1b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files\Gardasoft Vision\Triniti\SDK\ReferencedAssemblies\Gardasoft.Controller.API.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Gardasoft.Controller.API\v4.0_3.0.0.1032__3c364760d6170a1b\Gardasoft.Controller.API.dll</HintPath>
     </Reference>
     <Reference Include="Gardasoft.Device.CommunicationLayer, Version=3.0.0.1032, Culture=neutral, PublicKeyToken=3c364760d6170a1b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files\Gardasoft Vision\Triniti\SDK\ReferencedAssemblies\Gardasoft.Device.CommunicationLayer.DLL</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Gardasoft.Device.CommunicationLayer\v4.0_3.0.0.1032__3c364760d6170a1b\Gardasoft.Device.CommunicationLayer.dll</HintPath>
     </Reference>
     <Reference Include="Gardasoft.Device.Discovery, Version=3.0.0.1032, Culture=neutral, PublicKeyToken=3c364760d6170a1b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files\Gardasoft Vision\Triniti\SDK\ReferencedAssemblies\Gardasoft.Device.Discovery.DLL</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\Gardasoft.Device.Discovery\v4.0_3.0.0.1032__3c364760d6170a1b\Gardasoft.Device.Discovery.dll</HintPath>
     </Reference>
     <Reference Include="MatlabDFTRegistration, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

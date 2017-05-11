@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using Gardasoft.Controller.API.Exceptions;
 using Gardasoft.Controller.API.Interfaces;
 using Gardasoft.Controller.API.Managers;

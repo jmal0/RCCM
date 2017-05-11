@@ -156,8 +156,6 @@ namespace RCCM.UI
         {
             this.rccm.NFOV1.Disconnect();
             this.rccm.NFOV2.Disconnect();
-            this.rccm.WFOV1.Stop();
-            this.rccm.WFOV2.Stop();
             foreach (string motorName in RCCMSystem.AXES)
             {
                 this.rccm.motors[motorName].JogStop();

@@ -35,7 +35,8 @@ namespace RCCM.UI
         {
             double newScale;
             if (Double.TryParse(this.nfov1Scale.Text, out newScale) &&
-                newScale != (double)Program.Settings.json["nfov 1"]["units / pixel"])
+                newScale != (double)Program.Settings.json["nfov 1"]["units / pixel"] &&
+                newScale != 0)
             {
                 this.rccm.NFOV1.SetScale(this.rccm, newScale);
                 Program.Settings.json["nfov 1"]["units / pixel"] = newScale;
@@ -49,7 +50,8 @@ namespace RCCM.UI
         {
             double newScale;
             if (Double.TryParse(this.nfov2Scale.Text, out newScale) &&
-                newScale != (double)Program.Settings.json["nfov 2"]["units / pixel"])
+                newScale != (double)Program.Settings.json["nfov 2"]["units / pixel"] &&
+                newScale != 0)
             {
                 this.rccm.NFOV2.SetScale(this.rccm, newScale);
                 Program.Settings.json["nfov 2"]["units / pixel"] = newScale;
@@ -63,7 +65,8 @@ namespace RCCM.UI
         {
             double newScale;
             if (Double.TryParse(this.wfov1Scale.Text, out newScale) &&
-                newScale != (double)Program.Settings.json["wfov 1"]["units / pixel"])
+                newScale != (double)Program.Settings.json["wfov 1"]["units / pixel"] &&
+                newScale != 0)
             {
                 this.rccm.WFOV1.SetScale(this.rccm, newScale);
                 Program.Settings.json["wfov 1"]["units / pixel"] = newScale;
@@ -77,7 +80,8 @@ namespace RCCM.UI
         {
             double newScale;
             if (Double.TryParse(this.wfov2Scale.Text, out newScale) &&
-                newScale != (double)Program.Settings.json["wfov 2"]["units / pixel"])
+                newScale != (double)Program.Settings.json["wfov 2"]["units / pixel"] &&
+                newScale != 0)
             {
                 this.rccm.WFOV2.SetScale(this.rccm, newScale);
                 Program.Settings.json["wfov 2"]["units / pixel"] = newScale;

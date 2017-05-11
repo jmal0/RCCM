@@ -31,7 +31,7 @@
   // Motion settings
   "coarse X": {
     "type": "stepper",
-    "axis number": 0,
+    "axis number": 7,
     "enabled": 1,
     "microstep per mm": 80000.0,
     "mm per rev": 0.1,
@@ -46,8 +46,8 @@
     "feedback": 0.0
   },
   "coarse Y": {
-    "type": "stepper",
-    "axis number": 7,
+    "type": "virtual",
+    "axis number": 6,
     "enabled": 1,
     "microstep per mm": 80000.0,
     "mm per rev": 0.1,
@@ -62,10 +62,10 @@
     "feedback": 0.0
   },
   "fine 1 X": {
-    "type": "virtual",
-    "axis number": 2,
+    "type": "stepper",
+    "axis number": 0,
     "enabled": 1,
-    "microstep per mm": 80000.0,
+    "microstep per mm": 160000.0,
     "mm per rev": 0.1,
     "velocity": 10.0,
     "jog speed": 10.0,
@@ -78,10 +78,10 @@
     "feedback": 0.0
   },
   "fine 1 Y": {
-    "type": "virtual",
-    "axis number": 3,
+    "type": "stepper",
+    "axis number": 1,
     "enabled": 1,
-    "microstep per mm": 80000.0,
+    "microstep per mm": 160000.0,
     "mm per rev": 0.1,
     "velocity": 10.0,
     "jog speed": 10.0,
@@ -94,10 +94,10 @@
     "feedback": 0.0
   },
   "fine 1 Z": {
-    "type": "virtual",
-    "axis number": 0,
+    "type": "stepper",
+    "axis number": 2,
     "enabled": 1,
-    "microstep per mm": 80000.0,
+    "microstep per mm": 160000.0,
     "mm per rev": 0.1,
     "velocity": 10.0,
     "jog speed": 10.0,
@@ -110,10 +110,10 @@
     "feedback": 1.0
   },
   "fine 2 X": {
-    "type": "virtual",
-    "axis number": 5,
+    "type": "stepper",
+    "axis number": 3,
     "enabled": 1,
-    "microstep per mm": 80000.0,
+    "microstep per mm": 160000.0,
     "mm per rev": 0.1,
     "velocity": 10.0,
     "jog speed": 10.0,
@@ -126,10 +126,10 @@
     "feedback": 0.0
   },
   "fine 2 Y": {
-    "type": "virtual",
-    "axis number": 6,
+    "type": "stepper",
+    "axis number": 4,
     "enabled": 1,
-    "microstep per mm": 80000.0,
+    "microstep per mm": 160000.0,
     "mm per rev": 0.1,
     "velocity": 10.0,
     "jog speed": 10.0,
@@ -142,8 +142,8 @@
     "feedback": 0.0
   },
   "fine 2 Z": {
-    "type": "virtual",
-    "axis number": 7,
+    "type": "stepper",
+    "axis number": 5,
     "enabled": 1,
     "microstep per mm": 80000.0,
     "mm per rev": 0.1,
@@ -183,8 +183,8 @@
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\WFOV 2"
   },
   "nfov 1": {
-    "camera serial": 16396117,
-    "controller serial": 641395,
+    "camera serial": 343144,
+    "controller serial": 641405,
     "units / pixel": 0.00662,
     "calibration height": 100,
     "height": 2048,
@@ -208,8 +208,8 @@
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\NFOV 1"
   },
   "nfov 2": {
-    "camera serial": 343144,
-    "controller serial": 641405,
+    "camera serial": 16396117,
+    "controller serial": 641395,
     "units / pixel": 0.00662,
     "calibration height": 100,
     "height": 2048,

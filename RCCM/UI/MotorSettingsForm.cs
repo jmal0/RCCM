@@ -144,10 +144,13 @@ namespace RCCM.UI
         /// </summary>
         private void editPosition_KeyDown(object sender, KeyEventArgs e)
         {
-            string motorName = this.dropdownMotor.Items[this.dropdownMotor.SelectedIndex].ToString();
-            if (motorName != null)
+            if (e.KeyCode == Keys.Enter)
             {
-                this.rccm.motors[motorName].FixPosition((double)this.editPosition.Value);
+                string motorName = this.dropdownMotor.Items[this.dropdownMotor.SelectedIndex].ToString();
+                if (motorName != null)
+                {
+                    this.rccm.motors[motorName].FixPosition((double)this.editPosition.Value);
+                }
             }
         }
     }
