@@ -218,8 +218,14 @@ namespace RCCM
                 {
                     this.StopRecord();
                 }
-                this.ic.LiveSuspend();
-                this.ic.SaveDeviceStateToFile(this.configFile);
+                try
+                {
+                    this.ic.LiveStop();
+                    this.ic.SaveDeviceStateToFile(this.configFile);
+                }
+                catch (Exception ex)
+                {
+                }
             }
         }
 

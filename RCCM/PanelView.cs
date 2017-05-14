@@ -110,7 +110,7 @@ namespace RCCM
             this.panelBrush = new SolidBrush(Color.FromArgb(255, Color.Gray));
             this.coarseBrush = new SolidBrush(Color.FromArgb(128, Color.LightGray));
             this.fineBrush = new SolidBrush(Color.FromArgb(128, Color.Green));
-            this.pen = new Pen(Color.Black);
+            this.pen = new Pen(Color.Black, 0);
             // Initialize matrix for holding coordinate system transform
             this.transform = new Matrix();
         }
@@ -134,7 +134,7 @@ namespace RCCM
             this.rotateAt(g, -(float)this.rccm.PanelAngle, this.panel.X, this.panel.Y);
 
             // Draw travel regions and crosshairs
-            float size = 50;
+            float size = (string)Program.Settings.json["units"] == "mm" ? 50 : 2;
             float x, y;
             // Coarse axis travel region
             g.FillRectangle(this.coarseBrush, this.coarse);

@@ -73,6 +73,10 @@ namespace RCCM.UI
         /// Holds sleep setting of computer before starting program so it can be reverted on exit
         /// </summary>
         protected uint fPreviousExecutionState;
+        /// <summary>
+        /// Flag to indicate if user is jogging an actuator
+        /// </summary>
+        protected bool jogging;
 
         /// <summary>
         /// Create the main form and initialize all hardware
@@ -121,6 +125,8 @@ namespace RCCM.UI
                 }
             }
 
+            this.jogging = false;
+
             // Set new state to prevent system sleep
             this.fPreviousExecutionState = NativeMethods.SetThreadExecutionState(
                 NativeMethods.ES_CONTINUOUS | NativeMethods.ES_SYSTEM_REQUIRED);
@@ -156,8 +162,6 @@ namespace RCCM.UI
         {
             this.rccm.NFOV1.Disconnect();
             this.rccm.NFOV2.Disconnect();
-            this.rccm.WFOV1.Stop();
-            this.rccm.WFOV2.Stop();
             foreach (string motorName in RCCMSystem.AXES)
             {
                 this.rccm.motors[motorName].JogStop();
@@ -587,6 +591,11 @@ namespace RCCM.UI
         /// </summary>
         private void RCCMMainForm_KeyDown(object sender, KeyEventArgs e)
         {
+            // Check if keydown was pressed to prevent event from firing continuously
+            if (this.jogging)
+            {
+                return;
+            }
             // Do not call jogging code if edit control is focused
             foreach (Control c in new Control[] { this.coarseXPos, this.coarseYPos, this.fine1XPos, this.fine1YPos, this.fine1ZPos, this.fine2XPos, this.fine2YPos, this.fine2ZPos })
             {
@@ -623,18 +632,22 @@ namespace RCCM.UI
             switch (e.KeyCode)
             {
                 case Keys.Up:
+                    this.jogging = true;
                     e.SuppressKeyPress = true;
                     this.rccm.motors[yAxis].Jog(true);
                     break;
                 case Keys.Left:
+                    this.jogging = true;
                     e.SuppressKeyPress = true;
                     this.rccm.motors[xAxis].Jog(false);
                     break;
                 case Keys.Down:
+                    this.jogging = true;
                     e.SuppressKeyPress = true;
                     this.rccm.motors[yAxis].Jog(false);
                     break;
                 case Keys.Right:
+                    this.jogging = true;
                     e.SuppressKeyPress = true;
                     this.rccm.motors[xAxis].Jog(true);
                     break;
@@ -648,6 +661,8 @@ namespace RCCM.UI
         {
             if (e.KeyData == Keys.Up || e.KeyData == Keys.Left || e.KeyData == Keys.Down || e.KeyData == Keys.Right)
             {
+
+                this.jogging = false;
                 foreach (string motorName in RCCMSystem.AXES)
                 {
                     this.rccm.motors[motorName].JogStop();

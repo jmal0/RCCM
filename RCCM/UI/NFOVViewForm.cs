@@ -289,7 +289,8 @@ namespace RCCM.UI
             // Display live image from NFOV camera
             if (this.camera.Connected && this.camera.ProcessedImage.dataSize != 0)
             {
-                Bitmap img = new Bitmap(this.camera.GetLiveImage(), 612, 512);
+                Bitmap img = new Bitmap(this.camera.GetLiveImage(), 512, 612);
+                img.RotateFlip(RotateFlipType.Rotate270FlipNone);
                 e.Graphics.DrawImage(img, 0, 0, 612, 512);
                 img.Dispose();
             }
