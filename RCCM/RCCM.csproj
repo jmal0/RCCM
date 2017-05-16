@@ -224,6 +224,12 @@
     <Compile Include="TestResults.cs" />
     <Compile Include="TrioController.cs" />
     <Compile Include="TrioStepperMotor.cs" />
+    <Compile Include="UI\RCCMSplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\RCCMSplashScreen.Designer.cs">
+      <DependentUpon>RCCMSplashScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\WFOVViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +275,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\RCCMSplashScreen.resx">
+      <DependentUpon>RCCMSplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\WFOVViewForm.resx">
       <DependentUpon>WFOVViewForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -357,7 +366,10 @@
     <None Include="res\wjhtc.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RCCM splashscreen draft3.png" />
     <Content Include="rccm_ico.ico" />
+    <None Include="Resources\RCCM splashscreen draft3.png" />
+    <Content Include="res\RCCM splashscreen draft3.png" />
     <None Include="res\save.png" />
     <None Include="res\estop.png" />
   </ItemGroup>

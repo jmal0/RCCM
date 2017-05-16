@@ -7,11 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-// WFOV Imports
 using TIS.Imaging;
-
-// NFOV Imports
 using FlyCapture2Managed;
 using FlyCapture2Managed.Gui;
 using System.Collections.ObjectModel;
@@ -84,6 +80,12 @@ namespace RCCM.UI
         /// <param name="plugins">List of plugins that were found on startup</param>
         public RCCMMainForm(ICollection<IRCCMPlugin> plugins)
         {
+            // Show splash screen
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            RCCMSplashScreen splash = new RCCMSplashScreen();
+            splash.Show();
+            stopwatch.Start();
+            
             // Need to load the ActiveX state or something, I'm not actually sure
             this.resources = new ComponentResourceManager(typeof(RCCMMainForm));
             // Create Trio controller ActiveX control and initialize
@@ -134,6 +136,11 @@ namespace RCCM.UI
             {
                 Console.WriteLine("SetThreadExecutionState failed. Do something here...");
             }
+            
+            stopwatch.Stop();
+            System.Threading.Thread.Sleep((int)Math.Max(2000 - stopwatch.ElapsedMilliseconds, 0));
+            splash.Close();
+            
             Show();
         }
         

@@ -2,6 +2,34 @@
 
 Repository for the FAA William J. Hughes Technical Center's Remote Controlled Crack Monitoring System (RCCM) user interface. This interface is being developed for a Drexel University 2016-17 MEM Senior Design project
 
+## Usage and Functionality
+
+See the RCCM User's Manual in the doc/ folder for a complete reference on operating RCCM.
+
+* Measurement:
+
+  Measurements of cracks can be made within the live image. First, a crack must be created by clicking the "New Sequence" button. A unique name can be specified. The color and thickness of the line to be drawn over the live image can also be modified. Also, the crack length calculation method can be speficied. "Projection" measures the crack's length in the direction specified by the orientation angle. "Tip to Tip" takes the straight line distance from crack tip to base. "Total length" sums the length of each line segment.
+
+  Once one or more measurment sequences has been created, points can be added by left clicking within the live image. By holding right click, a segment can be drawn. To add points to a different sequence, select the crack name in the "Cracks" list box. 
+  
+  Measurements can also be added by using the "Measure at crosshair" button. These measurements will not be affected by an inaccurate pixel to distance calibration, so use this measurement mode when possible.
+
+* Imaging:
+ 
+ |Icon                                                                                   | Function         |Debugging
+ |:-------------------------------------------------------------------------------------:| -----------------| ---------------------------------------------------------------------------------------------------------------------------------------------|
+ | ![play.png](https://github.com/jmal0/RCCM/blob/master/RCCM/res/play.png?raw=true)     | Start live image | If image does not show or button is disabled, the camera is not connected, opened by another process, or does not have sufficient bandwidth. |
+ | ![stop.png](https://github.com/jmal0/RCCM/blob/master/RCCM/res/stop.png?raw=true)     | Stop live image  |
+ | ![snap.png](https://github.com/jmal0/RCCM/blob/master/RCCM/res/snap.png?raw=true)     | Snap image       | Ensure that the image output directory in the "Setup" tab is set to a writable path.
+ | ![save.png](https://github.com/jmal0/RCCM/blob/master/RCCM/res/save.png?raw=true)     | Save image to file |
+ | ![record.png](https://github.com/jmal0/RCCM/blob/master/RCCM/res/record.png?raw=true) | Record video     | Ensure that the video output directory in the "Setup" tab is set to a writable path.
+ 
+* WFOV Camera: The WFOV camera has a user-adjustable focus and zoom. These can be controller with the sliders to the right of the live image. Also, the camera can be focused using the "Autofocus" button. Allow 2 seconds for this operation to complete.
+
+* NFOV Camera: The NFOV camera adjusts focus automatically when the distance sensor is functioning properly. You can adjust the focus using the controls in the Settings->NFOV Lens Calibration menu. Adjust the cameras current focus using the Focal Power control. Add calibration points by clicking apply. The table of these points is displayed at the top of the window.
+
+* Viewing measurement data: Measurement files are written to the "data" directory in the exe directory by default. Files are named with the timestamp when the first measurement was made. The file is a csv with a header followed by a row for each measurement point.
+
 ## Dependencies
 
 The hardware and software for this project require the following dependencies to be installed:
@@ -44,31 +72,6 @@ Set the target to x64 and compile. Before running, you should ensure that the ex
 * config/WFOV2.xml
 * log/
 
-## Usage and Functionality
-
-* Measurement:
-
-  Measurements of cracks can be made within the live image. First, a crack must be created by clicking the "New Sequence" button. A unique name can be specified. The color and thickness of the line to be drawn over the live image can also be modified. Also, the crack length calculation method can be speficied. "Projection" measures the crack's length in the direction specified by the orientation angle. "Tip to Tip" takes the straight line distance from crack tip to base. "Total length" sums the length of each line segment.
-
-  Once one or more measurment sequences has been created, points can be added by left clicking within the live image. By holding right click, a segment can be drawn. To add points to a different sequence, select the crack name in the "Cracks" list box. 
-  
-  Measurements can also be added by using the "Measure at crosshair" button. These measurements will not be affected by an inaccurate pixel to distance calibration, so use this measurement mode when possible.
-
-* Imaging:
- 
- |Icon                                                                                   | Function         |Debugging
- |:-------------------------------------------------------------------------------------:| -----------------| ---------------------------------------------------------------------------------------------------------------------------------------------|
- | ![play.png](https://github.com/jmal0/RCCM/blob/master/RCCM/res/play.png?raw=true)     | Start live image | If image does not show or button is disabled, the camera is not connected, opened by another process, or does not have sufficient bandwidth. |
- | ![stop.png](https://github.com/jmal0/RCCM/blob/master/RCCM/res/stop.png?raw=true)     | Stop live image  |
- | ![snap.png](https://github.com/jmal0/RCCM/blob/master/RCCM/res/snap.png?raw=true)     | Snap image       | Ensure that the image output directory in the "Setup" tab is set to a writable path.
- | ![record.png](https://github.com/jmal0/RCCM/blob/master/RCCM/res/record.png?raw=true) | Record video     | Ensure that the video output directory in the "Setup" tab is set to a writable path.
- 
-* WFOV Camera: The WFOV camera has a user-adjustable focus and zoom. These can be controller with the sliders to the right of the live image. Also, the camera can be focused using the "Autofocus" button. Allow 2 seconds for this operation to complete.
-
-* NFOV Camera: The NFOV camera adjusts focus automatically when the distance sensor is functioning properly. You can adjust the focus using the controls in the Settings->NFOV Lens Calibration menu. Adjust the cameras current focus using the Focal Power control. Add calibration points by clicking apply. The table of these points is displayed at the top of the window.
-
-* Viewing measurement data: Measurement files are written to the "data" directory in the exe directory by default. Files are named with the timestamp when the first measurement was made. The file is a csv with a header followed by a row for each measurement point.
-
 ## Debugging
 
 For issues during startup, first check that the file "settings.json" (or whatever settings file is provided as an argument) is present in the exe directory and has the same property names and types as in the settings.json included in this repository.
@@ -77,46 +80,12 @@ For other issues, please review the output file from the program execution, whic
 
 ## Developing
 
-Below is a summary of the purpose and function of each file and Class declared in this repository
-
-### Core Code
-
-* **CycleCounter.cs**
-* **definitions.cs**
-* **LensCalibrationForm.cs**
-* **Logger.cs**
-* **Measurement.cs**
-* **MeasurementSequence.cs**
-* **Motor.cs**: Abstract interface defining the base functionality needed for a motor implementation by the rest of the program
-  * **VirtualMotor.cs**: An implementation of a Motor that requires no physical hardware. Simply stores a position value and other properties
-  * **VirtualZMotor.cs**
-  * **StepperMotor.cs**
-  * **StepperZMotor.cs**
-* **NFOV.cs**
-* **NFOVLensController.cs**
-* **NFOVView.cs**
-* **PanelView.cs**
-* **Program.cs**
-* **RCCMSystem.cs**
-* **Settings.cs**
-* **settings.json**
-* **TestResults.cs**
-* **TrioController.cs**
-* **WFOV.cs**
-
-### UI
-
-* **AboutRCCMForm.cs**
-* **LensCalibrationForm.cs**
-* **MotorSettingsForm.cs**
-* **NewMeasurementForm.cs**
-* **NFOVViewForm.cs**
-* **RCCMMainForm.cs**
-* **WFOVViewForm.cs**
+See RCCM Developer's Guide for a complete reference on the classes, interfaces and forms that make up the application.
 
 ## Known Issues
 
-* The "Cancel" button in the WFOV properties window crashes the WFOV camera (as of 2-12-2017 on Windows 10)
+* Stopping WFOV camera may crash the program. This appears to be due to an internal issue in TIS' .NET library and is likely caused by the overlay update event.
+* The "Cancel" button in the WFOV properties window crashes the WFOV camera (as of 2-12-2017 on Windows 10). Likely due to the same issue...
 
 ## License
 
