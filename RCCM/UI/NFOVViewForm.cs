@@ -64,7 +64,9 @@ namespace RCCM.UI
         /// Timer for calling NFOV display repaint
         /// </summary>
         protected Timer nfovRepaintTimer;
-        
+        protected BackgroundWorker bw;
+
+
         /// <summary>
         /// Initialize NFOV display
         /// </summary>
@@ -83,6 +85,7 @@ namespace RCCM.UI
             this.ActivePoint = -1;
             this.nfovRepaintTimer = new Timer();
             this.nfovRepaintTimer.Interval = (int)Program.Settings.json["repaint period"];
+            this.bw = new BackgroundWorker();
             InitializeComponent();
             this.updateMeasurementControls();
         }
@@ -289,8 +292,7 @@ namespace RCCM.UI
             // Display live image from NFOV camera
             if (this.camera.Connected && this.camera.ProcessedImage.dataSize != 0)
             {
-                Bitmap img = new Bitmap(this.camera.GetLiveImage(), 512, 612);
-                img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                Bitmap img = new Bitmap(this.camera.GetLiveImage(), 612, 512);
                 e.Graphics.DrawImage(img, 0, 0, 612, 512);
                 img.Dispose();
             }

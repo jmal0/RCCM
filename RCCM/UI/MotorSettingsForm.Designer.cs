@@ -63,6 +63,7 @@
             // 
             // editValue
             // 
+            this.editValue.DecimalPlaces = 2;
             this.editValue.Dock = System.Windows.Forms.DockStyle.Top;
             this.editValue.Location = new System.Drawing.Point(147, 143);
             this.editValue.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -232,6 +233,7 @@
             // 
             // editPosition
             // 
+            this.editPosition.DecimalPlaces = 2;
             this.editPosition.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editPosition.Location = new System.Drawing.Point(146, 233);
             this.editPosition.Maximum = new decimal(new int[] {
