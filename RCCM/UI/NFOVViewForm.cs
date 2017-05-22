@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -64,7 +65,8 @@ namespace RCCM.UI
         /// Timer for calling NFOV display repaint
         /// </summary>
         protected Timer nfovRepaintTimer;
-        
+        protected BackgroundWorker bwRepaint;
+
         /// <summary>
         /// Initialize NFOV display
         /// </summary>
@@ -81,8 +83,7 @@ namespace RCCM.UI
             this.Drawing = false;
             this.ActiveIndex = -1;
             this.ActivePoint = -1;
-            this.nfovRepaintTimer = new Timer();
-            this.nfovRepaintTimer.Interval = (int)Program.Settings.json["repaint period"];
+            this.bwRepaint = new BackgroundWorker();
             InitializeComponent();
             this.updateMeasurementControls();
         }
@@ -98,8 +99,8 @@ namespace RCCM.UI
 
             this.camera.Initialize();
 
-            this.nfovRepaintTimer.Tick += new EventHandler(refreshNfov);
-            this.nfovRepaintTimer.Start();
+            this.bwRepaint.DoWork += this.refreshNfov;
+            this.bwRepaint.RunWorkerAsync();
 
             if (!this.camera.Connected)
             {
@@ -430,7 +431,8 @@ namespace RCCM.UI
             string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
             string dir = (string)Program.Settings.json[camName]["image directory"];
             this.saveFileDialog.Title = "Select image save location";
-            this.saveFileDialog.FileName = camName + timestamp + ".bmp";
+            this.saveFileDialog.DefaultExt = "bmp";
+            this.saveFileDialog.FileName = camName + timestamp;
             DialogResult result = this.saveFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -443,7 +445,16 @@ namespace RCCM.UI
         /// </summary>
         private void refreshNfov(object sender, EventArgs e)
         {
-            this.nfovImage.Invalidate();
+            long period = (long)Program.Settings.json["repaint period"];
+            Stopwatch stopwatch = new Stopwatch();
+
+            while (true)
+            {
+                stopwatch.Start();
+                this.nfovImage.Invalidate();
+                System.Threading.Thread.Sleep((int)Math.Max(0, period - stopwatch.ElapsedMilliseconds));
+                stopwatch.Reset();
+            }
         }
 
         /// <summary>
@@ -582,6 +593,7 @@ namespace RCCM.UI
         {
             if (this.crackIndexValid())
             {
+                this.saveFileDialog.DefaultExt = "csv";
                 this.saveFileDialog.FileName = this.cracks[this.ActiveIndex].GetFileName();
                 DialogResult result = this.saveFileDialog.ShowDialog();
                 if (result == DialogResult.OK)
@@ -752,6 +764,21 @@ namespace RCCM.UI
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Adjust focus offset for this camera
+        /// </summary>
+        private void editFocus_ValueChanged(object sender, EventArgs e)
+        {
+            if (this.stage == RCCMStage.RCCM1)
+            {
+                this.rccm.LensController.FocusOffset1 = (double)this.editFocus.Value;
+            }
+            else
+            {
+                this.rccm.LensController.FocusOffset2 = (double)this.editFocus.Value;
+            }
         }
     }
 }

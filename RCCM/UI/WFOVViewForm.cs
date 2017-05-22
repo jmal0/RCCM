@@ -408,7 +408,8 @@ namespace RCCM.UI
             string camName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
             string dir = (string)Program.Settings.json[camName]["image directory"];
             this.saveFileDialog.Title = "Select image save location";
-            this.saveFileDialog.FileName = camName + timestamp + ".bmp";
+            this.saveFileDialog.DefaultExt = "bmp";
+            this.saveFileDialog.FileName = camName + timestamp;
             DialogResult result = this.saveFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -577,6 +578,7 @@ namespace RCCM.UI
         {
             if (this.crackIndexValid())
             {
+                this.saveFileDialog.DefaultExt = "csv";
                 this.saveFileDialog.FileName = this.cracks[this.ActiveIndex].GetFileName();
                 DialogResult result = this.saveFileDialog.ShowDialog();
                 if (result == DialogResult.OK)

@@ -99,10 +99,10 @@
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DATAQ Instruments\DATAQ Instruments SDK Beta\Device Protocols .Net library - v1\Dataq.Protocols.dll</HintPath>
     </Reference>
     <Reference Include="FlyCap2CameraControld_v140">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files\Point Grey Research\FlyCapture2\bin64\vs2015\FlyCap2CameraControld_v140.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Point Grey Research\FlyCapture2\bin64\vs2015\FlyCap2CameraControld_v140.dll</HintPath>
     </Reference>
     <Reference Include="FlyCapture2Managedd_v140">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files\Point Grey Research\FlyCapture2\bin64\vs2015\FlyCapture2Managedd_v140.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Point Grey Research\FlyCapture2\bin64\vs2015\FlyCapture2Managedd_v140.dll</HintPath>
     </Reference>
     <Reference Include="Gardasoft.Controller.API, Version=3.0.0.1032, Culture=neutral, PublicKeyToken=3c364760d6170a1b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -119,6 +119,9 @@
     <Reference Include="MatlabDFTRegistration, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Downloads\MatlabDFTRegistration.dll</HintPath>
+    </Reference>
+    <Reference Include="MultiSyncLibraryManagedd_v140">
+      <HintPath>..\..\..\..\..\..\Program Files\Point Grey Research\FlyCapture2\bin64\vs2015\MultiSyncLibraryManagedd_v140.dll</HintPath>
     </Reference>
     <Reference Include="MWArray, Version=2.16.0.0, Culture=neutral, PublicKeyToken=e1d84a0da19db86f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -319,6 +322,15 @@
     <None Include="res\pause.png" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="ActiveFlyCapLib">
+      <Guid>{1C5EDFB1-E88B-4030-BF43-288809AB439A}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="MWComMgr">
       <Guid>{09287241-3CCE-4CBC-B185-5D3C1D69EBEC}</Guid>
       <VersionMajor>9</VersionMajor>

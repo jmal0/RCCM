@@ -399,14 +399,22 @@ namespace RCCM.UI
         private void refreshPanelView(object sender, EventArgs e)
         {
             this.panelView.Invalidate();
-            this.coarseXIndicator.Text = this.rccm.motors["coarse X"].GetPos().ToString();
-            this.coarseYIndicator.Text = this.rccm.motors["coarse Y"].GetPos().ToString();
-            this.fine1XIndicator.Text = this.rccm.motors["fine 1 X"].GetPos().ToString();
-            this.fine1YIndicator.Text = this.rccm.motors["fine 1 Y"].GetPos().ToString();
-            this.fine1ZIndicator.Text = this.rccm.motors["fine 1 Z"].GetPos().ToString();
-            this.fine2XIndicator.Text = this.rccm.motors["fine 2 X"].GetPos().ToString();
-            this.fine2YIndicator.Text = this.rccm.motors["fine 2 Y"].GetPos().ToString();
-            this.fine2ZIndicator.Text = this.rccm.motors["fine 2 Z"].GetPos().ToString();
+            try
+            {
+                this.coarseXIndicator.Text = this.rccm.motors["coarse X"].GetPos().ToString();
+                this.coarseYIndicator.Text = this.rccm.motors["coarse Y"].GetPos().ToString();
+                this.fine1XIndicator.Text = this.rccm.motors["fine 1 X"].GetPos().ToString();
+                this.fine1YIndicator.Text = this.rccm.motors["fine 1 Y"].GetPos().ToString();
+                this.fine1ZIndicator.Text = this.rccm.motors["fine 1 Z"].GetPos().ToString();
+                this.fine2XIndicator.Text = this.rccm.motors["fine 2 X"].GetPos().ToString();
+                this.fine2YIndicator.Text = this.rccm.motors["fine 2 Y"].GetPos().ToString();
+                this.fine2ZIndicator.Text = this.rccm.motors["fine 2 Z"].GetPos().ToString();
+            }
+            catch (Exception ex)
+            {
+                Logger.Out(ex.Message);
+            }
+            
         }
 
         #region Menu Items
