@@ -65,12 +65,8 @@ namespace RCCM.UI
         /// Timer for calling NFOV display repaint
         /// </summary>
         protected Timer nfovRepaintTimer;
-<<<<<<< HEAD
         protected BackgroundWorker bwRepaint;
-=======
         protected BackgroundWorker bw;
-
->>>>>>> 3341141d359d2c07cecde00b669af51fe0d9f882
 
         /// <summary>
         /// Initialize NFOV display
@@ -88,13 +84,7 @@ namespace RCCM.UI
             this.Drawing = false;
             this.ActiveIndex = -1;
             this.ActivePoint = -1;
-<<<<<<< HEAD
             this.bwRepaint = new BackgroundWorker();
-=======
-            this.nfovRepaintTimer = new Timer();
-            this.nfovRepaintTimer.Interval = (int)Program.Settings.json["repaint period"];
-            this.bw = new BackgroundWorker();
->>>>>>> 3341141d359d2c07cecde00b669af51fe0d9f882
             InitializeComponent();
             this.updateMeasurementControls();
         }

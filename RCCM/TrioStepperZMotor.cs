@@ -23,7 +23,6 @@ namespace RCCM
             { "enabled", "AXIS_ENABLE" },
             { "microstep per unit", "UNITS" },
             { "velocity", "SPEED" },
-            { "jog speed", "JOGSPEED" },
             { "acceleration", "ACCEL" },
             { "deceleration", "DECEL" },
             { "low position limit", "AXIS_RS_LIMIT" },
