@@ -297,7 +297,7 @@ namespace RCCM
                             bwVideoWriter.RunWorkerAsync();
                         }
 
-                        ManagedImage tempImage = new ManagedImage(this.ProcessedImage);
+                        ManagedImage tempImage = new ManagedImage(this.rawImage);
                         imageList.Add(tempImage);
                         i++;
                     }
@@ -367,6 +367,8 @@ namespace RCCM
                 MJPGOption option = new MJPGOption();
                 option.frameRate = frameRate;
                 option.quality = 90;
+
+                aviRecorder.AVIOpen(aviFileName, option);
 
                 // Write frames to video as they are being added
                 int imageCnt = 0;

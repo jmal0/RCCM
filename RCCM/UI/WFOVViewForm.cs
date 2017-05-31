@@ -91,7 +91,9 @@ namespace RCCM.UI
         private void WFOVViewForm_Load(object sender, EventArgs e)
         {
             this.Text = this.stage == RCCMStage.RCCM1 ? "WFOV 1" : "WFOV 2";
-            
+
+            this.wfovContainer.ImageAvailableExecutionMode = EventExecutionMode.Invoke;
+
             this.wfovContainer.OverlayBitmapPosition = PathPositions.Display;
             // Enable the overlay bitmap for drawing.
             OverlayBitmap ob = this.wfovContainer.OverlayBitmapAtPath[PathPositions.Display];
@@ -135,6 +137,7 @@ namespace RCCM.UI
             // Disable overlay paint to prevent crash
             this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
             this.wfovContainer.OverlayUpdateEventEnable = false;
+            Thread.Sleep(1000);
             this.camera.Stop();
         }
 
@@ -143,9 +146,9 @@ namespace RCCM.UI
         /// </summary>
         private void wfovOverlayPaint(object sender, ICImagingControl.OverlayUpdateEventArgs e)
         {
+            Graphics g = e.overlay.GetGraphics();
             try
             {
-                Graphics g = e.overlay.GetGraphics();
                 g.Clear(Color.Black);
                 g.ResetTransform();
 
@@ -200,7 +203,6 @@ namespace RCCM.UI
             }
             catch (Exception ex)
             {
-                // Literally can't do anything because of TIS' shitty overlay
             }
         }
         
@@ -378,6 +380,7 @@ namespace RCCM.UI
         {
             this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
             this.wfovContainer.OverlayUpdateEventEnable = false;
+            Thread.Sleep(1000);
             this.camera.Stop();
 
             // Update button states
@@ -437,18 +440,29 @@ namespace RCCM.UI
             {
                 if (this.camera.Recording == false)
                 {
+                    // Stop overlay
+                    this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
+                    this.wfovContainer.OverlayUpdateEventEnable = false;
+                    Thread.Sleep(1000); // Forgive me father for I have sinned
+                    // Start record
                     string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
                     string camName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
                     string dir = (string)Program.Settings.json[camName]["video directory"];
                     this.camera.Record(dir + @"\" + timestamp + ".avi");
+                    // Change button states
                     btnWfovRecord.BackColor = Color.Gray;
                     btnWfovStart.Enabled = false;
                     btnWfovSnap.Enabled = false;
                 }
                 else
                 {
+                    // Stop recording
                     this.camera.StopRecord();
                     MessageBox.Show("Recording stopped");
+                    // Restart overlay
+                    this.wfovContainer.OverlayUpdate += this.overlayUpdate;
+                    this.wfovContainer.OverlayUpdateEventEnable = true;
+                    // Change button states
                     btnWfovRecord.BackColor = Color.Transparent;
                     btnWfovStart.Enabled = true;
                     btnWfovSnap.Enabled = true;
