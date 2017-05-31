@@ -196,8 +196,8 @@ namespace RCCM
             this.PanelAngle = (double)Program.Settings.json["panel"]["rotation"];
 
             // Initialize NFOV cameras & apply settings
-            this.NFOV1 = new NFOV("nfov 1");
-            this.NFOV2 = new NFOV("nfov 2");
+            //this.NFOV1 = new NFOV("nfov 1");
+            //this.NFOV2 = new NFOV("nfov 2");
 
             // Read NFOV lens voltage to distance conversion into double arrays
             double[] conversion1 = { (double)Program.Settings.json["nfov 1"]["conversion"][0], (double)Program.Settings.json["nfov 1"]["conversion"][1] };

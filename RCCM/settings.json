@@ -252,7 +252,7 @@
   },
   "cycle counter": {
     // Type can be "virtual" or "dataq" to control whether or not to use real readings
-    "type": "dataq",
+    "type": "virtual",
     // Serial number of DATAQ DI-1100 device
     "serial":  "4D5B903E",
     // Input channel for pressure reading

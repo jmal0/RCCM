@@ -14,7 +14,7 @@ namespace RCCM
         /// <summary>
         /// List of motor setting names that all motor implementations must include
         /// </summary>
-        public static string[] MOTOR_SETTINGS = { "enabled", "microstep per unit", "velocity", "jog speed", "acceleration", "deceleration", "low position limit", "high position limit", "home", "feedback" };
+        public static string[] MOTOR_SETTINGS = { "enabled", "microstep per unit", "velocity", "acceleration", "deceleration", "low position limit", "high position limit", "home", "feedback" };
         /// <summary>
         /// Current goal position of actuator
         /// </summary>
