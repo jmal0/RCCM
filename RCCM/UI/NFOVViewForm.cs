@@ -62,11 +62,9 @@ namespace RCCM.UI
         /// </summary>
         protected PointF drawnLineEnd;
         /// <summary>
-        /// Timer for calling NFOV display repaint
+        /// Background worker for calling NFOV display repaint
         /// </summary>
-        protected Timer nfovRepaintTimer;
         protected BackgroundWorker bwRepaint;
-        protected BackgroundWorker bw;
 
         /// <summary>
         /// Initialize NFOV display
@@ -86,6 +84,7 @@ namespace RCCM.UI
             this.ActivePoint = -1;
             this.bwRepaint = new BackgroundWorker();
             InitializeComponent();
+            this.editFocus.Value = (decimal)(camera == rccm.NFOV1 ? rccm.LensController.FocusOffset1 : rccm.LensController.FocusOffset2);
             this.updateMeasurementControls();
         }
 
@@ -121,7 +120,6 @@ namespace RCCM.UI
         /// <param name="e"></param>
         private void NFOVViewForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.nfovRepaintTimer.Stop();
             string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
             Program.Settings.json[camName]["height"] = this.camera.PixelHeight;
             Program.Settings.json[camName]["width"] = this.camera.PixelWidth;
@@ -386,7 +384,6 @@ namespace RCCM.UI
         private void btnNfovStart_Click(object sender, EventArgs e)
         {
             this.camera.Start();
-            this.nfovRepaintTimer.Start();
 
             btnNfovStart.Enabled = false;
             btnNfovStop.Enabled = true;
@@ -402,7 +399,6 @@ namespace RCCM.UI
         private void btnNfovStop_Click(object sender, EventArgs e)
         {
             this.camera.Stop();
-            this.nfovRepaintTimer.Stop();
 
             btnNfovStart.Enabled = true;
             btnNfovStop.Enabled = false;
@@ -427,7 +423,7 @@ namespace RCCM.UI
                 return;
             }
 
-            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
             string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
             string dir = (string)Program.Settings.json[camName]["image directory"];
             this.saveFileDialog.Title = "Select image save location";
@@ -470,7 +466,7 @@ namespace RCCM.UI
         /// </summary>
         private void btnNfovSnap_Click(object sender, EventArgs e)
         {
-            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
             string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
             string dir = (string)Program.Settings.json[camName]["image directory"];
             Logger.Out(dir + @"\" + timestamp + ".bmp");
@@ -495,7 +491,7 @@ namespace RCCM.UI
             else
             {
                 // Start recording
-                string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+                string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
                 string camName = this.stage == RCCMStage.RCCM1 ? "nfov 1" : "nfov 2";
                 string dir = (string)Program.Settings.json[camName]["video directory"];
                 this.camera.Record(dir + "\\" + timestamp + ".avi");

@@ -63,7 +63,7 @@ namespace CameraCalibration
             }
             // Automatically create folder for saving test data from settings
             this.path = (string)Program.Settings.json[parameters["Camera"]]["test data directory"] + 
-                        string.Format("\\scaling-{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+                        string.Format("\\scaling-{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
             Directory.CreateDirectory(this.path);
         }
 

@@ -16,7 +16,7 @@ namespace RCCM
         /// <summary>
         /// Log file where debug info will be saved
         /// </summary>
-        public static StreamWriter Logfile = new StreamWriter("log/output.txt", false);
+        public static StreamWriter Logfile = new StreamWriter("log/" + string.Format("{0:yyyy-MM-dd_hh-mm-ss}", DateTime.Now) + ".txt", false);
 
         /// <summary>
         /// Write a line to the logfile
@@ -29,7 +29,7 @@ namespace RCCM
         {
             Console.WriteLine(str);
 
-            string metadata = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff} {1}:{2}:{3}", DateTime.Now, path, lineNumber, caller);
+            string metadata = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff} {1}:{2}:{3}", DateTime.Now, path, lineNumber, caller);
             Logfile.WriteLine(metadata + " - " + str);
             Logfile.Flush();
         }

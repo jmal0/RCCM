@@ -102,7 +102,7 @@ namespace RCCM
             this.Orientation = orientation;
             this.Mode = mode;
             this.Camera = camera;
-            this.CreateTime = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+            this.CreateTime = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
             MeasurementSequence.CrackCount++;
         }
 
@@ -119,7 +119,7 @@ namespace RCCM
             this.Orientation = parentForm.GetOrientation();
             this.Mode = parentForm.GetMode();
             this.Camera = parentForm.GetCamera();
-            this.CreateTime = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+            this.CreateTime = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
             MeasurementSequence.CrackCount++;
         }
 
@@ -219,7 +219,7 @@ namespace RCCM
         /// <returns>Filename formatted with current timestamp, crack name, and .csv extension</returns>
         public string GetFileName()
         {
-            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt-fff}", DateTime.Now);
+            string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
             return timestamp + "-" + this.Name +".csv";
         }
         
