@@ -10,7 +10,8 @@
     "radius": 74.6,
     "width": 100,
     "height": 48,
-    "rotation": 0.0
+    "z height": 0.0,
+	"rotation": 0.0
   },
   "rotation angle": 0.0,
   // Settings for panel graphic

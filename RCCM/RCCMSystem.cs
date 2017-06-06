@@ -114,6 +114,14 @@ namespace RCCM
             set { Program.Settings.json["panel"]["radius"] = value; }
         }
         /// <summary>
+         /// Position of z actuator when even with corner of panel
+         /// </summary>
+        public double PanelZHeight
+        {
+            get { return (double)Program.Settings.json["panel"]["z height"]; }
+            set { Program.Settings.json["panel"]["z height"] = value; }
+        }
+        /// <summary>
         /// Offset of NFOV1 from center of rotation plate along beam. Changing this value also updates settings
         /// </summary>
         public double NFOV1X
@@ -288,7 +296,7 @@ namespace RCCM
             double yCenter = this.PanelHeight / 2 - panelY; // Y coordinate from center of panel
             double zCorner = Math.Sqrt(this.PanelRadius * this.PanelRadius - this.PanelHeight * this.PanelHeight / 4);
             double zPoint = Math.Sqrt(this.PanelRadius * this.PanelRadius - yCenter * yCenter);
-            return zPoint - zCorner;
+            return zPoint - zCorner - this.PanelZHeight;
         }
 
         /// <summary>

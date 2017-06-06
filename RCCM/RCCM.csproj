@@ -150,6 +150,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataqCycleCounter2.cs" />
     <Compile Include="ICamera.cs" />
     <Compile Include="DataqCycleCounter.cs" />
     <Compile Include="ICycleCounter.cs" />
