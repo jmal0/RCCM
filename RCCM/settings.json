@@ -5,13 +5,14 @@
 
   // Panel/local coordinate system Settings
   "panel": {
-    "x": 0.0,
-    "y": 0.0,
+    "image file": "panel.jpg",
+    "x": -6.0,
+    "y": 1.0,
     "radius": 74.6,
-    "width": 100,
-    "height": 48,
+    "width": 125,
+    "height": 78,
     "z height": 0.0,
-	"rotation": 0.0
+    "rotation": 0.0
   },
   "rotation angle": 0.0,
   // Settings for panel graphic

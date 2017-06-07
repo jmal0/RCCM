@@ -276,6 +276,10 @@ namespace RCCM
             if (property == "feedback")
             {
                 this.settings["feedback"] = value;
+                if (value == 0)
+                {
+                    this.SetPos(this.GetPos());
+                }
                 return true;
             }
             string variable = TrioStepperZMotor.TRIO_PROPERTY_MAP[property];

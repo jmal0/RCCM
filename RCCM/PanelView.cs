@@ -22,9 +22,9 @@ namespace RCCM
         /// </summary>
         protected Pen pen;
         /// <summary>
-        /// Brush defining style for drawing panel rectangle
-        /// </summary>
-        protected Brush panelBrush;
+        /// Image loaded from file containing panel graphics
+        /// </summary
+        protected Image panelImage;
         /// <summary>
         /// Brush defining style for drawing coarse stage rectangle
         /// </summary>
@@ -95,6 +95,7 @@ namespace RCCM
             this.rccm = rccm;
             // Create rectangle for displaying panel
             this.panel = new RectangleF();
+            this.panelImage = Image.FromFile((string)Program.Settings.json["panel"]["image file"]);
             // Create rectangle for displaying coarse stages
             float wCoarse = (float)Program.Settings.json["coarse stage"]["x travel"];
             float hCoarse = (float)Program.Settings.json["coarse stage"]["y travel"];
@@ -107,12 +108,12 @@ namespace RCCM
             this.fine1 = new RectangleF(0, 0, wFine1, hFine1);
             this.fine2 = new RectangleF(0, 0, wFine2, hFine2);
             // Create brushes/pens to draw with
-            this.panelBrush = new SolidBrush(Color.FromArgb(255, Color.Gray));
-            this.coarseBrush = new SolidBrush(Color.FromArgb(128, Color.LightGray));
+            this.coarseBrush = new SolidBrush(Color.FromArgb(128, Color.Gray));
             this.fineBrush = new SolidBrush(Color.FromArgb(128, Color.Green));
             this.pen = new Pen(Color.Black, 0);
             // Initialize matrix for holding coordinate system transform
             this.transform = new Matrix();
+            this.updatePositions();
         }
 
         /// <summary>
@@ -130,7 +131,7 @@ namespace RCCM
             // Draw panel
             // Rotate drawing about pivot plate location (translate to location, rotate, translate back)
             this.rotateAt(g, (float)this.rccm.PanelAngle, this.panel.X, this.panel.Y);
-            g.FillRectangle(this.panelBrush, this.panel);
+            g.DrawImage(this.panelImage, this.panel);
             this.rotateAt(g, -(float)this.rccm.PanelAngle, this.panel.X, this.panel.Y);
 
             // Draw travel regions and crosshairs
@@ -183,13 +184,13 @@ namespace RCCM
         public void SetTransform(Graphics g)
         {
             RectangleF bounds = g.VisibleClipBounds;
-            float rccmXSize = this.coarse.Width + this.fine1.Width + this.fine2.Width;
-            float rccmYSize = this.coarse.Height + this.fine1.Height + this.fine2.Height;
+            float rccmXSize = 1.25f * this.panel.Width;
+            float rccmYSize = 1.25f * this.panel.Height;
             float scaleX = bounds.Width / rccmXSize;
             float scaleY = bounds.Height / rccmYSize;
             float scale = Math.Max(0.00001f, Math.Min(scaleX, scaleY));
             g.ScaleTransform(scale, scale);
-            g.TranslateTransform(this.fine1.Width, this.fine1.Height);
+            g.TranslateTransform((g.VisibleClipBounds.Width - this.panel.Width) / 2, (g.VisibleClipBounds.Height - this.panel.Height) / 2);
             this.transform = g.Transform;
         }
         
