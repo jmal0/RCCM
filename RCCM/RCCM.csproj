@@ -234,6 +234,9 @@
     <Compile Include="UI\RCCMSplashScreen.Designer.cs">
       <DependentUpon>RCCMSplashScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\WFOVPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\WFOVViewForm.cs">
       <SubType>Form</SubType>
     </Compile>

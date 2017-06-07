@@ -286,10 +286,7 @@ namespace RCCM
             {
                 this.ic.AviStopCapture();
                 this.Recording = false;
-                if (this.ic.LiveVideoRunning)
-                {
-                    this.ic.LiveStart();
-                }
+                this.ic.LiveStart();
             }
             else
             {

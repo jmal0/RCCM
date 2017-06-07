@@ -48,10 +48,6 @@ namespace RCCM
         /// </summary>
         protected double pressure;
         /// <summary>
-        /// Stores last cycle input reading
-        /// </summary>
-        protected double lastCycleVoltage;
-        /// <summary>
         /// Channel for pressure reading
         /// </summary>
         protected AnalogVoltageIn pressureChannel;
@@ -92,7 +88,6 @@ namespace RCCM
             this.elapsed = 0;
             this.startTick = Environment.TickCount;
 
-            this.lastCycleVoltage = 0;
             this.cancelRead = new CancellationTokenSource();
             this.initialize();
         }
@@ -216,7 +211,7 @@ namespace RCCM
                         this.pressureChannel.DataIn.Average());
                     // Only increment cycle counters when cycle counting is active
                     if (this.Active && this.pressure >= DataqCycleCounter2.THRESHOLD &&
-                                       lastCycleVoltage < DataqCycleCounter2.THRESHOLD)
+                                       lastCyclePressure < DataqCycleCounter2.THRESHOLD)
                     {
                         this.Cycle++;
                     }

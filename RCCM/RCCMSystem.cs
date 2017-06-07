@@ -255,7 +255,7 @@ namespace RCCM
             }
             else
             {
-                this.Counter = new DataqCycleCounter();
+                this.Counter = new DataqCycleCounter2();
             }
         }
 

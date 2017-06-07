@@ -146,7 +146,7 @@ namespace RCCM
                         this.controller.MoveAbs(this.axisNum, newPos);
                     }
                     // Else, adjust based on distance sensor reading
-                    else if (!this.controller.isMoving(this.axisNum) && Math.Abs(err) > TrioStepperZMotor.ERROR)
+                    else if (feedback != 0 && !this.controller.isMoving(this.axisNum) && Math.Abs(err) > TrioStepperZMotor.ERROR)
                     {
                         double newPos = actuatorPos + TrioStepperZMotor.PGAIN * err;
                         double minPos = this.minPosition();

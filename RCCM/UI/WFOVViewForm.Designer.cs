@@ -65,6 +65,7 @@
             this.btnSaveCrack = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.showOverlay = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).BeginInit();
             this.panelLayout.SuspendLayout();
             this.panelWfovView.SuspendLayout();
@@ -89,32 +90,30 @@
             this.wfovContainer.LiveDisplayPosition = new System.Drawing.Point(0, 0);
             this.wfovContainer.Location = new System.Drawing.Point(0, 0);
             this.wfovContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.wfovContainer.MaximumSize = new System.Drawing.Size(1707, 1182);
-            this.wfovContainer.MinimumSize = new System.Drawing.Size(853, 591);
+            this.wfovContainer.MaximumSize = new System.Drawing.Size(1280, 960);
+            this.wfovContainer.MemoryCurrentGrabberColorformat = TIS.Imaging.ICImagingControlColorformats.ICY800;
+            this.wfovContainer.MinimumSize = new System.Drawing.Size(640, 480);
             this.wfovContainer.Name = "wfovContainer";
-            this.wfovContainer.Size = new System.Drawing.Size(859, 592);
+            this.wfovContainer.OverlayUpdateEventEnable = false;
+            this.wfovContainer.Size = new System.Drawing.Size(640, 480);
             this.wfovContainer.TabIndex = 2;
-            this.wfovContainer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.wfovContainer_MouseDown);
-            this.wfovContainer.MouseMove += new System.Windows.Forms.MouseEventHandler(this.wfovContainer_MouseMove);
-            this.wfovContainer.MouseUp += new System.Windows.Forms.MouseEventHandler(this.wfovContainer_MouseUp);
             // 
             // panelLayout
             // 
             this.panelLayout.AutoSize = true;
             this.panelLayout.ColumnCount = 3;
             this.panelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.panelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
-            this.panelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177F));
+            this.panelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105F));
+            this.panelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135F));
             this.panelLayout.Controls.Add(this.panelWfovView, 0, 0);
             this.panelLayout.Controls.Add(this.panelSliders, 1, 0);
             this.panelLayout.Controls.Add(this.panelMeasurement, 2, 0);
             this.panelLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelLayout.Location = new System.Drawing.Point(0, 0);
-            this.panelLayout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelLayout.Name = "panelLayout";
             this.panelLayout.RowCount = 1;
             this.panelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.panelLayout.Size = new System.Drawing.Size(1184, 633);
+            this.panelLayout.Size = new System.Drawing.Size(922, 514);
             this.panelLayout.TabIndex = 3;
             // 
             // panelWfovView
@@ -129,21 +128,19 @@
             this.panelWfovView.Controls.Add(this.btnWfovStart);
             this.panelWfovView.Controls.Add(this.wfovContainer);
             this.panelWfovView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelWfovView.Location = new System.Drawing.Point(4, 4);
-            this.panelWfovView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.panelWfovView.MinimumSize = new System.Drawing.Size(853, 625);
+            this.panelWfovView.Location = new System.Drawing.Point(3, 3);
+            this.panelWfovView.MinimumSize = new System.Drawing.Size(640, 508);
             this.panelWfovView.Name = "panelWfovView";
-            this.panelWfovView.Size = new System.Drawing.Size(859, 625);
+            this.panelWfovView.Size = new System.Drawing.Size(676, 508);
             this.panelWfovView.TabIndex = 4;
             // 
             // btnWFOVSave
             // 
             this.btnWFOVSave.BackColor = System.Drawing.Color.Transparent;
             this.btnWFOVSave.Image = global::RCCM.Properties.Resources.save;
-            this.btnWFOVSave.Location = new System.Drawing.Point(140, 594);
-            this.btnWFOVSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWFOVSave.Location = new System.Drawing.Point(105, 483);
             this.btnWFOVSave.Name = "btnWFOVSave";
-            this.btnWFOVSave.Size = new System.Drawing.Size(35, 32);
+            this.btnWFOVSave.Size = new System.Drawing.Size(26, 26);
             this.btnWFOVSave.TabIndex = 35;
             this.toolTip.SetToolTip(this.btnWFOVSave, "Record video");
             this.btnWFOVSave.UseVisualStyleBackColor = false;
@@ -154,10 +151,9 @@
             this.btnWfovStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnWfovStop.Enabled = false;
             this.btnWfovStop.Image = global::RCCM.Properties.Resources.stop;
-            this.btnWfovStop.Location = new System.Drawing.Point(43, 594);
-            this.btnWfovStop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWfovStop.Location = new System.Drawing.Point(32, 483);
             this.btnWfovStop.Name = "btnWfovStop";
-            this.btnWfovStop.Size = new System.Drawing.Size(35, 32);
+            this.btnWfovStop.Size = new System.Drawing.Size(26, 26);
             this.btnWfovStop.TabIndex = 24;
             this.toolTip.SetToolTip(this.btnWfovStop, "Stop live image display");
             this.btnWfovStop.UseVisualStyleBackColor = true;
@@ -167,10 +163,9 @@
             // 
             this.btnFocus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnFocus.Enabled = false;
-            this.btnFocus.Location = new System.Drawing.Point(333, 594);
-            this.btnFocus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFocus.Location = new System.Drawing.Point(250, 483);
             this.btnFocus.Name = "btnFocus";
-            this.btnFocus.Size = new System.Drawing.Size(100, 32);
+            this.btnFocus.Size = new System.Drawing.Size(75, 26);
             this.btnFocus.TabIndex = 23;
             this.btnFocus.Text = "Autofocus";
             this.toolTip.SetToolTip(this.btnFocus, "Focus image using cameras built-in focusing");
@@ -181,10 +176,9 @@
             // 
             this.btnWfovProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnWfovProperties.Enabled = false;
-            this.btnWfovProperties.Location = new System.Drawing.Point(225, 594);
-            this.btnWfovProperties.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWfovProperties.Location = new System.Drawing.Point(169, 483);
             this.btnWfovProperties.Name = "btnWfovProperties";
-            this.btnWfovProperties.Size = new System.Drawing.Size(100, 32);
+            this.btnWfovProperties.Size = new System.Drawing.Size(75, 26);
             this.btnWfovProperties.TabIndex = 20;
             this.btnWfovProperties.Text = "Properties";
             this.toolTip.SetToolTip(this.btnWfovProperties, "Open camera property window");
@@ -197,10 +191,9 @@
             this.btnWfovRecord.BackColor = System.Drawing.Color.Transparent;
             this.btnWfovRecord.Enabled = false;
             this.btnWfovRecord.Image = global::RCCM.Properties.Resources.record;
-            this.btnWfovRecord.Location = new System.Drawing.Point(183, 594);
-            this.btnWfovRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWfovRecord.Location = new System.Drawing.Point(137, 483);
             this.btnWfovRecord.Name = "btnWfovRecord";
-            this.btnWfovRecord.Size = new System.Drawing.Size(35, 32);
+            this.btnWfovRecord.Size = new System.Drawing.Size(26, 26);
             this.btnWfovRecord.TabIndex = 22;
             this.toolTip.SetToolTip(this.btnWfovRecord, "Record video");
             this.btnWfovRecord.UseVisualStyleBackColor = false;
@@ -211,10 +204,9 @@
             this.btnWfovSnap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnWfovSnap.Enabled = false;
             this.btnWfovSnap.Image = global::RCCM.Properties.Resources.snap;
-            this.btnWfovSnap.Location = new System.Drawing.Point(85, 594);
-            this.btnWfovSnap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWfovSnap.Location = new System.Drawing.Point(64, 483);
             this.btnWfovSnap.Name = "btnWfovSnap";
-            this.btnWfovSnap.Size = new System.Drawing.Size(47, 32);
+            this.btnWfovSnap.Size = new System.Drawing.Size(35, 26);
             this.btnWfovSnap.TabIndex = 21;
             this.toolTip.SetToolTip(this.btnWfovSnap, "Snap image and automatically save to images folder");
             this.btnWfovSnap.UseVisualStyleBackColor = true;
@@ -226,10 +218,9 @@
             this.btnWfovStart.BackgroundImage = global::RCCM.Properties.Resources.play;
             this.btnWfovStart.Enabled = false;
             this.btnWfovStart.Image = global::RCCM.Properties.Resources.play;
-            this.btnWfovStart.Location = new System.Drawing.Point(0, 594);
-            this.btnWfovStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWfovStart.Location = new System.Drawing.Point(0, 483);
             this.btnWfovStart.Name = "btnWfovStart";
-            this.btnWfovStart.Size = new System.Drawing.Size(35, 32);
+            this.btnWfovStart.Size = new System.Drawing.Size(26, 26);
             this.btnWfovStart.TabIndex = 19;
             this.toolTip.SetToolTip(this.btnWfovStart, "Start live image display");
             this.btnWfovStart.UseVisualStyleBackColor = true;
@@ -246,10 +237,9 @@
             this.panelSliders.Controls.Add(this.label11);
             this.panelSliders.Controls.Add(this.sliderZoom);
             this.panelSliders.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelSliders.Location = new System.Drawing.Point(871, 4);
-            this.panelSliders.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelSliders.Location = new System.Drawing.Point(685, 3);
             this.panelSliders.Name = "panelSliders";
-            this.panelSliders.Size = new System.Drawing.Size(132, 625);
+            this.panelSliders.Size = new System.Drawing.Size(99, 508);
             this.panelSliders.TabIndex = 5;
             // 
             // label12
@@ -258,11 +248,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(71, 0);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(53, 0);
             this.label12.Name = "label12";
-            this.label12.Padding = new System.Windows.Forms.Padding(7, 0, 7, 0);
-            this.label12.Size = new System.Drawing.Size(60, 17);
+            this.label12.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label12.Size = new System.Drawing.Size(46, 13);
             this.label12.TabIndex = 20;
             this.label12.Text = "Focus";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -271,10 +260,9 @@
             // 
             this.textFocus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textFocus.Enabled = false;
-            this.textFocus.Location = new System.Drawing.Point(68, 596);
-            this.textFocus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textFocus.Location = new System.Drawing.Point(51, 484);
             this.textFocus.Name = "textFocus";
-            this.textFocus.Size = new System.Drawing.Size(59, 22);
+            this.textFocus.Size = new System.Drawing.Size(45, 20);
             this.textFocus.TabIndex = 19;
             this.textFocus.Text = "0";
             this.textFocus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -283,10 +271,9 @@
             // 
             this.textZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textZoom.Enabled = false;
-            this.textZoom.Location = new System.Drawing.Point(4, 596);
-            this.textZoom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textZoom.Location = new System.Drawing.Point(3, 484);
             this.textZoom.Name = "textZoom";
-            this.textZoom.Size = new System.Drawing.Size(59, 22);
+            this.textZoom.Size = new System.Drawing.Size(45, 20);
             this.textZoom.TabIndex = 16;
             this.textZoom.Text = "0";
             this.textZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -296,12 +283,11 @@
             this.sliderFocus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sliderFocus.Enabled = false;
-            this.sliderFocus.Location = new System.Drawing.Point(68, 20);
-            this.sliderFocus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sliderFocus.Location = new System.Drawing.Point(51, 16);
             this.sliderFocus.Maximum = 100;
             this.sliderFocus.Name = "sliderFocus";
             this.sliderFocus.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.sliderFocus.Size = new System.Drawing.Size(56, 571);
+            this.sliderFocus.Size = new System.Drawing.Size(45, 464);
             this.sliderFocus.TabIndex = 18;
             this.sliderFocus.TickStyle = System.Windows.Forms.TickStyle.None;
             this.toolTip.SetToolTip(this.sliderFocus, "Move slider to adjust focal distance");
@@ -313,11 +299,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(4, 0);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(3, 0);
             this.label11.Name = "label11";
-            this.label11.Padding = new System.Windows.Forms.Padding(7, 0, 7, 0);
-            this.label11.Size = new System.Drawing.Size(58, 17);
+            this.label11.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label11.Size = new System.Drawing.Size(44, 13);
             this.label11.TabIndex = 17;
             this.label11.Text = "Zoom";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -327,12 +312,11 @@
             this.sliderZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.sliderZoom.Enabled = false;
-            this.sliderZoom.Location = new System.Drawing.Point(4, 20);
-            this.sliderZoom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sliderZoom.Location = new System.Drawing.Point(3, 16);
             this.sliderZoom.Maximum = 100;
             this.sliderZoom.Name = "sliderZoom";
             this.sliderZoom.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.sliderZoom.Size = new System.Drawing.Size(56, 571);
+            this.sliderZoom.Size = new System.Drawing.Size(45, 464);
             this.sliderZoom.TabIndex = 15;
             this.sliderZoom.TickStyle = System.Windows.Forms.TickStyle.None;
             this.toolTip.SetToolTip(this.sliderZoom, "Move slider to increase/decrease optical zoom");
@@ -344,10 +328,9 @@
             this.panelMeasurement.Controls.Add(this.groupBox1);
             this.panelMeasurement.Controls.Add(this.groupBox9);
             this.panelMeasurement.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMeasurement.Location = new System.Drawing.Point(1011, 4);
-            this.panelMeasurement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelMeasurement.Location = new System.Drawing.Point(790, 3);
             this.panelMeasurement.Name = "panelMeasurement";
-            this.panelMeasurement.Size = new System.Drawing.Size(169, 625);
+            this.panelMeasurement.Size = new System.Drawing.Size(129, 508);
             this.panelMeasurement.TabIndex = 6;
             // 
             // groupBox2
@@ -357,11 +340,10 @@
             this.groupBox2.Controls.Add(this.btnGotoPoint);
             this.groupBox2.Controls.Add(this.btnDeletePoint);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 404);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Location = new System.Drawing.Point(0, 352);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
-            this.groupBox2.Size = new System.Drawing.Size(169, 235);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.groupBox2.Size = new System.Drawing.Size(129, 193);
             this.groupBox2.TabIndex = 41;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Points";
@@ -375,11 +357,10 @@
             this.columnLength});
             this.listPoints.FullRowSelect = true;
             this.listPoints.HideSelection = false;
-            this.listPoints.Location = new System.Drawing.Point(8, 17);
-            this.listPoints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listPoints.Location = new System.Drawing.Point(6, 14);
             this.listPoints.MultiSelect = false;
             this.listPoints.Name = "listPoints";
-            this.listPoints.Size = new System.Drawing.Size(152, 118);
+            this.listPoints.Size = new System.Drawing.Size(117, 97);
             this.listPoints.TabIndex = 36;
             this.toolTip.SetToolTip(this.listPoints, "Points in selected crack. Click to highlight a point from the list");
             this.listPoints.UseCompatibleStateImageBehavior = false;
@@ -399,10 +380,9 @@
             // btnGotoPoint
             // 
             this.btnGotoPoint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGotoPoint.Location = new System.Drawing.Point(8, 144);
-            this.btnGotoPoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGotoPoint.Location = new System.Drawing.Point(6, 118);
             this.btnGotoPoint.Name = "btnGotoPoint";
-            this.btnGotoPoint.Size = new System.Drawing.Size(153, 32);
+            this.btnGotoPoint.Size = new System.Drawing.Size(117, 26);
             this.btnGotoPoint.TabIndex = 34;
             this.btnGotoPoint.Text = "Go to point";
             this.toolTip.SetToolTip(this.btnGotoPoint, "Move fine actuators to location when highlighted point was measured");
@@ -412,10 +392,9 @@
             // btnDeletePoint
             // 
             this.btnDeletePoint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeletePoint.Location = new System.Drawing.Point(8, 184);
-            this.btnDeletePoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDeletePoint.Location = new System.Drawing.Point(6, 151);
             this.btnDeletePoint.Name = "btnDeletePoint";
-            this.btnDeletePoint.Size = new System.Drawing.Size(153, 32);
+            this.btnDeletePoint.Size = new System.Drawing.Size(117, 26);
             this.btnDeletePoint.TabIndex = 27;
             this.btnDeletePoint.Text = "Delete point";
             this.toolTip.SetToolTip(this.btnDeletePoint, "Delete highlighted point from measurement");
@@ -425,14 +404,14 @@
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.showOverlay);
             this.groupBox1.Controls.Add(this.checkCrosshair);
             this.groupBox1.Controls.Add(this.btnCrosshairMeasure);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 301);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(0, 245);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
-            this.groupBox1.Size = new System.Drawing.Size(169, 103);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.groupBox1.Size = new System.Drawing.Size(129, 107);
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Crosshair";
@@ -441,10 +420,9 @@
             // 
             this.checkCrosshair.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkCrosshair.AutoSize = true;
-            this.checkCrosshair.Location = new System.Drawing.Point(8, 24);
-            this.checkCrosshair.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkCrosshair.Location = new System.Drawing.Point(6, 21);
             this.checkCrosshair.Name = "checkCrosshair";
-            this.checkCrosshair.Size = new System.Drawing.Size(126, 21);
+            this.checkCrosshair.Size = new System.Drawing.Size(98, 17);
             this.checkCrosshair.TabIndex = 35;
             this.checkCrosshair.Text = "Show crosshair";
             this.toolTip.SetToolTip(this.checkCrosshair, "Check to draw crosshair on live image");
@@ -453,10 +431,9 @@
             // btnCrosshairMeasure
             // 
             this.btnCrosshairMeasure.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnCrosshairMeasure.Location = new System.Drawing.Point(8, 52);
-            this.btnCrosshairMeasure.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCrosshairMeasure.Location = new System.Drawing.Point(5, 65);
             this.btnCrosshairMeasure.Name = "btnCrosshairMeasure";
-            this.btnCrosshairMeasure.Size = new System.Drawing.Size(157, 32);
+            this.btnCrosshairMeasure.Size = new System.Drawing.Size(118, 26);
             this.btnCrosshairMeasure.TabIndex = 23;
             this.btnCrosshairMeasure.Text = "Measure at crosshair";
             this.toolTip.SetToolTip(this.btnCrosshairMeasure, "Add a new crack measurement at the center of the image");
@@ -474,10 +451,9 @@
             this.groupBox9.Controls.Add(this.btnSaveCrack);
             this.groupBox9.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox9.Location = new System.Drawing.Point(0, 0);
-            this.groupBox9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Padding = new System.Windows.Forms.Padding(4, 4, 4, 0);
-            this.groupBox9.Size = new System.Drawing.Size(169, 301);
+            this.groupBox9.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.groupBox9.Size = new System.Drawing.Size(129, 245);
             this.groupBox9.TabIndex = 37;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Cracks";
@@ -485,10 +461,9 @@
             // btnEditSequence
             // 
             this.btnEditSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditSequence.Location = new System.Drawing.Point(8, 132);
-            this.btnEditSequence.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEditSequence.Location = new System.Drawing.Point(6, 107);
             this.btnEditSequence.Name = "btnEditSequence";
-            this.btnEditSequence.Size = new System.Drawing.Size(153, 32);
+            this.btnEditSequence.Size = new System.Drawing.Size(117, 26);
             this.btnEditSequence.TabIndex = 19;
             this.btnEditSequence.Text = "Edit";
             this.toolTip.SetToolTip(this.btnEditSequence, "Modify highlighted crack");
@@ -499,12 +474,10 @@
             // 
             this.listMeasurements.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.listMeasurements.FormattingEnabled = true;
-            this.listMeasurements.ItemHeight = 16;
-            this.listMeasurements.Location = new System.Drawing.Point(8, 24);
-            this.listMeasurements.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listMeasurements.Location = new System.Drawing.Point(6, 20);
             this.listMeasurements.Name = "listMeasurements";
             this.listMeasurements.ScrollAlwaysVisible = true;
-            this.listMeasurements.Size = new System.Drawing.Size(152, 100);
+            this.listMeasurements.Size = new System.Drawing.Size(117, 82);
             this.listMeasurements.TabIndex = 8;
             this.toolTip.SetToolTip(this.listMeasurements, "Created crack measurements. Click to select a crack");
             this.listMeasurements.SelectedIndexChanged += new System.EventHandler(this.listMeasurements_SelectedIndexChanged);
@@ -512,10 +485,9 @@
             // btnNewSequence
             // 
             this.btnNewSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNewSequence.Location = new System.Drawing.Point(8, 171);
-            this.btnNewSequence.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNewSequence.Location = new System.Drawing.Point(6, 139);
             this.btnNewSequence.Name = "btnNewSequence";
-            this.btnNewSequence.Size = new System.Drawing.Size(153, 32);
+            this.btnNewSequence.Size = new System.Drawing.Size(117, 26);
             this.btnNewSequence.TabIndex = 10;
             this.btnNewSequence.Text = "New";
             this.toolTip.SetToolTip(this.btnNewSequence, "Create a new crack measurement ");
@@ -525,10 +497,9 @@
             // btnDeleteSequence
             // 
             this.btnDeleteSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteSequence.Location = new System.Drawing.Point(8, 211);
-            this.btnDeleteSequence.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDeleteSequence.Location = new System.Drawing.Point(6, 172);
             this.btnDeleteSequence.Name = "btnDeleteSequence";
-            this.btnDeleteSequence.Size = new System.Drawing.Size(153, 32);
+            this.btnDeleteSequence.Size = new System.Drawing.Size(117, 26);
             this.btnDeleteSequence.TabIndex = 18;
             this.btnDeleteSequence.Text = "Delete";
             this.toolTip.SetToolTip(this.btnDeleteSequence, "Delete highlighted crack");
@@ -538,24 +509,36 @@
             // btnSaveCrack
             // 
             this.btnSaveCrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveCrack.Location = new System.Drawing.Point(8, 250);
-            this.btnSaveCrack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveCrack.Location = new System.Drawing.Point(6, 203);
             this.btnSaveCrack.Name = "btnSaveCrack";
-            this.btnSaveCrack.Size = new System.Drawing.Size(153, 32);
+            this.btnSaveCrack.Size = new System.Drawing.Size(117, 26);
             this.btnSaveCrack.TabIndex = 28;
             this.btnSaveCrack.Text = "Save to file";
             this.toolTip.SetToolTip(this.btnSaveCrack, "Open save dialog to save measurement data");
             this.btnSaveCrack.UseVisualStyleBackColor = true;
             this.btnSaveCrack.Click += new System.EventHandler(this.btnSaveCrack_Click);
             // 
+            // showOverlay
+            // 
+            this.showOverlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.showOverlay.AutoSize = true;
+            this.showOverlay.Checked = true;
+            this.showOverlay.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showOverlay.Location = new System.Drawing.Point(6, 43);
+            this.showOverlay.Name = "showOverlay";
+            this.showOverlay.Size = new System.Drawing.Size(90, 17);
+            this.showOverlay.TabIndex = 36;
+            this.showOverlay.Text = "Show overlay";
+            this.toolTip.SetToolTip(this.showOverlay, "Check to draw crosshair on live image");
+            this.showOverlay.UseVisualStyleBackColor = true;
+            // 
             // WFOVViewForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 633);
+            this.ClientSize = new System.Drawing.Size(922, 514);
             this.Controls.Add(this.panelLayout);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "WFOVViewForm";
             this.Text = "WFOV";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WFOVViewForm_FormClosing);
@@ -617,5 +600,6 @@
         private System.Windows.Forms.ColumnHeader columnLength;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button btnWFOVSave;
+        private System.Windows.Forms.CheckBox showOverlay;
     }
 }

@@ -62,8 +62,14 @@ namespace RCCM.UI
         /// Point where line user is drawing ends
         /// </summary>
         protected PointF drawnLineEnd;
-
-        protected EventHandler<ICImagingControl.OverlayUpdateEventArgs> overlayUpdate;
+        /// <summary>
+        /// Transparent panel on which crack overlay is drawn
+        /// </summary>
+        protected WFOVPanel panelWFOVOverlay;
+        /// <summary>
+        /// Timer for calling wfov overlay paint
+        /// </summary>
+        protected System.Windows.Forms.Timer wfovRepaint;
 
         /// <summary>
         /// Create form and initialize given camera
@@ -81,8 +87,14 @@ namespace RCCM.UI
             this.Drawing = false;
             this.ActiveIndex = -1;
             this.ActivePoint = -1;
+            
             InitializeComponent();
             this.updateMeasurementControls();
+
+            this.panelWFOVOverlay = new WFOVPanel(this.wfovContainer);
+            this.Controls.Add(this.panelWFOVOverlay);
+            this.panelWFOVOverlay.BringToFront();
+            this.wfovRepaint = new System.Windows.Forms.Timer();
         }
 
         /// <summary>
@@ -91,17 +103,24 @@ namespace RCCM.UI
         private void WFOVViewForm_Load(object sender, EventArgs e)
         {
             this.Text = this.stage == RCCMStage.RCCM1 ? "WFOV 1" : "WFOV 2";
-
-            ////this.wfovContainer.OverlayBitmapPosition = PathPositions.Display;
-            // Enable the overlay bitmap for drawing.
-            ////OverlayBitmap ob = this.wfovContainer.OverlayBitmapAtPath[PathPositions.Display];
-            ////ob.Enable = true;
-            // Fill the overlay bitmap with the dropout color.
-            ////ob.DropOutColor = Color.Black;
-            ////ob.Fill(Color.Black);
-            ////ob.ColorMode = OverlayColorModes.Color;
-            ////this.overlayUpdate = new EventHandler<ICImagingControl.OverlayUpdateEventArgs>(wfovOverlayPaint);
-            ////this.wfovContainer.OverlayUpdate += this.overlayUpdate;
+            
+            // Initialize overlay panel
+            this.panelWFOVOverlay.Location = new System.Drawing.Point(0, 0);
+            this.panelWFOVOverlay.Margin = new System.Windows.Forms.Padding(0);
+            this.panelWFOVOverlay.Name = "panelWFOVOverlay";
+            this.panelWFOVOverlay.Size = new System.Drawing.Size(640, 480);
+            this.panelWFOVOverlay.BackColor = Color.FromArgb(0,0,0,0);
+            
+            this.panelWFOVOverlay.Paint += this.wfovOverlayPaint;
+            //this.MouseDown += this.wfovContainer_MouseDown;
+            //this.MouseUp += this.wfovContainer_MouseUp;
+            //this.MouseMove += this.wfovContainer_MouseMove;
+            this.panelWfovView.MouseDown += new MouseEventHandler(this.wfovContainer_MouseDown);
+            this.panelWfovView.MouseUp += new MouseEventHandler(this.wfovContainer_MouseUp);
+            this.panelWfovView.MouseMove += new MouseEventHandler(this.wfovContainer_MouseMove);
+            this.wfovRepaint.Enabled = true;
+            this.wfovRepaint.Interval = (int)Program.Settings.json["repaint period"];
+            this.wfovRepaint.Tick += this.repaintOverlay;
 
             // Initialize camera
             bool success = this.camera.Initialize(this.wfovContainer);
@@ -132,75 +151,71 @@ namespace RCCM.UI
             {
                 this.camera.StopRecord();
             }
-            // Disable overlay paint to prevent crash
-            ////this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
-            ////this.wfovContainer.OverlayUpdateEventEnable = false;
-            ////Thread.Sleep(1000);
             this.camera.Stop();
+        }
+
+        /// <summary>
+        /// Force repaint of overlay panel
+        /// </summary>
+        private void repaintOverlay(object sender, EventArgs e)
+        {
+            if (this.showOverlay.Checked)
+                this.panelWFOVOverlay.Invalidate();
         }
 
         /// <summary>
         /// Draw cracks overlay on WFOV display
         /// </summary>
-        private void wfovOverlayPaint(object sender, ICImagingControl.OverlayUpdateEventArgs e)
+        private void wfovOverlayPaint(object sender, PaintEventArgs e)
         {
-            try
+            Graphics g = e.Graphics;
+            g.ResetTransform();
+            // Draw crosshair
+            if (this.checkCrosshair.Checked)
             {
-                Graphics g = e.overlay.GetGraphics();
-                g.Clear(Color.Black);
-                g.ResetTransform();
-
-                // Draw crosshair
-                if (this.checkCrosshair.Checked)
-                {
-                    float midX = (g.VisibleClipBounds.Right + g.VisibleClipBounds.Left) / 2.0f;
-                    float midY = (g.VisibleClipBounds.Bottom + g.VisibleClipBounds.Top) / 2.0f;
-                    Pen pen = new Pen(Color.FromArgb(128, 1, 1, 1), 2);
-                    g.DrawLine(pen, new PointF(g.VisibleClipBounds.Left, midY), new PointF(g.VisibleClipBounds.Right, midY));
-                    g.DrawLine(pen, new PointF(midX, g.VisibleClipBounds.Top), new PointF(midX, g.VisibleClipBounds.Bottom));
-                }
-
-                // Now transform to world coordinates
-
-                // Move image center to origin and rotate
-                RectangleF bounds = g.VisibleClipBounds;
-                g.TranslateTransform(bounds.Width / 2, bounds.Height / 2);
-                g.RotateTransform((float)rccm.FineStageAngle);
-                g.TranslateTransform(-bounds.Width / 2, -bounds.Height / 2);
-                // Scale coordinate system by pixel to mm scaling
-                float scaleX = bounds.Width / (float)this.camera.Width;
-                float scaleY = bounds.Height / (float)this.camera.Height;
-                g.ScaleTransform(scaleX, scaleY);
-                // Move to WFOV location (first move origin to image center)
-                g.TranslateTransform((float)this.camera.Width / 2, (float)this.camera.Height / 2);
-                PointF pos = this.rccm.GetWFOVLocation(this.stage, CoordinateSystem.Global);
-                g.TranslateTransform(-pos.X, -pos.Y);
-
-                // Draw each crack on the image
-                foreach (MeasurementSequence crack in cracks)
-                {
-                    crack.Plot(g, scaleX);
-                }
-                // Draw segment that user is creating with mouse
-                if (this.crackIndexValid() && this.Drawing)
-                {
-                    Color c = cracks[ActiveIndex].Color;
-                    g.DrawLine(new Pen(Color.FromArgb(128, c), cracks[ActiveIndex].LineSize / scaleX), this.drawnLineStart, this.drawnLineEnd);
-                }
-                // Highlight selected point
-                if (this.pointIndexValid())
-                {
-                    MeasurementSequence crack = this.cracks[this.ActiveIndex];
-                    Measurement m = crack.GetPoint(this.ActivePoint);
-                    RectangleF point = new RectangleF(0, 0, 10.0f * crack.LineSize / scaleX, 10.0f * crack.LineSize / scaleX);
-                    point.X = (float)m.X - point.Width / 2.0f;
-                    point.Y = (float)m.Y - point.Height / 2.0f;
-                    g.FillEllipse(new SolidBrush(crack.Color), point);
-                }
-                e.overlay.ReleaseGraphics(g);
+                float midX = (g.VisibleClipBounds.Right + g.VisibleClipBounds.Left) / 2.0f;
+                float midY = (g.VisibleClipBounds.Bottom + g.VisibleClipBounds.Top) / 2.0f;
+                Pen pen = new Pen(Color.FromArgb(128, 1, 1, 1), 2);
+                g.DrawLine(pen, new PointF(g.VisibleClipBounds.Left, midY), new PointF(g.VisibleClipBounds.Right, midY));
+                g.DrawLine(pen, new PointF(midX, g.VisibleClipBounds.Top), new PointF(midX, g.VisibleClipBounds.Bottom));
             }
-            catch (Exception ex)
+
+            // Now transform to world coordinates
+
+            // Move image center to origin and rotate
+            RectangleF bounds = g.VisibleClipBounds;
+            g.TranslateTransform(bounds.Width / 2, bounds.Height / 2);
+            g.RotateTransform((float)rccm.FineStageAngle);
+            g.TranslateTransform(-bounds.Width / 2, -bounds.Height / 2);
+            // Scale coordinate system by pixel to mm scaling
+            float scaleX = bounds.Width / (float)this.camera.Width;
+            float scaleY = bounds.Height / (float)this.camera.Height;
+            g.ScaleTransform(scaleX, scaleY);
+            // Move to WFOV location (first move origin to image center)
+            g.TranslateTransform((float)this.camera.Width / 2, (float)this.camera.Height / 2);
+            PointF pos = this.rccm.GetWFOVLocation(this.stage, CoordinateSystem.Global);
+            g.TranslateTransform(-pos.X, -pos.Y);
+
+            // Draw each crack on the image
+            foreach (MeasurementSequence crack in cracks)
             {
+                crack.Plot(g, scaleX);
+            }
+            // Draw segment that user is creating with mouse
+            if (this.crackIndexValid() && this.Drawing)
+            {
+                Color c = cracks[ActiveIndex].Color;
+                g.DrawLine(new Pen(Color.FromArgb(128, c), cracks[ActiveIndex].LineSize / scaleX), this.drawnLineStart, this.drawnLineEnd);
+            }
+            // Highlight selected point
+            if (this.pointIndexValid())
+            {
+                MeasurementSequence crack = this.cracks[this.ActiveIndex];
+                Measurement m = crack.GetPoint(this.ActivePoint);
+                RectangleF point = new RectangleF(0, 0, 10.0f * crack.LineSize / scaleX, 10.0f * crack.LineSize / scaleX);
+                point.X = (float)m.X - point.Width / 2.0f;
+                point.Y = (float)m.Y - point.Height / 2.0f;
+                g.FillEllipse(new SolidBrush(crack.Color), point);
             }
         }
         
@@ -333,7 +348,7 @@ namespace RCCM.UI
         /// </summary>
         private void wfovContainer_MouseMove(object sender, MouseEventArgs e)
         {
-            if (this.Drawing)
+            if(this.Drawing)
             {
                 // Move end of line to mouse location
                 this.moveDrawnLineEnd(e.X, e.Y, this.wfovContainer.Width, this.wfovContainer.Height);
@@ -352,6 +367,7 @@ namespace RCCM.UI
             }
             // Refresh list of points
             this.updateMeasurementControls();
+
         }
 
         /// <summary>
@@ -360,8 +376,6 @@ namespace RCCM.UI
         private void btnWfovStart_Click(object sender, EventArgs e)
         {
             this.camera.Start();
-            ////this.wfovContainer.OverlayUpdateEventEnable = true;
-            ////this.wfovContainer.OverlayUpdate += this.overlayUpdate;
 
             // Update button states
             if (this.wfovContainer.DeviceValid)
@@ -376,9 +390,6 @@ namespace RCCM.UI
         /// </summary>
         private void btnWfovStop_Click(object sender, EventArgs e)
         {
-            ////this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
-            ////this.wfovContainer.OverlayUpdateEventEnable = false;
-            Thread.Sleep(1000);
             this.camera.Stop();
 
             // Update button states
@@ -438,10 +449,6 @@ namespace RCCM.UI
             {
                 if (this.camera.Recording == false)
                 {
-                    // Stop overlay
-                    ////this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
-                    ////this.wfovContainer.OverlayUpdateEventEnable = false;
-                    Thread.Sleep(1000); // Forgive me father for I have sinned
                     // Start record
                     string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
                     string camName = this.stage == RCCMStage.RCCM1 ? "wfov 1" : "wfov 2";
@@ -457,9 +464,6 @@ namespace RCCM.UI
                     // Stop recording
                     this.camera.StopRecord();
                     MessageBox.Show("Recording stopped");
-                    // Restart overlay
-                    ////this.wfovContainer.OverlayUpdate += this.overlayUpdate;
-                    ////this.wfovContainer.OverlayUpdateEventEnable = true;
                     // Change button states
                     btnWfovRecord.BackColor = Color.Transparent;
                     btnWfovStart.Enabled = true;
