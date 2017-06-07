@@ -32,11 +32,11 @@
   },
   // Motion settings
   "coarse X": {
-    "type": "stepper",
+    "type": "virtual",
     "axis number": 7,
     "enabled": 1,
     "microstep per unit": 2032000.0,
-    "velocity": 1.0,
+    "velocity": 0.5,
     "acceleration": 1,
     "deceleration": 1,
     "low position limit": 0.0,
@@ -46,11 +46,11 @@
     "feedback": 0.0
   },
   "coarse Y": {
-    "type": "stepper",
+    "type": "virtual",
     "axis number": 6,
     "enabled": 1,
     "microstep per unit": 2032000.0,
-    "velocity": 1.0,
+    "velocity": 0.5,
     "acceleration": 1,
     "deceleration": 1,
     "low position limit": 0.0,
@@ -64,7 +64,7 @@
     "axis number": 0,
     "enabled": 1,
     "microstep per unit": 4064000.0,
-    "velocity": 1.0,
+    "velocity": 0.1,
     "acceleration": 1,
     "deceleration": 1,
     "low position limit": 0.0,
@@ -78,7 +78,7 @@
     "axis number": 1,
     "enabled": 1,
     "microstep per unit": 4064000.0,
-    "velocity": 1.0,
+    "velocity": 0.1,
     "acceleration": 1,
     "deceleration": 1,
     "low position limit": 0.0,
@@ -92,7 +92,7 @@
     "axis number": 2,
     "enabled": 1,
     "microstep per unit": 4064000.0,
-    "velocity": 1.0,
+    "velocity": 0.2,
     "acceleration": 1,
     "deceleration": 1,
     "low position limit": 0.0,
@@ -106,7 +106,7 @@
     "axis number": 3,
     "enabled": 1,
     "microstep per unit": 4064000.0,
-    "velocity": 1.0,
+    "velocity": 0.1,
     "acceleration": 1,
     "deceleration": 1,
     "low position limit": 0.0,
@@ -120,7 +120,7 @@
     "axis number": 4,
     "enabled": 1,
     "microstep per unit": 4064000.0,
-    "velocity": 1.0,
+    "velocity": 0.1,
     "acceleration": 1,
     "deceleration": 1,
     "low position limit": 0.0,
@@ -130,18 +130,18 @@
     "feedback": 0.0
   },
   "fine 2 Z": {
-    "type": "stepper",
+    "type": "stepper z 2",
     "axis number": 5,
     "enabled": 1,
     "microstep per unit": 4064000.0,
-    "velocity": 1.0,
+    "velocity": 0.2,
     "acceleration": 1,
     "deceleration": 1,
     "low position limit": 0.0,
     "high position limit": 12.0,
     "step": 0.0002,
     "home": 0.0,
-    "feedback": 0.0
+    "feedback": 1.0
   },
   // Camera settings
   "wfov 1": {
@@ -181,16 +181,32 @@
     // [Input voltage (V), focal power]
     "calibration": [
       [
-        1.5634000000000001,
-        -2.22
+        0.038500000000000013,
+        3.78
       ],
       [
-        2.206,
-        -3.62
+        0.34450000000000008,
+        0.88
       ],
       [
-        2.5171,
-        -4.12
+        0.6607,
+        -0.62
+      ],
+      [
+        0.96669999999999989,
+        -1.72
+      ],
+      [
+        1.3033,
+        -2.82
+      ],
+      [
+        1.6195,
+        -3.52
+      ],
+      [
+        1.9306,
+        -4.22
       ]
     ],
     "x offset": -21.75,
@@ -212,16 +228,32 @@
     // [Input voltage (V), focal power]
     "calibration": [
       [
-        1.5634000000000001,
-        -2.22
+        0.038500000000000013,
+        3.78
       ],
       [
-        2.206,
-        -3.62
+        0.34450000000000008,
+        0.88
       ],
       [
-        2.5171,
-        -4.12
+        0.6607,
+        -0.62
+      ],
+      [
+        0.96669999999999989,
+        -1.72
+      ],
+      [
+        1.3033,
+        -2.82
+      ],
+      [
+        1.6195,
+        -3.52
+      ],
+      [
+        1.9306,
+        -4.22
       ]
     ],
     "x offset": 1.0,
@@ -240,7 +272,7 @@
     // Error between commanded height and distance sensor reading before sending move command
     "max height error": 0.012,
     // Minimum height to consider reading valid
-    "min height": 2.36,
+    "min height": 2.0,
     // Maximum height to consider reading valid
     "max height": 8.66,
     // Update rates for z-actuator and NFOV focus command loops

@@ -127,17 +127,18 @@ namespace RCCM
                 stopwatch.Start();
                 if (!this.adjustThreadPaused)
                 {
+                    double feedback = this.GetProperty("feedback");
                     double h = this.height();
-                    if (h == NFOVLensController.MIN_HEIGHT || h == NFOVLensController.MAX_HEIGHT)
+                    if (feedback == 1.0 && (h == NFOVLensController.MIN_HEIGHT || h == NFOVLensController.MAX_HEIGHT))
                     {
                         continue;
                     }
                     double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
                     double err = this.commandHeight - h;
                     // When feedback is 0, operate in closed loop mode
-                    if (!this.controller.isMoving(this.axisNum) && this.GetProperty("feedback") == 0)
+                    if (!this.controller.isMoving(this.axisNum) && feedback == 0)
                     {
-                        double newPos = this.commandHeight;
+                        double newPos = this.commandPos;
                         double minPos = this.minPosition();
                         newPos = Math.Max(this.settings["low position limit"], newPos);
                         newPos = Math.Min(this.settings["high position limit"], newPos);
@@ -167,6 +168,10 @@ namespace RCCM
         /// <returns>Current height of actuator above panel</returns>
         public override double GetPos()
         {
+            if (this.GetProperty("feedback") == 0)
+            {
+                return this.controller.GetAxisProperty("MPOS", this.axisNum);
+            }
             return this.height();
         }
 
@@ -181,14 +186,23 @@ namespace RCCM
             {
                 return this.GetPos();
             }
+            double cmd;
+            if (this.GetProperty("feedback") == 0)
+            {
+                cmd = Math.Max(this.settings["low position limit"], cmdHeight);
+                cmd = Math.Min(this.settings["high position limit"], cmd);
+                this.commandPos = cmd;
+                return cmd;
+            }
             double prevHeight = this.GetPos();
             double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
-            double cmd = actuatorPos + cmdHeight - prevHeight;
+            cmd = actuatorPos + cmdHeight - prevHeight;
             // Coerce position to be within travel range
             cmd = Math.Max(this.settings["low position limit"], cmd);
             cmd = Math.Min(this.settings["high position limit"], cmd);
             this.commandPos = cmd;
-            return cmd;
+            this.commandHeight = cmdHeight;
+            return cmdHeight;
         }
 
         /// <summary>
@@ -276,10 +290,8 @@ namespace RCCM
             if (property == "feedback")
             {
                 this.settings["feedback"] = value;
-                if (value == 0)
-                {
-                    this.SetPos(this.GetPos());
-                }
+                // Set target position to current to prevent movement while switching modes
+                this.SetPos(this.GetPos());
                 return true;
             }
             string variable = TrioStepperZMotor.TRIO_PROPERTY_MAP[property];

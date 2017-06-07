@@ -92,18 +92,16 @@ namespace RCCM.UI
         {
             this.Text = this.stage == RCCMStage.RCCM1 ? "WFOV 1" : "WFOV 2";
 
-            this.wfovContainer.ImageAvailableExecutionMode = EventExecutionMode.Invoke;
-
-            this.wfovContainer.OverlayBitmapPosition = PathPositions.Display;
+            ////this.wfovContainer.OverlayBitmapPosition = PathPositions.Display;
             // Enable the overlay bitmap for drawing.
-            OverlayBitmap ob = this.wfovContainer.OverlayBitmapAtPath[PathPositions.Display];
-            ob.Enable = true;
+            ////OverlayBitmap ob = this.wfovContainer.OverlayBitmapAtPath[PathPositions.Display];
+            ////ob.Enable = true;
             // Fill the overlay bitmap with the dropout color.
-            ob.DropOutColor = Color.Black;
-            ob.Fill(Color.Black);
-            ob.ColorMode = OverlayColorModes.Color;
-            this.overlayUpdate = new EventHandler<ICImagingControl.OverlayUpdateEventArgs>(wfovOverlayPaint);
-            this.wfovContainer.OverlayUpdate += this.overlayUpdate;
+            ////ob.DropOutColor = Color.Black;
+            ////ob.Fill(Color.Black);
+            ////ob.ColorMode = OverlayColorModes.Color;
+            ////this.overlayUpdate = new EventHandler<ICImagingControl.OverlayUpdateEventArgs>(wfovOverlayPaint);
+            ////this.wfovContainer.OverlayUpdate += this.overlayUpdate;
 
             // Initialize camera
             bool success = this.camera.Initialize(this.wfovContainer);
@@ -135,9 +133,9 @@ namespace RCCM.UI
                 this.camera.StopRecord();
             }
             // Disable overlay paint to prevent crash
-            this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
-            this.wfovContainer.OverlayUpdateEventEnable = false;
-            Thread.Sleep(1000);
+            ////this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
+            ////this.wfovContainer.OverlayUpdateEventEnable = false;
+            ////Thread.Sleep(1000);
             this.camera.Stop();
         }
 
@@ -146,9 +144,9 @@ namespace RCCM.UI
         /// </summary>
         private void wfovOverlayPaint(object sender, ICImagingControl.OverlayUpdateEventArgs e)
         {
-            Graphics g = e.overlay.GetGraphics();
             try
             {
+                Graphics g = e.overlay.GetGraphics();
                 g.Clear(Color.Black);
                 g.ResetTransform();
 
@@ -362,8 +360,8 @@ namespace RCCM.UI
         private void btnWfovStart_Click(object sender, EventArgs e)
         {
             this.camera.Start();
-            this.wfovContainer.OverlayUpdateEventEnable = true;
-            this.wfovContainer.OverlayUpdate += this.overlayUpdate;
+            ////this.wfovContainer.OverlayUpdateEventEnable = true;
+            ////this.wfovContainer.OverlayUpdate += this.overlayUpdate;
 
             // Update button states
             if (this.wfovContainer.DeviceValid)
@@ -378,8 +376,8 @@ namespace RCCM.UI
         /// </summary>
         private void btnWfovStop_Click(object sender, EventArgs e)
         {
-            this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
-            this.wfovContainer.OverlayUpdateEventEnable = false;
+            ////this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
+            ////this.wfovContainer.OverlayUpdateEventEnable = false;
             Thread.Sleep(1000);
             this.camera.Stop();
 
@@ -441,8 +439,8 @@ namespace RCCM.UI
                 if (this.camera.Recording == false)
                 {
                     // Stop overlay
-                    this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
-                    this.wfovContainer.OverlayUpdateEventEnable = false;
+                    ////this.wfovContainer.OverlayUpdate -= this.overlayUpdate;
+                    ////this.wfovContainer.OverlayUpdateEventEnable = false;
                     Thread.Sleep(1000); // Forgive me father for I have sinned
                     // Start record
                     string timestamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-fff}", DateTime.Now);
@@ -460,8 +458,8 @@ namespace RCCM.UI
                     this.camera.StopRecord();
                     MessageBox.Show("Recording stopped");
                     // Restart overlay
-                    this.wfovContainer.OverlayUpdate += this.overlayUpdate;
-                    this.wfovContainer.OverlayUpdateEventEnable = true;
+                    ////this.wfovContainer.OverlayUpdate += this.overlayUpdate;
+                    ////this.wfovContainer.OverlayUpdateEventEnable = true;
                     // Change button states
                     btnWfovRecord.BackColor = Color.Transparent;
                     btnWfovStart.Enabled = true;
@@ -635,7 +633,7 @@ namespace RCCM.UI
                 }
                 else
                 {
-                    this.rccm.motors["fine  X"].SetPos(m.FineX);
+                    this.rccm.motors["fine 2 X"].SetPos(m.FineX);
                     this.rccm.motors["fine 2 X"].WaitForEndOfMove();
                     this.rccm.motors["fine 2 Y"].SetPos(m.FineY);
                     this.rccm.motors["fine 2 Y"].WaitForEndOfMove();
