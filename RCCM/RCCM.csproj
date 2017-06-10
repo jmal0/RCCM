@@ -385,6 +385,9 @@
     <Content Include="RCCM splashscreen draft3.png" />
     <Content Include="rccm_ico.ico" />
     <None Include="Resources\RCCM splashscreen draft3.png" />
+    <None Include="res\arrow-up.png" />
+    <None Include="res\arrow-right.png" />
+    <None Include="res\arrow-left.png" />
     <Content Include="res\RCCM splashscreen draft3.png" />
     <None Include="res\save.png" />
     <None Include="res\estop.png" />

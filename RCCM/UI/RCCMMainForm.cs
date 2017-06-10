@@ -717,5 +717,145 @@ namespace RCCM.UI
             public const uint ES_CONTINUOUS = 0x80000000;
             public const uint ES_SYSTEM_REQUIRED = 0x00000001;
         }
+
+        private void btnJogDown_CheckedChanged(object sender, EventArgs e)
+        {
+            // If unchecked, stop jogging any Y motors
+            if (!this.btnJogDown.Checked)
+            {
+                this.rccm.motors["fine 1 Y"].JogStop();
+                this.rccm.motors["fine 2 Y"].JogStop();
+                this.rccm.motors["coarse Y"].JogStop();
+                this.jogging = false;
+                return;
+            }
+            // Uncheck other jog buttons
+            this.btnJogUp.Checked = false;
+            this.btnJogLeft.Checked = false;
+            this.btnJogRight.Checked = false;
+            // Get active axis
+            string yAxis;
+            switch (this.getActiveStage())
+            {
+                case RCCMStage.RCCM1:
+                    yAxis = "fine 1 Y";
+                    break;
+                case RCCMStage.RCCM2:
+                    yAxis = "fine 2 Y";
+                    break;
+                case RCCMStage.Coarse:
+                    yAxis = "coarse Y";
+                    break;
+                default:
+                    return;
+            }
+            this.jogging = true;
+            this.rccm.motors[yAxis].Jog(true);
+        }
+
+        private void btnJogLeft_CheckedChanged(object sender, EventArgs e)
+        {
+            // If unchecked, stop jogging any Y motors
+            if (!this.btnJogLeft.Checked)
+            {
+                this.rccm.motors["fine 1 X"].JogStop();
+                this.rccm.motors["fine 2 X"].JogStop();
+                this.rccm.motors["coarse X"].JogStop();
+                this.jogging = false;
+                return;
+            }
+            // Uncheck other jog buttons
+            this.btnJogUp.Checked = false;
+            this.btnJogDown.Checked = false;
+            this.btnJogRight.Checked = false;
+            // Get active axis
+            string xAxis;
+            switch (this.getActiveStage())
+            {
+                case RCCMStage.RCCM1:
+                    xAxis = "fine 1 X";
+                    break;
+                case RCCMStage.RCCM2:
+                    xAxis = "fine 2 X";
+                    break;
+                case RCCMStage.Coarse:
+                    xAxis = "coarse X";
+                    break;
+                default:
+                    return;
+            }
+            this.jogging = true;
+            this.rccm.motors[xAxis].Jog(false);
+        }
+
+        private void btnJogUp_CheckedChanged(object sender, EventArgs e)
+        {
+            // If unchecked, stop jogging any Y motors
+            if (!this.btnJogUp.Checked)
+            {
+                this.rccm.motors["fine 1 Y"].JogStop();
+                this.rccm.motors["fine 2 Y"].JogStop();
+                this.rccm.motors["coarse Y"].JogStop();
+                this.jogging = false;
+                return;
+            }
+            // Uncheck other jog buttons
+            this.btnJogDown.Checked = false;
+            this.btnJogLeft.Checked = false;
+            this.btnJogRight.Checked = false;
+            // Get active axis
+            string yAxis;
+            switch (this.getActiveStage())
+            {
+                case RCCMStage.RCCM1:
+                    yAxis = "fine 1 Y";
+                    break;
+                case RCCMStage.RCCM2:
+                    yAxis = "fine 2 Y";
+                    break;
+                case RCCMStage.Coarse:
+                    yAxis = "coarse Y";
+                    break;
+                default:
+                    return;
+            }
+            this.jogging = true;
+            this.rccm.motors[yAxis].Jog(false);
+        }
+
+        private void btnJogRight_CheckedChanged(object sender, EventArgs e)
+        {
+            // If unchecked, stop jogging any X motors
+            if (!this.btnJogRight.Checked)
+            {
+                this.rccm.motors["fine 1 X"].JogStop();
+                this.rccm.motors["fine 2 X"].JogStop();
+                this.rccm.motors["coarse X"].JogStop();
+                this.jogging = false;
+                return;
+            }
+            // Uncheck other jog buttons
+            this.btnJogUp.Checked = false;
+            this.btnJogDown.Checked = false;
+            this.btnJogLeft.Checked = false;
+            // Get active axis
+            string xAxis;
+            switch (this.getActiveStage())
+            {
+                case RCCMStage.RCCM1:
+                    xAxis = "fine 1 X";
+                    break;
+                case RCCMStage.RCCM2:
+                    xAxis = "fine 2 X";
+                    break;
+                case RCCMStage.Coarse:
+                    xAxis = "coarse X";
+                    break;
+                default:
+                    return;
+            }
+            this.jogging = true;
+            this.rccm.motors[xAxis].Jog(true);
+        }
     }
 }
