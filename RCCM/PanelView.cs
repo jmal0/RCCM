@@ -34,6 +34,10 @@ namespace RCCM
         /// </summary>
         protected Brush fineBrush;
         /// <summary>
+        /// Brush defining style for drawing fonta
+        /// </summary>
+        protected Brush fontBrush;
+        /// <summary>
         /// Rectangle defining dimensions of panel
         /// </summary>
         protected RectangleF panel;
@@ -85,6 +89,10 @@ namespace RCCM
         /// Fine 2 Y actuator position
         /// </summary>
         protected float fine2YPos;
+        /// <summary>
+        /// Font lol
+        /// </summary>
+        protected Font font;
 
         /// <summary>
         /// Initialize panel view
@@ -108,6 +116,8 @@ namespace RCCM
             this.fine1 = new RectangleF(0, 0, wFine1, hFine1);
             this.fine2 = new RectangleF(0, 0, wFine2, hFine2);
             // Create brushes/pens to draw with
+            this.font = new Font(FontFamily.GenericSansSerif, 4, FontStyle.Regular);
+            this.fontBrush = new SolidBrush(Color.Black);
             this.coarseBrush = new SolidBrush(Color.FromArgb(128, Color.Gray));
             this.fineBrush = new SolidBrush(Color.FromArgb(128, Color.Green));
             this.pen = new Pen(Color.Black, 0);
@@ -144,6 +154,7 @@ namespace RCCM
             float fine1y = this.coarseYPos + this.fine1Offset.Height;
             this.rotateAt(g, (float)this.rccm.FineStageAngle, fine1x, fine1y);
             g.FillRectangle(this.fineBrush, this.fine1);
+            g.DrawString("1", this.font, this.fontBrush, this.fine1.Left, this.fine1.Top);
             // Fine 1 position crosshair
             x = fine1x + this.fine1XPos;
             y = fine1y + this.fine1YPos;
@@ -155,6 +166,7 @@ namespace RCCM
             float fine2y = this.coarseYPos + this.fine2Offset.Height;
             this.rotateAt(g, (float)this.rccm.FineStageAngle, fine2x, fine2y);
             g.FillRectangle(this.fineBrush, this.fine2);
+            g.DrawString("2", this.font, this.fontBrush, this.fine2.Left, this.fine2.Top);
             // Fine 2 position crosshair
             x = fine2x + this.fine2XPos;
             y = fine2y + this.fine2YPos;

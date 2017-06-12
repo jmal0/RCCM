@@ -57,7 +57,7 @@
             this.dropdownProperty.Location = new System.Drawing.Point(147, 97);
             this.dropdownProperty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dropdownProperty.Name = "dropdownProperty";
-            this.dropdownProperty.Size = new System.Drawing.Size(207, 33);
+            this.dropdownProperty.Size = new System.Drawing.Size(207, 28);
             this.dropdownProperty.TabIndex = 1;
             this.dropdownProperty.SelectedIndexChanged += new System.EventHandler(this.dropdownProperty_SelectedIndexChanged);
             // 
@@ -78,7 +78,7 @@
             0,
             -2147483648});
             this.editValue.Name = "editValue";
-            this.editValue.Size = new System.Drawing.Size(207, 30);
+            this.editValue.Size = new System.Drawing.Size(207, 26);
             this.editValue.TabIndex = 2;
             this.editValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editValue_KeyDown);
             // 
@@ -88,7 +88,7 @@
             this.label1.Location = new System.Drawing.Point(4, 138);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 25);
+            this.label1.Size = new System.Drawing.Size(50, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Value";
             // 
@@ -98,7 +98,7 @@
             this.label2.Location = new System.Drawing.Point(4, 92);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 25);
+            this.label2.Size = new System.Drawing.Size(68, 20);
             this.label2.TabIndex = 4;
             this.label2.Text = "Property";
             // 
@@ -108,7 +108,7 @@
             this.checkBoxEnable.Location = new System.Drawing.Point(147, 51);
             this.checkBoxEnable.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBoxEnable.Name = "checkBoxEnable";
-            this.checkBoxEnable.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxEnable.Size = new System.Drawing.Size(15, 14);
             this.checkBoxEnable.TabIndex = 5;
             this.checkBoxEnable.UseVisualStyleBackColor = true;
             this.checkBoxEnable.CheckedChanged += new System.EventHandler(this.checkBoxEnable_CheckedChanged);
@@ -121,7 +121,7 @@
             this.dropdownMotor.Location = new System.Drawing.Point(147, 5);
             this.dropdownMotor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dropdownMotor.Name = "dropdownMotor";
-            this.dropdownMotor.Size = new System.Drawing.Size(207, 33);
+            this.dropdownMotor.Size = new System.Drawing.Size(207, 28);
             this.dropdownMotor.TabIndex = 6;
             this.dropdownMotor.SelectedIndexChanged += new System.EventHandler(this.dropdownMotor_SelectedIndexChanged);
             // 
@@ -131,7 +131,7 @@
             this.label3.Location = new System.Drawing.Point(4, 0);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 25);
+            this.label3.Size = new System.Drawing.Size(50, 20);
             this.label3.TabIndex = 7;
             this.label3.Text = "Motor";
             // 
@@ -176,7 +176,7 @@
             this.label4.Location = new System.Drawing.Point(4, 46);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 25);
+            this.label4.Size = new System.Drawing.Size(68, 20);
             this.label4.TabIndex = 8;
             this.label4.Text = "Enabled";
             // 
@@ -186,7 +186,7 @@
             this.label5.Location = new System.Drawing.Point(4, 276);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 25);
+            this.label5.Size = new System.Drawing.Size(37, 20);
             this.label5.TabIndex = 10;
             this.label5.Text = "Info";
             // 
@@ -218,7 +218,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 184);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 25);
+            this.label6.Size = new System.Drawing.Size(52, 20);
             this.label6.TabIndex = 12;
             this.label6.Text = "Errors";
             // 
@@ -227,7 +227,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 230);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(81, 46);
+            this.label7.Size = new System.Drawing.Size(121, 20);
             this.label7.TabIndex = 13;
             this.label7.Text = "Correct Position";
             // 
@@ -247,13 +247,13 @@
             0,
             -2147483648});
             this.editPosition.Name = "editPosition";
-            this.editPosition.Size = new System.Drawing.Size(209, 30);
+            this.editPosition.Size = new System.Drawing.Size(209, 26);
             this.editPosition.TabIndex = 14;
             this.editPosition.KeyDown += new System.Windows.Forms.KeyEventHandler(this.editPosition_KeyDown);
             // 
             // MotorSettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(358, 357);

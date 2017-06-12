@@ -145,6 +145,21 @@ namespace RCCM
         /// Get property value (could be axis or controller property)
         /// </summary>
         /// <param name="property">Property name</param>
+        /// <param name="value">Property value</param>
+        /// <returns>True if successful</returns>
+        public bool SetProperty(string property, double value)
+        {
+            if (this.triopc.IsOpen(TrioController.PORT_ID))
+            {
+                return this.triopc.SetVariable(property, value);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Get property value (could be axis or controller property)
+        /// </summary>
+        /// <param name="property">Property name</param>
         /// <returns>Current property value</returns>
         public double GetProperty(string property)
         {

@@ -88,7 +88,7 @@
     "feedback": 0.0
   },
   "fine 1 Z": {
-    "type": "stepper",
+    "type": "stepper z 1",
     "axis number": 2,
     "enabled": 1,
     "microstep per unit": 4064000.0,
@@ -99,7 +99,7 @@
     "high position limit": 12.0,
     "step": 0.0002,
     "home": 0.0,
-    "feedback": 1.0
+    "feedback": 0.0
   },
   "fine 2 X": {
     "type": "stepper",
@@ -151,7 +151,7 @@
     "calibration zoom": 0,
     "calibration focus": 100,
     "x offset": -21.75,
-    "y offset": -10.375,
+    "y offset": -12.375,
     "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\WFOV 1",
     "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\WFOV 1",
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\WFOV 1"
@@ -163,7 +163,7 @@
     "calibration zoom": 0,
     "calibration focus": 100,
     "x offset": 1.0,
-    "y offset": -10.375,
+    "y offset": -12.375,
     "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\WFOV 2",
     "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\WFOV 2",
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\WFOV 2"
@@ -177,7 +177,7 @@
     "width": 2448,
     "frame rate": 15.0,
     // slope, y-intercept of AN3 value (input reading to distance sensor) vs height graph
-    "conversion": [ 1.574, 1.958 ],
+    "conversion": [ 1.748, 0.129 ],
     // [Input voltage (V), focal power]
     "calibration": [
       [
@@ -210,7 +210,7 @@
       ]
     ],
     "x offset": -21.75,
-    "y offset": -10.375,
+    "y offset": -12.375,
     "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\NFOV 1",
     "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\NFOV 1",
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\NFOV 1"
@@ -232,16 +232,20 @@
         3.78
       ],
       [
+        0.18640000000000007,
+        3.33
+      ],
+      [
         0.34450000000000008,
-        0.88
+        1.88
       ],
       [
         0.6607,
-        -0.62
+        0.18
       ],
       [
-        0.96669999999999989,
-        -1.72
+        0.97180000000000011,
+        -1.14
       ],
       [
         1.3033,
@@ -249,15 +253,15 @@
       ],
       [
         1.6195,
-        -3.52
+        -3.1
       ],
       [
         1.9306,
-        -4.22
+        -3.94
       ]
     ],
-    "x offset": 1.0,
-    "y offset": -10.375,
+    "x offset": 3.0,
+    "y offset": -12.375,
     "image directory": "C:\\Users\\FAA\\Pictures\\RCCM\\NFOV 2",
     "video directory": "C:\\Users\\FAA\\Videos\\RCCM\\NFOV 2",
     "test data directory": "C:\\Users\\FAA\\Documents\\RCCM\\Data\\NFOV 2"

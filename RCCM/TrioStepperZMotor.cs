@@ -149,10 +149,9 @@ namespace RCCM
                     else if (feedback != 0 && !this.controller.isMoving(this.axisNum) && Math.Abs(err) > TrioStepperZMotor.ERROR)
                     {
                         double newPos = actuatorPos + TrioStepperZMotor.PGAIN * err;
-                        double minPos = this.minPosition();
+                        newPos = Math.Max(2.0, newPos); // Can't let it go below measurement range
                         newPos = Math.Max(this.settings["low position limit"], newPos);
                         newPos = Math.Min(this.settings["high position limit"], newPos);
-                        newPos = Math.Max(minPos, newPos);
                         this.controller.MoveAbs(this.axisNum, newPos);
                     }
                 }

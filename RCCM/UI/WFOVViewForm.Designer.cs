@@ -55,6 +55,7 @@
             this.btnGotoPoint = new System.Windows.Forms.Button();
             this.btnDeletePoint = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.showOverlay = new System.Windows.Forms.CheckBox();
             this.checkCrosshair = new System.Windows.Forms.CheckBox();
             this.btnCrosshairMeasure = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -65,7 +66,6 @@
             this.btnSaveCrack = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.showOverlay = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.wfovContainer)).BeginInit();
             this.panelLayout.SuspendLayout();
             this.panelWfovView.SuspendLayout();
@@ -416,6 +416,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Crosshair";
             // 
+            // showOverlay
+            // 
+            this.showOverlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.showOverlay.AutoSize = true;
+            this.showOverlay.Location = new System.Drawing.Point(6, 43);
+            this.showOverlay.Name = "showOverlay";
+            this.showOverlay.Size = new System.Drawing.Size(90, 17);
+            this.showOverlay.TabIndex = 36;
+            this.showOverlay.Text = "Show overlay";
+            this.toolTip.SetToolTip(this.showOverlay, "Check to draw crosshair on live image");
+            this.showOverlay.UseVisualStyleBackColor = true;
+            // 
             // checkCrosshair
             // 
             this.checkCrosshair.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -517,20 +529,6 @@
             this.toolTip.SetToolTip(this.btnSaveCrack, "Open save dialog to save measurement data");
             this.btnSaveCrack.UseVisualStyleBackColor = true;
             this.btnSaveCrack.Click += new System.EventHandler(this.btnSaveCrack_Click);
-            // 
-            // showOverlay
-            // 
-            this.showOverlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.showOverlay.AutoSize = true;
-            this.showOverlay.Checked = true;
-            this.showOverlay.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.showOverlay.Location = new System.Drawing.Point(6, 43);
-            this.showOverlay.Name = "showOverlay";
-            this.showOverlay.Size = new System.Drawing.Size(90, 17);
-            this.showOverlay.TabIndex = 36;
-            this.showOverlay.Text = "Show overlay";
-            this.toolTip.SetToolTip(this.showOverlay, "Check to draw crosshair on live image");
-            this.showOverlay.UseVisualStyleBackColor = true;
             // 
             // WFOVViewForm
             // 

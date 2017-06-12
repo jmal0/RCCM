@@ -36,6 +36,10 @@ namespace RCCM.UI
         /// </summary>
         protected RCCMStage stage;
         /// <summary>
+        /// Name of camera
+        /// </summary>
+        protected string cameraName;
+        /// <summary>
         /// Currently selected crack index. The selected crack will be edited by other controls
         /// </summary>
         protected int ActiveIndex { get; set; }
@@ -82,6 +86,7 @@ namespace RCCM.UI
             this.rccm = rccm;
             this.camera = camera;
             this.stage = this.camera == rccm.WFOV1 ? RCCMStage.RCCM1 : RCCMStage.RCCM2;
+            this.cameraName = this.camera == rccm.WFOV1 ? "wfov 1" : "wfov 2";
             this.cracks = cracks;
             this.cracks.CollectionChanged += cracksChangedHandler;
             this.Drawing = false;
@@ -112,12 +117,9 @@ namespace RCCM.UI
             this.panelWFOVOverlay.BackColor = Color.FromArgb(0,0,0,0);
             
             this.panelWFOVOverlay.Paint += this.wfovOverlayPaint;
-            //this.MouseDown += this.wfovContainer_MouseDown;
-            //this.MouseUp += this.wfovContainer_MouseUp;
-            //this.MouseMove += this.wfovContainer_MouseMove;
-            this.panelWfovView.MouseDown += new MouseEventHandler(this.wfovContainer_MouseDown);
-            this.panelWfovView.MouseUp += new MouseEventHandler(this.wfovContainer_MouseUp);
-            this.panelWfovView.MouseMove += new MouseEventHandler(this.wfovContainer_MouseMove);
+            this.panelWFOVOverlay.MouseDown += new MouseEventHandler(this.wfovContainer_MouseDown);
+            this.panelWFOVOverlay.MouseUp += new MouseEventHandler(this.wfovContainer_MouseUp);
+            this.panelWFOVOverlay.MouseMove += new MouseEventHandler(this.wfovContainer_MouseMove);
             this.wfovRepaint.Enabled = true;
             this.wfovRepaint.Interval = (int)Program.Settings.json["repaint period"];
             this.wfovRepaint.Tick += this.repaintOverlay;
@@ -175,7 +177,7 @@ namespace RCCM.UI
             {
                 float midX = (g.VisibleClipBounds.Right + g.VisibleClipBounds.Left) / 2.0f;
                 float midY = (g.VisibleClipBounds.Bottom + g.VisibleClipBounds.Top) / 2.0f;
-                Pen pen = new Pen(Color.FromArgb(128, 1, 1, 1), 2);
+                Pen pen = new Pen(Color.FromArgb(255, 0, 255, 0), 1);
                 g.DrawLine(pen, new PointF(g.VisibleClipBounds.Left, midY), new PointF(g.VisibleClipBounds.Right, midY));
                 g.DrawLine(pen, new PointF(midX, g.VisibleClipBounds.Top), new PointF(midX, g.VisibleClipBounds.Bottom));
             }
@@ -199,7 +201,8 @@ namespace RCCM.UI
             // Draw each crack on the image
             foreach (MeasurementSequence crack in cracks)
             {
-                crack.Plot(g, scaleX);
+                if (crack.Camera == this.cameraName)
+                    crack.Plot(g, scaleX);
             }
             // Draw segment that user is creating with mouse
             if (this.crackIndexValid() && this.Drawing)

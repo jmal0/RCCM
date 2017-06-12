@@ -35,6 +35,10 @@ namespace RCCM.UI
         /// </summary>
         protected RCCMStage stage;
         /// <summary>
+        /// Name of camera
+        /// </summary>
+        protected string cameraName;
+        /// <summary>
         /// Currently selected crack index. The selected crack will be edited by other controls
         /// </summary>
         protected int ActiveIndex { get; set; }
@@ -77,6 +81,7 @@ namespace RCCM.UI
             this.rccm = rccm;
             this.camera = camera;
             this.stage = camera == rccm.NFOV1 ? RCCMStage.RCCM1 : RCCMStage.RCCM2;
+            this.cameraName = camera == rccm.NFOV1 ? "nfov 1" : "nfov 2";
             this.cracks = cracks;
             this.cracks.CollectionChanged += cracksChangedHandler;
             this.Drawing = false;
@@ -358,7 +363,8 @@ namespace RCCM.UI
             // Draw each crack on the image
             foreach (MeasurementSequence crack in cracks)
             {
-                crack.Plot(e.Graphics, scaleX);
+                if (crack.Camera == this.cameraName)
+                    crack.Plot(e.Graphics, scaleX);
             }
             // Draw segment that user is creating with mouse
             if (this.crackIndexValid() && this.Drawing)

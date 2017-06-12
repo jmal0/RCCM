@@ -149,7 +149,11 @@ namespace RCCM.UI
                 string motorName = this.dropdownMotor.Items[this.dropdownMotor.SelectedIndex].ToString();
                 if (motorName != null)
                 {
-                    this.rccm.motors[motorName].FixPosition((double)this.editPosition.Value);
+                    DialogResult result = MessageBox.Show("Reset actuator position?", "Confirm Action", MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.OK)
+                    {
+                        this.rccm.motors[motorName].FixPosition((double)this.editPosition.Value);
+                    }
                 }
             }
         }

@@ -181,13 +181,11 @@
             // radioMeasureProjection
             // 
             this.radioMeasureProjection.AutoSize = true;
-            this.radioMeasureProjection.Checked = true;
             this.radioMeasureProjection.Location = new System.Drawing.Point(9, 29);
             this.radioMeasureProjection.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioMeasureProjection.Name = "radioMeasureProjection";
             this.radioMeasureProjection.Size = new System.Drawing.Size(97, 24);
             this.radioMeasureProjection.TabIndex = 1;
-            this.radioMeasureProjection.TabStop = true;
             this.radioMeasureProjection.Text = "Projection";
             this.toolTip.SetToolTip(this.radioMeasureProjection, "Measure length of crack in direction specified by orientation angle");
             this.radioMeasureProjection.UseVisualStyleBackColor = true;
@@ -195,11 +193,13 @@
             // radioMeasureTip
             // 
             this.radioMeasureTip.AutoSize = true;
+            this.radioMeasureTip.Checked = true;
             this.radioMeasureTip.Location = new System.Drawing.Point(9, 65);
             this.radioMeasureTip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioMeasureTip.Name = "radioMeasureTip";
             this.radioMeasureTip.Size = new System.Drawing.Size(87, 24);
             this.radioMeasureTip.TabIndex = 2;
+            this.radioMeasureTip.TabStop = true;
             this.radioMeasureTip.Text = "Tip to tip";
             this.toolTip.SetToolTip(this.radioMeasureTip, "Measure straight line distance from crack beginning to end");
             this.radioMeasureTip.UseVisualStyleBackColor = true;

@@ -136,7 +136,9 @@ namespace RCCM.UI
             {
                 Console.WriteLine("SetThreadExecutionState failed. Do something here...");
             }
-            
+
+            Logger.LoadPositions(this.rccm);
+
             stopwatch.Stop();
             System.Threading.Thread.Sleep((int)Math.Max(2000 - stopwatch.ElapsedMilliseconds, 0));
             splash.Close();
@@ -175,6 +177,7 @@ namespace RCCM.UI
             }
             await this.rccm.Stop();
 
+            Logger.SavePositions(this.rccm);
             Logger.Save();
             Program.Settings.save();
 
@@ -602,90 +605,6 @@ namespace RCCM.UI
         }
 
         /// <summary>
-        /// Catch arrow key presses for jogging actuators
-        /// </summary>
-        private void RCCMMainForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Check if keydown was pressed to prevent event from firing continuously
-            if (this.jogging)
-            {
-                return;
-            }
-            // Do not call jogging code if edit control is focused
-            foreach (Control c in new Control[] { this.coarseXPos, this.coarseYPos, this.fine1XPos, this.fine1YPos, this.fine1ZPos, this.fine2XPos, this.fine2YPos, this.fine2ZPos })
-            {
-                if (c.Focused)
-                {
-                    return;
-                }
-            }
-            // Get active axis
-            string xAxis, yAxis;
-            switch (this.getActiveStage())
-            {
-                case RCCMStage.RCCM1:
-                    xAxis = "fine 1 X";
-                    yAxis = "fine 1 Y";
-                    break;
-                case RCCMStage.RCCM2:
-                    xAxis = "fine 2 X";
-                    yAxis = "fine 2 Y";
-                    break;
-                case RCCMStage.Coarse:
-                    xAxis = "coarse X";
-                    yAxis = "coarse Y";
-                    break;
-                default:
-                    return;
-            }
-
-            // Get current stage position
-            double xPos = this.rccm.motors[xAxis].GetPos();
-            double yPos = this.rccm.motors[yAxis].GetPos();
-
-            // Jog motors
-            switch (e.KeyCode)
-            {
-                case Keys.Up:
-                    this.jogging = true;
-                    e.SuppressKeyPress = true;
-                    this.rccm.motors[yAxis].Jog(true);
-                    break;
-                case Keys.Left:
-                    this.jogging = true;
-                    e.SuppressKeyPress = true;
-                    this.rccm.motors[xAxis].Jog(false);
-                    break;
-                case Keys.Down:
-                    this.jogging = true;
-                    e.SuppressKeyPress = true;
-                    this.rccm.motors[yAxis].Jog(false);
-                    break;
-                case Keys.Right:
-                    this.jogging = true;
-                    e.SuppressKeyPress = true;
-                    this.rccm.motors[xAxis].Jog(true);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Stop jogging when arrow keys are released
-        /// </summary>
-        private void RCCMMainForm_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Up || e.KeyData == Keys.Left || e.KeyData == Keys.Down || e.KeyData == Keys.Right)
-            {
-
-                this.jogging = false;
-                foreach (string motorName in RCCMSystem.AXES)
-                {
-                    this.rccm.motors[motorName].JogStop();
-                }
-            }
-        }
-
-        /// <summary>
         /// Get the UI selected stage to jog
         /// </summary>
         /// <returns>Enum value of selected option</returns>
@@ -726,9 +645,17 @@ namespace RCCM.UI
                 this.rccm.motors["fine 1 Y"].JogStop();
                 this.rccm.motors["fine 2 Y"].JogStop();
                 this.rccm.motors["coarse Y"].JogStop();
+                this.btnJogUp.BackColor = Color.Transparent;
+                this.btnJogLeft.BackColor = Color.Transparent;
+                this.btnJogRight.BackColor = Color.Transparent;
+                this.btnJogDown.BackColor = Color.Transparent;
                 this.jogging = false;
                 return;
             }
+            this.btnJogUp.BackColor = Color.Transparent;
+            this.btnJogLeft.BackColor = Color.Transparent;
+            this.btnJogRight.BackColor = Color.Transparent;
+            this.btnJogDown.BackColor = Color.Gray;
             // Uncheck other jog buttons
             this.btnJogUp.Checked = false;
             this.btnJogLeft.Checked = false;
@@ -761,9 +688,17 @@ namespace RCCM.UI
                 this.rccm.motors["fine 1 X"].JogStop();
                 this.rccm.motors["fine 2 X"].JogStop();
                 this.rccm.motors["coarse X"].JogStop();
+                this.btnJogUp.BackColor = Color.Transparent;
+                this.btnJogLeft.BackColor = Color.Transparent;
+                this.btnJogRight.BackColor = Color.Transparent;
+                this.btnJogDown.BackColor = Color.Transparent;
                 this.jogging = false;
                 return;
             }
+            this.btnJogUp.BackColor = Color.Transparent;
+            this.btnJogRight.BackColor = Color.Transparent;
+            this.btnJogDown.BackColor = Color.Transparent;
+            this.btnJogLeft.BackColor = Color.Gray;
             // Uncheck other jog buttons
             this.btnJogUp.Checked = false;
             this.btnJogDown.Checked = false;
@@ -796,9 +731,17 @@ namespace RCCM.UI
                 this.rccm.motors["fine 1 Y"].JogStop();
                 this.rccm.motors["fine 2 Y"].JogStop();
                 this.rccm.motors["coarse Y"].JogStop();
+                this.btnJogUp.BackColor = Color.Transparent;
+                this.btnJogLeft.BackColor = Color.Transparent;
+                this.btnJogRight.BackColor = Color.Transparent;
+                this.btnJogDown.BackColor = Color.Transparent;
                 this.jogging = false;
                 return;
             }
+            this.btnJogLeft.BackColor = Color.Transparent;
+            this.btnJogRight.BackColor = Color.Transparent;
+            this.btnJogDown.BackColor = Color.Transparent;
+            this.btnJogUp.BackColor = Color.Gray;
             // Uncheck other jog buttons
             this.btnJogDown.Checked = false;
             this.btnJogLeft.Checked = false;
@@ -831,9 +774,17 @@ namespace RCCM.UI
                 this.rccm.motors["fine 1 X"].JogStop();
                 this.rccm.motors["fine 2 X"].JogStop();
                 this.rccm.motors["coarse X"].JogStop();
+                this.btnJogUp.BackColor = Color.Transparent;
+                this.btnJogLeft.BackColor = Color.Transparent;
+                this.btnJogRight.BackColor = Color.Transparent;
+                this.btnJogDown.BackColor = Color.Transparent;
                 this.jogging = false;
                 return;
             }
+            this.btnJogUp.BackColor = Color.Transparent;
+            this.btnJogLeft.BackColor = Color.Transparent;
+            this.btnJogDown.BackColor = Color.Transparent;
+            this.btnJogRight.BackColor = Color.Gray;
             // Uncheck other jog buttons
             this.btnJogUp.Checked = false;
             this.btnJogDown.Checked = false;
@@ -856,6 +807,21 @@ namespace RCCM.UI
             }
             this.jogging = true;
             this.rccm.motors[xAxis].Jog(true);
+        }
+        
+        /// <summary>
+        /// Master enable/disable
+        /// </summary>
+        private void btnDisable_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.btnDisable.Checked)
+            {
+                this.rccm.triopc.SetProperty("WDOG", 0);
+            }
+            else
+            {
+                this.rccm.triopc.SetProperty("WDOG", 1);
+            }
         }
     }
 }

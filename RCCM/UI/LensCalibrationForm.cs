@@ -113,6 +113,10 @@ namespace RCCM.UI
             else
             {
                 // Add to list holding user calibration points
+                if (this.calibration.ContainsKey(reading))
+                {
+                    this.calibration.RemoveAt(this.calibration.IndexOfKey(reading));
+                }
                 this.calibration.Add(reading, new CalibrationPoint(reading, (double) this.focalPowerEdit.Value));
                 this.applyCalibration();
                 // Update UI with new points
