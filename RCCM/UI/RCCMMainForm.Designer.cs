@@ -126,6 +126,8 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.btnJogPlusZ = new System.Windows.Forms.CheckBox();
+            this.btnJogMinusZ = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.groupBoxStageSelect.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -165,13 +167,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 25);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 32);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(104, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(121, 32);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -187,7 +189,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1146, 31);
+            this.menuStrip1.Size = new System.Drawing.Size(1146, 38);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -199,7 +201,7 @@
             this.camerasToolStripMenuItem,
             this.motorsToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(78, 25);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(95, 32);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // nFOV1LensToolStripMenuItem
@@ -208,48 +210,48 @@
             this.nFOV1ToolStripMenuItem,
             this.nFOV2ToolStripMenuItem});
             this.nFOV1LensToolStripMenuItem.Name = "nFOV1LensToolStripMenuItem";
-            this.nFOV1LensToolStripMenuItem.Size = new System.Drawing.Size(212, 26);
+            this.nFOV1LensToolStripMenuItem.Size = new System.Drawing.Size(255, 32);
             this.nFOV1LensToolStripMenuItem.Text = "Lens Calibration";
             // 
             // nFOV1ToolStripMenuItem
             // 
             this.nFOV1ToolStripMenuItem.Name = "nFOV1ToolStripMenuItem";
-            this.nFOV1ToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.nFOV1ToolStripMenuItem.Size = new System.Drawing.Size(158, 32);
             this.nFOV1ToolStripMenuItem.Text = "NFOV 1";
             this.nFOV1ToolStripMenuItem.Click += new System.EventHandler(this.nFOV1ToolStripMenuItem_Click);
             // 
             // nFOV2ToolStripMenuItem
             // 
             this.nFOV2ToolStripMenuItem.Name = "nFOV2ToolStripMenuItem";
-            this.nFOV2ToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
+            this.nFOV2ToolStripMenuItem.Size = new System.Drawing.Size(158, 32);
             this.nFOV2ToolStripMenuItem.Text = "NFOV 2";
             this.nFOV2ToolStripMenuItem.Click += new System.EventHandler(this.nFOV2ToolStripMenuItem_Click);
             // 
             // coordinateSystemToolStripMenuItem
             // 
             this.coordinateSystemToolStripMenuItem.Name = "coordinateSystemToolStripMenuItem";
-            this.coordinateSystemToolStripMenuItem.Size = new System.Drawing.Size(212, 26);
+            this.coordinateSystemToolStripMenuItem.Size = new System.Drawing.Size(255, 32);
             this.coordinateSystemToolStripMenuItem.Text = "Coordinate System";
             this.coordinateSystemToolStripMenuItem.Click += new System.EventHandler(this.coordinateSystemToolStripMenuItem_Click);
             // 
             // camerasToolStripMenuItem
             // 
             this.camerasToolStripMenuItem.Name = "camerasToolStripMenuItem";
-            this.camerasToolStripMenuItem.Size = new System.Drawing.Size(212, 26);
+            this.camerasToolStripMenuItem.Size = new System.Drawing.Size(255, 32);
             this.camerasToolStripMenuItem.Text = "Cameras";
             this.camerasToolStripMenuItem.Click += new System.EventHandler(this.camerasToolStripMenuItem_Click);
             // 
             // motorsToolStripMenuItem
             // 
             this.motorsToolStripMenuItem.Name = "motorsToolStripMenuItem";
-            this.motorsToolStripMenuItem.Size = new System.Drawing.Size(212, 26);
+            this.motorsToolStripMenuItem.Size = new System.Drawing.Size(255, 32);
             this.motorsToolStripMenuItem.Text = "Motors";
             this.motorsToolStripMenuItem.Click += new System.EventHandler(this.motorsToolStripMenuItem_Click);
             // 
             // pluginsToolStripMenuItem
             // 
             this.pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
-            this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(73, 25);
+            this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(87, 32);
             this.pluginsToolStripMenuItem.Text = "Plugins";
             // 
             // helpToolStripMenuItem
@@ -257,13 +259,13 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(54, 25);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(65, 32);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(145, 32);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -273,7 +275,7 @@
             this.radioRCCM1.Location = new System.Drawing.Point(9, 65);
             this.radioRCCM1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioRCCM1.Name = "radioRCCM1";
-            this.radioRCCM1.Size = new System.Drawing.Size(83, 24);
+            this.radioRCCM1.Size = new System.Drawing.Size(104, 29);
             this.radioRCCM1.TabIndex = 11;
             this.radioRCCM1.Text = "RCCM1";
             this.radioRCCM1.UseVisualStyleBackColor = true;
@@ -284,7 +286,7 @@
             this.radioRCCM2.Location = new System.Drawing.Point(9, 100);
             this.radioRCCM2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioRCCM2.Name = "radioRCCM2";
-            this.radioRCCM2.Size = new System.Drawing.Size(83, 24);
+            this.radioRCCM2.Size = new System.Drawing.Size(104, 29);
             this.radioRCCM2.TabIndex = 12;
             this.radioRCCM2.Text = "RCCM2";
             this.radioRCCM2.UseVisualStyleBackColor = true;
@@ -313,7 +315,7 @@
             this.radioNoStage.Location = new System.Drawing.Point(9, 31);
             this.radioNoStage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioNoStage.Name = "radioNoStage";
-            this.radioNoStage.Size = new System.Drawing.Size(65, 24);
+            this.radioNoStage.Size = new System.Drawing.Size(80, 29);
             this.radioNoStage.TabIndex = 14;
             this.radioNoStage.TabStop = true;
             this.radioNoStage.Text = "None";
@@ -325,7 +327,7 @@
             this.radioCoarse.Location = new System.Drawing.Point(9, 134);
             this.radioCoarse.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioCoarse.Name = "radioCoarse";
-            this.radioCoarse.Size = new System.Drawing.Size(78, 24);
+            this.radioCoarse.Size = new System.Drawing.Size(97, 29);
             this.radioCoarse.TabIndex = 13;
             this.radioCoarse.Text = "Coarse";
             this.radioCoarse.UseVisualStyleBackColor = true;
@@ -384,11 +386,11 @@
             // tabPageResults
             // 
             this.tabPageResults.Controls.Add(this.tableLayoutResults);
-            this.tabPageResults.Location = new System.Drawing.Point(4, 29);
+            this.tabPageResults.Location = new System.Drawing.Point(4, 34);
             this.tabPageResults.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageResults.Name = "tabPageResults";
             this.tabPageResults.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPageResults.Size = new System.Drawing.Size(1130, 449);
+            this.tabPageResults.Size = new System.Drawing.Size(1130, 444);
             this.tabPageResults.TabIndex = 4;
             this.tabPageResults.Text = "Test Results";
             this.tabPageResults.UseVisualStyleBackColor = true;
@@ -406,7 +408,7 @@
             this.tableLayoutResults.Name = "tableLayoutResults";
             this.tableLayoutResults.RowCount = 1;
             this.tableLayoutResults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutResults.Size = new System.Drawing.Size(1122, 439);
+            this.tableLayoutResults.Size = new System.Drawing.Size(1122, 434);
             this.tableLayoutResults.TabIndex = 9;
             // 
             // chartCracks
@@ -424,7 +426,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartCracks.Series.Add(series1);
-            this.chartCracks.Size = new System.Drawing.Size(889, 429);
+            this.chartCracks.Size = new System.Drawing.Size(889, 424);
             this.chartCracks.TabIndex = 0;
             this.chartCracks.Text = "chart1";
             // 
@@ -432,12 +434,12 @@
             // 
             this.listCrackSelection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listCrackSelection.FormattingEnabled = true;
-            this.listCrackSelection.ItemHeight = 20;
+            this.listCrackSelection.ItemHeight = 25;
             this.listCrackSelection.Location = new System.Drawing.Point(901, 5);
             this.listCrackSelection.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listCrackSelection.Name = "listCrackSelection";
             this.listCrackSelection.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listCrackSelection.Size = new System.Drawing.Size(217, 429);
+            this.listCrackSelection.Size = new System.Drawing.Size(217, 424);
             this.listCrackSelection.TabIndex = 8;
             this.toolTip.SetToolTip(this.listCrackSelection, "Click to higlight and select which cracks are plotted");
             this.listCrackSelection.SelectedIndexChanged += new System.EventHandler(this.listCracksSelection_SelectedIndexChanged);
@@ -445,11 +447,11 @@
             // tabPageMotion
             // 
             this.tabPageMotion.Controls.Add(this.tableLayoutMotion);
-            this.tabPageMotion.Location = new System.Drawing.Point(4, 29);
+            this.tabPageMotion.Location = new System.Drawing.Point(4, 34);
             this.tabPageMotion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageMotion.Name = "tabPageMotion";
             this.tabPageMotion.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPageMotion.Size = new System.Drawing.Size(1130, 449);
+            this.tabPageMotion.Size = new System.Drawing.Size(1130, 437);
             this.tabPageMotion.TabIndex = 1;
             this.tabPageMotion.Text = "Motion";
             this.tabPageMotion.UseVisualStyleBackColor = true;
@@ -470,7 +472,7 @@
             this.tableLayoutMotion.Name = "tableLayoutMotion";
             this.tableLayoutMotion.RowCount = 1;
             this.tableLayoutMotion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutMotion.Size = new System.Drawing.Size(1122, 439);
+            this.tableLayoutMotion.Size = new System.Drawing.Size(1122, 427);
             this.tableLayoutMotion.TabIndex = 22;
             // 
             // panelView
@@ -480,7 +482,7 @@
             this.panelView.Location = new System.Drawing.Point(340, 5);
             this.panelView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(609, 429);
+            this.panelView.Size = new System.Drawing.Size(609, 417);
             this.panelView.TabIndex = 23;
             this.panelView.TabStop = false;
             this.panelView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelView_Paint);
@@ -495,7 +497,7 @@
             this.panelMotionButtons.Location = new System.Drawing.Point(957, 5);
             this.panelMotionButtons.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelMotionButtons.Name = "panelMotionButtons";
-            this.panelMotionButtons.Size = new System.Drawing.Size(161, 429);
+            this.panelMotionButtons.Size = new System.Drawing.Size(161, 417);
             this.panelMotionButtons.TabIndex = 23;
             // 
             // btnSetHome
@@ -545,7 +547,7 @@
             this.radioMoveRel.Location = new System.Drawing.Point(9, 65);
             this.radioMoveRel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioMoveRel.Name = "radioMoveRel";
-            this.radioMoveRel.Size = new System.Drawing.Size(84, 24);
+            this.radioMoveRel.Size = new System.Drawing.Size(102, 29);
             this.radioMoveRel.TabIndex = 13;
             this.radioMoveRel.Text = "Relative";
             this.toolTip.SetToolTip(this.radioMoveRel, "Move a specified distance from the current position");
@@ -558,7 +560,7 @@
             this.radioMoveAbs.Location = new System.Drawing.Point(9, 29);
             this.radioMoveAbs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.radioMoveAbs.Name = "radioMoveAbs";
-            this.radioMoveAbs.Size = new System.Drawing.Size(90, 24);
+            this.radioMoveAbs.Size = new System.Drawing.Size(110, 29);
             this.radioMoveAbs.TabIndex = 12;
             this.radioMoveAbs.TabStop = true;
             this.radioMoveAbs.Text = "Absolute";
@@ -574,7 +576,7 @@
             this.panelMotionControls.Location = new System.Drawing.Point(4, 5);
             this.panelMotionControls.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelMotionControls.Name = "panelMotionControls";
-            this.panelMotionControls.Size = new System.Drawing.Size(328, 429);
+            this.panelMotionControls.Size = new System.Drawing.Size(328, 417);
             this.panelMotionControls.TabIndex = 24;
             // 
             // groupBox3
@@ -605,7 +607,7 @@
             this.fine2ZIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fine2ZIndicator.Name = "fine2ZIndicator";
             this.fine2ZIndicator.ReadOnly = true;
-            this.fine2ZIndicator.Size = new System.Drawing.Size(118, 26);
+            this.fine2ZIndicator.Size = new System.Drawing.Size(118, 30);
             this.fine2ZIndicator.TabIndex = 20;
             this.toolTip.SetToolTip(this.fine2ZIndicator, "Current RCCM 2 distance sensor reading");
             // 
@@ -616,7 +618,7 @@
             this.fine2YIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fine2YIndicator.Name = "fine2YIndicator";
             this.fine2YIndicator.ReadOnly = true;
-            this.fine2YIndicator.Size = new System.Drawing.Size(118, 26);
+            this.fine2YIndicator.Size = new System.Drawing.Size(118, 30);
             this.fine2YIndicator.TabIndex = 19;
             this.toolTip.SetToolTip(this.fine2YIndicator, "Current fine 2 Y position from end of travel");
             // 
@@ -627,7 +629,7 @@
             this.fine2XIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fine2XIndicator.Name = "fine2XIndicator";
             this.fine2XIndicator.ReadOnly = true;
-            this.fine2XIndicator.Size = new System.Drawing.Size(118, 26);
+            this.fine2XIndicator.Size = new System.Drawing.Size(118, 30);
             this.fine2XIndicator.TabIndex = 18;
             this.toolTip.SetToolTip(this.fine2XIndicator, "Current fine 2 X position from end of travel");
             // 
@@ -648,7 +650,7 @@
             0,
             -2147483648});
             this.fine2ZPos.Name = "fine2ZPos";
-            this.fine2ZPos.Size = new System.Drawing.Size(137, 26);
+            this.fine2ZPos.Size = new System.Drawing.Size(137, 30);
             this.fine2ZPos.TabIndex = 5;
             this.toolTip.SetToolTip(this.fine2ZPos, "Press enter to send movement command to actuator");
             this.fine2ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2ZPos_KeyDown);
@@ -660,7 +662,7 @@
             this.label6.Location = new System.Drawing.Point(9, 111);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(19, 20);
+            this.label6.Size = new System.Drawing.Size(24, 25);
             this.label6.TabIndex = 4;
             this.label6.Text = "Z";
             // 
@@ -681,7 +683,7 @@
             0,
             -2147483648});
             this.fine2YPos.Name = "fine2YPos";
-            this.fine2YPos.Size = new System.Drawing.Size(137, 26);
+            this.fine2YPos.Size = new System.Drawing.Size(137, 30);
             this.fine2YPos.TabIndex = 3;
             this.toolTip.SetToolTip(this.fine2YPos, "Press enter to send movement command to actuator");
             this.fine2YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2YPos_KeyDown);
@@ -693,7 +695,7 @@
             this.label7.Location = new System.Drawing.Point(9, 71);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(20, 20);
+            this.label7.Size = new System.Drawing.Size(25, 25);
             this.label7.TabIndex = 2;
             this.label7.Text = "Y";
             // 
@@ -714,7 +716,7 @@
             0,
             -2147483648});
             this.fine2XPos.Name = "fine2XPos";
-            this.fine2XPos.Size = new System.Drawing.Size(137, 26);
+            this.fine2XPos.Size = new System.Drawing.Size(137, 30);
             this.fine2XPos.TabIndex = 1;
             this.toolTip.SetToolTip(this.fine2XPos, "Press enter to send movement command to actuator");
             this.fine2XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine2XPos_KeyDown);
@@ -726,7 +728,7 @@
             this.label8.Location = new System.Drawing.Point(10, 31);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(20, 20);
+            this.label8.Size = new System.Drawing.Size(26, 25);
             this.label8.TabIndex = 0;
             this.label8.Text = "X";
             // 
@@ -758,7 +760,7 @@
             this.fine1ZIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fine1ZIndicator.Name = "fine1ZIndicator";
             this.fine1ZIndicator.ReadOnly = true;
-            this.fine1ZIndicator.Size = new System.Drawing.Size(118, 26);
+            this.fine1ZIndicator.Size = new System.Drawing.Size(118, 30);
             this.fine1ZIndicator.TabIndex = 17;
             this.toolTip.SetToolTip(this.fine1ZIndicator, "Current RCCM 1 distance sensor reading");
             // 
@@ -769,7 +771,7 @@
             this.fine1YIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fine1YIndicator.Name = "fine1YIndicator";
             this.fine1YIndicator.ReadOnly = true;
-            this.fine1YIndicator.Size = new System.Drawing.Size(118, 26);
+            this.fine1YIndicator.Size = new System.Drawing.Size(118, 30);
             this.fine1YIndicator.TabIndex = 16;
             this.toolTip.SetToolTip(this.fine1YIndicator, "Current fine 1 Y position from end of travel");
             // 
@@ -780,7 +782,7 @@
             this.fine1XIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fine1XIndicator.Name = "fine1XIndicator";
             this.fine1XIndicator.ReadOnly = true;
-            this.fine1XIndicator.Size = new System.Drawing.Size(118, 26);
+            this.fine1XIndicator.Size = new System.Drawing.Size(118, 30);
             this.fine1XIndicator.TabIndex = 15;
             this.toolTip.SetToolTip(this.fine1XIndicator, "Current fine 1 X position from end of travel");
             // 
@@ -801,7 +803,7 @@
             0,
             -2147483648});
             this.fine1ZPos.Name = "fine1ZPos";
-            this.fine1ZPos.Size = new System.Drawing.Size(137, 26);
+            this.fine1ZPos.Size = new System.Drawing.Size(137, 30);
             this.fine1ZPos.TabIndex = 5;
             this.toolTip.SetToolTip(this.fine1ZPos, "Press enter to send movement command to actuator");
             this.fine1ZPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1ZPos_KeyDown);
@@ -813,7 +815,7 @@
             this.label5.Location = new System.Drawing.Point(9, 111);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(19, 20);
+            this.label5.Size = new System.Drawing.Size(24, 25);
             this.label5.TabIndex = 4;
             this.label5.Text = "Z";
             // 
@@ -834,7 +836,7 @@
             0,
             -2147483648});
             this.fine1YPos.Name = "fine1YPos";
-            this.fine1YPos.Size = new System.Drawing.Size(137, 26);
+            this.fine1YPos.Size = new System.Drawing.Size(137, 30);
             this.fine1YPos.TabIndex = 3;
             this.toolTip.SetToolTip(this.fine1YPos, "Press enter to send movement command to actuator");
             this.fine1YPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1YPos_KeyDown);
@@ -846,7 +848,7 @@
             this.label3.Location = new System.Drawing.Point(9, 71);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(20, 20);
+            this.label3.Size = new System.Drawing.Size(25, 25);
             this.label3.TabIndex = 2;
             this.label3.Text = "Y";
             // 
@@ -867,7 +869,7 @@
             0,
             -2147483648});
             this.fine1XPos.Name = "fine1XPos";
-            this.fine1XPos.Size = new System.Drawing.Size(137, 26);
+            this.fine1XPos.Size = new System.Drawing.Size(137, 30);
             this.fine1XPos.TabIndex = 1;
             this.toolTip.SetToolTip(this.fine1XPos, "Press enter to send movement command to actuator");
             this.fine1XPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fine1XPos_KeyDown);
@@ -879,7 +881,7 @@
             this.label4.Location = new System.Drawing.Point(10, 31);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(20, 20);
+            this.label4.Size = new System.Drawing.Size(26, 25);
             this.label4.TabIndex = 0;
             this.label4.Text = "X";
             // 
@@ -908,7 +910,7 @@
             this.coarseYIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.coarseYIndicator.Name = "coarseYIndicator";
             this.coarseYIndicator.ReadOnly = true;
-            this.coarseYIndicator.Size = new System.Drawing.Size(118, 26);
+            this.coarseYIndicator.Size = new System.Drawing.Size(118, 30);
             this.coarseYIndicator.TabIndex = 14;
             this.toolTip.SetToolTip(this.coarseYIndicator, "Current coarse Y position from end of travel");
             // 
@@ -919,7 +921,7 @@
             this.coarseXIndicator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.coarseXIndicator.Name = "coarseXIndicator";
             this.coarseXIndicator.ReadOnly = true;
-            this.coarseXIndicator.Size = new System.Drawing.Size(118, 26);
+            this.coarseXIndicator.Size = new System.Drawing.Size(118, 30);
             this.coarseXIndicator.TabIndex = 13;
             this.toolTip.SetToolTip(this.coarseXIndicator, "Current coarse X position from end of travel");
             // 
@@ -940,7 +942,7 @@
             0,
             -2147483648});
             this.coarseYPos.Name = "coarseYPos";
-            this.coarseYPos.Size = new System.Drawing.Size(137, 26);
+            this.coarseYPos.Size = new System.Drawing.Size(137, 30);
             this.coarseYPos.TabIndex = 3;
             this.toolTip.SetToolTip(this.coarseYPos, "Press enter to send movement command to actuator");
             this.coarseYPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseYPos_KeyDown);
@@ -952,7 +954,7 @@
             this.label2.Location = new System.Drawing.Point(9, 71);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 20);
+            this.label2.Size = new System.Drawing.Size(25, 25);
             this.label2.TabIndex = 2;
             this.label2.Text = "Y";
             // 
@@ -973,7 +975,7 @@
             0,
             -2147483648});
             this.coarseXPos.Name = "coarseXPos";
-            this.coarseXPos.Size = new System.Drawing.Size(137, 26);
+            this.coarseXPos.Size = new System.Drawing.Size(137, 30);
             this.coarseXPos.TabIndex = 1;
             this.toolTip.SetToolTip(this.coarseXPos, "Press enter to send movement command to actuator");
             this.coarseXPos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.coarseXPos_KeyDown);
@@ -985,7 +987,7 @@
             this.label1.Location = new System.Drawing.Point(10, 31);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 20);
+            this.label1.Size = new System.Drawing.Size(26, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "X";
             // 
@@ -1043,16 +1045,16 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1138, 482);
+            this.tabControl1.Size = new System.Drawing.Size(1138, 475);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPagePressure
             // 
             this.tabPagePressure.Controls.Add(this.chartCycles);
-            this.tabPagePressure.Location = new System.Drawing.Point(4, 29);
+            this.tabPagePressure.Location = new System.Drawing.Point(4, 34);
             this.tabPagePressure.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPagePressure.Name = "tabPagePressure";
-            this.tabPagePressure.Size = new System.Drawing.Size(1130, 449);
+            this.tabPagePressure.Size = new System.Drawing.Size(1130, 444);
             this.tabPagePressure.TabIndex = 5;
             this.tabPagePressure.Text = "Pressure";
             this.tabPagePressure.UseVisualStyleBackColor = true;
@@ -1068,7 +1070,7 @@
             series2.ChartArea = "ChartArea1";
             series2.Name = "Series1";
             this.chartCycles.Series.Add(series2);
-            this.chartCycles.Size = new System.Drawing.Size(1130, 449);
+            this.chartCycles.Size = new System.Drawing.Size(1130, 444);
             this.chartCycles.TabIndex = 8;
             this.chartCycles.Text = "chart2";
             this.toolTip.SetToolTip(this.chartCycles, "Past pressure readings");
@@ -1080,17 +1082,19 @@
             this.tableLayoutMain.Controls.Add(this.tabControl1, 0, 1);
             this.tableLayoutMain.Controls.Add(this.panelTestControls, 0, 0);
             this.tableLayoutMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutMain.Location = new System.Drawing.Point(0, 31);
+            this.tableLayoutMain.Location = new System.Drawing.Point(0, 38);
             this.tableLayoutMain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutMain.Name = "tableLayoutMain";
             this.tableLayoutMain.RowCount = 2;
             this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutMain.Size = new System.Drawing.Size(1146, 577);
+            this.tableLayoutMain.Size = new System.Drawing.Size(1146, 570);
             this.tableLayoutMain.TabIndex = 21;
             // 
             // panelTestControls
             // 
+            this.panelTestControls.Controls.Add(this.btnJogMinusZ);
+            this.panelTestControls.Controls.Add(this.btnJogPlusZ);
             this.panelTestControls.Controls.Add(this.btnDisable);
             this.panelTestControls.Controls.Add(this.btnJogLeft);
             this.panelTestControls.Controls.Add(this.btnJogRight);
@@ -1114,9 +1118,9 @@
             // 
             this.btnDisable.Appearance = System.Windows.Forms.Appearance.Button;
             this.btnDisable.AutoSize = true;
-            this.btnDisable.Location = new System.Drawing.Point(678, 22);
+            this.btnDisable.Location = new System.Drawing.Point(650, 20);
             this.btnDisable.Name = "btnDisable";
-            this.btnDisable.Size = new System.Drawing.Size(89, 30);
+            this.btnDisable.Size = new System.Drawing.Size(106, 35);
             this.btnDisable.TabIndex = 27;
             this.btnDisable.Text = "DISABLE";
             this.btnDisable.UseVisualStyleBackColor = true;
@@ -1132,11 +1136,11 @@
             this.btnJogLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJogLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJogLeft.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnJogLeft.Location = new System.Drawing.Point(797, 25);
+            this.btnJogLeft.Location = new System.Drawing.Point(807, 25);
             this.btnJogLeft.Margin = new System.Windows.Forms.Padding(0);
             this.btnJogLeft.Name = "btnJogLeft";
             this.btnJogLeft.Padding = new System.Windows.Forms.Padding(1);
-            this.btnJogLeft.Size = new System.Drawing.Size(29, 23);
+            this.btnJogLeft.Size = new System.Drawing.Size(34, 27);
             this.btnJogLeft.TabIndex = 26;
             this.btnJogLeft.Text = "-X";
             this.btnJogLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1153,11 +1157,11 @@
             this.btnJogRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJogRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJogRight.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnJogRight.Location = new System.Drawing.Point(851, 25);
+            this.btnJogRight.Location = new System.Drawing.Point(861, 25);
             this.btnJogRight.Margin = new System.Windows.Forms.Padding(0);
             this.btnJogRight.Name = "btnJogRight";
             this.btnJogRight.Padding = new System.Windows.Forms.Padding(1);
-            this.btnJogRight.Size = new System.Drawing.Size(32, 23);
+            this.btnJogRight.Size = new System.Drawing.Size(37, 27);
             this.btnJogRight.TabIndex = 25;
             this.btnJogRight.Text = "+X";
             this.btnJogRight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1174,11 +1178,11 @@
             this.btnJogDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJogDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJogDown.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnJogDown.Location = new System.Drawing.Point(822, 46);
+            this.btnJogDown.Location = new System.Drawing.Point(832, 46);
             this.btnJogDown.Margin = new System.Windows.Forms.Padding(0);
             this.btnJogDown.Name = "btnJogDown";
             this.btnJogDown.Padding = new System.Windows.Forms.Padding(1);
-            this.btnJogDown.Size = new System.Drawing.Size(32, 23);
+            this.btnJogDown.Size = new System.Drawing.Size(37, 27);
             this.btnJogDown.TabIndex = 24;
             this.btnJogDown.Text = "+Y";
             this.btnJogDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1195,11 +1199,11 @@
             this.btnJogUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJogUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJogUp.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnJogUp.Location = new System.Drawing.Point(823, 4);
+            this.btnJogUp.Location = new System.Drawing.Point(833, 4);
             this.btnJogUp.Margin = new System.Windows.Forms.Padding(0);
             this.btnJogUp.Name = "btnJogUp";
             this.btnJogUp.Padding = new System.Windows.Forms.Padding(1);
-            this.btnJogUp.Size = new System.Drawing.Size(29, 23);
+            this.btnJogUp.Size = new System.Drawing.Size(34, 27);
             this.btnJogUp.TabIndex = 23;
             this.btnJogUp.Text = "-Y";
             this.btnJogUp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1244,7 +1248,7 @@
             this.textPressure.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textPressure.Name = "textPressure";
             this.textPressure.ReadOnly = true;
-            this.textPressure.Size = new System.Drawing.Size(126, 26);
+            this.textPressure.Size = new System.Drawing.Size(126, 30);
             this.textPressure.TabIndex = 14;
             // 
             // label26
@@ -1253,7 +1257,7 @@
             this.label26.Location = new System.Drawing.Point(200, 37);
             this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(72, 20);
+            this.label26.Size = new System.Drawing.Size(90, 25);
             this.label26.TabIndex = 13;
             this.label26.Text = "Pressure";
             // 
@@ -1263,7 +1267,7 @@
             this.textCycle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textCycle.Name = "textCycle";
             this.textCycle.ReadOnly = true;
-            this.textCycle.Size = new System.Drawing.Size(121, 26);
+            this.textCycle.Size = new System.Drawing.Size(121, 30);
             this.textCycle.TabIndex = 12;
             // 
             // label25
@@ -1272,7 +1276,7 @@
             this.label25.Location = new System.Drawing.Point(9, 37);
             this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(47, 20);
+            this.label25.Size = new System.Drawing.Size(62, 25);
             this.label25.TabIndex = 11;
             this.label25.Text = "Cycle";
             // 
@@ -1287,9 +1291,51 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // btnJogPlusZ
+            // 
+            this.btnJogPlusZ.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnJogPlusZ.AutoSize = true;
+            this.btnJogPlusZ.BackgroundImage = global::RCCM.Properties.Resources.arrow_up;
+            this.btnJogPlusZ.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnJogPlusZ.FlatAppearance.BorderSize = 0;
+            this.btnJogPlusZ.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnJogPlusZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJogPlusZ.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnJogPlusZ.Location = new System.Drawing.Point(760, 11);
+            this.btnJogPlusZ.Margin = new System.Windows.Forms.Padding(0);
+            this.btnJogPlusZ.Name = "btnJogPlusZ";
+            this.btnJogPlusZ.Padding = new System.Windows.Forms.Padding(1);
+            this.btnJogPlusZ.Size = new System.Drawing.Size(37, 27);
+            this.btnJogPlusZ.TabIndex = 28;
+            this.btnJogPlusZ.Text = "+Z";
+            this.btnJogPlusZ.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnJogPlusZ.UseVisualStyleBackColor = true;
+            this.btnJogPlusZ.CheckedChanged += new System.EventHandler(this.btnJogPlusZ_CheckedChanged);
+            // 
+            // btnJogMinusZ
+            // 
+            this.btnJogMinusZ.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnJogMinusZ.AutoSize = true;
+            this.btnJogMinusZ.BackgroundImage = global::RCCM.Properties.Resources.arrow_down;
+            this.btnJogMinusZ.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnJogMinusZ.FlatAppearance.BorderSize = 0;
+            this.btnJogMinusZ.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnJogMinusZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJogMinusZ.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnJogMinusZ.Location = new System.Drawing.Point(761, 40);
+            this.btnJogMinusZ.Margin = new System.Windows.Forms.Padding(0);
+            this.btnJogMinusZ.Name = "btnJogMinusZ";
+            this.btnJogMinusZ.Padding = new System.Windows.Forms.Padding(1);
+            this.btnJogMinusZ.Size = new System.Drawing.Size(34, 27);
+            this.btnJogMinusZ.TabIndex = 29;
+            this.btnJogMinusZ.Text = "-Z";
+            this.btnJogMinusZ.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnJogMinusZ.UseVisualStyleBackColor = true;
+            this.btnJogMinusZ.CheckedChanged += new System.EventHandler(this.btnJogMinusZ_CheckedChanged);
+            // 
             // RCCMMainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1146, 608);
@@ -1443,6 +1489,8 @@
         private System.Windows.Forms.CheckBox btnJogDown;
         private System.Windows.Forms.CheckBox btnJogUp;
         private System.Windows.Forms.CheckBox btnDisable;
+        private System.Windows.Forms.CheckBox btnJogMinusZ;
+        private System.Windows.Forms.CheckBox btnJogPlusZ;
     }
 }
 

@@ -316,6 +316,8 @@ namespace RCCM
             if (this.GetProperty("enabled") != 0 && !this.Jogging)
             {
                 this.adjustThreadPaused = true;
+                // Throwing in a sleep to make sure adjust loop pauses before jogging
+                Thread.Sleep(100);
                 this.controller.Jog(fwd, this.axisNum);
                 Logger.Out("jogging axis " + this.axisNum);
                 this.Jogging = true;

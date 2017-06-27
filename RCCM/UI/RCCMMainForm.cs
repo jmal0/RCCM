@@ -649,6 +649,8 @@ namespace RCCM.UI
                 this.btnJogLeft.BackColor = Color.Transparent;
                 this.btnJogRight.BackColor = Color.Transparent;
                 this.btnJogDown.BackColor = Color.Transparent;
+                this.btnJogPlusZ.BackColor = Color.Transparent;
+                this.btnJogMinusZ.BackColor = Color.Transparent;
                 this.jogging = false;
                 return;
             }
@@ -656,10 +658,14 @@ namespace RCCM.UI
             this.btnJogLeft.BackColor = Color.Transparent;
             this.btnJogRight.BackColor = Color.Transparent;
             this.btnJogDown.BackColor = Color.Gray;
+            this.btnJogPlusZ.BackColor = Color.Transparent;
+            this.btnJogMinusZ.BackColor = Color.Transparent;
             // Uncheck other jog buttons
             this.btnJogUp.Checked = false;
             this.btnJogLeft.Checked = false;
             this.btnJogRight.Checked = false;
+            this.btnJogPlusZ.Checked = false;
+            this.btnJogMinusZ.Checked = false;
             // Get active axis
             string yAxis;
             switch (this.getActiveStage())
@@ -692,6 +698,8 @@ namespace RCCM.UI
                 this.btnJogLeft.BackColor = Color.Transparent;
                 this.btnJogRight.BackColor = Color.Transparent;
                 this.btnJogDown.BackColor = Color.Transparent;
+                this.btnJogPlusZ.BackColor = Color.Transparent;
+                this.btnJogMinusZ.BackColor = Color.Transparent;
                 this.jogging = false;
                 return;
             }
@@ -699,10 +707,14 @@ namespace RCCM.UI
             this.btnJogRight.BackColor = Color.Transparent;
             this.btnJogDown.BackColor = Color.Transparent;
             this.btnJogLeft.BackColor = Color.Gray;
+            this.btnJogPlusZ.BackColor = Color.Transparent;
+            this.btnJogMinusZ.BackColor = Color.Transparent;
             // Uncheck other jog buttons
             this.btnJogUp.Checked = false;
             this.btnJogDown.Checked = false;
             this.btnJogRight.Checked = false;
+            this.btnJogPlusZ.Checked = false;
+            this.btnJogMinusZ.Checked = false;
             // Get active axis
             string xAxis;
             switch (this.getActiveStage())
@@ -735,6 +747,8 @@ namespace RCCM.UI
                 this.btnJogLeft.BackColor = Color.Transparent;
                 this.btnJogRight.BackColor = Color.Transparent;
                 this.btnJogDown.BackColor = Color.Transparent;
+                this.btnJogPlusZ.BackColor = Color.Transparent;
+                this.btnJogMinusZ.BackColor = Color.Transparent;
                 this.jogging = false;
                 return;
             }
@@ -742,10 +756,14 @@ namespace RCCM.UI
             this.btnJogRight.BackColor = Color.Transparent;
             this.btnJogDown.BackColor = Color.Transparent;
             this.btnJogUp.BackColor = Color.Gray;
+            this.btnJogPlusZ.BackColor = Color.Transparent;
+            this.btnJogMinusZ.BackColor = Color.Transparent;
             // Uncheck other jog buttons
             this.btnJogDown.Checked = false;
             this.btnJogLeft.Checked = false;
             this.btnJogRight.Checked = false;
+            this.btnJogPlusZ.Checked = false;
+            this.btnJogMinusZ.Checked = false;
             // Get active axis
             string yAxis;
             switch (this.getActiveStage())
@@ -778,6 +796,8 @@ namespace RCCM.UI
                 this.btnJogLeft.BackColor = Color.Transparent;
                 this.btnJogRight.BackColor = Color.Transparent;
                 this.btnJogDown.BackColor = Color.Transparent;
+                this.btnJogPlusZ.BackColor = Color.Transparent;
+                this.btnJogMinusZ.BackColor = Color.Transparent;
                 this.jogging = false;
                 return;
             }
@@ -785,10 +805,14 @@ namespace RCCM.UI
             this.btnJogLeft.BackColor = Color.Transparent;
             this.btnJogDown.BackColor = Color.Transparent;
             this.btnJogRight.BackColor = Color.Gray;
+            this.btnJogPlusZ.BackColor = Color.Transparent;
+            this.btnJogMinusZ.BackColor = Color.Transparent;
             // Uncheck other jog buttons
             this.btnJogUp.Checked = false;
             this.btnJogDown.Checked = false;
             this.btnJogLeft.Checked = false;
+            this.btnJogPlusZ.Checked = false;
+            this.btnJogMinusZ.Checked = false;
             // Get active axis
             string xAxis;
             switch (this.getActiveStage())
@@ -809,6 +833,98 @@ namespace RCCM.UI
             this.rccm.motors[xAxis].Jog(true);
         }
         
+        private void btnJogPlusZ_CheckedChanged(object sender, EventArgs e)
+        {
+            // If unchecked, stop jogging any Z motors
+            if (!this.btnJogPlusZ.Checked)
+            {
+                this.rccm.motors["fine 1 Z"].JogStop();
+                this.rccm.motors["fine 2 Z"].JogStop();
+                this.btnJogUp.BackColor = Color.Transparent;
+                this.btnJogLeft.BackColor = Color.Transparent;
+                this.btnJogRight.BackColor = Color.Transparent;
+                this.btnJogDown.BackColor = Color.Transparent;
+                this.btnJogPlusZ.BackColor = Color.Transparent;
+                this.btnJogMinusZ.BackColor = Color.Transparent;
+                this.jogging = false;
+                return;
+            }
+            this.btnJogUp.BackColor = Color.Transparent;
+            this.btnJogLeft.BackColor = Color.Transparent;
+            this.btnJogDown.BackColor = Color.Transparent;
+            this.btnJogDown.BackColor = Color.Transparent;
+            this.btnJogRight.BackColor = Color.Transparent;
+            this.btnJogPlusZ.BackColor = Color.Gray;
+            this.btnJogMinusZ.BackColor = Color.Transparent;
+            // Uncheck other jog buttons
+            this.btnJogUp.Checked = false;
+            this.btnJogDown.Checked = false;
+            this.btnJogLeft.Checked = false;
+            this.btnJogRight.Checked = false;
+            this.btnJogMinusZ.Checked = false;
+            // Get active axis
+            string zAxis;
+            switch (this.getActiveStage())
+            {
+                case RCCMStage.RCCM1:
+                    zAxis = "fine 1 Z";
+                    break;
+                case RCCMStage.RCCM2:
+                    zAxis = "fine 2 Z";
+                    break;
+                default:
+                    return;
+            }
+            this.jogging = true;
+            this.rccm.motors[zAxis].Jog(true);
+        }
+
+        private void btnJogMinusZ_CheckedChanged(object sender, EventArgs e)
+        {
+            // If unchecked, stop jogging any Z motors
+            if (!this.btnJogPlusZ.Checked)
+            {
+                this.rccm.motors["fine 1 Z"].JogStop();
+                this.rccm.motors["fine 2 Z"].JogStop();
+                this.btnJogUp.BackColor = Color.Transparent;
+                this.btnJogLeft.BackColor = Color.Transparent;
+                this.btnJogRight.BackColor = Color.Transparent;
+                this.btnJogDown.BackColor = Color.Transparent;
+                this.btnJogPlusZ.BackColor = Color.Transparent;
+                this.btnJogMinusZ.BackColor = Color.Transparent;
+                this.jogging = false;
+                return;
+            }
+            this.btnJogUp.BackColor = Color.Transparent;
+            this.btnJogLeft.BackColor = Color.Transparent;
+            this.btnJogDown.BackColor = Color.Transparent;
+            this.btnJogDown.BackColor = Color.Transparent;
+            this.btnJogRight.BackColor = Color.Transparent;
+            this.btnJogPlusZ.BackColor = Color.Transparent;
+            this.btnJogMinusZ.BackColor = Color.Gray;
+            // Uncheck other jog buttons
+            this.btnJogUp.Checked = false;
+            this.btnJogDown.Checked = false;
+            this.btnJogLeft.Checked = false;
+            this.btnJogRight.Checked = false;
+            this.btnJogPlusZ.Checked = false;
+            // Get active axis
+            string zAxis;
+            switch (this.getActiveStage())
+            {
+                case RCCMStage.RCCM1:
+                    zAxis = "fine 1 Z";
+                    break;
+                case RCCMStage.RCCM2:
+                    zAxis = "fine 2 Z";
+                    break;
+                default:
+                    return;
+            }
+            this.jogging = true;
+            this.rccm.motors[zAxis].Jog(true);
+        }
+
         /// <summary>
         /// Master enable/disable
         /// </summary>
