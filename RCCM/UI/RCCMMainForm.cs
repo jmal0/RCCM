@@ -882,7 +882,7 @@ namespace RCCM.UI
         private void btnJogMinusZ_CheckedChanged(object sender, EventArgs e)
         {
             // If unchecked, stop jogging any Z motors
-            if (!this.btnJogPlusZ.Checked)
+            if (!this.btnJogMinusZ.Checked)
             {
                 this.rccm.motors["fine 1 Z"].JogStop();
                 this.rccm.motors["fine 2 Z"].JogStop();
