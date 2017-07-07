@@ -332,6 +332,7 @@ namespace RCCM
             if (this.GetProperty("enabled") != 0 && this.Jogging)
             {
                 this.controller.JogStop(this.axisNum);
+                this.SetPos(this.GetPos());
                 Logger.Out("stopping jog axis " + this.axisNum);
                 this.Jogging = false;
                 this.adjustThreadPaused = false;
