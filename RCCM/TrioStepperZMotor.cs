@@ -125,28 +125,17 @@ namespace RCCM
             while (this.adjust)
             {
                 stopwatch.Start();
-                if (!this.adjustThreadPaused)
+                if (!this.adjustThreadPaused && this.GetProperty("feedback") == 1)
                 {
-                    double feedback = this.GetProperty("feedback");
                     double h = this.height();
-                    if (feedback == 1.0 && (h == NFOVLensController.MIN_HEIGHT || h == NFOVLensController.MAX_HEIGHT))
+                    if (h == NFOVLensController.MIN_HEIGHT || h == NFOVLensController.MAX_HEIGHT)
                     {
                         continue;
                     }
                     double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
                     double err = this.commandHeight - h;
-                    // When feedback is 0, operate in closed loop mode
-                    if (!this.controller.isMoving(this.axisNum) && feedback == 0)
-                    {
-                        double newPos = this.commandPos;
-                        double minPos = this.minPosition();
-                        newPos = Math.Max(this.settings["low position limit"], newPos);
-                        newPos = Math.Min(this.settings["high position limit"], newPos);
-                        newPos = Math.Max(minPos, newPos);
-                        this.controller.MoveAbs(this.axisNum, newPos);
-                    }
                     // Else, adjust based on distance sensor reading
-                    else if (feedback != 0 && !this.controller.isMoving(this.axisNum) && Math.Abs(err) > TrioStepperZMotor.ERROR)
+                    if (!this.controller.isMoving(this.axisNum) && Math.Abs(err) > TrioStepperZMotor.ERROR)
                     {
                         double newPos = actuatorPos + TrioStepperZMotor.PGAIN * err;
                         newPos = Math.Max(2.0, newPos); // Can't let it go below measurement range
@@ -191,6 +180,7 @@ namespace RCCM
                 cmd = Math.Max(this.settings["low position limit"], cmdHeight);
                 cmd = Math.Min(this.settings["high position limit"], cmd);
                 this.commandPos = cmd;
+                this.controller.MoveAbs(this.axisNum, cmd);
                 return cmd;
             }
             double prevHeight = this.GetPos();
@@ -215,7 +205,14 @@ namespace RCCM
             {
                 return this.GetPos();
             }
+
             double prevHeight = this.GetPos();
+            if (this.GetProperty("feedback") != 1)
+            {
+                this.controller.MoveRel(this.axisNum, dist);
+                return prevHeight;
+            }
+
             double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
             // Check that position is within range
             double cmd = actuatorPos + (this.commandHeight + dist) - prevHeight;
@@ -313,11 +310,9 @@ namespace RCCM
         /// <param name="fwd">Flag indicating direction of move</param>
         public override void Jog(bool fwd)
         {
-            if (this.GetProperty("enabled") != 0 && !this.Jogging)
+            if (this.GetProperty("feedback") != 1 && this.GetProperty("enabled") != 0 && !this.Jogging)
             {
-                this.adjustThreadPaused = true;
                 // Throwing in a sleep to make sure adjust loop pauses before jogging
-                Thread.Sleep(100);
                 this.controller.Jog(fwd, this.axisNum);
                 Logger.Out("jogging axis " + this.axisNum);
                 this.Jogging = true;
@@ -329,13 +324,12 @@ namespace RCCM
         /// </summary>
         public override void JogStop()
         {
-            if (this.GetProperty("enabled") != 0 && this.Jogging)
+            if (this.GetProperty("feedback") != 1 && this.GetProperty("enabled") != 0 && this.Jogging)
             {
                 this.controller.JogStop(this.axisNum);
                 this.SetPos(this.GetPos());
                 Logger.Out("stopping jog axis " + this.axisNum);
                 this.Jogging = false;
-                this.adjustThreadPaused = false;
             }
         }
 
