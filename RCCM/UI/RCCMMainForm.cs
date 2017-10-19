@@ -922,7 +922,7 @@ namespace RCCM.UI
                     return;
             }
             this.jogging = true;
-            this.rccm.motors[zAxis].Jog(true);
+            this.rccm.motors[zAxis].Jog(false);
         }
 
         /// <summary>
