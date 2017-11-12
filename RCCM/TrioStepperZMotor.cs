@@ -179,6 +179,9 @@ namespace RCCM
             {
                 cmd = Math.Max(this.settings["low position limit"], cmdHeight);
                 cmd = Math.Min(this.settings["high position limit"], cmd);
+                double minPos = this.minPosition();
+                cmd = Math.Max(minPos, cmd);
+
                 this.commandPos = cmd;
                 this.controller.MoveAbs(this.axisNum, cmd);
                 return cmd;
@@ -201,26 +204,31 @@ namespace RCCM
         /// <returns>Last command position</returns>
         public override double MoveRel(double dist)
         {
-            if (this.GetProperty("enabled") == 0)
-            {
-                return this.GetPos();
-            }
-
             double prevHeight = this.GetPos();
-            if (this.GetProperty("feedback") != 1)
-            {
-                this.controller.MoveRel(this.axisNum, dist);
-                return prevHeight;
-            }
 
             double actuatorPos = this.controller.GetAxisProperty("MPOS", this.axisNum);
-            // Check that position is within range
-            double cmd = actuatorPos + (this.commandHeight + dist) - prevHeight;
-            if (cmd >= this.settings["low position limit"] && cmd <= this.settings["high position limit"])
+            if (this.GetProperty("feedback") != 1)
             {
-                this.commandHeight = this.commandHeight + dist;
-                this.commandPos = cmd;
+                // Check that position is within range
+                double cmd = actuatorPos + dist;
+                if (cmd >= this.settings["low position limit"] && cmd <= this.settings["high position limit"])
+                {
+                    this.commandHeight = this.commandHeight + dist;
+                    this.commandPos = cmd;
+                }
+                this.controller.MoveRel(this.axisNum, dist);
             }
+            else
+            {
+                // Check that position is within range
+                double cmd = actuatorPos + (this.commandHeight + dist) - prevHeight;
+                if (cmd >= this.settings["low position limit"] && cmd <= this.settings["high position limit"])
+                {
+                    this.commandHeight = this.commandHeight + dist;
+                    this.commandPos = cmd;
+                }
+            }
+            
             return prevHeight;
         }
 
